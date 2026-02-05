@@ -1,12 +1,14 @@
 ﻿---
 id: WORLD-DOC-2
-title: "World Doc 2 — Addendum (Override)"
+title: >
+  World Doc 2 — Addendum (Override)
 class: override
 status: draft
 version: 0.1.0
 inputs: [WORLD-DOC-1]
 depends_on: []
-scope: "Уточнения и переопределения WORLD-DOC-1; при конфликте имеет приоритет."
+scope: >
+  Уточнения и переопределения WORLD-DOC-1; при конфликте имеет приоритет.
 ---
 
 ## A. Канонический выбор сценария (CANON BASELINE)

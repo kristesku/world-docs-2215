@@ -1,17 +1,17 @@
-﻿[DOC]  
-id: SCENE-CARDS-ACT-03-0001  
+﻿---
+id: SCENE-ACT-03-0001
 title: >
+  SCENE-CARDS — Акт III (Главы 16–20) — Москва как необходимость: арбитраж/лицензии/регуляторные треки
 class: scene
-  SCENE-CARDS — Акт III (Главы 16–20) — Москва как необходимость
-ордера → выезд в экстерриторию → добыча улик в “чёрном ящике”  
-status: fixed  
-version: 0.1.0  
-inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
-CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
-depends_on: [SCENE-CARDS-ACT-02-0001]  
-scope: Полный комплект SCENE-CARDS для Акта III (главы 16–20).
-География: Москва (ордер) → выезд в экстерриторию (вне Челнов). Цель:
-доказательства из зоны при ограниченных полномочиях и времени.
+status: fixed
+version: 0.1.0
+inputs: [WORLD-DOC-1, WORLD-DOC-2, PHYSICAL-BASELINE-2215-0001, CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]
+depends_on: [SCENE-ACT-02-0001]
+scope: >
+  Полный комплект SCENE-CARDS для Акта III (главы 16–20): перенос части действий в Москву как центр процедур,
+  арбитража и лицензирования; усиление юридической причинности, столкновение с KPI-логикой системы.
+  Без художественного текста.
+---
 
 **Формат карточки (норматив)**
 

@@ -1,18 +1,16 @@
-﻿[DOC]  
-id: SCENE-CARDS-ACT-01-0001  
+﻿---
+id: SCENE-ACT-01-0001
 title: >
+  SCENE-CARDS — Акт I (Главы 1–10) — база ОСА в Челнах, локальная аномалия → выход в логистику
 class: scene
-  SCENE-CARDS — Акт I (Главы 1–10) — база ОСА в Челнах, локальная
-аномалия → выход в логистику  
-status: fixed  
-version: 0.1.0  
-inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
-CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
-depends_on: [CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001,
-STORY-SKELETON-0001]  
-scope: Полный комплект SCENE-CARDS для Акта I (главы 1–10). Формат:
-где/POV/задача/измеримое/артефакт/CAUSE→MECH→CONS/выход/крючок. Локация
-акта: Набережные Челны + агломерация.
+status: fixed
+version: 0.1.0
+inputs: [WORLD-DOC-1, WORLD-DOC-2, PHYSICAL-BASELINE-2215-0001, CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]
+depends_on: [STORY-SKELETON-0001]
+scope: >
+  Полный комплект SCENE-CARDS для Акта I (главы 1–10): развёртывание ОСА в Набережных Челнах,
+  первый кейс, первичная эскалация и трассировка в контур логистики/лицензий. Без художественного текста.
+---
 
 **Формат карточки (норматив)**
 

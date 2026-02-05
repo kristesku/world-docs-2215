@@ -1,12 +1,14 @@
 ﻿---
 id: PHYS-REPORT-0
-title: "PHYS-REPORT-0 — Physical Analysis Inputs"
+title: >
+  PHYS-REPORT-0 — Physical Analysis Inputs
 class: report
 status: draft
 version: 0.1.0
 inputs: [WORLD-DOC-1, WORLD-DOC-2]
 depends_on: []
-scope: "Аналитический отчёт/обоснования для физического baseline; не SSOT."
+scope: >
+  Аналитический отчёт/обоснования для физического baseline; не SSOT.
 ---
 
 ## 0) Reader Contract

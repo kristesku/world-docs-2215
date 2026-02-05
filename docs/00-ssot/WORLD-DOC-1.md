@@ -1,12 +1,15 @@
 ﻿---
 id: WORLD-DOC-1
-title: "World Doc 1 — Macro Truth"
+title: >
+  World Doc 1 — Macro Truth
 class: ssot
 status: draft
 version: 0.1.0
 inputs: []
 depends_on: []
-scope: "Макро-описание мира: драйверы, ограничения, сценарии, метрики, FACT/ASSUMPTION/PROJECTION/UNKNOWN."
+scope: >
+  Макро-описание мира: драйверы, ограничения, сценарии, 
+  метрики, FACT/ASSUMPTION/PROJECTION/UNKNOWN.
 ---
 
 ## A. Методология и правила вывода

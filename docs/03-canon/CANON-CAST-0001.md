@@ -1,6 +1,7 @@
 ﻿---
 id: CANON-CAST-0001
-title: "Core Team (ОСА) — Character System Specification"
+title: >
+  Core Team (ОСА) — Character System Specification
 class: canon
 status: fixed
 version: 0.1.0

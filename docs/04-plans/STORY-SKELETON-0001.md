@@ -1,18 +1,15 @@
-﻿[DOC]  
-id: STORY-SKELETON-0001  
+﻿---
+id: STORY-SKELETON-0001
 title: >
+  Сюжетный каркас романа — 5 актов, 3 больших кейса, процедурная спираль ОСА
 class: plan
-  Сюжетный каркас романа — 5 актов, 3 больших кейса, процедурная
-спираль ОСА  
-status: fixed  
-version: 0.1.0  
-inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
-CANON-CONFLICT-0001, CANON-SYSTEMS-0001]  
-depends_on: [CANON-BASE-0001, CANON-CONFLICT-0001,
-CANON-SYSTEMS-0001]  
-scope: Макроструктура романа: акты, кейсы, точки перелома, список глав
-(цель + ключевой поворот), распределение фокуса команды. Без
-художественного текста.
+status: fixed
+version: 0.1.0
+inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001]
+depends_on: [CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001]
+scope: >
+  Макроструктура романа: акты/кейсы/переломы/главы (без художественного текста).
+---
 
 **1. Параметры каркаса (канон)**
 

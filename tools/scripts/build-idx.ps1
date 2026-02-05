@@ -74,13 +74,15 @@ $rows = $rows | Sort-Object class, id
 $header = @'
 ---
 id: IDX-CORPUS-0001
-title: "Corpus Registry"
+title: >
+  Corpus Registry
 class: idx
 status: draft
 version: 0.1.0
 inputs: []
 depends_on: []
-scope: "Реестр всех документов корпуса: роли, статусы, зависимости."
+scope: >
+  Реестр всех документов корпуса: роли, статусы, зависимости.
 ---
 
 ## Registry

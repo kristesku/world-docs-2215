@@ -1,18 +1,17 @@
-﻿[DOC]  
-id: SCENE-CARDS-ACT-04-0001  
+﻿---
+id: SCENE-ACT-04-0001
 title: >
+  SCENE-CARDS — Акт IV (Главы 21–25) — Москва: арбитраж, лицензии, контуры ответственности и контрмеры системы
 class: scene
-  SCENE-CARDS — Акт IV (Главы 21–25) — Москва: арбитраж, лицензии,
-размывание ответственности → рычаг через доказательство умысла  
-status: fixed  
-version: 0.1.0  
-inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
-CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
-depends_on: [SCENE-CARDS-ACT-03-0001]  
-scope: Полный комплект SCENE-CARDS для Акта IV (главы 21–25). География:
-Москва. Цель: показать пределы права; найти точку, где появляется
-умышленная коррекция KPI (manual override), и превратить её в легальный
-рычаг.
+status: fixed
+version: 0.1.0
+inputs: [WORLD-DOC-1, WORLD-DOC-2, PHYSICAL-BASELINE-2215-0001, CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]
+depends_on: [SCENE-ACT-03-0001]
+scope: >
+  Полный комплект SCENE-CARDS для Акта IV (главы 21–25): эскалация в институциональном центре,
+  сходимость линий ответственности/логов/регламентов; ответ системы процедурами, санкциями, блокировками.
+  Без художественного текста.
+---
 
 **Формат карточки (норматив)**
 
