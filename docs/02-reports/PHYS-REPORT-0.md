@@ -1,10 +1,12 @@
 ﻿---
-id: PHYSICAL-BASELINE-2215-0001
-title: Physical Baseline 2215 — Executable Scene Defaults
-status: fixed
-version: 1.0.0
-inputs: [WORLD-DOC-1, WORLD-DOC-2, PHYS-REPORT-0]
-scope: "Исполняемые дефолты физической среды для сцен. Не аналитика."
+id: PHYS-REPORT-0
+title: "PHYS-REPORT-0 — Physical Analysis Inputs"
+class: report
+status: draft
+version: 0.1.0
+inputs: [WORLD-DOC-1, WORLD-DOC-2]
+depends_on: []
+scope: "Аналитический отчёт/обоснования для физического baseline; не SSOT."
 ---
 
 ## 0) Reader Contract

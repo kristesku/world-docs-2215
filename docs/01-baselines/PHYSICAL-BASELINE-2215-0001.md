@@ -1,10 +1,12 @@
 ﻿---
 id: PHYSICAL-BASELINE-2215-0001
-title: Physical Baseline 2215 — Executable Scene Defaults
+title: "Physical Baseline 2215 — Executable Scene Defaults"
 class: baseline
 status: fixed
 version: 1.0.0
 inputs: [WORLD-DOC-1, WORLD-DOC-2, PHYS-REPORT-0]
+depends_on: []
+scope: "Исполняемые дефолты физической среды для сцен; не аналитика; при сомнении следовать DEFAULT."
 ---
 
 A. Канонический выбор сценария (CANON BASELINE)  

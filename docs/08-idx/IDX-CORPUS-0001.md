@@ -1,10 +1,12 @@
 ﻿---
 id: IDX-CORPUS-0001
-title: Corpus Registry
+title: "Corpus Registry"
 class: idx
 status: draft
 version: 0.1.0
 inputs: []
+depends_on: []
+scope: "Реестр всех документов корпуса: роли, статусы, зависимости."
 ---
 
 ## Registry
@@ -28,4 +30,3 @@ inputs: []
 | SCENE-ACT-03-0001 | docs/05-scenes/SCENE-ACT-03-0001.md | scene | draft | 0.1.0 | STORY-SKELETON-0001,PHYSICAL-BASELINE-2215-0001 | act 3 |
 | SCENE-ACT-04-0001 | docs/05-scenes/SCENE-ACT-04-0001.md | scene | draft | 0.1.0 | STORY-SKELETON-0001,PHYSICAL-BASELINE-2215-0001 | act 4 |
 | SCENE-ACT-05-0001 | docs/05-scenes/SCENE-ACT-05-0001.md | scene | draft | 0.1.0 | STORY-SKELETON-0001,PHYSICAL-BASELINE-2215-0001 | act 5 |
-

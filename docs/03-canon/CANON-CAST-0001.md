@@ -1,14 +1,14 @@
-﻿**[DOC]**
-
-id: CANON-CAST-0001  
-title: Core Team (ОСА) — Character System Specification  
-status: fixed  
-version: 0.1.0  
-inputs: [WORLD-DOC-1, WORLD-DOC-2]  
-depends_on: [CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001,
-STORY-SKELETON-0001]  
-scope: Функциональный состав команды ОСА, роли, рычаги влияния,
-ограничения, оптика восприятия, правила использования в сценах
+﻿---
+id: CANON-CAST-0001
+title: "Core Team (ОСА) — Character System Specification"
+class: canon
+status: fixed
+version: 0.1.0
+inputs: [WORLD-DOC-1, WORLD-DOC-2]
+depends_on: [CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]
+scope: >
+  Функциональный состав команды ОСА: роли, рычаги влияния, ограничения, оптика восприятия, правила использования в сценах.
+---
 
 **0. Принципы**
 
