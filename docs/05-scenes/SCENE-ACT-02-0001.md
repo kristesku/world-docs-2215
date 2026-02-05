@@ -1,12 +1,12 @@
-\[DOC\]  
+﻿[DOC]  
 id: SCENE-CARDS-ACT-02-0001  
 title: SCENE-CARDS — Акт II (Главы 11–15) — логистика расширяет кейс →
 федеральная юрисдикция как необходимость  
 status: fixed  
 version: 0.1.0  
-inputs: \[WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
-CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001\]  
-depends_on: \[SCENE-CARDS-ACT-01-0001\]  
+inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
+CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
+depends_on: [SCENE-CARDS-ACT-01-0001]  
 scope: Полный комплект SCENE-CARDS для Акта II (главы 11–15). География:
 Набережные Челны + агломерация. Москва на этом этапе — не локация, а
 юридический “узел необходимости” (лицензии/реестр/ордер).
@@ -307,3 +307,4 @@ SCENE-ID • Где • POV • Задача • Измеримое • Арте
 - Выход: формальная необходимость выхода на Москва
 
 - Крючок (финал Акта II): Москва неизбежна как контур подписи/доступа
+

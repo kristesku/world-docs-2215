@@ -1,12 +1,12 @@
-\[DOC\]  
+﻿[DOC]  
 id: SCENE-CARDS-ACT-05-0001  
 title: SCENE-CARDS — Акт V (Главы 26–31) — приостановка лицензии →
 операция на узлах → пересчёт KPI → частичная победа → эпилог в Челнах  
 status: fixed  
 version: 0.1.0  
-inputs: \[WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
-CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001\]  
-depends_on: \[SCENE-CARDS-ACT-04-0001\]  
+inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
+CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
+depends_on: [SCENE-CARDS-ACT-04-0001]  
 scope: Полный комплект SCENE-CARDS для Акта V (главы 26–31). География:
 Москва (старт решения) → выезд на узлы → возвращение в Набережные Челны
 (эпилог). Развязка без “революции”: коррекция режима и снижение
@@ -379,3 +379,4 @@ SCENE-ID • Где • POV • Задача • Измеримое • Арте
 
 - Триггер: “день матча / событие у стадиона КАМАЗ” → локальный всплеск
   трафика в HUD (без сюжета вокруг спорта).
+

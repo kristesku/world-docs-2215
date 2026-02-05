@@ -1,12 +1,12 @@
-\[DOC\]  
+﻿[DOC]  
 id: SCENE-CARDS-ACT-04-0001  
 title: SCENE-CARDS — Акт IV (Главы 21–25) — Москва: арбитраж, лицензии,
 размывание ответственности → рычаг через доказательство умысла  
 status: fixed  
 version: 0.1.0  
-inputs: \[WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
-CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001\]  
-depends_on: \[SCENE-CARDS-ACT-03-0001\]  
+inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001,
+CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
+depends_on: [SCENE-CARDS-ACT-03-0001]  
 scope: Полный комплект SCENE-CARDS для Акта IV (главы 21–25). География:
 Москва. Цель: показать пределы права; найти точку, где появляется
 умышленная коррекция KPI (manual override), и превратить её в легальный
@@ -307,3 +307,4 @@ SCENE-ID • Где • POV • Задача • Измеримое • Арте
 - Выход: старт финального акта
 
 - Крючок: оператор начнёт чистку
+

@@ -1,4 +1,4 @@
----
+﻿---
 id: PHYSICAL-BASELINE-2215-0001
 title: Physical Baseline 2215 — Executable Scene Defaults
 status: fixed
@@ -390,3 +390,4 @@ UNKNOWN
 — LEVEL-MID enforced as default: PASS
 
 ===END OF DOC===
+
