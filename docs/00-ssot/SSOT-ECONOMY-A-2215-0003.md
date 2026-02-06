@@ -1,154 +1,181 @@
 ---
 id: SSOT-ECONOMY-A-2215-0003
 title: >
-  Economy and Production — Scenario A (2215)
+  Economy and Production — Scenario A (2215, SSOT State)
 class: ssot
 status: draft
-version: 0.1.1
+version: 1.1.0
 inputs: []
 depends_on:
-  - SPEC-DOC-0001
+  - SSOT-DOC-STYLE-2215-0001
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-DEMOGRAPHY-A-2215-0002
   - SSOT-AUTOMATION-A-2215-0004
 scope: >
-  Каноническое SSOT-описание макроэкономики мира на 2215 год
-  в рамках Scenario A: режим роста, структура производства,
-  распределение, роль автоматизации, энерго-экономическая связка,
-  а также системные ограничения и failure modes.
+  SSOT-состояние макроэкономики мира в 2215 году (Scenario A).
+  Документ содержит только декларативные метрики (core/p90/range)
+  и качественные экономические состояния.
+  Не содержит причинности, правил разрешения конфликтов и моделей управления.
 ---
 
-## 0. Scope and invariants
+## LLM-INTENT
 
-- [FACT] Документ описывает макроэкономику исключительно в рамках Scenario A.
-- [FACT] Экономика трактуется как системный контур распределения ресурсов и мощности производства, а не как «чистый рынок» XX–XXI вв.
-- [FACT] Поведенческие/микроэкономические детали не входят в область этого SSOT.
-- [FACT] Scenario B и Scenario C не используются в корпусе как канон.
+ROLE_TYPE: STATE
+SCOPE: global macroeconomic state for Scenario A around year 2215
+INPUTS: []
+OUTPUTS:
+  - economic_metric_state
+FORBIDDEN:
+  - causal_logic
+  - resolution_rules
+  - governance_models
+  - narrative_explanations
 
-## 1. Global economic state (2215)
+---
 
-### 1.1 Growth regime
+## DEFINITIONS
 
-- [ASSUMPTION] В Scenario A мир избегает больших войн и длительных глобальных регрессов, что поддерживает длительный рост.
-- [PROJECTION] Режим роста тяготеет к верхнему хвосту распределения (за счёт ускорения ИИ и высокой координации).
+[DEF][ECO-DEF-010] economy = global production, allocation, and execution capacity under high automation and coordination.
 
-### 1.2 Productivity and output
+---
 
-- [PROJECTION] Диапазон относительного глобального GDP (PPP) vs 2025: p10 ~5×, p50 ~10×, p90 ~40×.
-- [FACT] WORLD-DOC-2-ADDENDUM фиксирует core_metrics_2215: gdp_ppp_relative_to_2025 = 30 как согласованный рабочий набор метрик 2215.
-- [DECISION] Для корпуса (как канон 2215) используется gdp_ppp_relative_to_2025 = 30 из core_metrics_2215.
-- [DECISION] p90-оценки остаются допустимыми как аналитическое поле SSOT, но не трактуются как фон сцен и не переопределяют core_metrics_2215 без отдельного override.
+## INVARIANTS
 
-### 1.3 Long-term stability
+[FACT][ECO-000] Applicable only to Scenario A.
+[FACT][ECO-001] Macroeconomy is treated as a production-capacity allocation system, not as a microeconomic market.
+[FACT][ECO-002] Behavioral and microeconomic models are out of scope for this SSOT.
 
-- [ASSUMPTION] Долгосрочная устойчивость поддерживается кооперацией, стандартами и управлением рисками (в т.ч. климатическими и финансовыми).
-- [ASSUMPTION] Критический риск устойчивости связан с неравномерным распределением выгод и с инфраструктурными/ресурсными узкими местами.
+---
 
-### 1.4 Output vs free capacity (absorption)
+## CONTENT
 
-- [FACT] Высокий GDP (PPP) в 2215 не равен “свободному ресурсу”: значительная доля выпуска является обязательной (non-discretionary) и уходит на поддержание базовой устойчивости мира.
-- [FACT] Крупнейшие статьи обязательного поглощения мощности:
-  - климатическая адаптация и поддержание сред обитания,
-  - энерго- и сетевой капекс/opex (хранилища, распределение, резервирование),
-  - вычислительная инфраструктура и контроль ИИ-контуров (compute + верификация + комплаенс),
-  - поддержание сложных урбан-систем (вода, материалы, рециклинг, транспортные уровни).
-- [ASSUMPTION] Поэтому локальные контуры (медицина/энергия/логистика) работают не в режиме “бедности”, а в режиме лимитов и приоритетов (allocation under constraints).
+### 1. Output and growth (state)
 
-## 2. Structure of production
+[STATE][ECO-010] gdp_ppp_relative_to_2025.core = 30
+[STATE][ECO-011] gdp_ppp_relative_to_2025.p90 = 40
+[STATE][ECO-012] gdp_ppp_relative_to_2025.range = [5, 40]
+[STATE][ECO-013] gdp_ppp_relative_to_2025.unit = multiplier
+[STATE][ECO-014] gdp_ppp_relative_to_2025.owner_domain = ECONOMY
 
-### 2.1 Automation and labor displacement
+[STATE][ECO-015] long_term_growth_mode = "high_stable"
+[STATE][ECO-016] long_term_growth_mode.owner_domain = ECONOMY
 
-- [PROJECTION] Автоматизация исполнения задач в Scenario A соответствует верхнему хвосту: около 90% задач автоматизированы.
-- [ASSUMPTION] Удельная стоимость труда падает, и значимая доля «исполнительного труда» уходит в автоматизированные контуры.
-- [ASSUMPTION] Логистика становится более «решаемой задачей» за счёт автономного транспорта, складов и планирования.
+---
 
-### 2.2 Human labor niches
+### 2. Productivity and automation coupling
 
-- [ASSUMPTION] Человеческий труд концентрируется в нишах творчества, науки, управления смыслами/ценностями и в контуре ответственности/легитимации.
-- [ASSUMPTION] Значимая часть человеческой активности перераспределяется в сервисы, управление системами и контроль качества/рисков.
+[STATE][ECO-020] labor_automation_percent_tasks.source = "SSOT-AUTOMATION-A-2215-0004"
+[STATE][ECO-021] labor_automation_percent_tasks.owner_domain = AUTOMATION
+[DECISION][ECO-022] ECONOMY SSOT MUST NOT redefine AUTOMATION-owned metrics.
 
-### 2.3 Sector shares and production locality
+[STATE][ECO-023] labor_cost_trend = "strong_decline"
+[STATE][ECO-024] labor_cost_trend.owner_domain = ECONOMY
 
-- [PROJECTION] Доля услуг в ВВП: p10 ~60%, p50 ~80%, p90 ~90%; Scenario A ближе к p90.
-- [ASSUMPTION] Автоматизация и новые производственные технологии увеличивают долю локального производства рядом с потребителем.
-- [PROJECTION] В Scenario A происходит частичная ре-локализация производства в развитых экономиках (при сохранении глобального обмена знаниями и компонентов).
+---
 
-## 3. Trade, distribution, inequality
+### 3. Production structure
 
-### 3.1 Trade intensity
+[STATE][ECO-030] services_share_gdp_percent.core = null
+[STATE][ECO-031] services_share_gdp_percent.p90 = 90
+[STATE][ECO-032] services_share_gdp_percent.range = [60, 90]
+[STATE][ECO-033] services_share_gdp_percent.unit = percent
+[STATE][ECO-034] services_share_gdp_percent.owner_domain = ECONOMY
 
-- [PROJECTION] Международная торговля/ВВП: p10 ~10%, p50 ~25%, p90 ~50%; Scenario A ближе к верхним значениям.
-- [ASSUMPTION] Физическая торговля частично снижается из-за локализации части производства, при этом растёт торговля знаниями, лицензиями и технологическими режимами.
+[STATE][ECO-035] production_localization_trend = "partial_relocalization"
+[STATE][ECO-036] production_localization_trend.owner_domain = ECONOMY
 
-### 3.2 Income and access (inequality)
+---
 
-- [PROJECTION] Глобальное неравенство (Джини): p10 ~0.7, p50 ~0.55, p90 ~0.4; Scenario A тяготеет к p90.
-- [ASSUMPTION] Выравнивание поддерживается перераспределительными механизмами и более доступной автоматизированной инфраструктурой услуг.
+### 4. Trade and distribution
 
-### 3.3 Regional disparities
+[STATE][ECO-040] trade_to_gdp_percent.core = null
+[STATE][ECO-041] trade_to_gdp_percent.p90 = 50
+[STATE][ECO-042] trade_to_gdp_percent.range = [10, 50]
+[STATE][ECO-043] trade_to_gdp_percent.unit = percent
+[STATE][ECO-044] trade_to_gdp_percent.owner_domain = ECONOMY
 
-- [ASSUMPTION] Разрыв «богатые ↔ бедные» остаётся линией напряжения, но в Scenario A смягчается через фонды развития, кооперацию и инфраструктурные проекты.
-- [ASSUMPTION] Региональные перекосы остаются ключевым политико-экономическим риском даже при общем росте.
+[STATE][ECO-045] global_gini_index.core = null
+[STATE][ECO-046] global_gini_index.p90 = 0.4
+[STATE][ECO-047] global_gini_index.range = null
+[STATE][ECO-048] global_gini_index.unit = coefficient
+[STATE][ECO-049] global_gini_index.owner_domain = ECONOMY
 
-## 4. Energy–economy coupling
+---
 
-### 4.1 Energy as economic constraint
+### 5. Allocation and absorption (qualitative state)
 
-- [FACT] Экономический рост и автоматизация жёстко связаны с доступной первичной энергией и инфраструктурной надёжностью.
-- [FACT] core_metrics_2215: primary_energy_TW = 30 и low_carbon_share_percent = 95.
-- [FACT] При высокоавтоматизированной инфраструктуре ключевой конфликт смещается в распределение (allocation): “кому и когда достаётся мощность/материалы/окна обслуживания”, а не “есть ли деньги вообще”.
+[STATE][ECO-050] mandatory_output_absorption = "high"
+[STATE][ECO-051] mandatory_output_absorption.owner_domain = ECONOMY
 
-### 4.2 Decarbonized baseline effects
+[STATE][ECO-052] free_capacity_share = "limited"
+[STATE][ECO-053] free_capacity_share.owner_domain = ECONOMY
 
-- [ASSUMPTION] Низкоуглеродная энергетика снижает климатические издержки и повышает предсказуемость инфраструктурных режимов.
-- [ASSUMPTION] Высокая доля «чистой» энергии снижает риск ресурсных войн за углеродные носители, но не отменяет конкуренцию за материалы и воду.
+---
 
-## 5. Economic governance (координация и режимы)
+### 6. Administrative scarcity (state)
 
-### 5.1 State vs corporate operators
+[STATE][ECO-060] scarcity_mode = "administrative"
+[STATE][ECO-061] scarcity_mode.owner_domain = GOVERNANCE
 
-- [ASSUMPTION] Увеличивается роль операторов инфраструктуры (государственных, квази-государственных и корпоративных), управляющих контурами энергии, транспорта, сервисов и compute.
-- [ASSUMPTION] Экономическая «власть» частично смещается от собственности на активы к контролю стандартов, протоколов и контуров доступа.
+[STATE][ECO-062] scarcity_triggers = [
+  "licensing",
+  "quota",
+  "access_window",
+  "compliance",
+  "joint_access_protocol"
+]
+[STATE][ECO-063] scarcity_triggers.owner_domain = GOVERNANCE
 
-### 5.2 Regulation, standards, and coordination
+---
 
-- [ASSUMPTION] Стандарты и режимы координации являются критическим элементом устойчивости высокоавтоматизированной экономики.
-- [ASSUMPTION] Управление рисками (финансовыми, климатическими, техногенными) встроено в экономическую политику как постоянный контур.
+## USAGE / RESOLUTION
 
-## 6. Economic absorption constraint (куда уходит “изобилие”)
+[FACT][ECO-090] Provides declarative numeric ranges and qualitative macroeconomic states for downstream documents.
 
-- [FACT] Существенная доля макроэкономического выпуска и мощности исполнения задач поглощается обязательными системными расходами:
-  - климатическая адаптация и защита инфраструктуры,
-  - поддержание сред обитания и городской оболочки,
-  - энерго- и вычислительная инфраструктура (compute),
-  - непрерывная стабилизация и комплаенс высокорисковых ИИ-контуров,
-  - резервирование и отказоустойчивость критических систем.
-- [FACT] Высокий GDP не эквивалентен высокому “свободному бюджету” на уровне локальных контуров.
-- [ASSUMPTION] Локальные контуры (медицина, энергия, транспорт) оперируют лимитами и порогами, даже при высоком глобальном выпуске, из-за приоритизации, риск-ограничений и контрактных режимов.
+[FORBIDDEN][ECO-091] Using this SSOT document for:
+- causal explanations of crises,
+- conflict modeling,
+- selecting scene or narrative modes.
 
-- [ASSUMPTION] CAUSE: Высокая сложность и обязательные расходы на устойчивость при ограничениях энергии/материалов.
-- [ASSUMPTION] MECHANISM: Оптимизация по KPI/комплаенсу перераспределяет мощности и снижает “человеческие” веса там, где это безопасно юридически.
-- [PROJECTION] CONSEQUENCE: Локальные дефициты и ухудшение сервисов возможны даже при высоком глобальном выпуске, если это оптимально по метрике и допустимо по регламенту.
+---
 
-## 7. Systemic feedback loops
+## OUTPUT CONTRACT
 
-### 7.1 CAUSE → MECHANISM → CONSEQUENCE (economy)
+~~~yaml
+doc_id: SSOT-ECONOMY-A-2215-0003
+role_type: STATE
+export:
+  - metric: gdp_ppp_relative_to_2025
+    owner_domain: ECONOMY
+    values: {core: 30, p90: 40, range: [5, 40]}
+    unit: multiplier
 
-- [ASSUMPTION] CAUSE: Высокая автоматизация и ускорение технологических циклов при устойчивой кооперации.
-- [ASSUMPTION] MECHANISM: Рост производительности и снижение стоимости исполнения задач расширяют выпуск и доступность услуг.
-- [ASSUMPTION] MECHANISM: Перераспределение и инфраструктурные гарантии снижают социальную фрикцию от вытеснения труда.
-- [PROJECTION] CONSEQUENCE: Высокий режим роста и снижение глобального неравенства при сохранении управляемых региональных перекосов.
+  - metric: services_share_gdp_percent
+    owner_domain: ECONOMY
+    values: {core: null, p90: 90, range: [60, 90]}
+    unit: percent
 
-## 8. Bottlenecks and failure modes (макроэкономика)
+  - metric: trade_to_gdp_percent
+    owner_domain: ECONOMY
+    values: {core: null, p90: 50, range: [10, 50]}
+    unit: percent
 
-- [ASSUMPTION] Финансовые кризисы способны обнулить десятилетие роста и создать «потерянные десятилетия».
-- [ASSUMPTION] Социальные потрясения при концентрации выгод у элиты могут вызвать революции/конфликты и экономический откат.
-- [ASSUMPTION] Ресурсные ограничения (критические материалы, фосфор, вода) могут стать тормозом производства и источником торговых конфликтов.
-- [ASSUMPTION] Технологическая стагнация снижает среднегодовые темпы роста (<0.5%) и радикально уменьшает итоговый масштаб экономики к 2215.
-- [ASSUMPTION] Климат-убытки способны постоянно «съедать» ресурс роста, перенаправляя мощности из развития в восстановление.
+  - metric: global_gini_index
+    owner_domain: ECONOMY
+    values: {core: null, p90: 0.4, range: null}
+    unit: coefficient
+~~~
 
-## 9. Interfaces to other SSOT modules
+---
 
-- [FACT] Economy → Demography: режим роста и распределение влияют на рождаемость, миграцию и устойчивость жизненных траекторий.
-- [FACT] Economy → Energy/Climate: энергетические ограничения и климатическая стоимость инфраструктуры задают потолки роста и устойчивости.
-- [FACT] Economy → Governance/Security: неравенство и ресурсные узкие места являются драйверами напряжённости и режимов контроля.
+## FORBIDDEN
+
+[FORBIDDEN][ECO-100] Introducing new economic metrics outside SSOT.
+[FORBIDDEN][ECO-101] Embedding causal chains, governance logic, or resolution rules.
+[FORBIDDEN][ECO-102] Treating qualitative states as narrative explanations.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

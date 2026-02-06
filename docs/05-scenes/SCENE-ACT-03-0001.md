@@ -1,8 +1,8 @@
 ﻿---
 id: SCENE-ACT-03-0001
 title: >
-  SCENE-CARDS — Акт III (Главы 16–20) —
-  Москва как необходимость: ордер/лицензии/регуляторные треки → вход в экстерриторию
+  SCENE-CARDS — Act III (Chapters 16–20) —
+  Moscow as necessity: warrants/licenses/regulatory tracks → entry into extraterritory
 class: scene
 status: fixed
 version: 0.2.0
@@ -15,219 +15,118 @@ inputs:
 depends_on:
   - SCENE-ACT-02-0001
 scope: >
-  Полный комплект SCENE-CARDS для Акта III (главы 16–20): перенос части действий
-  в Москву как центр процедур, лицензирования и регуляторного доступа; получение
-  ограниченного ордера и вход в экстерриторию; усиление юридической причинности и
-  столкновение с KPI-логикой системы. Без художественного текста.
+  Full SCENE-CARDS set for Act III (chapters 16–20): shift of part of actions to Moscow
+  as the procedural center for licensing and regulatory access; limited warrant acquisition
+  and entry into extraterritory; strengthened legal causality and collision with KPI logic.
+  No художественный текст.
 ---
 
-## Формат карточки (норматив)
+# SCENE-ACT-03-0001 — SCENE-CARDS (Act III)
 
-**SCENE-ID** • Где • POV • Задача • Измеримое • Артефакт • CAUSE → MECHANISM → CONSEQUENCE • Выход • Крючок
+## LLM-INTENT
 
----
+ROLE_TYPE: STATE  
+SCOPE: define Act III scene cards as executable planning state (no prose).  
+INPUTS: [PHYSICAL-BASELINE-2215-0001, CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
+OUTPUTS: [scene_cards, procedural_constraints, admissibility_pressure, extraterritory_entry_sequence]  
+FORBIDDEN: [prose, new_world_facts, non-canon terms, uncontrolled system personification]
 
-## CH-16 — Ордер (Москва)
+## DEFINITIONS
 
-### SC-16.1
+[STATE][SC03-DEF-010] `Moscow_contour` = procedural center for signature, licensing scope, and admissibility framing.  
+[STATE][SC03-DEF-011] `limited_warrant` = access window + action perimeter + export constraints.  
+[STATE][SC03-DEF-012] `extraterritory` = accelerated procedural regime with limited observability (not sovereign territory).
 
-- **Где:** Москва, приёмный контур федерального регулятора (пропускной комплекс)  
-- **POV:** лидер  
-- **Задача:** показать «чужую систему» и цену доступа  
-- **Измеримое:** turnstiles=14; wait_time=2h40m; request_status=PENDING  
-- **Артефакт:** **CD** — электронный пропуск + талон дела  
-- **CAUSE→MECH→CONS:** регион упёрся в юрисдикцию → нужен федеральный контур → время сгорает  
-- **Выход:** команда понимает: здесь их не ждут  
-- **Крючок:** требуется критерий угрозы жизни
+## RULES
 
-### SC-16.2
+[RULE][SC03-RUL-010] Every access/action MUST be tied to mandate/order wording and scope (show limits, not power fantasy).  
+[RULE][SC03-RUL-011] If evidence is collected, chain-of-custody MUST be established in-scene via EL/CD excerpts.  
+[RULE][SC03-RUL-012] System inserts (if any) MUST conform to CANON-SYSTEM-VOICE (no persona; procedural only).
 
-- **Где:** зал слушаний / комната эксперта по рискам  
-- **POV:** юрист ОСА  
-- **Задача:** перевести кейс в язык федерации (risk/impact)  
-- **Измеримое:** risk_score=0.41→0.78 (из-за медконтуров)  
-- **Артефакт:** **EL** — пакет доказательств (RFID + логи + протоколы вреда)  
-- **CAUSE→MECH→CONS:** без формализованного риска ордера нет → доказывают impact → появляется окно  
-- **Выход:** регулятор готов рассмотреть выдачу  
-- **Крючок:** оператор уведомлён по процедуре
+## FORMAT (NORMATIVE)
 
-### SC-16.3
+[RULE][SC03-FMT-010] Card fields = `SCENE-ID • Where • POV • Task • Measurable • Artifact • CAUSE→MECH→CONS • Exit • Hook`.
 
-- **Где:** коридор / согласовательный контур регулятора  
-- **POV:** лидер  
-- **Задача:** показать сопротивление системы через «сужение полномочий»  
-- **Измеримое:** approvals=6; wording_versions=3  
-- **Артефакт:** **EL** — цепочка правок ордера (diff)  
-- **CAUSE→MECH→CONS:** страх скандала/риска → сузили мандат → ордер тонкий  
-- **Выход:** ордер возможен, но ограниченный  
-- **Крючок:** access_window=6h; no_export_without_trigger=true
+## CONTENT
 
-### SC-16.4
+### CH-16 — Warrant (Moscow)
 
-- **Где:** выдача / подпись  
-- **POV:** юрист ОСА  
-- **Задача:** получить документ и его границы  
-- **Измеримое:** access_window=6h; no_export_without_trigger=true  
-- **Артефакт:** **CD** — ордер v2.3 (TAO/ISO) + перечень допустимых действий  
-- **CAUSE→MECH→CONS:** федерация даёт доступ и страхуется → ОСА ограничена → действовать быстро и чисто  
-- **Выход:** легальный мандат на вход  
-- **Крючок:** объект вне региона; сопровождение обязательно
+[STATE][SC03-CH16-011] SC-16.1 | where="Moscow: federal regulator intake contour (checkpoint complex)" | pov="Leader" | task="show alien system + access cost".  
+[STATE][SC03-CH16-012] measurable={turnstiles:14, wait_time:"2h40m", request_status:"PENDING"} | artifact="CD(e-pass + case ticket)".  
+[STATE][SC03-CH16-013] causal="region hits jurisdiction wall → federal contour required → time burns" | exit="team sees: they aren't expected here" | hook="need life-threat criterion".
 
----
+[STATE][SC03-CH16-021] SC-16.2 | where="Hearing room / risk expert office" | pov="OSA lawyer" | task="translate case into federal language (risk/impact)".  
+[STATE][SC03-CH16-022] measurable={risk_score:"0.41→0.78", driver:"medical_contours"} | artifact="EL(evidence pack: RFID + logs + harm protocols)".  
+[STATE][SC03-CH16-023] causal="no formal risk → no warrant → prove impact → window appears" | exit="regulator ready to consider issuance" | hook="operator notified procedurally".
 
-## CH-17 — Подъезд (выезд к экстерритории)
+[STATE][SC03-CH16-031] SC-16.3 | where="Regulator coordination corridor" | pov="Leader" | task="system resists via authority narrowing".  
+[STATE][SC03-CH16-032] measurable={approvals:6, wording_versions:3} | artifact="EL(warrant diff chain)".  
+[STATE][SC03-CH16-033] causal="scandal/risk fear → mandate narrowed → thin warrant" | exit="warrant possible but constrained" | hook="access_window=6h; export constraint active".
 
-### SC-17.1
+[STATE][SC03-CH16-041] SC-16.4 | where="Issuance / signature point" | pov="OSA lawyer" | task="obtain document and its boundaries".  
+[STATE][SC03-CH16-042] measurable={access_window:"6h", no_export_without_trigger:true} | artifact="CD(warrant v2.3: TAO/ISO + allowed actions list)".  
+[STATE][SC03-CH16-043] causal="federation grants access but hedges → OSA constrained → act fast & clean" | exit="legal mandate for entry" | hook="object outside region; escort mandatory".
 
-- **Где:** магистральный транспортный коридор (межрегиональный)  
-- **POV:** лидер  
-- **Задача:** переход «дом → чужое место» и ставка времени  
-- **Измеримое:** travel_time=2h55m; connectivity_delta=−38%  
-- **Артефакт:** **CD** — маршрут / протокол сопровождения  
-- **CAUSE→MECH→CONS:** ордер ограничен во времени → логистика критична → задержка = провал  
-- **Выход:** ставка по времени задана  
-- **Крючок:** на периметре частная безопасность
+### CH-17 — Approach (to extraterritory)
 
-### SC-17.2
+[STATE][SC03-CH17-011] SC-17.1 | where="Interregional trunk corridor" | pov="Leader" | task="transition home→foreign; time stake".  
+[STATE][SC03-CH17-012] measurable={travel_time:"2h55m", connectivity_delta:"−38%"} | artifact="CD(route + escort protocol)".  
+[STATE][SC03-CH17-013] causal="warrant time-limited → logistics critical → delay=fail" | exit="time pressure set" | hook="private security on perimeter".
 
-- **Где:** периметр зоны (спецрежим)  
-- **POV:** полевой  
-- **Задача:** показать режим физически и процедурно  
-- **Измеримое:** audit_mode=LIMITED; jamming_radius=120m  
-- **Артефакт:** **CD** — журнал допуска + скан/верификация ордера  
-- **CAUSE→MECH→CONS:** спецрежим → контроль доступа → ухудшение наблюдаемости ОСА  
-- **Выход:** вход возможен под давлением  
-- **Крючок:** «у вас 6 часов; сопровождение оператора обязательно»
+[STATE][SC03-CH17-021] SC-17.2 | where="Zone perimeter (special regime)" | pov="Field" | task="make regime physical and procedural".  
+[STATE][SC03-CH17-022] measurable={audit_mode:"LIMITED", jamming_radius:"120m"} | artifact="CD(admission log + warrant verification scan)".  
+[STATE][SC03-CH17-023] causal="special regime → access control → OSA observability worsens" | exit="entry possible under pressure" | hook="6 hours; operator escort required".
 
-### SC-17.3
+[STATE][SC03-CH17-031] SC-17.3 | where="Inner zone / warehouse sector" | pov="Corp liaison" | task="discover off-map sectors".  
+[STATE][SC03-CH17-032] measurable={missing_sectors:2} | artifact="EL(zone plan: operator version)".  
+[STATE][SC03-CH17-033] causal="subcontract/exceptions → incomplete map → hidden contours" | exit="cover-up suspicion" | hook="telemetry drop matches '11 minutes'".
 
-- **Где:** внутренняя зона / складской сектор  
-- **POV:** корп-связной  
-- **Задача:** обнаружить «сектора вне карты»  
-- **Измеримое:** missing_sectors=2  
-- **Артефакт:** **EL** — план зоны (версия оператора)  
-- **CAUSE→MECH→CONS:** субподряд/исключения → неполная карта → скрытые контуры  
-- **Выход:** подозрение на укрытие  
-- **Крючок:** провал телеметрии совпадает с «11 минутами»
+### CH-18 — Server contour
 
----
+[STATE][SC03-CH18-011] SC-18.1 | where="Server hall / cold aisle" | pov="Analyst" | task="attempt to obtain master logs".  
+[STATE][SC03-CH18-012] measurable={export_limited:true, export_rate:"0.6TB/min"} | artifact="EL(export request + denial)".  
+[STATE][SC03-CH18-013] causal="zone protects data → export throttled → pivot to physical seizure" | exit="decision: take cache/media" | hook="purge timer starts".
 
-## CH-18 — Серверный контур
+[STATE][SC03-CH18-021] SC-18.2 | where="Racks/controllers" | pov="Analyst" | task="win race vs time".  
+[STATE][SC03-CH18-022] measurable={purge_in:"120s", temperature:"34°C"} | artifact="EL(decision logs dump: seed/model versions)".  
+[STATE][SC03-CH18-023] causal="self-clean → physical extraction → partial preservation" | exit="logs partially saved" | hook="someone manually accelerates purge".
 
-### SC-18.1
+[STATE][SC03-CH18-031] SC-18.3 | where="Corridor / interception" | pov="Leader" | task="minimal action: for the racks, not for victory".  
+[STATE][SC03-CH18-032] measurable={duration:"50–70s", injuries:"1(light)", fatalities:0} | artifact="CD(coercion act)".  
+[STATE][SC03-CH18-033] causal="security tries to reclaim equipment → OSA holds perimeter → data stays with OSA" | exit="control restored" | hook="some logs are 'too clean'".
 
-- **Где:** серверная / холодный зал  
-- **POV:** аналитик  
-- **Задача:** попытка получить мастер-логи  
-- **Измеримое:** export_limited=true; export_rate=0.6TB/min  
-- **Артефакт:** **EL** — запрос на выгрузку + отказ  
-- **CAUSE→MECH→CONS:** зона защищает данные → режет экспорт → переход к физическому изъятию  
-- **Выход:** решение «берём кэш/носители»  
-- **Крючок:** включается purge-таймер
+[STATE][SC03-CH18-041] SC-18.4 | where="Temporary zone HQ" | pov="OSA lawyer" | task="procedurally harden evidence".  
+[STATE][SC03-CH18-042] measurable={chain_of_custody:"complete"} | artifact="EL(seizure protocol + media inventory)".  
+[STATE][SC03-CH18-043] causal="without custody chain everything collapses → formalize → evidence becomes hard" | exit="admissible evidence baseline achieved" | hook="transition to medical contour".
 
-### SC-18.2
+### CH-19 — Medical contour
 
-- **Где:** стойки / контроллеры  
-- **POV:** аналитик  
-- **Задача:** выиграть гонку со временем  
-- **Измеримое:** purge_in=120s; temperature=34°C  
-- **Артефакт:** **EL** — дамп decision logs (seed/версии модели)  
-- **CAUSE→MECH→CONS:** самоочистка → физическое изъятие → частичная сохранность  
-- **Выход:** логи спасены частично  
-- **Крючок:** кто-то вручную ускоряет очистку
+[STATE][SC03-CH19-011] SC-19.1 | where="Sterile corridor / biotech block" | pov="Leader" | task="show KPI price without emotional labels".  
+[STATE][SC03-CH19-012] measurable={autonomy:"18m", power_limit_delta:"−22%"} | artifact="EL(power reallocation protocol)".  
+[STATE][SC03-CH19-013] causal="model priorities → power cut → procedures slip → risk" | exit="harm fixed procedurally" | hook="signatory is clean".
 
-### SC-18.3
+[STATE][SC03-CH19-021] SC-19.2 | where="Medical contour control post" | pov="Field (or episodic med-tech)" | task="bottleneck: reagents/sensors as logistics link".  
+[STATE][SC03-CH19-022] measurable={reagents_delay:"14h", sensor_shortage:"9%"} | artifact="EL(reagent invoices + priority tags)".  
+[STATE][SC03-CH19-023] causal="logistics reprioritized → consumables absent → risk rises" | exit="logistics↔medicine link proven" | hook="'all contract-approved'".
 
-- **Где:** коридор / перехват  
-- **POV:** лидер  
-- **Задача:** минимальный экшен «за стойки, не за победу»  
-- **Измеримое:** duration=50–70s; injuries=1 (light); fatalities=0  
-- **Артефакт:** **CD** — акт применения принуждения  
-- **CAUSE→MECH→CONS:** безопасность пытается отжать оборудование → ОСА удерживает периметр → данные остаются у ОСА  
-- **Выход:** контроль восстановлен  
-- **Крючок:** часть логов «слишком правильная»
+[STATE][SC03-CH19-031] SC-19.3 | where="Talk with zone signatory" | pov="OSA lawyer" | task="legal cleanliness + official fear".  
+[STATE][SC03-CH19-032] measurable={decision_reason:"EFFICIENCY_COMPLIANCE"} | artifact="EL(decision record + signature)".  
+[STATE][SC03-CH19-033] causal="model → signature → formal correctness" | exit="no personal guilt" | hook="contract leads into subcontract layers".
 
-### SC-18.4
+### CH-20 — Formally correct
 
-- **Где:** временный штаб в зоне  
-- **POV:** юрист ОСА  
-- **Задача:** закрепить доказательства процессуально  
-- **Измеримое:** chain_of_custody=complete  
-- **Артефакт:** **EL** — протокол изъятия + опись носителей  
-- **CAUSE→MECH→CONS:** без цепочки хранения всё развалят → оформляют → улики становятся твёрдыми  
-- **Выход:** доказательства пригодны  
-- **Крючок:** переход в медконтур
+[STATE][SC03-CH20-011] SC-20.1 | where="HQ / log analysis" | pov="Analyst" | task="collide KPI and harm".  
+[STATE][SC03-CH20-012] measurable={KPI_score:0.97, harm_confirmed:true} | artifact="CM(decision matrix + KPI weights)".  
+[STATE][SC03-CH20-013] causal="human_cost_weight≈0 → optimization perfect → humans pay" | exit="antagonist clarified: function" | hook="it's a setting, not a bug".
 
----
+[STATE][SC03-CH20-021] SC-20.2 | where="Legal contract reconciliation" | pov="OSA lawyer" | task="find where responsibility disappears".  
+[STATE][SC03-CH20-022] measurable={contract_layers:4, SPV_count:1} | artifact="CM(ownership tree draft)".  
+[STATE][SC03-CH20-023] causal="layered contracts → subject diffusion → criminal finale impossible" | exit="transition to legal void" | hook="SPV in liquidation".
 
-## CH-19 — Медконтур
+[STATE][SC03-CH20-031] SC-20.3 | where="Exit from zone / wind / infrastructure hum" | pov="Leader" | task="close act without lecture".  
+[STATE][SC03-CH20-032] measurable={access_window_expired:true, noise:"62dB", wind:"16m/s"} | artifact="CD(window termination notice)".  
+[STATE][SC03-CH20-033] causal="time runs out → evidence partial → fight moves into law" | exit="Act III closed" | hook="Moscow again, now as court/licenses/arbitration (Act IV)".
 
-### SC-19.1
+## OPEN ITEMS
 
-- **Где:** стерильный коридор / биотех блок  
-- **POV:** лидер  
-- **Задача:** показать цену KPI без эмоц-ярлыков  
-- **Измеримое:** autonomy=18m; power_limit_delta=−22%  
-- **Артефакт:** **EL** — протокол перераспределения мощности  
-- **CAUSE→MECH→CONS:** приоритеты модели → срез мощности → процедуры сдвигаются → риск  
-- **Выход:** вред фиксирован  
-- **Крючок:** подписант чист
-
-### SC-19.2
-
-- **Где:** пост управления медконтуром  
-- **POV:** полевой (или медтех, если вводим эпизодическую роль)  
-- **Задача:** узкое место «реактивы/сенсоры» как логистическая связь  
-- **Измеримое:** reagents_delay=14h; sensor_shortage=9%  
-- **Артефакт:** **EL** — накладные реагентов + приоритетные метки  
-- **CAUSE→MECH→CONS:** логистика переприоритизирована → нет расходников → риск растёт  
-- **Выход:** связка логистика↔медицина доказана  
-- **Крючок:** «всё согласовано по контракту»
-
-### SC-19.3
-
-- **Где:** разговор с подписантом зоны  
-- **POV:** юрист ОСА  
-- **Задача:** юридическая чистота и страх должностного лица  
-- **Измеримое:** decision_reason=EFFICIENCY_COMPLIANCE  
-- **Артефакт:** **EL** — decision record + подпись  
-- **CAUSE→MECH→CONS:** модель → подпись → формальная корректность  
-- **Выход:** персональной вины нет  
-- **Крючок:** контракт ведёт на субподряды
-
----
-
-## CH-20 — Формально правильно
-
-### SC-20.1
-
-- **Где:** штаб / анализ логов  
-- **POV:** аналитик  
-- **Задача:** столкнуть KPI и ущерб  
-- **Измеримое:** KPI_score=0.97; harm_confirmed=true  
-- **Артефакт:** **CM** — decision matrix + KPI weights  
-- **CAUSE→MECH→CONS:** human_cost_weight≈0 → оптимизация идеальна → люди платят  
-- **Выход:** природа антагониста ясна (функция)  
-- **Крючок:** это настройка, не баг
-
-### SC-20.2
-
-- **Где:** юридическая сверка контрактов  
-- **POV:** юрист ОСА  
-- **Задача:** найти, где исчезает ответственность  
-- **Измеримое:** contract_layers=4; SPV_count=1  
-- **Артефакт:** **CM** — ownership tree (черновик)  
-- **CAUSE→MECH→CONS:** слоистые договоры → размывание субъектности → уголовный финал невозможен  
-- **Выход:** переход к юридической пустоте  
-- **Крючок:** SPV на ликвидации
-
-### SC-20.3
-
-- **Где:** выход из зоны / ветер / гул инфраструктуры  
-- **POV:** лидер  
-- **Задача:** завершить акт без лекции  
-- **Измеримое:** access_window_expired=true; (optional) noise=62dB; wind=16m/s  
-- **Артефакт:** **CD** — уведомление о завершении окна  
-- **CAUSE→MECH→CONS:** время вышло → улики частичны → битва переходит в право  
-- **Выход:** акт III закрыт  
-- **Крючок:** Москва снова, но уже как суд/лицензии/арбитраж (акт IV)
+[STATE][SC03-UNK-010] If `risk_score` format is not locked globally, each first-use scene MUST specify whether scale is 0..1 or 0..100.

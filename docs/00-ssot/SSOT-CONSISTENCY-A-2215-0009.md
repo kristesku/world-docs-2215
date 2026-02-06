@@ -1,13 +1,13 @@
 ---
 id: SSOT-CONSISTENCY-A-2215-0009
 title: >
-  Consistency Matrix — Scenario A (2215)
+  Consistency Ruleset — Scenario A (2215)
 class: ssot
 status: draft
-version: 0.1.0
+version: 1.1.0
 inputs: []
 depends_on:
-  - SPEC-DOC-0001
+  - SSOT-DOC-STYLE-2215-0001
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-ECONOMY-A-2215-0003
   - SSOT-DEMOGRAPHY-A-2215-0002
@@ -17,80 +17,147 @@ depends_on:
   - SSOT-GOVERNANCE-SECURITY-A-2215-0005
   - SSOT-URBANISM-A-2215-0007
 scope: >
-  Единая матрица согласованности SSOT корпуса 2215 (Scenario A): перечень
-  ключевых метрик/инвариантов, их допустимые значения и статусы
-  согласования (CANON / DUAL-ALLOWED / CONFLICT), плюс правила
-  использования в downstream-документах (baseline/canon/override).
+  SSOT RULE-документ согласованности корпуса 2215 (Scenario A).
+  Определяет статусы метрик (CANON | DUAL_ALLOWED | CONFLICT | UNKNOWN),
+  правила интерпретации и обязательства downstream-документов.
+  Не вводит новые метрики и не выбирает значения.
 ---
 
-## 0. Scope and invariants
+## LLM-INTENT
 
-- [FACT] Документ применим только к ветке Scenario A (2215).
-- [FACT] Документ не вводит новые факты мира; он фиксирует согласованность уже существующих SSOT.
-- [FACT] Документ является точкой учёта расхождений и допускаемых «двойных» представлений (core vs p90).
-- [FACT] Любая новая числовая метрика, добавленная в SSOT, должна быть внесена в матрицу.
+ROLE_TYPE: RULE
+SCOPE: consistency validation and interpretation rules for SSOT corpus (Scenario A)
+INPUTS:
+  - SSOT-SCENARIO-A-2215-0001
+  - SSOT-ECONOMY-A-2215-0003
+  - SSOT-DEMOGRAPHY-A-2215-0002
+  - SSOT-AUTOMATION-A-2215-0004
+  - SSOT-ENERGY-A-2215-0004
+  - SSOT-CLIMATE-A-2215-0004
+  - SSOT-GOVERNANCE-SECURITY-A-2215-0005
+  - SSOT-URBANISM-A-2215-0007
+OUTPUTS:
+  - metric_status
+  - allowed_values
+  - downstream_constraints
+FORBIDDEN:
+  - introduce_world_facts
+  - select_values
+  - narrative_reasoning
 
-## 1. Consistency status model
+---
 
-- [FACT] Статусы согласованности метрики:
-  - [FACT] CANON: единственное значение/диапазон; другие SSOT не противоречат.
-  - [FACT] DUAL-ALLOWED: допускается сосуществование двух представлений (обычно core_metrics_2215 vs p90-допуск Scenario A).
-  - [FACT] CONFLICT: два SSOT утверждают несовместимые значения без явного допуска; требует закрытия canon/override.
+## DEFINITIONS
 
-- [FACT] Политика downstream-использования (до появления canon/override):
-  - [FACT] Для baseline по умолчанию используется core_metrics_2215 из SSOT-SCENARIO, если метрика имеет статус DUAL-ALLOWED.
-  - [FACT] p90-допуск Scenario A может использоваться только при явном указании в canon/override или при формализации как «upper-tail case».
+[DEF][CONS-DEF-010] metric_status ∈ {CANON, DUAL_ALLOWED, CONFLICT, UNKNOWN}.
 
-## 2. Master metrics (2215) — numeric
+[DEF][CONS-DEF-011] CANON = exactly one allowed value/range for downstream default usage.
 
-| metric_key | value (core) | value (upper-tail / p90) | status | authoritative_source | secondary_sources | notes |
-| --- | --- | --- | --- | --- | --- | --- |
-| population_billion | ~8.8 (≈8–9) | n/a | CANON | SSOT-SCENARIO | SSOT-DEMOGRAPHY | демографическая стабильность; пик пройден |
-| life_expectancy_years | ~100 | n/a | CANON | SSOT-SCENARIO | SSOT-DEMOGRAPHY, SSOT-LIFE | longevity = инфраструктурная норма |
-| warming_C_vs_preindustrial | ~2.5 (≈2–2.5) | n/a | CANON | SSOT-SCENARIO | SSOT-CLIMATE | климат стабилизирован на новом уровне |
-| sea_level_m | ~1.7 (≈1.5–2.0) | n/a | CANON | SSOT-SCENARIO | SSOT-CLIMATE | береговая адаптация обязательна |
-| primary_energy_TW | ~30 (p50≈30) | p90≈60 (допуск диапазона) | DUAL-ALLOWED | SSOT-SCENARIO | SSOT-ENERGY, SSOT-ECONOMY | в corpus используется 30 TW как рабочий core |
-| low_carbon_share_percent | ~95 (≈90–95) | n/a | CANON | SSOT-SCENARIO | SSOT-ENERGY, SSOT-ECONOMY | доля «чистой» энергии — инвариант Scenario A |
-| ai_compute_EJ_per_year | ~75 | ~150–200 | DUAL-ALLOWED | SSOT-SCENARIO (core) | SSOT-AUTOMATION, SSOT-ENERGY | core vs upper-tail допускается до canon/override |
-| labor_automation_percent_tasks | ~80 | ~90 | DUAL-ALLOWED | SSOT-SCENARIO (core) | SSOT-AUTOMATION, SSOT-ECONOMY | core vs upper-tail допускается до canon/override |
-| gdp_ppp_relative_to_2025 | ~30 | ~30–50 (p90) | DUAL-ALLOWED | SSOT-SCENARIO (core) | SSOT-ECONOMY | core=30 как рабочий; p90 — «богатый хвост» |
+[DEF][CONS-DEF-012] DUAL_ALLOWED = core allowed as default; upper-tail (p90) allowed only as explicitly localized upper-tail case (override).
 
-## 3. Domain invariants — non-numeric (must not drift)
+[DEF][CONS-DEF-013] CONFLICT = incompatible SSOT STATE declarations without an explicit resolving rule.
 
-### 3.1 Energy system invariants
+[DEF][CONS-DEF-014] UNKNOWN = referenced downstream but not declared in any SSOT STATE document.
 
-- [FACT] Генерация и сети трактуются как критическая инфраструктура с резервированием и восстановлением.
-- [FACT] Сети/распределение/накопители могут быть ограничителем качества энергоснабжения при отсутствии глобального дефицита генерации.
-- [FACT] Доли по типам генерации (ВИЭ/атом/источники нового поколения) заданы качественно; точные проценты не фиксируются без canon/override.
+[DEF][CONS-DEF-015] downstream_docs = {baseline, canon, plan, scene}.
 
-### 3.2 Climate invariants
+[DEF][CONS-DEF-016] narrative_lock = rule-level constraint that forces downstream to treat a metric as CANON even if SSOT declares core+p90.
 
-- [FACT] Климат — фон стабилизации, а не сюжет коллапса.
-- [FACT] Экстремальные явления остаются повышенными относительно XX века и проектируются как управляемый риск-профиль.
-- [FACT] Адаптация опирается на водные системы, береговую защиту и устойчивость агросистем; региональная неравномерность сохраняется.
+---
 
-### 3.3 Urbanism invariants (dependencies on energy/climate)
+## INVARIANTS
 
-- [FACT] Городская среда по умолчанию 24/7 функциональна и опирается на непрерывные сервисы.
-- [FACT] Климатические экстремумы нагружают инфраструктуры, но не «ломают» города системно в Scenario A.
-- [FACT] Сбойные сценарии проявляются как локальная деградация сервисов и перераспределение приоритетов, а не как тотальный коллапс.
+[RULE][CONS-INV-010] CONSISTENCY MUST NOT introduce new metrics or values.
+[RULE][CONS-INV-011] CONSISTENCY interprets SSOT STATE but never overrides it.
+[RULE][CONS-INV-012] Any metric used downstream MUST have a defined status.
 
-### 3.4 Governance/Security invariants (coupling to infra)
+---
 
-- [FACT] Надгосударственная координация реализуется через договоры, стандарты и режимы (без мирового правительства).
-- [FACT] Классические большие межгосударственные войны не являются нормой.
-- [FACT] Кибер- и инфраструктурная безопасность является центральной осью конфликтов и давления.
+## CONTENT
 
-## 4. Open consistency risks (tracked here until resolved)
+### 1. Metric status derivation rules
 
-- [UNKNOWN] Какой режим будет каноническим для сцен: ai_compute_EJ_per_year = ~75 (core) или upper-tail ~150–200.
-- [UNKNOWN] Какой режим будет каноническим для сцен: labor_automation_percent_tasks = ~80 (core) или upper-tail ~90.
-- [UNKNOWN] Является ли primary_energy_TW фиксируемым как «~30» для романа или допускается «энергоизобилие ближе к p90» как фон для ключевых локаций.
+[RULE][CONS-010] IF a metric has exactly one declared value or range across all SSOT STATE docs THEN status = CANON.
 
-## 5. Closure paths (how UNKNOWN becomes closed)
+[RULE][CONS-011] IF a metric has declared `core` and `p90` (or equivalent upper-tail) values AND no rule forbids coexistence THEN status = DUAL_ALLOWED.
 
-- [FACT] Закрытие DUAL-ALLOWED и UNKNOWN выполняется через документы класса canon или override.
-- [FACT] После закрытия:
-  - [FACT] статус метрики меняется на CANON;
-  - [FACT] downstream (baseline/canon) обновляются под выбранное значение;
-  - [FACT] альтернативное значение остаётся допустимым только как явно помеченный «upper-tail case» (если требуется).
+[RULE][CONS-012] IF two or more SSOT STATE docs declare incompatible values AND no DUAL_ALLOWED rule exists THEN status = CONFLICT.
+
+[RULE][CONS-013] IF a metric is referenced downstream but not declared in any SSOT STATE THEN status = UNKNOWN.
+
+---
+
+### 2. Downstream usage rules by status
+
+[RULE][CONS-020] IF metric status = CANON THEN downstream MUST use the canonical value/range only.
+
+[RULE][CONS-021] IF metric status = DUAL_ALLOWED THEN downstream MUST use `core` as default background.
+
+[RULE][CONS-022] IF metric status = DUAL_ALLOWED THEN upper-tail (`p90`) usage is override_only and MUST satisfy localization + procedural cost rules (see CANON-METRICS-0002 where applicable).
+
+[RULE][CONS-023] IF metric status = CONFLICT THEN any downstream usage is FORBIDDEN until resolved by class: canon or class: override.
+
+[RULE][CONS-024] IF metric status = UNKNOWN THEN any downstream usage is FORBIDDEN.
+
+---
+
+### 3. Narrative lock rules
+
+[RULE][CONS-030] A metric MAY be marked as narrative_lock by a RULE or CANON document.
+
+[RULE][CONS-031] IF metric has narrative_lock = true THEN downstream MUST treat it as CANON (default background), even if SSOT status is DUAL_ALLOWED.
+
+[RULE][CONS-032] IF narrative_lock = true THEN upper-tail values MAY ONLY be used via explicit override with localization and cost.
+
+---
+
+### 4. Location-specific constraints (policy gates)
+
+[RULE][CONS-040] IF location = RU-16/CHELNY AND metric = primary_energy_TW THEN upper-tail (p90) values are FORBIDDEN as default background.
+
+---
+
+### 5. Closure rules (status finalization)
+
+[RULE][CONS-050] DUAL_ALLOWED or UNKNOWN metrics MAY be closed only by:
+- class: canon
+- class: override
+
+[RULE][CONS-051] AFTER closure, metric status MUST be updated to CANON (or remain FORBIDDEN if removed).
+
+---
+
+## USAGE / RESOLUTION
+
+[RULE][CONS-090] CONSISTENCY rules MUST be applied before any baseline/canon generation that references SSOT metrics.
+[RULE][CONS-091] Any violation of CONSISTENCY rules MUST be treated as a generation error, not as a creative choice.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: SSOT-CONSISTENCY-A-2215-0009
+role_type: RULE
+export:
+  - metric: <metric_key>
+    status: CANON | DUAL_ALLOWED | CONFLICT | UNKNOWN
+    narrative_lock: true | false
+    allowed_usage:
+      downstream_default: core | canon | forbidden
+      upper_tail: allowed | forbidden | override_only
+~~~
+
+---
+
+## FORBIDDEN
+
+[FORBIDDEN][CONS-100] Selecting values for narrative use.
+[FORBIDDEN][CONS-101] Repeating SSOT STATE data (numbers/ranges) inside this document.
+[FORBIDDEN][CONS-102] Implicit resolution without class: canon or class: override.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

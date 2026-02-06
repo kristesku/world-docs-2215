@@ -1,111 +1,184 @@
 ---
 id: SSOT-SCENARIO-A-2215-0001
 title: >
-  Scenario A (Cooperative Techno-optimism) — SSOT Macro Profile for 2215
+  Scenario A — Macro World State for 2215 (SSOT)
 class: ssot
 status: draft
-version: 0.1.0
+version: 1.0.0
 inputs: []
-depends_on: [SPEC-DOC-0001]
+depends_on: [SSOT-DOC-STYLE-2215-0001]
 scope: >
-  Каноническое SSOT-описание сценария A как единственной допустимой ветки
-  макро-эволюции мира к ~2215: допущения, причинные цепочки и набор
-  метрик/диапазонов, используемых в baseline/canon/plan.
+  Каноническое SSOT-описание Scenario A как единственного допустимого
+  макро-состояния мира к ~2215. Документ содержит только декларативные
+  утверждения о состоянии мира и допустимых диапазонах метрик.
 ---
 
-## 1. Идентификатор сценария
+## LLM-INTENT
 
-- [FACT] Название сценария: Scenario A (Cooperative Techno-optimism).
-- [FACT] Сценарий A выбран как канонический и единственный используемый в корпусе.
-- [FACT] Ключевые характеристики сценария: международная кооперация; высокий темп технологического прогресса; масштабная автоматизация; жёсткая и длительная климатическая политика.
-- [FACT] Оценка уверенности сценария в исходных материалах: ~25%.
+ROLE_TYPE: STATE
+SCOPE: canonical macro world state for Scenario A in year ~2215
+INPUTS: []
+OUTPUTS: [metric_state]
+FORBIDDEN: [resolution_logic, narrative_usage, priority_rules, causal_explanations]
 
-## 2. Макро-допущения (2215 как результат траектории)
+---
 
-- [ASSUMPTION] Международная кооперация сохраняется на протяжении XXI–XXII вв. и достаточна для устойчивых режимов управления глобальными рисками.
-- [ASSUMPTION] Технологический прогресс (ИИ, автоматизация, вычисления) не прерывается глобальными регрессами.
-- [ASSUMPTION] Масштабирование ИИ и роботизации происходит системно и глобально, а не точечно.
-- [ASSUMPTION] Климатическая политика остаётся жёсткой и долгосрочной, что позволяет стабилизировать климатические параметры.
+## DEFINITIONS
 
-## 3. Причинные цепочки (CAUSE → MECHANISM → CONSEQUENCE)
+- Scenario A — кооперативная техно-оптимистическая траектория глобального развития,
+  зафиксированная как единственная допустимая ветка мира 2215.
 
-### 3.1 Декарбонизация
+---
 
-- [ASSUMPTION] CAUSE: Формирование глобальных соглашений по декарбонизации в XXI веке.
-- [ASSUMPTION] MECHANISM: Углеродное ценообразование, субсидии и нормативы ускоряют внедрение низкоуглеродных источников.
-- [ASSUMPTION] MECHANISM: Инвестиции и НИОКР ускоряют развитие хранения энергии и низкоуглеродной генерации (включая ограниченный термоядерный синтез).
-- [PROJECTION] CONSEQUENCE: К 2215 доля безуглеродной энергии достигает порядка ~90–95%.
-- [PROJECTION] CONSEQUENCE: Чистые выбросы CO₂ близки к нулю.
-- [PROJECTION] CONSEQUENCE: Климатическая нагрузка стабилизируется, без возврата к доиндустриальному состоянию.
+## INVARIANTS
 
-### 3.2 ИИ и автоматизация экономики
+- [FACT][SCN-000] Scenario A является единственным допустимым сценарием
+  макро-эволюции мира в корпусе 2215.
 
-- [ASSUMPTION] CAUSE: Высокие и устойчивые инвестиции в ИИ и автоматизацию на фоне кооперации и стабильных институтов.
-- [ASSUMPTION] MECHANISM: ИИ масштабируется в инфраструктуре, производстве, транспорте, управлении и сервисах; автоматизация становится системной.
-- [PROJECTION] CONSEQUENCE: Доля автоматизированных задач (глобально) соответствует верхнему хвосту оценок (p90): ~80–90%.
-- [PROJECTION] CONSEQUENCE: Энергопотребление ИИ в Scenario A достигает p90-уровней: порядка ~150–200 ЭДж/год (около 10–20% мировой генерации).
-- [PROJECTION] CONSEQUENCE: Количество ИИ-агентов и роботов может превышать 1 единицу на человека (включая дроны и промышленные системы).
-- [PROJECTION] CONSEQUENCE: Ключевые сферы применения ИИ в 2215 — автономный транспорт, полностью автоматизированное производство, медицина, образование и управление городами.
+- [FACT][SCN-001] Все downstream-документы ОБЯЗАНЫ использовать только
+  метрики и диапазоны, объявленные в данном документе или в доменных SSOT.
 
-### 3.3 ИИ-ускорение науки
+---
 
-- [ASSUMPTION] CAUSE: Использование ИИ для автоматизации научных и инженерных циклов (AutoML, генерация гипотез, проектирование).
-- [ASSUMPTION] MECHANISM: Резкое сокращение времени между гипотезой, экспериментом и внедрением.
-- [PROJECTION] CONSEQUENCE: Для Scenario A возможен качественный перелом около ~2100, после чего XXII–XXIII вв. характеризуются активным ИИ-управлением многими процессами.
+## CONTENT
 
-### 3.4 Производство и цепочки поставок
+### 1. Scenario Identity
 
-- [ASSUMPTION] CAUSE: Массовая автоматизация производства.
-- [ASSUMPTION] MECHANISM: Снижение удельной стоимости труда, оптимизация логистики, рост локализованного производства (включая аддитивные технологии).
-- [PROJECTION] CONSEQUENCE: В Scenario A значительная часть производства возвращается ближе к потребителям (частичная ре-локализация).
+- [STATE][SCN-010] scenario_id = "A"
+- [STATE][SCN-011] scenario_name = "Cooperative Techno-optimism"
+- [STATE][SCN-012] scenario_confidence_estimate_percent ≈ 25
+- [STATE][SCN-013] scenario_owner_domain = SCENARIO
 
-### 3.5 Климатические потрясения как фактор адаптации
+---
 
-- [ASSUMPTION] CAUSE: Климатические экстремумы в условиях стабилизированного, но изменённого климата.
-- [ASSUMPTION] MECHANISM: Повреждение инфраструктуры и сельского хозяйства вызывает ценовые и логистические шоки.
-- [PROJECTION] CONSEQUENCE: В Scenario A эти шоки стимулируют адаптацию (резервы, инфраструктурные проекты, перераспределение), а не глобальный коллапс.
+### 2. Global Qualitative State (2215)
 
-## 4. Итоги 2215 (headline outcomes)
+- [STATE][SCN-020] global_cooperation_level = "high"
+- [STATE][SCN-021] global_technological_progress_continuity = true
+- [STATE][SCN-022] automation_scaling_mode = "systemic_global"
+- [STATE][SCN-023] climate_policy_persistence = "long_term_strict"
+- [STATE][SCN-024] global_warfare_norm = false
 
-- [FACT] Для Scenario A зафиксированы следующие итоговые характеристики 2215 года:
-- [FACT] Потепление относительно доиндустриального уровня: ~2–2.5°C.
-- [FACT] Доля безуглеродной энергии: ~90–95%.
-- [FACT] Автоматизация: более 80% задач.
-- [FACT] Население: ~8–9 млрд, без экспоненциального роста.
-- [FACT] Масштабные межгосударственные войны отсутствуют как норма.
+---
 
-## 5. Ключевые метрики и количественные ориентиры
+### 3. Population and Society
 
-### 5.1 Диапазоны p10/p50/p90
+- [STATE][SCN-030] population_billion.core = 8.8
+- [STATE][SCN-031] population_billion.range = [8.0, 9.5]
+- [STATE][SCN-032] population_billion.unit = billion
+- [STATE][SCN-033] population_billion.owner_domain = DEMOGRAPHY
 
-- [PROJECTION] Scenario A использует значения, близкие к верхнему хвосту (p90), по автоматизации, энергии и производительности.
+- [STATE][SCN-034] life_expectancy_years.core = 100
+- [STATE][SCN-035] life_expectancy_years.range = [95, 110]
+- [STATE][SCN-036] life_expectancy_years.unit = years
+- [STATE][SCN-037] life_expectancy_years.owner_domain = LIFE
 
-### 5.2 Core metrics 2215
+---
 
-- [FACT] population_billion: ~8.8.
-- [FACT] gdp_ppp_relative_to_2025: ~30×.
-- [FACT] primary_energy_TW: ~30.
-- [FACT] low_carbon_share_percent: ~95%.
-- [FACT] warming_C_vs_preindustrial: ~2.5.
-- [FACT] sea_level_m: ~1.7.
-- [FACT] ai_compute_EJ_per_year: ~75.
-- [FACT] labor_automation_percent_tasks: ~80.
-- [FACT] life_expectancy_years: ~100.
+### 4. Energy and Climate
 
-### 5.3 Экономические ориентиры
+- [STATE][SCN-040] primary_energy_TW.core = 30
+- [STATE][SCN-041] primary_energy_TW.p90 = 60
+- [STATE][SCN-042] primary_energy_TW.unit = TW
+- [STATE][SCN-043] primary_energy_TW.owner_domain = ENERGY
 
-- [PROJECTION] Глобальный ВВП (PPP) по отношению к 2025: p90 ~30–40×.
-- [PROJECTION] Доля услуг в ВВП: p90 ~90%.
-- [PROJECTION] Международная торговля/ВВП: p90 ~50% (при снижении доли физической торговли).
-- [PROJECTION] Глобальный коэффициент Джини: p90 ~0.4 (умеренное выравнивание).
+- [STATE][SCN-044] low_carbon_share_percent.core = 95
+- [STATE][SCN-045] low_carbon_share_percent.range = [90, 98]
+- [STATE][SCN-046] low_carbon_share_percent.unit = percent
+- [STATE][SCN-047] low_carbon_share_percent.owner_domain = ENERGY
 
-## 6. Ограничения и исключения
+- [STATE][SCN-048] warming_C_vs_preindustrial.core = 2.5
+- [STATE][SCN-049] warming_C_vs_preindustrial.range = [2.0, 2.8]
+- [STATE][SCN-050] warming_C_vs_preindustrial.unit = C
+- [STATE][SCN-051] warming_C_vs_preindustrial.owner_domain = CLIMATE
 
-- [FACT] Единый глобальный авторитарный режим не является частью Scenario A.
-- [FACT] Сценарии тотального коллапса, сингулярности или постчеловеческого разрыва исключены из канона.
+- [STATE][SCN-052] sea_level_m.core = 1.7
+- [STATE][SCN-053] sea_level_m.range = [1.2, 2.2]
+- [STATE][SCN-054] sea_level_m.unit = m
+- [STATE][SCN-055] sea_level_m.owner_domain = CLIMATE
 
-## 7. Связи с другими документами
+---
 
-- [FACT] Данный документ задаёт макро-профиль Scenario A и его допустимые диапазоны.
-- [FACT] Конкретизация для сцен и локальных регионов выполняется через документы классов baseline, canon и override.
-- [FACT] Приоритет разрешения конфликтов: override → ssot → baseline → canon → plan → scene.
+### 5. Economy
+
+- [STATE][SCN-060] gdp_ppp_relative_to_2025.core = 30
+- [STATE][SCN-061] gdp_ppp_relative_to_2025.p90 = 40
+- [STATE][SCN-062] gdp_ppp_relative_to_2025.unit = multiplier
+- [STATE][SCN-063] gdp_ppp_relative_to_2025.owner_domain = ECONOMY
+
+- [STATE][SCN-064] global_gini_index.p90 = 0.4
+- [STATE][SCN-065] global_gini_index.unit = coefficient
+- [STATE][SCN-066] global_gini_index.owner_domain = ECONOMY
+
+---
+
+### 6. AI and Automation
+
+- [STATE][SCN-070] labor_automation_percent_tasks.core = 80
+- [STATE][SCN-071] labor_automation_percent_tasks.p90 = 90
+- [STATE][SCN-072] labor_automation_percent_tasks.unit = percent
+- [STATE][SCN-073] labor_automation_percent_tasks.owner_domain = AUTOMATION
+
+- [STATE][SCN-074] ai_compute_EJ_per_year.core = 75
+- [STATE][SCN-075] ai_compute_EJ_per_year.p90 = 200
+- [STATE][SCN-076] ai_compute_EJ_per_year.unit = EJ_per_year
+- [STATE][SCN-077] ai_compute_EJ_per_year.owner_domain = AUTOMATION
+
+---
+
+## USAGE / RESOLUTION
+
+- [FACT][SCN-090] Данный документ предоставляет допустимые значения и диапазоны
+  метрик для downstream-документов.
+
+- [FORBIDDEN][SCN-091] Использование данного документа для:
+  - выбора core vs p90;
+  - задания приоритетов сцен;
+  - разрешения конфликтов между доменами.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: SSOT-SCENARIO-A-2215-0001
+role_type: STATE
+export:
+  - metric: population_billion
+    owner_domain: DEMOGRAPHY
+    values:
+      core: 8.8
+      p90: null
+      range: [8.0, 9.5]
+    unit: billion
+
+  - metric: primary_energy_TW
+    owner_domain: ENERGY
+    values:
+      core: 30
+      p90: 60
+      range: null
+    unit: TW
+
+  - metric: ai_compute_EJ_per_year
+    owner_domain: AUTOMATION
+    values:
+      core: 75
+      p90: 200
+      range: null
+    unit: EJ_per_year
+~~~
+
+---
+
+## FORBIDDEN
+
+- [FORBIDDEN][SCN-100] Introducing new metrics not declared in SSOT.
+- [FORBIDDEN][SCN-101] Embedding causal logic or scenario comparison.
+- [FORBIDDEN][SCN-102] Using this document as narrative directive.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

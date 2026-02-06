@@ -1,90 +1,206 @@
 ---
 id: SSOT-AUTOMATION-A-2215-0004
 title: >
-  AI, Automation, and Robotics — Scenario A (2215)
+  AI, Automation, and Robotics — Scenario A (2215, SSOT State)
 class: ssot
 status: draft
-version: 0.1.0
+version: 1.1.0
 inputs: []
 depends_on:
-  - SPEC-DOC-0001
+  - SSOT-DOC-STYLE-2215-0001
   - SSOT-SCENARIO-A-2215-0001
 scope: >
-  Каноническое SSOT-описание роли ИИ, автоматизации и роботизации в мире 2215
-  в рамках Scenario A: доля автоматизации задач, вычислительные/энергетические
-  контуры, роботы как инфраструктура, ключевые домены применения, ограничения
-  и failure modes. Используется baseline/canon/plan.
+  SSOT-состояние ИИ, автоматизации и роботизации мира в 2215 году (Scenario A).
+  Документ содержит только декларативные метрики (core/p90/range) и качественные состояния.
+  Не содержит причинности, правил разрешения конфликтов и моделей управления.
 ---
 
-## 0. Invariants
+## LLM-INTENT
 
-- [FACT] Документ описывает ИИ/автоматизацию строго в рамках Scenario A.
-- [FACT] Scenario B и Scenario C не используются в корпусе как канон.
-- [FACT] ИИ трактуется как инфраструктурный контур (utility), а не как единый «сверхразум» по умолчанию.
-- [FACT] Любые радикальные формы «ИИ-тирании» или «глобальной империи» лежат вне Scenario A и требуют отдельного canon/override.
+ROLE_TYPE: STATE
+SCOPE: declarative AI/automation/robotics state for Scenario A around year 2215
+INPUTS: []
+OUTPUTS:
+  - automation_metric_state
+FORBIDDEN:
+  - causal_logic
+  - resolution_rules
+  - governance_models
+  - narrative_explanations
 
-## 1. Headline state (2215)
+---
 
-- [PROJECTION] Глобальная доля автоматизированных задач в Scenario A находится в верхнем хвосте (p90): около 90% задач.
-- [PROJECTION] Автономность транспорта (глобально, как инфраструктурная норма) близка к «почти везде автономно», ручное управление не является массовым стандартом.
-- [PROJECTION] «Lights-out» производство (минимум людей в контуре исполнения) широко распространено в индустриальных цепочках.
-- [PROJECTION] ИИ-ассистирование/супервизия присутствует в медицине, образовании, городской инфраструктуре и производстве как рутина.
+## DEFINITIONS
 
-## 2. Причинная цепочка (CAUSE → MECHANISM → CONSEQUENCE)
+[DEF][AUT-DEF-010] automation = AI systems + robotics + autonomous execution loops used across economy and infrastructure.
 
-### 2.1 Масштабирование ИИ как инфраструктуры (Scenario A)
+---
 
-- [ASSUMPTION] CAUSE: Высокие инвестиции в ИИ и автоматизацию на фоне международной кооперации и устойчивых институтов.
-- [ASSUMPTION] MECHANISM: ИИ массово внедряется в инфраструктуру, производство, транспорт и сервисы.
-- [ASSUMPTION] MECHANISM: Автоматизация становится системной (сквозной), а не точечной.
-- [PROJECTION] CONSEQUENCE: К 2215 автоматизация достигает p90-уровней (около 90% задач) и меняет структуру труда/производства.
+## INVARIANTS
 
-### 2.2 ИИ-ускорение науки
+[FACT][AUT-000] Applicable only to Scenario A.
+[FACT][AUT-001] AI is treated as infrastructure (utility contour), not a unified subject.
+[FACT][AUT-002] AI-tyranny scenarios are excluded unless explicitly enabled by an override doc.
 
-- [ASSUMPTION] CAUSE: ИИ-революция в науке (AutoML и системы, ускоряющие создание технологий).
-- [ASSUMPTION] MECHANISM: Автоматизация исследовательских циклов ускоряет R&D (дизайн → тест → оптимизация).
-- [PROJECTION] CONSEQUENCE: 22–23 века характеризуются высоким темпом прикладных улучшений и расширением «ИИ-управления» процессами.
+---
 
-## 3. Compute / energy coupling (верхний хвост Scenario A)
+## CONTENT
 
-### 3.1 Энергопотребление ИИ (допуск сценария A)
+### 1. Automation level (global)
 
-- [PROJECTION] Для Scenario A допускается p90-оценка энергопотребления ИИ: около 200 ЭДж/год (порядка 10–20% мировой энергии).
-- [FACT] WORLD-DOC-2-ADDENDUM фиксирует core_metrics_2215 как отдельный согласованный набор метрик 2215, где ai_compute_EJ_per_year задано как 75 ЭДж/год.
-- [DECISION] В корпусе допускается сосуществование: (а) «допуск Scenario A (p90)» и (б) «core_metrics_2215 как рабочий фикс-набор», пока canon/override не выберет одно значение как каноническое для романа.
+[STATE][AUT-010] labor_automation_percent_tasks.core = 80
+[STATE][AUT-011] labor_automation_percent_tasks.p90 = 90
+[STATE][AUT-012] labor_automation_percent_tasks.range = null
+[STATE][AUT-013] labor_automation_percent_tasks.unit = percent
+[STATE][AUT-014] labor_automation_percent_tasks.owner_domain = AUTOMATION
 
-### 3.2 Инфраструктурные следствия compute-нагрузки
+[STATE][AUT-015] automation_execution_mode = "systemic_global"
+[STATE][AUT-016] automation_execution_mode.owner_domain = AUTOMATION
 
-- [ASSUMPTION] Рост compute-нагрузки требует масштабируемых контуров энергии и охлаждения как базовой инфраструктуры.
-- [PROJECTION] В регионах высокой автоматизации усиливается связка «энергетика ↔ compute ↔ логистика», и сбой любого узла деградирует качество среды/услуг.
+---
 
-## 4. Robotics: формы присутствия и плотность
+### 2. Compute and energy use
 
-- [PROJECTION] В Scenario A допускается плотность роботов выше 1 робота на человека (включая дроны, домашних помощников, промманипуляторы и сервисных агентов).
-- [FACT] «Роботы» в этом контексте включают как физические платформы, так и автономные инфраструктурные системы (склады, транспортные узлы, ремонтные роевики).
+[STATE][AUT-020] ai_compute_EJ_per_year.core = 75
+[STATE][AUT-021] ai_compute_EJ_per_year.p90 = 200
+[STATE][AUT-022] ai_compute_EJ_per_year.range = null
+[STATE][AUT-023] ai_compute_EJ_per_year.unit = EJ_per_year
+[STATE][AUT-024] ai_compute_EJ_per_year.owner_domain = AUTOMATION
 
-## 5. Domains of application (2215)
+[STATE][AUT-025] ai_energy_share_percent.core = null
+[STATE][AUT-026] ai_energy_share_percent.p90 = 20
+[STATE][AUT-027] ai_energy_share_percent.range = null
+[STATE][AUT-028] ai_energy_share_percent.unit = percent
+[STATE][AUT-029] ai_energy_share_percent.owner_domain = AUTOMATION
 
-- [PROJECTION] Транспорт: автономность как дефолт; инфраструктура оптимизируется ИИ, человеческое ручное управление не является массовой нормой.
-- [PROJECTION] Производство: автоматизированные фабрики и логистические узлы с минимальным числом людей в контуре исполнения.
-- [PROJECTION] Медицина: ИИ-диагностика и роботизированные процедуры как рутина в большинстве доступных систем.
-- [PROJECTION] Образование: ИИ-тьюторы и персонализация обучения как стандартная инфраструктурная услуга.
-- [PROJECTION] Управление городами: ИИ-координация потоков (энергия, транспорт, сервисы, безопасность) как непрерывный режим.
+---
 
-## 6. Human-in-the-loop: ниши человеческого труда
+### 3. Robotics density and presence
 
-- [ASSUMPTION] При высокой автоматизации человеческий труд смещается в ниши творчества, науки, управления ценностями и сложных социально-нормативных решений.
-- [ASSUMPTION] Человеческое участие сохраняется в контуре ответственности/легитимации решений, даже если исполнительный контур автоматизирован.
+[STATE][AUT-030] robots_per_human.core = null
+[STATE][AUT-031] robots_per_human.p90 = 1.0
+[STATE][AUT-032] robots_per_human.range = null
+[STATE][AUT-033] robots_per_human.unit = ratio
+[STATE][AUT-034] robots_per_human.owner_domain = AUTOMATION
 
-## 7. Constraints and failure modes (ИИ/автоматизация)
+[STATE][AUT-035] robotics_presence_mode = "ubiquitous_infrastructure"
+[STATE][AUT-036] robotics_presence_mode.owner_domain = AUTOMATION
 
-- [ASSUMPTION] Ограничения материалов/энергии/воды могут ограничивать скорость развертывания роботизации и compute-инфраструктуры.
-- [ASSUMPTION] Социальные потрясения при перекосе распределения выгод могут привести к политическим ограничениям автоматизации и к откатам внедрения.
-- [ASSUMPTION] Финансовые кризисы способны «срезать» десятилетия роста и замедлить инфраструктурные программы автоматизации.
-- [ASSUMPTION] Климат-убытки могут «съедать» ресурс роста, перенося инвестиции из развития в восстановление инфраструктуры.
+---
 
-## 8. Interfaces to other SSOT modules
+### 4. Domains of application (qualitative state)
 
-- [FACT] Automation → Economy: автоматизация меняет структуру производства, роль труда, распределение и режим роста.
-- [FACT] Automation → Energy/Climate: compute-нагрузка задаёт требования к энергии и инфраструктуре охлаждения.
-- [FACT] Automation → Governance/Security: автоматизация повышает требования к режимам ответственности, стандартам и контролю рисков.
+[STATE][AUT-040] transport_automation_level = "near_total"
+[STATE][AUT-041] transport_automation_level.owner_domain = AUTOMATION
+
+[STATE][AUT-042] manufacturing_automation_level = "lights_out"
+[STATE][AUT-043] manufacturing_automation_level.owner_domain = AUTOMATION
+
+[STATE][AUT-044] medical_ai_routine_use = true
+[STATE][AUT-045] medical_ai_routine_use.owner_domain = LIFE
+
+[STATE][AUT-046] education_ai_routine_use = true
+[STATE][AUT-047] education_ai_routine_use.owner_domain = GOVERNANCE
+
+[STATE][AUT-048] urban_systems_ai_coordination = "continuous"
+[STATE][AUT-049] urban_systems_ai_coordination.owner_domain = URBANISM
+
+---
+
+### 5. Human participation (state)
+
+[STATE][AUT-050] human_execution_role = "minority_niche"
+[STATE][AUT-051] human_execution_role.owner_domain = SOCIETY
+
+[STATE][AUT-052] human_legitimation_role = "required"
+[STATE][AUT-053] human_legitimation_role.owner_domain = GOVERNANCE
+
+---
+
+## USAGE / RESOLUTION
+
+[FACT][AUT-090] Defines allowed numeric ranges and qualitative states for downstream documents.
+
+[FORBIDDEN][AUT-091] Using this SSOT document for:
+- causal explanations of social/political conflict,
+- modeling failures/accidents,
+- selecting scene modes or outcomes.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: SSOT-AUTOMATION-A-2215-0004
+role_type: STATE
+export:
+  - metric: labor_automation_percent_tasks
+    owner_domain: AUTOMATION
+    values: {core: 80, p90: 90, range: null}
+    unit: percent
+
+  - metric: ai_compute_EJ_per_year
+    owner_domain: AUTOMATION
+    values: {core: 75, p90: 200, range: null}
+    unit: EJ_per_year
+
+  - metric: ai_energy_share_percent
+    owner_domain: AUTOMATION
+    values: {core: null, p90: 20, range: null}
+    unit: percent
+
+  - metric: robots_per_human
+    owner_domain: AUTOMATION
+    values: {core: null, p90: 1.0, range: null}
+    unit: ratio
+
+  - state: automation_execution_mode
+    owner_domain: AUTOMATION
+    value: systemic_global
+
+  - state: robotics_presence_mode
+    owner_domain: AUTOMATION
+    value: ubiquitous_infrastructure
+
+  - state: transport_automation_level
+    owner_domain: AUTOMATION
+    value: near_total
+
+  - state: manufacturing_automation_level
+    owner_domain: AUTOMATION
+    value: lights_out
+
+  - state: medical_ai_routine_use
+    owner_domain: LIFE
+    value: true
+
+  - state: education_ai_routine_use
+    owner_domain: GOVERNANCE
+    value: true
+
+  - state: urban_systems_ai_coordination
+    owner_domain: URBANISM
+    value: continuous
+
+  - state: human_execution_role
+    owner_domain: SOCIETY
+    value: minority_niche
+
+  - state: human_legitimation_role
+    owner_domain: GOVERNANCE
+    value: required
+~~~
+
+---
+
+## FORBIDDEN
+
+[FORBIDDEN][AUT-100] Introducing new automation metrics outside SSOT.
+[FORBIDDEN][AUT-101] Embedding causal chains, resolution rules, or governance logic.
+[FORBIDDEN][AUT-102] Treating qualitative states as narrative drivers.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

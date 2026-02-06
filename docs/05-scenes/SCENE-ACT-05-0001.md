@@ -20,229 +20,82 @@ scope: >
   фактов; закрытие кейса без «супергеройства». Без художественного текста.
 ---
 
-## Формат карточки (норматив)
+## LLM-INTENT
 
-**SCENE-ID** • Где • POV • Задача • Измеримое • Артефакт • CAUSE → MECHANISM → CONSEQUENCE • Выход • Крючок
+ROLE_TYPE: INDEX
+SCOPE: machine-readable scene cards for Act V chapters 26–31 (no prose).
+INPUTS: [PHYSICAL-BASELINE-2215-0001, CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]
+OUTPUTS: [scene_card_records]
+FORBIDDEN: [prose, world_explanations, new_metrics, unscoped_numbers]
 
----
+## DEFINITIONS
 
-## CH-26 — Приостановка
+[FACT][SCA5-DEF-010] `scene_card` = record with fields: `scene_id`, `chapter_id`, `where`, `pov`, `goal`, `measurable`, `artifact`, `cmc`, `output`, `hook`.
+[FACT][SCA5-DEF-011] `cmc` = `CAUSE → MECHANISM → CONSEQUENCE` summary (single-line, procedural).
+[FACT][SCA5-DEF-012] `measurable` = key=value list; numeric values MUST carry units when applicable.
+[FACT][SCA5-DEF-013] `artifact` = one of: `CD|EL|CM|FM|RP|PRS|none` plus subtype in parentheses if needed.
 
-### SC-26.1
+## INVARIANTS
 
-- **Где:** Москва, кабинет регулятора (срочный контур)  
-- **POV:** юрист ОСА  
-- **Задача:** запустить легальный рычаг принуждения  
-- **Измеримое:** suspension_window=12h; scope_subsystems=2  
-- **Артефакт:** **CD** — приказ о приостановке (LIC-SUS/TSRO) + условия исполнения  
-- **CAUSE→MECH→CONS:** доказан manual override → аварийное решение регулятора → ОСА получает окно полномочий  
-- **Выход:** законное «время на действие»  
-- **Крючок:** оператор активирует режим сохранения/чистки
+[DECISION][SCA5-INV-010] Each `scene_card` MUST remain non-prose: only operational intent and constraints.
+[DECISION][SCA5-INV-011] Each `scene_card` MUST be self-scoped via `where` and MUST include `scene_id` and `chapter_id`.
+[DECISION][SCA5-INV-012] If `measurable` includes environment sensors, they MUST be traceable to `PHYSICAL-BASELINE-2215-0001` ranges OR explicit override.
+[FORBIDDEN][SCA5-INV-013] Introducing new macro world numbers inside scene cards (SSOT-only numbers remain in SSOT/CANON-METRICS).
 
-### SC-26.2
+## CONTENT
 
-- **Где:** временный штаб ОСА (Москва)  
-- **POV:** лидер  
-- **Задача:** план операции в рамках ограничений  
-- **Измеримое:** teams=3; nodes=2; server_room=1; deadline=11h12m  
-- **Артефакт:** **CD** — план-график + роли  
-- **CAUSE→MECH→CONS:** окно короткое → параллельность обязательна → ошибка = провал  
-- **Выход:** запуск групп  
-- **Крючок:** без chain-of-custody улики снесут в суде
+[FACT][SCA5-001] scene_id=SC-26.1; chapter_id=CH-26; where="Москва, кабинет регулятора (срочный контур)"; pov="юрист ОСА"; goal="запустить легальный рычаг принуждения"; measurable="suspension_window=12h; scope_subsystems=2"; artifact="CD(lic_sus_tsro_order_conditions)"; cmc="доказан manual override → аварийное решение регулятора → ОСА получает окно полномочий"; output="законное время на действие"; hook="оператор активирует режим сохранения/чистки".
+[FACT][SCA5-002] scene_id=SC-26.2; chapter_id=CH-26; where="временный штаб ОСА (Москва)"; pov="лидер"; goal="план операции в рамках ограничений"; measurable="teams=3; nodes=2; server_room=1; deadline=11h12m"; artifact="CD(plan_schedule_roles)"; cmc="окно короткое → параллельность обязательна → ошибка = провал"; output="запуск групп"; hook="без chain-of-custody улики снесут в суде".
+[FACT][SCA5-003] scene_id=SC-26.3; chapter_id=CH-26; where="выезд / логистический канал"; pov="полевой"; goal="превратить решение в движение и риск времени"; measurable="ETA=2h20m; connectivity_delta=−25%"; artifact="CD(escort_protocol)"; cmc="центр дал приказ → поле исполняет → задержка = потеря улик"; output="ставка по времени задана"; hook="у оператора свои группы на узлах".
 
-### SC-26.3
+[FACT][SCA5-004] scene_id=SC-27.1; chapter_id=CH-27; where="узел накопителей (внешний кластер)"; pov="полевой"; goal="физически закрепить приостановку"; measurable="time_to_lock=9m"; artifact="EL(suspension_enforcement_act)"; cmc="приказ → сопротивление/затяжка оператора → ОСА изолирует контур"; output="узел под контролем"; hook="борьба за шкаф подписи".
+[FACT][SCA5-005] scene_id=SC-27.2; chapter_id=CH-27; where="шкаф подписи / контроллер доверия"; pov="лидер"; goal="добыть юридически значимый объект (фиксация)"; measurable="auto_lock_in=90s"; artifact="EL(signature_keys_trusted_module_inventory)"; cmc="без ключей оператор переподпишет/отыграет → изъятие → рычаг контроля"; output="юридическое закрепление силы ОСА"; hook="попытка purge на соседнем сегменте".
+[FACT][SCA5-006] scene_id=SC-27.3; chapter_id=CH-27; where="серверный сегмент узла"; pov="аналитик"; goal="отбить purge и сохранить «как было»"; measurable="purge_in=110s; dump_size=1.4TB"; artifact="EL(kpi_weights_configs_dump_pre)"; cmc="оператор чистит следы → физический дамп → веса «до» сохранены"; output="база для пересчёта получена"; hook="найден пакет KPI v.next".
+[FACT][SCA5-007] scene_id=SC-27.4; chapter_id=CH-27; where="внешний периметр"; pov="полевой"; goal="короткий экшен с последствиями и протоколом"; measurable="duration=45–75s; injuries=1 (nonfatal)"; artifact="CD(coercion_record)"; cmc="охрана давит → ОСА удерживает → операция не срывается"; output="контроль сохранён"; hook="осталось ~4 часа".
 
-- **Где:** выезд / логистический канал  
-- **POV:** полевой  
-- **Задача:** превратить решение в движение и риск времени  
-- **Измеримое:** ETA=2h20m; connectivity_delta=−25%  
-- **Артефакт:** **CD** — протокол сопровождения  
-- **CAUSE→MECH→CONS:** центр дал приказ → поле исполняет → задержка = потеря улик  
-- **Выход:** ставка по времени задана  
-- **Крючок:** у оператора свои группы на узлах
+[FACT][SCA5-008] scene_id=SC-28.1; chapter_id=CH-28; where="временный штаб (на объекте)"; pov="аналитик"; goal="показать «зло в коэффициентах» как доказательство"; measurable="human_cost_weight=0.03→0.21"; artifact="CM(kpi_matrix_before_after_decisions)"; cmc="заниженный вес → приоритеты режут мед/энергию → люди платят"; output="механизм доказан"; hook="оператор утверждает «иначе сеть упадёт»".
+[FACT][SCA5-009] scene_id=SC-28.2; chapter_id=CH-28; where="мини-слушание регулятора по каналу"; pov="юрист ОСА"; goal="превратить математику в норму"; measurable="red_line_threshold=accepted_conditionally"; artifact="CD(decision_protocol_draft)"; cmc="доказан вред → меняют требования → оператор обязан внедрить"; output="коррекция становится обязательной"; hook="апелляция неизбежна".
+[FACT][SCA5-010] scene_id=SC-28.3; chapter_id=CH-28; where="разговор лидера с корп-связным"; pov="лидер"; goal="человеческий слой «антагонист = функция»"; measurable="none"; artifact="none"; cmc="корп-логика защиты эффективности → конфликт ценностей → отсутствие монстров"; output="ясна природа системы"; hook="нужно публичное давление".
 
----
+[FACT][SCA5-011] scene_id=SC-29.1; chapter_id=CH-29; where="Москва, коммуникационный контур ОСА"; pov="лидер"; goal="выпуск сводки как инструмент давления"; measurable="public_pages=1; closed_pages=47"; artifact="PRS(summary_plus_annex)"; cmc="прямого наказания нет → давление через риск → оператору становится дорого"; output="включён политико-экономический рычаг"; hook="страховые/регионы требуют действий".
+[FACT][SCA5-012] scene_id=SC-29.2; chapter_id=CH-29; where="реакция системы (монтаж)"; pov="аналитик"; goal="показать последствия публикации"; measurable="insurance_risk_coef_delta=+8%; new_audits=+3"; artifact="CD(event_feed_rollup)"; cmc="цифры стали видимыми → риск монетизировался → система реагирует"; output="ОСА больше не тишина"; hook="регулятор готовит урезание лицензии".
 
-## CH-27 — Операция на узлах
+[FACT][SCA5-013] scene_id=SC-30.1; chapter_id=CH-30; where="Москва, заседание по лицензии"; pov="юрист ОСА"; goal="формальная развязка без переворота мира"; measurable="license_scope_reduced=true; audit_cadence=quarterly"; artifact="CD(regulator_decision_requirements)"; cmc="доказан системный риск → урезание режима → оператор теряет часть полномочий"; output="частичная победа"; hook="оператор подаёт апелляцию".
+[FACT][SCA5-014] scene_id=SC-30.2; chapter_id=CH-30; where="коридор после заседания"; pov="лидер"; goal="победа без триумфа"; measurable="none"; artifact="CD(monitoring_continues_notice)"; cmc="система скорректировалась → цена уже заплачена → жизнь идёт дальше"; output="тон удержан"; hook="возвращение домой".
 
-### SC-27.1
+[FACT][SCA5-015] scene_id=SC-31.1; chapter_id=CH-31; where="Набережные Челны, утренний маршрут Avtozavodsky → Centralny"; pov="лидер"; goal="это мой город, но выросший"; measurable="traffic_flow=0.66; district=Centralny; green_index=0.72; river=Kama; port_activity=0.61; river_level=..."; artifact="CD(city_environment_panel_kama_status_line)"; cmc="новая политика KPI → перераспределение → людям чуть легче"; output="эффект виден локально"; hook="жизнь продолжается".
+[FACT][SCA5-016] scene_id=SC-31.2; chapter_id=CH-31; where="больница"; pov="лидер"; goal="тихая верификация результата"; measurable="power_reserve_delta=+12%; cancelled_procedures=down"; artifact="EL(updated_power_regime_protocol)"; cmc="веса изменены → приоритет медконтуров поднят → конкретный эффект"; output="победа материальна"; hook="остаточный риск ≠ 0".
+[FACT][SCA5-017] scene_id=SC-31.3; chapter_id=CH-31; where="площадь / медиафасад (data-art)"; pov="лидер"; goal="культура как фон системы"; measurable="city_feed=real_time"; artifact="CD(data_art_feed)"; cmc="логи стали культурой → люди живут рядом с цифрами → нормализация"; output="мир живой"; hook="none".
+[FACT][SCA5-018] scene_id=SC-31.4; chapter_id=CH-31; where="капсула"; pov="лидер"; goal="музыка как выбор формата"; measurable="mode=adaptive_mix→fixed_track; route_tag=riverbank"; artifact="CD(player_switch_micro_log)"; cmc="фон-алгоритм → человеческий выбор → песня жива"; output="финальная точка"; hook="уведомление о новой аномалии в другом узле; триггер=день матча / событие у стадиона КАМАЗ → всплеск трафика в HUD".
 
-- **Где:** узел накопителей (внешний кластер)  
-- **POV:** полевой  
-- **Задача:** физически закрепить приостановку  
-- **Измеримое:** time_to_lock=9m  
-- **Артефакт:** **EL** — акт ввода приостановки на объекте  
-- **CAUSE→MECH→CONS:** приказ → сопротивление/затяжка оператора → ОСА изолирует контур  
-- **Выход:** узел под контролем  
-- **Крючок:** борьба за шкаф подписи
+## USAGE / RESOLUTION
 
-### SC-27.2
+[DECISION][SCA5-USE-010] This document is a scene-record index for Act V; it MUST be used as the authoritative list of Act V scene beats.
+[DECISION][SCA5-USE-011] Precedence for writing a scene: `RULE → INTERFACE → STATE → BIND → BASELINE → CANON → SCENE`.
+[DECISION][SCA5-USE-012] When a `measurable` value conflicts with baseline ranges, the scene MUST reference an explicit override (not invented inside the scene card).
+[DECISION][SCA5-USE-013] `artifact` types in scene cards MUST map to the canonical artifact families (CD/EL/CM/FM/RP/PRS); subtype naming MAY vary but MUST remain stable within an act.
 
-- **Где:** шкаф подписи / контроллер доверия  
-- **POV:** лидер  
-- **Задача:** добыть юридически значимый объект (не победа, а фиксация)  
-- **Измеримое:** auto_lock_in=90s  
-- **Артефакт:** **EL** — ключи подписи/модуль доверенной среды + опись  
-- **CAUSE→MECH→CONS:** без ключей оператор переподпишет/отыграет → изъятие → рычаг контроля  
-- **Выход:** юридическое закрепление силы ОСА  
-- **Крючок:** попытка purge на соседнем сегменте
+## OUTPUT CONTRACT
 
-### SC-27.3
+~~~yaml
+doc_id: SCENE-ACT-05-0001
+role_type: INDEX
+export:
+  - record_type: scene_card
+    fields: [scene_id, chapter_id, where, pov, goal, measurable, artifact, cmc, output, hook]
+    records:
+      - note: "Records correspond 1:1 to [FACT][SCA5-001]..[FACT][SCA5-018]."
+~~~
 
-- **Где:** серверный сегмент узла  
-- **POV:** аналитик  
-- **Задача:** отбить purge и сохранить «как было»  
-- **Измеримое:** purge_in=110s; dump_size=1.4TB  
-- **Артефакт:** **EL** — дамп конфигов/весов KPI (до)  
-- **CAUSE→MECH→CONS:** оператор чистит следы → физический дамп → веса «до» сохранены  
-- **Выход:** база для пересчёта получена  
-- **Крючок:** найден пакет `KPI v.next` (готовили заранее)
+## FORBIDDEN
 
-### SC-27.4
+[FORBIDDEN][SCA5-FBD-010] Adding prose, metaphors, or world exposition inside scene cards.
+[FORBIDDEN][SCA5-FBD-011] Inventing new metrics or macro numbers not present in SSOT/baseline/canon.
+[FORBIDDEN][SCA5-FBD-012] Using emotion-laden measurable tags (e.g., oppressive/terrifying) instead of neutral fields.
+[FORBIDDEN][SCA5-FBD-013] Changing scene_id naming or chapter mapping without updating all references.
 
-- **Где:** внешний периметр  
-- **POV:** полевой  
-- **Задача:** короткий экшен с последствиями и протоколом  
-- **Измеримое:** duration=45–75s; injuries=1 (nonfatal)  
-- **Артефакт:** **CD** — акт применения принуждения  
-- **CAUSE→MECH→CONS:** охрана давит → ОСА удерживает → операция не срывается  
-- **Выход:** контроль сохранён  
-- **Крючок:** окно сгорает (осталось ~4 часа)
+## NON-NORMATIVE
 
----
-
-## CH-28 — Пересчёт
-
-### SC-28.1
-
-- **Где:** временный штаб (на объекте)  
-- **POV:** аналитик  
-- **Задача:** показать «зло в коэффициентах» как доказательство  
-- **Измеримое:** human_cost_weight=0.03→0.21  
-- **Артефакт:** **CM** — матрица KPI + сравнение решений (до/после)  
-- **CAUSE→MECH→CONS:** заниженный вес → приоритеты режут мед/энергию → люди платят  
-- **Выход:** механизм доказан  
-- **Крючок:** оператор утверждает «иначе сеть упадёт»
-
-### SC-28.2
-
-- **Где:** мини-слушание регулятора по каналу  
-- **POV:** юрист ОСА  
-- **Задача:** превратить математику в норму  
-- **Измеримое:** red_line_threshold=accepted_conditionally  
-- **Артефакт:** **CD** — протокол решения (черновик)  
-- **CAUSE→MECH→CONS:** доказан вред → меняют требования → оператор обязан внедрить  
-- **Выход:** коррекция становится обязательной  
-- **Крючок:** апелляция неизбежна
-
-### SC-28.3
-
-- **Где:** разговор лидера с корп-связным  
-- **POV:** лидер  
-- **Задача:** человеческий слой «антагонист = функция»  
-- **Измеримое:** —  
-- **Артефакт:** —  
-- **CAUSE→MECH→CONS:** корпоративная логика защиты эффективности → конфликт ценностей → отсутствие монстров  
-- **Выход:** ясна природа системы  
-- **Крючок:** нужно публичное давление
-
----
-
-## CH-29 — Полупубличный отчёт
-
-### SC-29.1
-
-- **Где:** Москва, коммуникационный контур ОСА  
-- **POV:** лидер  
-- **Задача:** выпуск сводки как инструмент давления  
-- **Измеримое:** public_pages=1; closed_pages=47  
-- **Артефакт:** **PRS** — сводка + приложение  
-- **CAUSE→MECH→CONS:** прямого наказания нет → давление через риск → оператору становится дорого  
-- **Выход:** включён политико-экономический рычаг  
-- **Крючок:** страховые/регионы требуют действий
-
-### SC-29.2
-
-- **Где:** реакция системы (монтаж)  
-- **POV:** аналитик  
-- **Задача:** показать последствия публикации  
-- **Измеримое:** insurance_risk_coef_delta=+8%; new_audits=+3  
-- **Артефакт:** **CD** — сводная лента событий  
-- **CAUSE→MECH→CONS:** цифры стали видимыми → риск монетизировался → система реагирует  
-- **Выход:** ОСА больше не тишина  
-- **Крючок:** регулятор готовит урезание лицензии
-
----
-
-## CH-30 — Лицензия
-
-### SC-30.1
-
-- **Где:** Москва, заседание по лицензии  
-- **POV:** юрист ОСА  
-- **Задача:** формальная развязка без переворота мира  
-- **Измеримое:** license_scope_reduced=true; audit_cadence=quarterly  
-- **Артефакт:** **CD** — решение регулятора + список требований  
-- **CAUSE→MECH→CONS:** доказан системный риск → урезание режима → оператор теряет часть полномочий  
-- **Выход:** частичная победа  
-- **Крючок:** оператор подаёт апелляцию (задел)
-
-### SC-30.2
-
-- **Где:** коридор после заседания  
-- **POV:** лидер  
-- **Задача:** победа без триумфа  
-- **Измеримое:** —  
-- **Артефакт:** **CD** — уведомление `monitoring continues`  
-- **CAUSE→MECH→CONS:** система скорректировалась → цена уже заплачена → жизнь идёт дальше  
-- **Выход:** тон удержан  
-- **Крючок:** возвращение домой
-
----
-
-## CH-31 — Эпилог: Челны работают
-
-### SC-31.1
-
-- **Где:** Набережные Челны, утренний маршрут `Avtozavodsky → Centralny`  
-- **POV:** лидер  
-- **Задача:** «это мой город, но выросший»  
-- **Измеримое:** traffic_flow=0.66; district=Centralny; green_index=0.72; river=Kama; port_activity=0.61; river_level=…  
-- **Артефакт:** **CD** — городская панель среды (экология/энергия); 1 строка телеметрии «Кама / Челна: статус устья»  
-- **CAUSE→MECH→CONS:** новая политика KPI → перераспределение → людям чуть легче  
-- **Выход:** эффект виден локально  
-- **Крючок:** жизнь продолжается
-
-### SC-31.2
-
-- **Где:** больница  
-- **POV:** лидер  
-- **Задача:** тихая верификация результата  
-- **Измеримое:** power_reserve_delta=+12%; cancelled_procedures=down  
-- **Артефакт:** **EL** — обновлённый протокол энергорежима  
-- **CAUSE→MECH→CONS:** веса изменены → приоритет медконтуров поднят → конкретный эффект  
-- **Выход:** победа материальна  
-- **Крючок:** «не ноль» (остаточный риск)
-
-### SC-31.3
-
-- **Где:** площадь / медиафасад (data-art)  
-- **POV:** лидер (или аналитик — выбрать единообразно на этапе письма)  
-- **Задача:** культура как фон системы  
-- **Измеримое:** city_feed=real_time  
-- **Артефакт:** **CD** — data-art лента (Kama_flow | energy_grid | traffic_density)  
-- **CAUSE→MECH→CONS:** логи стали культурой → люди живут рядом с цифрами → нормализация  
-- **Выход:** мир живой  
-- **Крючок:** —
-
-### SC-31.4
-
-- **Где:** капсула  
-- **POV:** лидер  
-- **Задача:** музыка как выбор формата  
-- **Измеримое:** mode=adaptive_mix→fixed_track; route_tag=riverbank  
-- **Артефакт:** **CD** — лог переключения (микро)  
-- **CAUSE→MECH→CONS:** фон-алгоритм → человеческий выбор → песня жива  
-- **Выход:** финальная точка  
-- **Крючок (на продолжение):** уведомление о новой аномалии в другом узле  
-- **Триггер:** «день матча / событие у стадиона КАМАЗ» → локальный всплеск трафика в HUD (без сюжета вокруг спорта)
+~~~markdown
+SCENE-CARD visual layout is intentionally omitted here; this file is the executable index.
+~~~

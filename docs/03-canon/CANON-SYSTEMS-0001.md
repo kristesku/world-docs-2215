@@ -1,270 +1,256 @@
 ﻿---
 id: CANON-SYSTEMS-0001
 title: >
-  Инженерные и институциональные системы мира — государство, операторы, экстерритории, ответственность, наблюдаемость, логистика
+  Canon Systems — Institutional and Engineering Contours (2215)
 class: canon
 status: fixed
-version: 0.1.0
-inputs: [ CANON-BASE-0001, CANON-CONFLICT-0001]
-depends_on: [CANON-BASE-0001, CANON-CONFLICT-0001]
+version: 1.1.0
+inputs: []
+depends_on:
+  - SSOT-DOC-STYLE-2215-0001
+  - CANON-2215-CORE-0001
+  - CANON-BASE-0001
+  - CANON-CONFLICT-0001
 scope: >
-  Системная инженерка романа: контуры управления, роль операторов, типы экстерриторий, модель ответственности за ИИ,
-  наблюдаемость/логи, критические ресурсы, логистика; процедурные рычаги и ограничения ОСА.
+  Каноническая системная архитектура мира романа 2215: институциональные контуры,
+  операторы критической инфраструктуры, экстерриториальные режимы,
+  наблюдаемость, ответственность за ИИ и процедурные рычаги ОСА.
+  Документ НЕ выбирает числовые параметры мира.
 ---
 
-**1. Государственная архитектура**
-
-**1.1. Макро-модель**
-
-- [CANON DECISION] **Гибрид “сильный центр + региональное исполнение
-  по стандартам”**.
-
-- [FACT] Центр задаёт:
-
-  - стандарты безопасности,
-
-  - требования к аудиту,
-
-  - совместимость/интероперабельность,
-
-  - режимы инцидентов.
-
-- [FACT] Регионы управляют:
-
-  - диспетчерскими кластерами,
-
-  - локальной эксплуатацией,
-
-  - подрядчиками.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: критическая инфраструктура сложна и рискованна  
-→ MECHANISM: единые стандарты + локальное управление  
-→ CONSEQUENCE: конфликты юрисдикций и “серые зоны на стыках” (почва для
-кейсов)
-
-**2. Операторы критической инфраструктуры**
-
-**2.1. Структура рынка**
-
-- [ASSUMPTION] 2–4 **лицензируемых мегакооператора**:
-
-  1.  энергия/накопители/распределение,
-
-  2.  связь/сенсорика/городской мониторинг,
-
-  3.  логистика/переработка/склады,
-
-  4.  (опционально) медтех/реагенты.
-
-- [CANON DECISION] Операторы:
-
-  1.  получают лицензии,
-
-  2.  обязаны вести аудитные следы,
-
-  3.  подлежат инспекциям ОСА и регуляторов,
-
-  4.  рискуют лицензией/штрафами/страховыми триггерами.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: масштаб инвестиций и сетевые эффекты  
-→ MECHANISM: укрупнение операторов + лицензирование  
-→ CONSEQUENCE: зависимость регионов и рычаги через цепочки поставок
-
-**3. Локация романа: Набережные Челны**
-
-**3.1. Каноническая роль**
-
-- [CANON DECISION] **Гибридный узел (C), доминирует логистика**.
-
-- [FACT] Функции:
-
-  - переработка/рециклинг материалов и компонентов,
-
-  - крупные склады и распределительные центры,
-
-  - пересечение железнодорожных/речных/автономных коридоров,
-
-  - сервисные мощности для сенсорных сетей и связи.
-
-- [ASSUMPTION] Дополнительно: локальные накопители энергии для
-  устойчивости узла (вторично).
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: декарбонизация + циклическая экономика  
-→ MECHANISM: концентрация переработки и распределения  
-→ CONSEQUENCE: локальные решения в Челнах имеют федеральный эффект
-(идеально для старта сюжета)
-
-**4. Экстерритории (договорные “особые режимы”)**
-
-**4.1. Типы (канон)**
-
-- [CANON DECISION] Два типа:
-
-  1.  **Пром/логистика** — хабы накопителей, переработка, узлы
-      распределения критматериалов.
-
-  2.  **R&D/биотех/мед** — реагенты, биопечать, клинические “песочницы”,
-      стерильные цепи.
-
-**4.2. Правовой режим**
-
-- [DECISION]
-
-  - создаются договором (центр/регион/оператор),
-
-  - имеют ускоренные процедуры согласования,
-
-  - ограниченный внешний аудит,
-
-  - особые требования к отчётности,
-
-  - право ОСА на вход — **только при инциденте/ордерах**.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: необходимость ускорения инноваций/устойчивости  
-→ MECHANISM: исключения из стандартных регламентов  
-→ CONSEQUENCE: концентрация “чёрных ящиков” и злоупотреблений
-
-**5. Критические ресурсы (для кейсов)**
-
-- [CANON DECISION] Основные:
-
-  - **энергия/накопители/пиковая мощность**,
-
-  - **сенсоры/связь/узлы наблюдаемости**.
-
-- [ASSUMPTION] Медресурсы/реагенты вторичны, но важны в экстерриториях
-  типа R&D.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: узкие места поставок  
-→ MECHANISM: квоты/приоритеты/перенаправление потоков  
-→ CONSEQUENCE: локальные кризисы и давление на регионы
-
-**6. Наблюдаемость и данные**
-
-**6.1. Модель**
-
-- [CANON DECISION] **Фрагментированная наблюдаемость**:
-
-  - разные операторы владеют разными сегментами,
-
-  - разные стандарты/форматы логов,
-
-  - юридические границы доступа.
-
-**6.2. Следствия для ОСА**
-
-- [FACT]
-
-  - “слепые зоны” существуют естественно,
-
-  - данные можно терять/подменять/задерживать,
-
-  - расследования требуют межоператорной корреляции.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: частная эксплуатация + исторические системы  
-→ MECHANISM: несовместимость и разнесённые контуры  
-→ CONSEQUENCE: преступления маскируются на стыках
-
-**7. Ответственность за ИИ-решения**
-
-**7.1. Смешанная модель (канон)**
-
-- [CANON DECISION]
-
-  - **критические решения** (жизнь/здоровье/энергоснабжение
-    больниц/эвакуации) → обязателен **подписант** + журнал + пост-аудит;
-
-  - **некритические** → ответственность оператора
-    (штрафы/лицензии/страхование).
-
-**7.2. Юридическая архитектура**
-
-- [FACT]
-
-  - субподряды,
-
-  - SPV/дочки “под риск”,
-
-  - страховые покрытия,
-
-  - арбитражи вместо персональной вины.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: минимизация рисков  
-→ MECHANISM: слоистые договоры  
-→ CONSEQUENCE: “юридическая пустота” (виновный размывается)
-
-**8. ОСА: процедурные рычаги и ограничения**
-
-**8.1. Рычаги**
-
-- [FACT]
-
-  - ордера на доступ к данным/объектам,
-
-  - изъятие носителей,
-
-  - временная приостановка режимов,
-
-  - инициирование регуляторных проверок/отзывов лицензий,
-
-  - экстерриториальные мандаты при инцидентах.
-
-**8.2. Ограничения (сопротивление системы — норма)**
-
-- [CANON DECISION]
-
-  - согласования/задержки,
-
-  - споры о юрисдикции,
-
-  - корпоративные юристы/NDA,
-
-  - частная безопасность,
-
-  - политическое давление “не раскачивать”.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: признание проблемы дорого  
-→ MECHANISM: бюрократическая защита  
-→ CONSEQUENCE: ОСА вынуждена эскалировать до операций
-
-**9. Транспорт и городской тон**
-
-- [CANON DECISION] **Плотный город без личного авто**:
-
-  - общественный транспорт,
-
-  - маршрутизированные капсулы,
-
-  - грузовые автономные коридоры.
-
-- [PROJECTION] Экшен естественно возникает через:
-
-  - блокировку веток,
-
-  - эвакуации,
-
-  - перехват конвоев,
-
-  - закрытие узлов.
-
-**10. Романно-значимые UNKNOWN (на этапы 4–5)**
-
-- [UNKNOWN] Конкретные имена/структуры операторов и регуляторов.
-
-- [UNKNOWN] Точные формулы KPI (какие коэффициенты “убивают”).
-
-- [UNKNOWN] Перечень типов ордеров ОСА и сроки их выдачи.
-
-- [UNKNOWN] Топология ключевых хабов и маршрутов Челнов.
-
-- [UNKNOWN] Порог, после которого центр перехватывает управление у
-  региона.
-
+## LLM-INTENT
+
+ROLE_TYPE: STATE
+SCOPE: define institutional and infrastructure system state for the world of 2215
+INPUTS:
+  - CANON-2215-CORE-0001
+OUTPUTS:
+  - system_contours
+  - operator_landscape
+  - observability_model
+  - ai_responsibility_model
+FORBIDDEN:
+  - world_parameter_binding
+  - causal_chains
+  - baseline_defaults
+  - resolution_logic
+
+---
+
+## DEFINITIONS
+
+[FACT][SYS-DEF-010] governance_macro_model = модель распределения полномочий центр–регионы.
+[FACT][SYS-DEF-011] ci_operator = лицензированный оператор критической инфраструктуры.
+[FACT][SYS-DEF-012] extraterritory = контрактный специальный режим с процедурными ограничениями доступа.
+[FACT][SYS-DEF-013] observability_model = способ доступности и полноты данных о системе.
+[FACT][SYS-DEF-014] ai_responsibility_model = схема распределения ответственности за решения ИИ.
+
+---
+
+## INVARIANTS
+
+[DECISION][SYS-INV-010] Документ MUST наследовать фон мира из CANON-2215-CORE-0001.
+[DECISION][SYS-INV-011] Государство MUST сохранять примат легитимного принуждения.
+[DECISION][SYS-INV-012] Операторы MUST действовать в лицензируемом и отзывном режиме.
+[DECISION][SYS-INV-013] Экстерритория MUST NOT трактоваться как суверенитет.
+[DECISION][SYS-INV-014] Наблюдаемость MUST NOT быть тотальной по умолчанию.
+[DECISION][SYS-INV-015] ОСА MUST функционировать как процедурный инструмент, а не универсальный орган.
+
+---
+
+## CONTENT
+
+### 1. Governance architecture
+
+[STATE][SYS-010] governance_macro_model = strong_center_with_regional_execution_by_standards.
+[STATE][SYS-011] center_sets = {safety_standards, audit_requirements, interoperability_regimes, incident_regimes}.
+[STATE][SYS-012] regions_execute = {dispatch_clusters, local_operations, contractors}.
+
+---
+
+### 2. Critical infrastructure operators
+
+[STATE][SYS-020] ci_operator_count_range = [2, 4].
+[STATE][SYS-021] ci_operator_domains = {
+  energy_storage_distribution,
+  connectivity_and_city_sensing,
+  logistics_recycling_warehousing,
+  medtech_reagents_optional
+}.
+
+[STATE][SYS-022] operator_obligations = {
+  licensing_required,
+  audit_trails_mandatory,
+  inspections_possible,
+  insurance_and_fines_applicable
+}.
+
+---
+
+### 3. Primary location profile (Naberezhnye Chelny)
+
+[STATE][SYS-030] chelny_node_type = hybrid_logistics_dominant_node.
+[STATE][SYS-031] chelny_primary_functions = {
+  materials_recycling,
+  large_scale_warehousing,
+  rail_river_autonomous_corridor_intersection,
+  sensor_and_connectivity_service_capacity
+}.
+[STATE][SYS-032] chelny_secondary_features = {local_energy_buffers_optional}.
+
+---
+
+### 4. Extraterritorial regimes
+
+[STATE][SYS-040] extraterritory_types = {industrial_logistics, rnd_biotech_med}.
+[STATE][SYS-041] extraterritory_creation_basis = contract_center_region_operator.
+[STATE][SYS-042] extraterritory_features = {
+  accelerated_approvals,
+  restricted_external_audit,
+  special_reporting,
+  osa_entry_by_incident_or_warrant
+}.
+[STATE][SYS-043] extraterritory_constraints = {
+  licensed,
+  bounded,
+  auditable,
+  state_intervention_on_risk
+}.
+
+---
+
+### 5. Critical resources
+
+[STATE][SYS-050] primary_critical_resources = {
+  energy_storage_peak_power,
+  observability_nodes
+}.
+[STATE][SYS-051] secondary_critical_resources = {
+  medical_reagents_for_rnd_extraterritories
+}.
+
+---
+
+### 6. Observability model
+
+[STATE][SYS-060] observability_model = fragmented.
+[STATE][SYS-061] observability_fragmentation_sources = {
+  multi_operator_ownership,
+  log_and_format_divergence,
+  legal_access_boundaries
+}.
+[STATE][SYS-062] investigation_implications = {
+  blind_zones_exist,
+  data_delay_or_loss_possible,
+  cross_operator_correlation_required
+}.
+
+---
+
+### 7. Responsibility for AI decisions
+
+[STATE][SYS-070] ai_responsibility_model = mixed.
+[STATE][SYS-071] critical_decision_controls = {
+  human_signatory,
+  decision_logging,
+  post_audit
+}.
+[STATE][SYS-072] critical_decision_domains = {
+  life_and_health,
+  hospital_energy_supply,
+  evacuation
+}.
+[STATE][SYS-073] noncritical_liability_modes = {
+  operator_liability,
+  fines,
+  license_actions,
+  insurance
+}.
+[STATE][SYS-074] liability_architecture_patterns = {
+  subcontracting_layers,
+  spv_risk_shells,
+  insurance_coverage,
+  arbitration_over_personal_guilt
+}.
+
+---
+
+### 8. OSA levers and resistance
+
+[STATE][SYS-080] osa_levers = {
+  data_and_site_access_warrants,
+  media_seizure,
+  temporary_mode_suspension,
+  regulatory_checks_or_license_actions,
+  extraterritorial_mandates_on_incidents
+}.
+[STATE][SYS-081] osa_constraints = {
+  approval_delays,
+  jurisdiction_disputes,
+  corporate_legal_resistance,
+  private_security_within_limits,
+  procedural_pressure
+}.
+
+---
+
+### 9. Mobility profile (Chelni)
+
+[STATE][SYS-090] chelny_mobility_profile = dense_city_low_private_car_dependency.
+[STATE][SYS-091] mobility_modes = {
+  public_transport,
+  routed_capsules,
+  autonomous_freight_corridors
+}.
+
+---
+
+### 10. Open unknowns
+
+[UNKNOWN][SYS-100] Specific operator and regulator identities.
+[UNKNOWN][SYS-101] KPI formulas causing pathological optimization.
+[UNKNOWN][SYS-102] Exact OSA warrant issuance timings.
+[UNKNOWN][SYS-103] Topology of key hubs and routes in Chelny.
+[UNKNOWN][SYS-104] Threshold for center takeover of regional control.
+
+---
+
+## USAGE / RESOLUTION
+
+[DECISION][SYS-USE-010] Документ используется как системное STATE-основание для CANON и SCENE.
+[DECISION][SYS-USE-011] Любые процедурные правила MUST задаваться в RULE-документах.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: CANON-SYSTEMS-0001
+role_type: STATE
+export:
+  governance_macro_model: strong_center_with_regional_execution_by_standards
+  ci_operator_count_range: [2, 4]
+  extraterritory_types: [industrial_logistics, rnd_biotech_med]
+  observability_model: fragmented
+  ai_responsibility_model: mixed
+  osa_levers:
+    - data_and_site_access_warrants
+    - media_seizure
+    - temporary_mode_suspension
+    - regulatory_checks_or_license_actions
+~~~
+
+---
+
+## FORBIDDEN
+
+[FORBIDDEN][SYS-FBD-900] Introducing_new_global_world_metrics.
+[FORBIDDEN][SYS-FBD-901] Encoding_causality_chains_in_canon.
+[FORBIDDEN][SYS-FBD-902] Treating_operators_as_sovereigns.
+[FORBIDDEN][SYS-FBD-903] Assuming_total_observability_by_default.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

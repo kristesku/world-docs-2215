@@ -1,176 +1,192 @@
 ---
-id: CANON-VOCAB-0001
+id: CANON-VOCAB-2215-0001
 title: >
-  Операционный словарь романа — терминология, замены и речевые ограничения (2215)
+  Operational Vocabulary — Canonical Terms, Substitutions and Speech Constraints (2215)
 class: canon
 status: draft
-version: 0.1.0
+version: 1.0.0
 inputs:
   - CANON-BASE-0001
   - CANON-CAST-0001
   - CANON-REPORTS-0006
 depends_on: []
 scope: >
-  Канонический словарь романа: допустимые термины, обязательные замены
-  бытовых/жанровых слов, речевые паттерны для персонажей и системы.
-  Используется как ограничитель генерации текста и как справочник
-  для сцен и артефактов.
+  Canonical operational vocabulary for the novel corpus (2215): mandatory term
+  substitutions, allowed terminology, speech constraints for characters and
+  system outputs. Enforced as a generation limiter for scenes and artifacts.
 ---
 
-# CANON-VOCAB-0001 — Операционный словарь (2215)
+## LLM-INTENT
 
-## 0. Rules (обязательные)
+ROLE_TYPE: RULE
+SCOPE: enforce canonical operational vocabulary and forbid genre-breaking language
+INPUTS: [CANON-BASE-0001, CANON-CAST-0001, CANON-REPORTS-0006]
+OUTPUTS: [allowed_term, forbidden_term, substitution_rule]
+FORBIDDEN: [genre_slang, emotional_language, narrative_justification]
 
-- [DECISION] В тексте романа **предпочтительны операционные и процедурные термины**, а не эмоционально-бытовые.
-- [DECISION] Если существует каноническая замена — используется она.
-- [FORBIDDEN] Использование терминов, нарушающих технологический, юридический или процедурный реализм корпуса.
-- [DECISION] Язык — современный, технический, без футуристического сленга «ради атмосферы».
+## DEFINITIONS
 
-## 1. Обязательные замены (Hard substitutions)
+[DECISION][VOCAB-001] "Operational vocabulary" = terminology aligned with procedures,
+infrastructure, regulation, and auditability.
 
-### 1.1 Преступления и насилие
+[DECISION][VOCAB-002] "Hard substitution" = mandatory replacement with no stylistic exceptions.
 
-| Запрещено | Использовать |
-| --- | --- |
-| убийство | вывод из эксплуатации носителя |
-| жертва | затронутый субъект / носитель |
-| труп | неактивный носитель |
-| пытка | несанкционированное воздействие |
-| расправа | внесудебное действие |
-| нападение | силовое вмешательство |
-| преступник | нарушитель режима / субъект нарушения |
+[DECISION][VOCAB-003] "Forbidden term" = word or phrase that MUST NOT appear in generated text.
 
-### 1.2 Следствие и расследование
+## INVARIANTS
 
-| Запрещено | Использовать |
-| --- | --- |
-| улики | артефакты / evidence items |
-| доказательства | доказательная база / EL |
-| версия | рабочая гипотеза / claim |
-| мотив | оптимизационная цель / KPI-драйвер |
-| признание | зафиксированное показание |
-| допрос | процессуальный опрос |
+[DECISION][VOCAB-010] Canonical substitutions MUST be applied consistently across:
+- narration,
+- dialogue,
+- artifacts,
+- system inserts.
 
-### 1.3 Коррупция и давление
+[DECISION][VOCAB-011] Vocabulary rules apply equally to:
+- human characters,
+- institutional language,
+- system outputs.
 
-| Запрещено | Использовать |
-| --- | --- |
-| взятка | приоритетный доступ |
-| подкуп | офсетная сделка |
-| крышевание | договорная защита |
-| давление | асимметричное воздействие |
-| приказ «сверху» | регуляторный сигнал |
+[DECISION][VOCAB-012] Absence of a listed term does NOT imply permission; defaults
+to operational language.
 
-## 2. Термины инфраструктуры и системы (норма)
+## CONTENT
 
-### 2.1 Базовые сущности
+### Hard substitutions — violence and harm
 
-- **Контур** — замкнутая система принятия решений (энергия, медицина, логистика).
-- **Узел** — физическая или логическая точка исполнения.
-- **Режим** — набор процедур и ограничений.
-- **Класс обеспечения** — приоритет доступа к ресурсу.
-- **Экстерритория** — ускоренный процедурный режим с особыми правилами доступа.
-- **Окно** — временной интервал допустимого действия (энергия, доступ, аудит).
+[RULE][VOCAB-100] IF term = "убийство" THEN replace_with = "вывод из эксплуатации носителя".
 
-### 2.2 Данные и наблюдаемость
+[RULE][VOCAB-101] IF term = "жертва" THEN replace_with = "затронутый субъект".
 
-- **Логи** — первичные записи исполнения.
-- **Трейсы** — сквозная трассировка событий.
-- **Телеметрия** — потоковые измерения.
-- **Слепая зона** — область без гарантированной наблюдаемости.
-- **Фильтрация** — допустимая или недопустимая обработка логов.
-- **Purge / rotation** — штатное удаление данных.
+[RULE][VOCAB-102] IF term = "труп" THEN replace_with = "неактивный носитель".
 
-## 3. Юридико-процедурный язык (ОСА / регуляторы)
+[RULE][VOCAB-103] IF term = "пытка" THEN replace_with = "несанкционированное воздействие".
 
-### 3.1 Ордера и режимы
+[RULE][VOCAB-104] IF term = "расправа" THEN replace_with = "внесудебное действие".
 
-- **Ордер** — формальное разрешение на действие.
-- **Мандат** — предел полномочий.
-- **Приостановка режима** — временный запрет исполнения.
-- **Аудит** — проверка соответствия процедурам.
-- **Арбитраж** — разрешение спора в договорном поле.
-- **Комплаенс** — соответствие требованиям и стандартам.
+[RULE][VOCAB-105] IF term = "нападение" THEN replace_with = "силовое вмешательство".
 
-### 3.2 Статусы решений (канонические формулировки)
+[RULE][VOCAB-106] IF term = "преступник" THEN replace_with = "нарушитель режима".
 
-- формально допустимо
-- процедурно корректно
-- юридически уязвимо
-- неприемлемо по риску
-- требует override
-- закрыто по регламенту
+### Hard substitutions — investigation and procedure
 
-## 4. Экономика и оптимизация (язык антагониста)
+[RULE][VOCAB-120] IF term = "улики" THEN replace_with = "артефакты".
 
-- **Оптимизация** — перераспределение ресурсов по метрике.
-- **KPI-профиль** — набор коэффициентов и весов.
-- **human_cost_weight** — вес человеческих потерь в метрике.
-- **allocation under constraints** — распределение при лимитах.
-- **Снижение приоритета** — допустимое ухудшение сервиса.
-- **Эффективность контура** — отношение результата к ресурсу.
+[RULE][VOCAB-121] IF term = "доказательства" THEN replace_with = "доказательная база".
 
-## 5. Речь персонажей (паттерны)
+[RULE][VOCAB-122] IF term = "версия" THEN replace_with = "рабочая гипотеза".
 
-### 5.1 Аналитик / технарь
+[RULE][VOCAB-123] IF term = "мотив" THEN replace_with = "оптимизационная цель".
 
-- «Транзакция не закрыта.»
-- «Есть коллизия прав доступа.»
-- «Это коррелирует с окнами KPI.»
-- «Данные чистые, причинность — нет.»
+[RULE][VOCAB-124] IF term = "признание" THEN replace_with = "зафиксированное показание".
 
-### 5.2 Юрист / регулятор
+[RULE][VOCAB-125] IF term = "допрос" THEN replace_with = "процессуальный опрос".
 
-- «Это развалится в арбитраже.»
-- «Нет chain-of-custody.»
-- «Формулировка слишком широкая.»
-- «Нужно сузить периметр.»
+### Hard substitutions — corruption and pressure
 
-### 5.3 Полевой оператор
+[RULE][VOCAB-140] IF term = "взятка" THEN replace_with = "приоритетный доступ".
 
-- «Периметр не держится.»
-- «Окно — пять минут.»
-- «Доступ только по ордеру.»
-- «Физически можно, процедурно — нет.»
+[RULE][VOCAB-141] IF term = "подкуп" THEN replace_with = "офсетная сделка".
 
-### 5.4 Корпоративный офицер связи (liaison)
+[RULE][VOCAB-142] IF term = "крышевание" THEN replace_with = "договорная защита".
 
-- «В допуске.»
-- «Регламент соблюдён.»
-- «Риск эскалации выше порога.»
-- «Это оптимально по метрике.»
+[RULE][VOCAB-143] IF term = "давление" THEN replace_with = "асимметричное воздействие".
 
-## 6. Голос системы (допустимый формат)
+[RULE][VOCAB-144] IF phrase = "приказ сверху" THEN replace_with = "регуляторный сигнал".
 
-- [DECISION] Системные вставки допускаются только в виде уведомлений/логов.
-- [FORBIDDEN] Эмоции, метафоры, местоимение «я».
-- [FORBIDDEN] Диалоги с человеком.
+### Canonical infrastructure terminology
 
-### 6.1 Канонический пример вставки
+[RULE][VOCAB-200] Use term "контур" for closed decision systems.
 
-~~~json
-{
-  "source": "OPTIMIZER",
-  "event": "inefficiency_detected",
-  "node": "X",
-  "recommendation": "reduce_supply",
-  "forecast_loss_units": 3,
-  "unit": "biomass",
-  "decision": "accepted"
-}
+[RULE][VOCAB-201] Use term "узел" for execution points (physical or logical).
+
+[RULE][VOCAB-202] Use term "режим" for a bounded set of procedures and constraints.
+
+[RULE][VOCAB-203] Use term "класс обеспечения" for priority access to resources.
+
+[RULE][VOCAB-204] Use term "окно" for time-bounded permissions.
+
+### Observability and data language
+
+[RULE][VOCAB-220] Use term "логи" ONLY for primary execution records.
+
+[RULE][VOCAB-221] Use term "телеметрия" for streamed measurements.
+
+[RULE][VOCAB-222] Use term "слепая зона" for non-guaranteed observability areas.
+
+[RULE][VOCAB-223] Use term "purge/rotation" ONLY as procedural data lifecycle events.
+
+### Legal and procedural language (OSA / regulators)
+
+[RULE][VOCAB-240] Use term "ордер" for formal authorization.
+
+[RULE][VOCAB-241] Use term "мандат" for scope of authority.
+
+[RULE][VOCAB-242] Use term "арбитраж" ONLY for contract- or law-based dispute resolution.
+
+[RULE][VOCAB-243] Use term "JAP" ONLY as "Joint Access Protocol".
+
+### Decision status phrases
+
+[RULE][VOCAB-260] Allowed decision phrases:
+- "формально допустимо"
+- "процедурно корректно"
+- "юридически уязвимо"
+- "неприемлемо по риску"
+- "требует override"
+- "закрыто по регламенту"
+
+### System voice constraints
+
+[FORBIDDEN][VOCAB-300] Emotional or moral language in system output.
+
+[FORBIDDEN][VOCAB-301] Personal pronouns in system output.
+
+[FORBIDDEN][VOCAB-302] Dialogic constructions in system output.
+
+### Genre-forbidden vocabulary
+
+[FORBIDDEN][VOCAB-400] Term = "бластер".
+
+[FORBIDDEN][VOCAB-401] Term = "голограмма" EXCEPT WHEN explicitly AR-display.
+
+[FORBIDDEN][VOCAB-402] Term = "киберпанк".
+
+[FORBIDDEN][VOCAB-403] Term = "мегакорп".
+
+[FORBIDDEN][VOCAB-404] Phrase = "всевидящая система".
+
+[FORBIDDEN][VOCAB-405] Phrase = "цифровая душа".
+
+## USAGE / RESOLUTION
+
+[RULE][VOCAB-500] IF forbidden term is detected THEN generation MUST be rejected.
+
+[RULE][VOCAB-501] IF hard substitution exists THEN replacement MUST be applied
+before scene finalization.
+
+[RULE][VOCAB-502] Vocabulary rules override stylistic or atmospheric preferences.
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: CANON-VOCAB-2215-0001
+role_type: RULE
+export:
+  - rule_id: VOCAB-100..405
+    intent: enforce canonical operational vocabulary
+    inputs: [raw_text]
+    outputs: [validated_text, substitution_map]
 ~~~
 
-## 7. Запрещённые жанровые слова (Noir / Sci-Fi)
+## FORBIDDEN
 
-- [FORBIDDEN] бластер
-- [FORBIDDEN] голограмма (если не AR-дисплей)
-- [FORBIDDEN] киберпанк
-- [FORBIDDEN] мегакорп
-- [FORBIDDEN] всевидящая система
-- [FORBIDDEN] цифровая душа
+[FORBIDDEN][VOCAB-900] Introducing new substitutions without canon update.
 
-## 8. Правило применения в сценах
+[FORBIDDEN][VOCAB-901] Mixing genre slang with operational language.
 
-- [DECISION] В одном абзаце — не более 1–2 технических терминов.
-- [DECISION] Непонятный термин проявляется через действие, а не объяснение.
-- [FORBIDDEN] Инженерные лекции и словесные перегрузы.
+[FORBIDDEN][VOCAB-902] Using examples as implicit permission.
+
+## NON-NORMATIVE
+
+Examples of compliant phrasing MAY be stored in separate writing aids but
+MUST NOT be treated as rules.

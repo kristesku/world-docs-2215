@@ -1,137 +1,193 @@
 ---
 id: CANON-LOC-CHELNY-2215-0001
 title: >
-  RU 2215 — Набережные Челны: сенсорика, повседневные интерфейсы и «грязь устойчивости» (для сцен)
+  RU 2215 — Naberezhnye Chelny: Sensory Profile, Everyday Interfaces, and “Maintenance Dirt” (Scene Canon)
 class: canon
 status: draft
-version: 0.1.0
+version: 0.2.0
 inputs:
   - CANON-CITY-RU-2215-0007
   - CANON-CITY-BOUNDARY-RU-2215-0008
   - BASELINE-PHYSICAL-LEVEL-MID-2215-0001
   - SSOT-URBANISM-A-2215-0007
-depends_on: []
+depends_on:
+  - SSOT-DOC-STYLE-2215-0001
+  - CANON-BASE-0001
 scope: >
-  Локационный канон для сцен в Челнах-2215: как город ощущается (запахи/звук/свет/тактильность),
-  как проявляются контуры (энергия/логистика/наблюдаемость) без инфодампа, и какие «земные»
-  детали дают атмосферу Clinical Noir без нуар-клише (дождь/неон/плащи). Документ дополняет
-  CANON-CITY-RU-2215-0007: там — география и визуальный язык; здесь — сенсорика и быт.
+  Scene-level canonical RULES for RU-16/CHELNY (2215): sensory defaults
+  (light/air/smell/sound/materials), how infrastructure contours surface
+  without infodump, and how to show “dirt of stability” (limits, access,
+  maintenance) without noir clichés or utopia sterility.
 ---
 
-# CANON-LOC-CHELNY-2215-0001 — Челны: сенсорика и быт (2215)
+## LLM-INTENT
 
-## 0. Rules
+ROLE_TYPE: RULE
+SCOPE: scene defaults for Chel(n)y 2215 sensory + infrastructure cues (non-noir, non-utopia)
+INPUTS: [CANON-CITY-RU-2215-0007, CANON-CITY-BOUNDARY-RU-2215-0008, BASELINE-PHYSICAL-LEVEL-MID-2215-0001, SSOT-URBANISM-A-2215-0007]
+OUTPUTS: [sensory_defaults, allowed_scene_markers, infrastructure_cue_rules, anchor_snippet_pool, open_items]
+FORBIDDEN: [gotham_noir_defaults, sterile_utopia, infodump_explanations, total_surveillance_assumption, plastic_futurism]
+ 
+## DEFINITIONS
 
-- [DECISION] Сенсорика Челнов строится на **масштабе, сухой теплоте, матовых поверхностях и инфраструктурной дисциплине**, а не на «нуарном дожде».
-- [DECISION] Любая атмосферная деталь обязана быть **функциональной**: указывать на контур (энергия/логистика/аудит/доступ) или на человеческую цену.
-- [FORBIDDEN] «Готэм по умолчанию»: постоянный дождь, кислотный неон, плащи как норма.
-- [FORBIDDEN] «Стерильная утопия»: в Челнах всё работает, но **видна цена обслуживания**.
+[RULE][CHELNY-DEF-001] term.sensory_marker = a short, concrete sensory cue (smell/sound/light/tactile) used to imply a system contour.
+[RULE][CHELNY-DEF-002] term.contour = an operational system layer (energy, logistics, observability, access, audit) visible only via artifacts/cues.
+[RULE][CHELNY-DEF-003] term.maintenance_dirt = non-poverty wear: seals, service seams, temporary routing, “sealed/closed” signage, frequent maintenance traces.
+[RULE][CHELNY-DEF-004] term.scene_anchor_snippet = 1–2 sentences that can be inserted without explanation; must imply contour or human cost.
 
-## 1. Базовый сенсорный профиль Челнов (для большинства сцен)
+## INVARIANTS
 
-### 1.1 Свет
+[RULE][CHELNY-INV-001] Chel(n)y 2215 baseline MUST be functional 24/7 (LEVEL-MID default) unless scene explicitly activates an incident contour.
+[RULE][CHELNY-INV-002] Sensory tone MUST be “mature infrastructure discipline” (scale + matte + procedural cues), not “noir weather aesthetic”.
+[RULE][CHELNY-INV-003] Any atmospheric detail MUST imply either (a) a contour, or (b) a human cost of allocation/procedure.
+[RULE][CHELNY-INV-004] “Comfort baseline” MUST hold: бытовые контуры комфортны; конфликт = allocation-under-constraints (windows/tier/access/KPI), not survival poverty.
 
-- [FACT] Основной якорь света: **рассеянный**, без резких теней (см. CANON-CITY-RU-2215-0007).
-- [DECISION] Внутри помещений свет чаще **слоистый**: базовый «рабочий» + локальный «процедурный» (над рабочей зоной, терминалом, столом).
-- [DECISION] Ночной город не «неоновый»: он **экономный по блику**, больше подсветки контуров/маршрутов, меньше рекламного шоу.
+## CONTENT
 
-### 1.2 Температура и воздух
+### A. Light (default)
 
-- [DECISION] Лето в городе ощущается как **тёплый воздух без праздничности**: тепло есть, но оно «производственное».
-- [ASSUMPTION] Характер воздуха: смесь **озона после разрядов/субстанций энергоконтуров**, нагретого композита, пыли с дорог/площадок, речной влаги с Камы (без романтизации).
-- [DECISION] В помещении воздух «правильный», но иногда **чуть сухой**: ощущение кондиционированной дисциплины.
+[RULE][CHELNY-010] Default exterior light MUST be diffuse (overcast / scattered), low-contrast; sharp shadows MUST NOT be default.
+[RULE][CHELNY-011] Interior light MUST be layered: (a) base ambient + (b) local procedural/task pools (work zones, terminals, checkpoints).
+[RULE][CHELNY-012] Night lighting MUST be “low-glare infrastructure”: contour/path highlighting > advertisement spectacle.
+[FORBIDDEN][CHELNY-013] Neon-noir lighting as default city identity.
 
-### 1.3 Запахи (короткие маркеры)
+### B. Air / temperature (default)
 
-- [DECISION] Разрешённые «сценические маркеры» (1–2 на сцену):
-  - озон/электрика у узлов питания и в переходах рядом с технишкафами;
-  - нагретый пластик/композит от оболочек инфраструктуры;
-  - речная тина/влажный бетон у Камы и вблизи сервисных стоков;
-  - пыль и тёплый металл у логистических поясов;
-  - слабая химия моющих средств в «общих» пространствах (поддержание режима).
+[RULE][CHELNY-020] Summer air MUST read as “warm but industrial”: теплотa без праздничности; the city feels like it “runs” continuously.
+[RULE][CHELNY-021] Indoor air MUST read as “correct but disciplined”: slightly dry conditioning is allowed as a subtle cue.
 
-### 1.4 Звук (Soundscape)
+### C. Smell markers (allowed set)
 
-- [DECISION] Город звучит **низко и непрерывно**:
-  - дальний гул транспорта/коридоров;
-  - вентиляторы/теплообменники (не громко, но везде);
-  - редкие «сухие» сигналы процедур (пик терминала, подтверждение доступа).
-- [FORBIDDEN] Тотальная тишина. В Челнах тишина — это **аномалия** или «особый режим».
+[RULE][CHELNY-030] Per scene, LLM MUST use smell_markers_count ∈ [0, 2].
+[RULE][CHELNY-031] Allowed smell marker set (choose from):
+- ozone/electric near power nodes and service corridors;
+- warmed composite / polymer shells of infrastructure (not “cheap plastic”);
+- river moisture / algae / wet concrete near Kama + service drains;
+- dust + warm metal near logistics belts;
+- faint cleaning chemistry in shared/public spaces (maintenance regime cue).
+[FORBIDDEN][CHELNY-032] Using “stench of decay/rot/garbage” as a default smell identity of the city.
 
-### 1.5 Тактильность и материалы
+### D. Soundscape (default)
 
-- [DECISION] Поверхности в городе — **матовые**, «тихие рукой»: микротекстура, мало скольжения.
-- [DECISION] Металл чаще окрашен/анодирован, композиты — «глубокие», без дешёвого пластика.
-- [DECISION] Важный приём: **ощущение сопряжений** (стыки, швы обслуживания, лючки доступа) — город постоянно обслуживается.
+[RULE][CHELNY-040] City sound MUST be low-frequency continuous (distant logistics hum, ventilation/heat-exchange) with rare dry procedural beeps.
+[RULE][CHELNY-041] Silence MUST be treated as a signal: IF “silence described” THEN it IMPLIES anomaly/special режим/incident, not normal comfort.
+[FORBIDDEN][CHELNY-042] Total cinematic silence as default baseline.
 
-## 2. Кама и набережные: вода как граница режима
+### E. Tactile / materials (default)
 
-- [DECISION] Кама в 2215 — не открытка и не «дикая река». Это **управляемая среда**: берега укреплены, доступ местами контролируемый.
-- [ASSUMPTION] Уровень воды и береговая линия ощущаются «поддерживаемыми» (дамбы/укрепления/каналы распределения).
-- [DECISION] Набережные — это не праздник, а **маршрут**: бег/ходьба, сервисные коридоры, редкие «карманы» отдыха.
-- [DECISION] Западный берег остаётся природным (см. CANON-CITY-BOUNDARY-RU-2215-0008), но доступ «удобнее» — это создаёт контраст: *вышел из системного города — попал в контролируемую природу*.
+[RULE][CHELNY-050] Surfaces MUST be matte, micro-textured, low-slip; “quiet to touch”.
+[RULE][CHELNY-051] Metal MUST read as coated/anodized; composites MUST read as deep/structural, not glossy consumer plastic.
+[RULE][CHELNY-052] Service seams MUST be visible: access hatches, maintenance joints, sealed panels; city is continuously serviced.
 
-## 3. КАМАЗ-след: что осталось и как это выглядит
+### F. Kama & embankments (water as regime boundary)
 
-- [DECISION] «КАМАЗ» в тексте — не ностальгический завод, а **исторический слой и инфраструктурный мета-узел**.
-- [ASSUMPTION] В 2215 это может проявляться (на выбор сцены, без финальной фиксации):
-  - как роботизированное производство/ремонтный контур (тихо, огромно);
-  - как логистический мегахаб (коридоры, сортировка, сервис);
-  - как гибрид «музей + действующий контур» (публичная оболочка и закрытые зоны).
-- [DECISION] Визуально: большие пролёты, спокойные массы, минимум «красивости», много сервисных ворот/люков/маршрутов.
+[RULE][CHELNY-060] Kama MUST be shown as managed infrastructure, not postcard wilderness (reinforced banks, controlled access pockets).
+[RULE][CHELNY-061] Embankments MUST read as routes (movement + service corridors) with sparse “rest pockets”.
+[RULE][CHELNY-062] West bank “nature” MUST read as controlled nature: leaving the systemic city → entering regulated nature.
+[FORBIDDEN][CHELNY-063] Romantic “wild river” framing as default.
 
-## 4. «Грязь устойчивости»: как показывать не-бедность, а лимиты
+### G. KAMAZ-trace (historical layer → operational node)
 
-- [DECISION] В Челнах бытовой комфорт нормальный (еда/тепло/сервисы), но конфликт возникает там, где есть:
-  - окна обслуживания,
-  - лимиты мощности,
-  - приоритеты классов обеспечения,
-  - задержки доступа,
-  - «в допуске» вместо «по совести».
-- [DECISION] Признаки «грязи» — не мусор и разруха, а:
-  - следы частого обслуживания;
-  - пятна износа на местах высокой проходимости;
-  - временные ограждения и перекидные маршруты;
-  - «пломбы» и «опечатано» как привычный фон.
+[RULE][CHELNY-070] “KAMAZ” reference MUST be a system-layer (historical + infrastructure meta-node), not nostalgia-only decoration.
+[RULE][CHELNY-071] Allowed KAMAZ manifestations (choose ≤1 per scene unless plot requires):
+- automated production/repair contour (quiet, huge);
+- logistics megahub (sorting corridors, service gates);
+- museum+active hybrid (public shell + restricted zones).
+[RULE][CHELNY-072] Visual cue set for KAMAZ-layer: large spans, calm masses, minimal ornament, many service gates/hatches/routes.
 
-## 5. Публичные пространства: дружелюбие для своих, трение для чужих
+### H. “Maintenance dirt” (show limits without poverty)
 
-- [DECISION] Публичные пространства удобны тем, кто знает ритм (привычка к маршрутам/допускам/окнам).
-- [DECISION] Для приезжего город ощущается как:
-  - слишком большой,
-  - слишком процедурный,
-  - слишком уверенный в своих правилах.
-- [DECISION] Уличная торговля/витрины — сдержанные. Больше сервисных точек и функциональных «пунктов», меньше «ярмарки».
+[RULE][CHELNY-080] “Dirt” MUST be maintenance_dirt, not slum grime: frequent servicing traces, worn high-traffic spots, temporary fences, reroutes, seals.
+[RULE][CHELNY-081] Conflict cues MUST map to allocation/procedure:
+- service windows;
+- power windows / peak capacity;
+- supply classes;
+- access tiers;
+- audit/legal admissibility gates.
+[FORBIDDEN][CHELNY-082] Poverty-as-default framing (“people survive on streets”) unless explicit plot override.
 
-## 6. Транспорт и перемещения: «слои», а не «гонки»
+### I. Public space friction (friendly to locals, procedural to visitors)
 
-- [DECISION] Перемещение ощущается как переключение слоёв:
-  - пеший слой (короткие, предсказуемые маршруты),
-  - транспортный слой (тихо, автономно),
-  - служебный слой (доступ по роли/ордеру, отдельные входы).
-- [DECISION] Пробки не являются «главным» ощущением. Главная фрикция — **процедурная** (доступ/окно/периметр).
+[RULE][CHELNY-090] Public spaces MUST be safe + maintained; friction MUST be procedural (badges/windows/routing), not violence.
+[RULE][CHELNY-091] Visitor perception MUST include at least one of: too big / too procedural / too confident in its rules.
+[RULE][CHELNY-092] Street commerce MUST be restrained-functional: service points > festival bazaar.
 
-## 7. Наблюдаемость и приватность: границы сенсорики (без всеведущности)
+### J. Mobility (layers, not racing)
 
-- [DECISION] Сенсорика богата, но **не тотальна**:
-  - есть слепые зоны (по архитектуре/по режиму/по ошибке/по саботажу),
-  - есть агрегирование и задержки,
-  - первичные логи защищены процедурами.
-- [DECISION] В тексте это проявляется через:
-  - «нет первички, только агрегаты»,
-  - «окно логов закроется через N часов»,
-  - «нужен ордер / JAP / chain-of-custody».
+[RULE][CHELNY-100] Movement MUST be described as switching layers: pedestrian layer → autonomous mobility layer → service/restricted layer.
+[RULE][CHELNY-101] Traffic jams MUST NOT be the primary city feel; primary friction = access/perimeter/window.
+[FORBIDDEN][CHELNY-102] Action scenes framed as “car chase culture” baseline.
 
-## 8. Готовые «якоря сцены» (быстрые вставки без инфодампа)
+### K. Observability & privacy (no omniscience)
 
-- [DECISION] Разрешённые микрокадры (1–2 предложения, без объяснений):
-  - «Матовая поверхность перил тёплая — как будто город всё время чуть подогревает себя изнутри».
-  - «В переходе пахнет озоном и моющим — как в серверной, только с людьми».
-  - «Над Камой свет рассеянный, а бетон берега выглядит обслуженным, как корпус оборудования».
-  - «Вдали гудит контур — не машины, а режим».
+[RULE][CHELNY-110] Observability MUST be rich-but-fragmented: blind zones exist; aggregation and delay exist; primary logs are gated by procedure.
+[RULE][CHELNY-111] In-text observability cues MUST appear as artifacts/constraints:
+- “no primary logs, only aggregates”;
+- “log window closes in N hours”;
+- “requires order / JAP / chain-of-custody”.
+[FORBIDDEN][CHELNY-112] Assuming total omniscient surveillance without showing the procedural gates.
 
-## 9. Open items (если потребуется отдельная фиксация)
+### L. Weather
 
-- [UNKNOWN] Точный статус «КАМАЗ-узла» (производство/хаб/музей-гибрид) — уточнить перед сценами, где он играет роль.
-- [UNKNOWN] Точная «палитра запахов» по сезонам (лето/зима) — вводить только при реальной необходимости.
-- [UNKNOWN] Какие именно районы Челнов дают «домашний быт» команды ОСА (для повторяющихся бытовых сцен).
+[STATE][LOC-ATM-020] weather_mode = "Soft Grey Comfort".
+[STATE][LOC-ATM-021] sky_texture = "Textured Concrete". Небо затянуто фактурными серыми облаками (не грозовыми, а спокойными).
+[STATE][LOC-ATM-022] temperature = "Perfect Neutral" (22–24°C). Теплый ветер, отсутствие жары и холода.
+[STATE][LOC-ATM-023] vibe = "Deceptive Calm". На улице так приятно, что ужас перед Системой кажется иррациональным.
+
+## USAGE / RESOLUTION
+
+[RULE][CHELNY-USE-001] Scenes set in RU-16/CHELNY MUST apply this doc as default sensory + cue layer unless overridden by SCENE tags or explicit incident contours.
+[RULE][CHELNY-USE-002] Precedence for generation MUST follow CANON-BASE-0001:
+Override > Scene > Plan > Canon > Baseline > SSOT.
+[RULE][CHELNY-USE-003] IF a scene needs “darker tone” THEN apply CHELNY-080/081 (maintenance dirt + allocation), NOT noir weather tropes.
+[RULE][CHELNY-USE-004] IF a scene needs “system presence” THEN use CHELNY-040/052/111 cues, NOT exposition paragraphs.
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: CANON-LOC-CHELNY-2215-0001
+role_type: RULE
+export:
+  - rule_id: CHELNY-010
+    intent: "exterior light default is diffuse/low-contrast"
+    inputs: [CANON-CITY-RU-2215-0007]
+    outputs: [scene_light_profile]
+  - rule_id: CHELNY-030
+    intent: "smell markers per scene limited to 0..2 from allowed set"
+    inputs: []
+    outputs: [smell_marker_pool, smell_marker_count]
+  - rule_id: CHELNY-080
+    intent: "show maintenance dirt, not poverty or decay"
+    inputs: [CANON-BASE-0001]
+    outputs: [maintenance_dirt_cues]
+  - rule_id: CHELNY-110
+    intent: "observability is rich-but-fragmented; must surface via procedural artifacts"
+    inputs: [CANON-ORDERS-0003, CANON-SYSTEMS-0001]
+    outputs: [observability_cues, artifact_prompts]
+open_items:
+  - CHELNY-OI-001: "Exact canonical status of KAMAZ-node (prod vs hub vs hybrid) for plot-critical scenes."
+  - CHELNY-OI-002: "Seasonal variant: winter sensory profile (only if winter scenes appear)."
+  - CHELNY-OI-003: "Which residential districts serve as repeated бытовой baseline for OSA team."
+~~~
+
+## FORBIDDEN
+
+[FORBIDDEN][CHELNY-FBD-001] Gotham-noir defaults (constant rain, acid neon, trenchcoat aesthetics) as baseline.
+[FORBIDDEN][CHELNY-FBD-002] Sterile utopia framing (no wear, no maintenance, no procedural friction).
+[FORBIDDEN][CHELNY-FBD-003] Infodump explanations of systems; contours MUST be implied via cues/artifacts.
+[FORBIDDEN][CHELNY-FBD-004] Total surveillance assumption without procedural gates, blind zones, aggregation, or delays.
+[FORBIDDEN][CHELNY-FBD-005] Plastic-futurism visual language as default material identity.
+
+## NON-NORMATIVE (optional)
+
+### Anchor snippet pool (examples only; not rules)
+
+- “Матовая поверхность перил тёплая — как будто город всё время чуть подогревает себя изнутри.”
+- “В переходе пахнет озоном и моющим — как в серверной, только с людьми.”
+- “Над Камой свет рассеянный, а бетон берега выглядит обслуженным, как корпус оборудования.”
+- “Вдали гудит контур — не машины, а режим.”
+- “Тишина здесь не отдых: тишина означает, что слой отключён.”
+
+### Micro-pattern (cue without explanation)
+
+- “Нет первички, только агрегаты. Окно логов закрывается через 6 часов. Нужен ордер.”

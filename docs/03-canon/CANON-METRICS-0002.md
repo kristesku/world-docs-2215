@@ -1,82 +1,189 @@
 ---
 id: CANON-METRICS-0002
 title: >
-  Метрики романа (2215) — выбор режима (core vs upper-tail) и правила использования чисел
+  Метрики романа (2215) — правила использования чисел и upper-tail случаев
 class: canon
 status: draft
-version: 0.1.0
+version: 2.2.0
 inputs:
-  - SSOT-SCENARIO-A-2215-0001
-  - SSOT-ENERGY-A-2215-0004
-  - SSOT-CLIMATE-A-2215-0004
-  - SSOT-AUTOMATION-A-2215-0004
-  - SSOT-ECONOMY-A-2215-0003
-  - SSOT-DEMOGRAPHY-A-2215-0002
+  - CANON-2215-CORE-0001
+  - SSOT-CONSISTENCY-A-2215-0009
 depends_on:
   - CANON-BASE-0001
-  - CANON-SYSTEMS-0001
+  - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  Каноническое закрытие количественных развилок SSOT (core vs p90) для романа:
-  какие значения являются дефолтом сцены, какие допустимы только как редкие
-  «upper-tail cases», и как в тексте обращаться с числами.
+  RULE-канон использования числовых метрик в тексте: откуда берутся дефолты,
+  как оформляются upper-tail случаи и какие процедурные последствия обязательны.
+  Документ НЕ выбирает значения метрик и НЕ является точкой BIND.
 ---
 
-## 0. Rules (roman-safe numerics)
+## LLM-INTENT
 
-- [CANON DECISION] В тексте романа числа используются как редкие якоря.
-  По умолчанию сцены опираются на качественные следствия метрик, а не на сами цифры.
-- [CANON DECISION] При любом числовом упоминании обязан быть контекст:
-  что измеряется, кто измеряет, и зачем это в сцене.
-- [CANON CONSTRAINT] Запрещено вводить новые макро-числа, не существующие в SSOT.
+ROLE_TYPE: RULE
+SCOPE: regulate narrative usage of numeric world metrics and enforce procedural reaction to upper-tail cases
+INPUTS:
+  - CANON-2215-CORE-0001
+  - SSOT-CONSISTENCY-A-2215-0009
+  - SPEC-PRIORITY-RESOLUTION-2215-0001
+OUTPUTS:
+  - numeric_source_rules
+  - upper_tail_rules
+  - procedural_reaction_requirements
+FORBIDDEN:
+  - selected_value_definition
+  - ssot_binding
+  - invent_metrics
+  - narrative_numbers_as_defaults
 
-## 1. Canon-default regime for the novel (baseline values)
+---
 
-- [CANON DECISION] Дефолтный режим романа = core_metrics_2215 как фон.
-  Upper-tail (p90) допускается только как локальный/редкий режим и должен быть
-  явно обозначен в каноне сцены или в override локации.
+## DEFINITIONS
 
-### 1.1 Earth system (climate)
+[FACT][MET-DEF-010] default_metric_value =
+значение метрики, зафиксированное в CANON-2215-CORE-0001.
 
-- [CANON DECISION] Потепление: ~2–2.5°C (фон стабилизированного климата).
-- [CANON DECISION] Уровень моря: ~1.5–2.0 м.
+[FACT][MET-DEF-011] narrative_number =
+числовое утверждение о состоянии мира в сцене.
 
-### 1.2 Energy
+[FACT][MET-DEF-012] upper_tail_value =
+значение метрики уровня p90 или иного верхнего хвоста.
 
-- [CANON DECISION] Primary energy: ~30 TW как дефолтный фон мира романа.
-- [CANON DECISION] Low-carbon share: ~90–95% (в тексте допускается «почти всё низкоуглеродное»).
-- [CANON DECISION] Верхний хвост (p90) по энергии (до ~60 TW) допускается только:
-  - для отдельных супер-узлов,
-  - или как “режим мобилизации/пиковых программ”,
-  и не является бытовой нормой сцены.
+[FACT][MET-DEF-013] upper_tail_case =
+использование upper_tail_value через class: override
+с обязательными процедурными последствиями.
 
-### 1.3 AI / compute and automation
+[FACT][MET-DEF-014] narrative_lock =
+флаг SSOT-CONSISTENCY, запрещающий upper-tail как фон
+независимо от статуса DUAL_ALLOWED.
 
-- [CANON DECISION] ai_compute_EJ_per_year: ~75 EJ/год как дефолт.
-- [CANON DECISION] Upper-tail compute (~150–200 EJ/год) допустим только как:
-  - редкая концентрация (узлы/экстерритории/кластеры),
-  - или как предмет расследования (аномальная нагрузка, необычный режим).
-- [CANON DECISION] labor_automation_percent_tasks: ~80% как дефолт, ~90% — верхний хвост для отдельных доменов/операторов.
+---
 
-### 1.4 Economy and population
+## INVARIANTS
 
-- [CANON DECISION] GDP (PPP) relative to 2025: ~30× как дефолт; p90-диапазон (выше) — только как «богатый хвост» и без точных цифр в сценах.
-- [CANON DECISION] Population: ~8–9 млрд как фон.
-- [CANON DECISION] Life expectancy: ~100 лет как фон.
+[DECISION][MET-INV-001] Default metric values MUST be taken only from CANON-2215-CORE-0001.
 
-## 2. How numbers appear in scenes (allowed manifestations)
+[DECISION][MET-INV-002] SSOT documents MUST NOT be used as direct sources
+of background numeric defaults for scenes.
 
-- [CANON DECISION] Числа проявляются через артефакты:
-  - отчёт оператора/регулятора,
-  - KPI-дашборд,
-  - страховку/сертификацию,
-  - протокол инцидента,
-  - график нагрузки/лимитов.
-- [CANON DECISION] Upper-tail значения появляться могут, но только как:
-  - “аномалия”, “эксперимент”, “особый режим”, “экстерритория”,
-  - и всегда как причина процедурной реакции.
+[DECISION][MET-INV-003] Any metric listed in
+`CANON-2215-CORE-0001.override_required_registry`
+MUST NOT appear in narrative without an explicit `class: override` document.
 
-## 3. Binding to existing CANON docs
+[DECISION][MET-INV-004] Upper-tail values MUST NOT be used as neutral everyday background.
 
-- [FACT] География/масштаб/тон задаются CANON-BASE-0001.
-- [FACT] Механика антагониста как KPI/контуры исключений — CANON-CONFLICT-0001.
-- [FACT] Операторы/экстерритории/наблюдаемость — CANON-SYSTEMS-0001.
+[DECISION][MET-INV-005] If SSOT metric has `narrative_lock = true`
+THEN it MUST be treated as CANON for default usage,
+even if SSOT status is DUAL_ALLOWED.
+
+[DECISION][MET-INV-006] Any upper-tail usage under `narrative_lock = true`
+MUST be handled as upper_tail_case with explicit override.
+
+[FORBIDDEN][MET-INV-007] Introducing new global numeric metrics
+not declared in SSOT or CANON-2215-CORE-0001.
+
+[FORBIDDEN][MET-INV-008] Implicit fallback to SSOT ranges
+when CORE default is missing.
+
+---
+
+## CONTENT
+
+### 1. Narrative number admissibility
+
+[RULE][MET-010] IF narrative_number is present
+THEN it MUST be tied to artifact OR log OR report
+OR procedural action OR procedural consequence.
+
+[RULE][MET-011] IF number is provided as author explanation
+THEN it MUST NOT be included.
+
+[RULE][MET-012] IF metric_value is mentioned
+THEN source MUST be one of {class: override, CANON-2215-CORE-0001}.
+
+---
+
+### 2. Upper-tail handling
+
+[RULE][MET-020] IF value_category = upper_tail_value
+THEN override_required = true.
+
+[RULE][MET-021] IF metric has `narrative_lock = true`
+AND value_category ≠ core
+THEN override_required = true.
+
+[RULE][MET-022] IF upper_tail_case = true
+THEN localization MUST include
+{place, time_window, regime, affected_system}.
+
+[RULE][MET-023] IF upper_tail_case = true
+THEN procedural_reaction MUST include ≥1 of
+{order, audit, investigation, mode_restriction, jurisdiction_escalation}.
+
+[RULE][MET-024] IF upper_tail_case = true
+AND procedural_reaction is absent
+THEN output MUST be treated as invalid.
+
+---
+
+### 3. Source precedence (numbers)
+
+[RULE][MET-030] IF numeric_value_conflict = true
+THEN resolution_order MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001.
+
+[RULE][MET-031] IF numeric_default_needed = true
+THEN CANON-2215-CORE-0001 MUST be the only default source.
+
+[RULE][MET-032] IF SSOT is referenced for numbers
+THEN it MAY be used only as admissible_range_context
+AND MUST NOT set defaults.
+
+---
+
+## USAGE / RESOLUTION
+
+[DECISION][MET-USE-010] Документ применяется ко всем сценам романа 2215
+независимо от POV.
+
+[DECISION][MET-USE-011] Любое нарушение правил этого документа
+MUST трактоваться как ошибка генерации.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: CANON-METRICS-0002
+role_type: RULE
+export:
+  - rule_id: MET-INV-003
+    intent: "Block usage of metrics requiring override without class: override doc"
+    inputs: [override_required_registry, narrative_numbers]
+    outputs: [override_violation]
+  - rule_id: MET-INV-005
+    intent: "Treat narrative_lock metrics as CANON defaults"
+    inputs: [SSOT-CONSISTENCY]
+    outputs: [default_usage_policy]
+  - rule_id: MET-020
+    intent: "Require override for any upper-tail value usage"
+    inputs: [numeric_value, value_category]
+    outputs: [override_required]
+  - rule_id: MET-023
+    intent: "Enforce procedural reaction for upper-tail cases"
+    inputs: [upper_tail_case]
+    outputs: [procedural_reaction_required]
+~~~
+
+---
+
+## FORBIDDEN
+
+[FORBIDDEN][MET-FBD-900] Selecting metric values (core/p90/range) in this document.
+[FORBIDDEN][MET-FBD-901] Using SSOT as background default numeric source for scenes.
+[FORBIDDEN][MET-FBD-902] Using upper-tail values without explicit override.
+[FORBIDDEN][MET-FBD-903] Numeric infodumps outside procedural context.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

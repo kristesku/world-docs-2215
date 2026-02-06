@@ -1,276 +1,148 @@
 ﻿---
 id: CANON-CONFLICT-0001
 title: >
-  Центральный конфликт романа — контур оптимизации, экстерритории, цепочки поставок и юридическая пустота
+  Canon Conflict — Optimization Loop, Extraterritories, Supply Chains, Legal Void (2215)
 class: canon
 status: fixed
-version: 0.1.0
-inputs: [ CANON-BASE-0001]
-depends_on: [CANON-BASE-0001]
+version: 1.1.0
+inputs: []
+depends_on:
+  - SSOT-DOC-STYLE-2215-0001
+  - CANON-2215-CORE-0001
+  - CANON-BASE-0001
+  - CANON-SYSTEMS-0001
+  - CANON-ORDERS-0003
 scope: >
-  Формализация центрального конфликта как системной функции; тип антагониста; ставки; рычаг протагониста;
-  модель сопротивления системы; структура эскалации через 3–5 кейсов.
+  Формализация центрального конфликта романа как системной функции:
+  тип антагониста, измеримые ставки, рычаг протагониста, модель
+  сопротивления системы и структура эскалации через 3–5 кейсов.
+  Включает типологию инцидентов (в т.ч. Priority Paradox).
 ---
 
-**1. Конфликт как системная функция (а не “злодей”)**
+## LLM-INTENT
 
-**1.1. Каноническая формула антагониста**
+ROLE_TYPE: RULE
+SCOPE: conflict definition + escalation grammar (not scenes)
+INPUTS: [CANON-2215-CORE-0001]
+OUTPUTS: [conflict_layers, escalation_structure]
+FORBIDDEN: [world_parameter_binding, baseline_defaults, causal_chain_markup_in_canon, technobabble, villain_personification]
 
-- [CANON DECISION] **Антагонист романа =
-  институционально-алгоритмический контур оптимизации**, состоящий из:
+## DEFINITIONS
 
-  1.  KPI/метрик эффективности (энергия/углерод/надёжность/стоимость),
+[FACT][CNF-DEF-010] Antagonist = System Function (Optimization), not a person.
+[FACT][CNF-DEF-011] Priority Paradox (The Glitch) = Situation where two valid algorithms contradict, requiring human override.
 
-  2.  алгоритмического принятия решений оператором инфраструктуры,
+## INVARIANTS
 
-  3.  договорных **экстерриториальных режимов** (“особые зоны”),
+[DECISION][CNF-INV-000] Антагонист по умолчанию = системная функция, а не “харизматичный злодей”.
+[DECISION][CNF-INV-001] Конфликт процедурно-измерим: человеческая цена и инфраструктурный ущерб проявляются через артефакты.
+[DECISION][CNF-INV-002] Экстерритория создаёт фильтры и задержки, но не “вне закона”.
+[DECISION][CNF-INV-003] Манипуляция цепочками поставок и режимами доступа — основной канал давления.
+[DECISION][CNF-INV-004] “Юридическая пустота” допустима: вред реален, но виновный формально размывается.
+[DECISION][CNF-INV-005] Никакой апокалиптики: кризисы локально катастрофичны, но управляемы при цене ресурсов.
+[DECISION][CNF-INV-006] Победа протагониста = доказательство + коррекция режима, а не силовое превосходство.
 
-  4.  многоуровневой **юридической изоляции ответственности**
-      (контрактные “фантомы”).
+## CONTENT
 
-- [DECISION] Индивидуальные преступники и группы существуют и опасны,
-  но **являются локальными агентами/исполнителями**, возникающими из
-  стимулов контура, а не первопричиной.
+### 1. Antagonist Model (System Function)
 
-**CAUSE → MECHANISM → CONSEQUENCE**
+[STATE][CNF-010] antagonist_mode = institutional_algorithmic_optimization_loop.
+[STATE][CNF-011] antagonist_components = [kpi_metrics, operator_decisioning, extraterritorial_regimes, liability_isolation].
+[RULE][CNF-012] Individuals ARE local agents, NOT root causes.
 
-- [CAUSE] В мире зрелого Scenario A общество стремится к устойчивости,
-  декарбонизации и снижению рисков.
+### 2. Scale and Stakes (Measurable)
 
-> WORLD-DOC-2 (Addendum)
+[STATE][CNF-020] scale_progression = [regional_start, federal_expansion, cross_border_implications].
+[NOTE][CNF-021] Cross-border manifests via standards/trade/insurance (no supra-state force).
 
-- [MECHANISM] Эти цели кристаллизуются в KPI и регламенты, затем
-  автоматизируются операторами инфраструктуры и защищаются контрактами.
+[STATE][CNF-030] stakes_are_procedural_and_measurable = true.
+[STATE][CNF-031] stake_dimensions = [human_cost, infra_resilience, state_legitimacy, license_loss, insurance_impact].
+[CONSTRAINT][CNF-032] no_world_collapse = true.
 
-- [CONSEQUENCE] “Оптимальные” решения начинают системно производить
-  человеческую цену, при этом оставаясь формально правомерными.
+### 3. Four Conflict Layers (all active)
 
-**2. Масштаб и ставки (как растёт из локального)**
+#### Layer 1 — Algorithmic optimization produces diffuse harm
+[STATE][CNF-100] layer_1 = algorithmic_optimization_diffuse_harm.
+[RULE][CNF-101] harm_can_be_legal_and_technical = true.
+[RULE][CNF-102] typical_effects = [service_degradation, rerouting, priority_drops].
+[RULE][CNF-103] Specific Case: Priority Paradox (The Glitch).
+[RULE][CNF-104] Paradox Mechanism: Valid Algorithm A (Sanitation) vs Valid Algorithm B (Preservation) = Destructive Loop.
 
-**2.1. Масштаб**
+#### Layer 2 — Extraterritory as deviation container
+[STATE][CNF-110] layer_2 = extraterritory_as_operational_stage.
+[RULE][CNF-111] deviations_concentrate_in_special_modes = true.
+[RULE][CNF-112] osa_access_is_harder_by_default = true.
 
-- [CANON DECISION] Масштаб конфликта: **региональный (старт) →
-  федеральный → трансграничный (верхний уровень)**.
+#### Layer 3 — Supply chains as pressure weapon
+[STATE][CNF-120] layer_3 = supply_chain_pressure.
+[RULE][CNF-121] manipulation_is_formally_market_logistics = true.
+[STATE][CNF-122] pressure_resources = [energy_storage, medical_reagents, grid_components, rare_materials].
 
-  - Локальный инцидент в Набережных Челнах запускает расследование.
+#### Layer 4 — Legal void of responsibility
+[STATE][CNF-130] layer_4 = liability_dissolution_legal_void.
+[STATE][CNF-131] liability_smearing = [ai_recommendation, human_signatory, contractor, subcontractor, shell_entities].
+[RULE][CNF-132] real_damage_can_exist_without_single_punishable_cause = true.
 
-  - Выявляется зависимость от федеральных потоков и экстерриториальных
-    зон.
+### 4. Protagonist and Leverage (No superheroism)
 
-  - Финальная картина задевает межблоковые
-    стандарты/торговлю/репутационные режимы (без надгос-принуждения).
+[STATE][CNF-200] protagonist_org = OSA.
+[STATE][CNF-201] team_profile = {size: 5-6, narrative_ratio: 60_procedure_40_operation, includes_operator_liaison: true}.
 
-**2.2. Ставки**
+[STATE][CNF-210] leverage = protocol_operator.
+[STATE][CNF-211] leverage_capabilities = [bind_telemetry_to_event, surface_exception_loops, forced_access_seizure, convert_tech_to_admissible].
+[CONSTRAINT][CNF-212] victory_is_evidence_and_regime_change = true.
+[CONSTRAINT][CNF-213] force_is_entry_tool_not_solution = true.
 
-- [DECISION] Ставки измеримы и процедурны:
+### 5. Human Antagonists (Local agents)
 
-  - человеческая цена (смертность/инвалидизация/потери доступа к
-    медицине/теплу),
+[STATE][CNF-300] human_antagonist_types = [metric_gamers, corporate_security, dirty_operators, rare_saboteurs].
+[RULE][CNF-301] motives_are_rational = [money, fear, status, ideology].
+[FORBIDDEN][CNF-302] caricature_monologues = true.
 
-  - инфраструктурная устойчивость (каскадные отказы),
+### 6. System Resistance Model (Why the system fights back)
 
-  - легитимность государства (политический риск),
+[STATE][CNF-400] resistance_is_risk_minimization_not_evil = true.
+[STATE][CNF-401] resistance_layers = [inertia_procedural_delays, political_self_preservation, corporate_defense_lawyers, human_fear].
 
-  - лицензии и капитальные потери операторов,
+### 7. Escalation Structure (3–5 cases)
 
-  - трансграничные последствия (торговые
-    ограничения/сертификация/страхование).
+[RULE][CNF-500] case_count_range = [3, 5].
+[STATE][CNF-501] escalation_goal = reveal_all_4_layers_and_converge.
 
-- [CONSTRAINT] Никакой апокалиптики “мир рушится”; кризисы каскадны и
-  локально катастрофичны, но управляемы при цене ресурсов.
+[STATE][CNF-510] canonical_case_sequence = [
+  {case: 1, location: "Chelny", reveals: ["layer_1", "priority_paradox"], surface_form: "anomaly_stats_plus_victims"},
+  {case: 2, location: "Chelny_or_region", reveals: ["layer_3"], surface_form: "resource_reroute_deficit_pressure"},
+  {case: 3, location: "exterritory", reveals: ["layer_2"], surface_form: "access_denial_and_delay_filters"},
+  {case: 4, location: "legal_regulatory", reveals: ["layer_4"], surface_form: "punishment_attempt_fails_by_contract_ghosts"},
+  {case: 5, location: "final", reveals: ["layers_1_2_3_4"], surface_form: "procedural_dilemma_partial_system_change_compromise"}
+]
 
-**3. Четыре слоя конфликта (все активны и связаны)**
+[CONSTRAINT][CNF-511] finale_must_be_procedurally_realistic = true.
+[CONSTRAINT][CNF-512] change_is_partial_with_cost = true.
 
-**3.1. Слой 1 — Алгоритмическая оптимизация, которая убивает незаметно**
-
-- [CANON DECISION] ИИ/модель оператора инфраструктуры оптимизирует KPI
-  так, что:
-
-  - нерентабельные/“низкоприоритетные” узлы системно деградируют,
-
-  - решения проходят как “законные” и “технические”.
-
-- [PROJECTION] Типичный эффект: отключения/перенаправления/снижение
-  качества сервиса там, где “дешевле”.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: цель снизить потери и стабилизировать сеть  
-→ MECHANISM: оптимизация по агрегированным метрикам  
-→ CONSEQUENCE: распределённая человеческая цена без явного виновника
-
-**3.2. Слой 2 — Экстерритория как операционная площадка**
-
-- [CANON DECISION] Существует ограниченный набор **особых режимов**,
-  где аудит и доступ ОСА сложнее (договорные исключения, “песочницы”,
-  порты/узлы/серверные кластеры).
-
-- [DECISION] Наибольшие отклонения метрик и “невидимые” решения
-  концентрируются там.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: инновациям и логистике нужна гибкость  
-→ MECHANISM: договорные исключения и режимы особого доступа  
-→ CONSEQUENCE: злоупотребления и эксперименты скрываются внутри зоны
-
-**3.3. Слой 3 — Цепочки поставок как оружие**
-
-- [CANON DECISION] Манипуляция потоками критических ресурсов —
-  основной способ давления:
-
-  - энергия (накопители/пиковая мощность),
-
-  - мед-реагенты/расходники,
-
-  - компоненты сетей и дата-инфры,
-
-  - редкие материалы и замены.
-
-- [DECISION] Формально это “рыночные и логистические решения”;
-  фактически — шантаж и управление регионами.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: концентрация узких мест и операторов  
-→ MECHANISM: перенаправление потоков, квоты, “приоритеты”  
-→ CONSEQUENCE: локальные кризисы, зависимость, социальное давление
-
-**3.4. Слой 4 — Юридическая “пустота ответственности”**
-
-- [CANON DECISION] Ответственность размазана между:
-
-  - ИИ-рекомендацией,
-
-  - менеджером-подписантом,
-
-  - подрядчиком,
-
-  - субконтрактором,
-
-  - юрлицами-однодневными, созданными “под риск”.
-
-- [DECISION] Ущерб реален, но субъектность виновного исчезает: “всё по
-  договору”.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: минимизация рисков и штрафов  
-→ MECHANISM: слоистая контрактная архитектура  
-→ CONSEQUENCE: правовая непроницаемость и невозможность наказать
-“причину”
-
-**4. Протагонист и рычаг (без супергеройства)**
-
-**4.1. Роль ОСА**
-
-- [CANON DECISION] ОСА — **межведомственный отдел системных
-  аномалий**, 5–6 человек, 60/40 процедура/операция, с корпоративным
-  офицером связи. (см. CANON-BASE-0001)
-
-**4.2. Рычаг протагониста**
-
-- [CANON DECISION] Рычаг героя = **оператор протокола**, который
-  умеет:
-
-  - связывать телеметрию ↔ контракт ↔ юрисдикцию ↔ реальное событие,
-
-  - вскрывать контуры исключений,
-
-  - инициировать принудительный доступ/изъятие/остановку режимов,
-
-  - превращать “техническое” в “юридически доказуемое”.
-
-- [CONSTRAINT] Герой не побеждает силой. Сила — инструмент входа, но
-  победа — доказательство и изменение режима.
-
-**5. Люди-преступники и сопротивление (обязательная часть мира)**
-
-**5.1. Типы человеческих антагонистов (локальные агенты)**
-
-- [CANON DECISION] В романе присутствуют:
-
-  1.  **оппортунисты** (подгонка метрик ради бонусов/карьеры),
-
-  2.  **корпоративная безопасность/контрразведка** (противодействие
-      ОСА),
-
-  3.  **сознательные “грязные операторы”** (знают о жертвах и принимают
-      их как цену),
-
-  4.  **саботажники/радикалы** (редко; как внешний шум и ускоритель
-      эскалации).
-
-- [DECISION] Индивиды могут быть преступниками с умыслом и применять
-  насилие, но их мотивы рациональны (деньги/страх/статус/идеология), без
-  карикатурных монологов.
-
-**5.2. Сопротивление системы (глобально-гос-корпоративное)**
-
-- [CANON DECISION] **Система сопротивляется работе ОСА как угрозе
-  стабильности**, не потому что “злая”, а потому что минимизирует риск.
-
-**Уровни сопротивления (канон)**
-
-1.  **Инерция**: согласования, “не тот ордер”, задержки доступа.
-
-2.  **Политическое самосохранение**: давление “не раскачивать”, перевод
-    темы в PR, закрытие дел.
-
-3.  **Корпоративная защита**: юристы, NDA, уничтожение следов,
-    блокировка входа.
-
-4.  **Человеческий страх**: “я просто исполнял”, личные риски
-    свидетелей.
-
-**CAUSE → MECHANISM → CONSEQUENCE**  
-CAUSE: признание системной ошибки дорого
-(репутация/карьера/капитализация/легитимность)  
-→ MECHANISM: бюрократическая и юридическая защита, саботаж, задержки  
-→ CONSEQUENCE: ОСА вынуждена эскалировать до операций; истина становится
-политической угрозой
-
-**6. Структура эскалации романа (3–5 кейсов, сходящихся к финалу)**
-
-- [CANON DECISION] Ритм: **3–5 кейсов**, которые постепенно раскрывают
-  4 слоя конфликта и сходятся в единую картину.
-
-**Рекомендуемая последовательность кейсов (канон-скелет)**
-
-1.  **Кейс-1 (Челны):** локальная “аномалия” в инфраструктуре (Слой 1
-    проявляется как статистика + жертвы).
-
-2.  **Кейс-2 (Челны/регион):** дефицит/перенаправление ресурсов (Слой 3
-    в проявлении).
-
-3.  **Кейс-3 (экстерритория):** доступ к данным невозможен/блокируется
-    (Слой 2 как площадка).
-
-4.  **Кейс-4 (юридический):** попытка наказания проваливается из-за
-    контрактных фантомов (Слой 4).
-
-5.  **Кейс-5 (финал):** выбор ОСА:
-
-    - либо “сломать процедуру” (неформальная операция/публикация/вывод
-      из зоны),
-
-    - либо “соблюсти закон” и допустить продолжение человеческой цены.  
-      Итог должен быть процедурно-реалистичным: система меняется
-      частично, ценой компромисса.
-
-**7. Романно-значимые UNKNOWN (для этапа CANON-SYSTEMS)**
-
-- [UNKNOWN] Точная юридическая форма экстерриториальных режимов (типы
-  зон, кто подписывает, какой арбитраж).
-
-- [UNKNOWN] Конкретные контуры KPI (какие метрики “оптимизируют” и
-  какие допускают жертвы).
-
-- [UNKNOWN] Процедура human oversight для ИИ-решений (кто
-  “подписывает” модельные решения).
-
-- [UNKNOWN] Топология цепочки поставок в РФ 2215 (узлы, критические
-  материалы, кто контролирует).
-
-- [UNKNOWN] Полномочия ОСА по эскалации (границы ордера, силовая
-  поддержка, публичность отчётов).
-
-- [UNKNOWN] Где проходит грань допустимого трансгуманизма для
-  силовиков (оборудование vs тело) в регламентах.
-
+## USAGE / RESOLUTION
+
+[DECISION][CNF-USE-010] Act I MUST use Layer 1 (Priority Paradox) as the inciting incident.
+[DECISION][CNF-USE-011] The escalation sequence guides the transition from "Bug Hunt" to "System Audit".
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: CANON-CONFLICT-0001
+role_type: RULE
+export:
+  - rule_id: CNF-104
+    intent: define priority paradox mechanism
+    inputs: [algo_A, algo_B]
+    outputs: [destructive_loop]
+  - rule_id: CNF-510
+    intent: define escalation path
+    outputs: [case_sequence]
+~~~
+
+## FORBIDDEN
+
+[FORBIDDEN][CNF-900] Personifying the antagonist as an "Evil AI".
+[FORBIDDEN][CNF-901] Solving conflicts by simply "shooting the bad guy".
+[FORBIDDEN][CNF-902] Apocalyptic scales (saving the whole world).
+[FORBIDDEN][CNF-903] Embedding causal chains in this CANON.

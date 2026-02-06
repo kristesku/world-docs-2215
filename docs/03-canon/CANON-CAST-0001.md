@@ -1,339 +1,235 @@
 ﻿---
 id: CANON-CAST-0001
 title: >
-  Core Team (ОСА) — Character System Specification
+  Core Team (ОСА) — Character System Specification (LLM-executable)
 class: canon
 status: fixed
-version: 0.1.1
+version: 0.3.0
 inputs: [WORLD-DOC-2]
-depends_on: [CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]
+depends_on:
+  - SSOT-DOC-STYLE-2215-0001
+  - CANON-BASE-0001
+  - CANON-CONFLICT-0001
+  - CANON-SYSTEMS-0001
+  - STORY-SKELETON-0001
+  - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  Функциональный состав команды ОСА: роли, рычаги влияния, ограничения,
-  оптика восприятия, правила использования в сценах.
+  Процедурный канон персонажей ОСА как системы ролей: топология команды,
+  требования к роли (leverage/cannot/optics/scene_type), правила использования
+  в сценах и запреты. Без SSOT-метрик и без сюжетного планирования.
 ---
 
-## 0. Принципы
-
-- [DECISION] Персонажи трактуются как операционные интерфейсы системы, а не как “герои”.
-- [DECISION] Каждый член команды обязан:
-  - иметь чёткий рычаг влияния (leverage),
-  - иметь ограничения (cannot),
-  - обладать уникальной профессиональной оптикой,
-  - генерировать собственный тип сцен.
-- [FORBIDDEN] Дублирование функций.
-- [FORBIDDEN] “Универсальные” персонажи.
-- [FORBIDDEN] Сверхкомпетентность.
-
-## 1. Структура
-
-- [FACT] ОСА = мобильная оперативная ячейка (полевое ядро) + стационарный региональный контур (база).
-
-CAUSE
-региональные расследования + выезды + экстерритории
-
-→ MECHANISM
-полевое ядро работает на месте, а региональный начальник держит процедуры, ресурсы и политический потолок
-
-→ CONSEQUENCE
-у команды есть “дом”, но решения и риски всё равно происходят в поле
-
-- [FACT] Состав:
-  - 5 штатных (полевое ядро),
-  - 1 региональный начальник (стационарный; не “шестой полевой”),
-  - 1 внешний инсайдер (не член ОСА),
-  - 1 внешний прокси KPI (не член ОСА; recurring).
-
-## 2. Региональный контур (Челны)
-
-### 2.1 Ринат Ахметзянов — Начальник отдела ОСА (Челны)
-
-- [FACT] Возраст: 45–52.
-- [FACT] Статус: руководитель регионального отдела ОСА (база в Челнах).
-- [DECISION] В поле появляется редко; его сцены — управление, ресурсы, ответственность и “потолок” полномочий.
-- [DECISION] Начальник не является антагонистом; он — ограничитель и усилитель ставки.
-- [FACT] Подчинение: федеральная вертикаль ОСА (Москва); взаимодействие с региональными властями — процедурное (не административное).
-
-Роль:
-- распределение ресурсов (люди/время/доступ),
-- согласование и выпуск региональных мандатов,
-- связь с федерацией и соседними ведомствами,
-- удержание отдела “в законе” и “в бюджете”.
-
-Рычаг:
-- бюджет и приоритеты отдела,
-- кадровые решения (кого отправить, кого отозвать),
-- запуск/остановка эскалации (формулировка угрозы, подбор юридического режима),
-- “политический щит” отдела (переговоры с мэрией/операторами/силовыми контурами).
-
-Ограничения:
-- не может подменять федеральные полномочия,
-- зависит от доказательств (EL/CM) и процессуальной чистоты (юрист),
-- уязвим к “формальному шантажу” (комплаенс, проверки, отчётность).
-
-Оптика:
-- системный риск vs устойчивость подразделения,
-- цена ошибок в масштабе региона,
-- приоритет “не проиграть дело процедурно”.
-
-Тип сцен:
-- triage на базе,
-- конфликты за доступ/мандат/время,
-- “телефонные” сцены с Москвой,
-- кризис доверия: прикрывать команду или резать риск.
-
-Функция в романе:
-- задаёт рамку “что вообще возможно” для команды,
-- добавляет управленческую причинность (почему нельзя просто зайти и забрать),
-- удерживает ОСА как госорган (а не как автономную банду).
-
-## 3. Полевое ядро (5 штатных)
-
-### 3.1 Мирон Каримов — Лидер операции
-
-- [FACT] Возраст: 38–40.
-- [FACT] Профиль: полевой-first (≈80/20).
-
-Роль:
-- командование,
-- мандаты,
-- принятие решений на месте,
-- координация ведомств.
-
-Рычаг:
-- ордера,
-- приостановки,
-- процессуальные санкции.
-
-Ограничения:
-- не аналитик,
-- не штурмовик,
-- зависит от доказательств и юриста.
-
-Оптика:
-- причинность,
-- ответственность,
-- долгосрочные последствия.
-
-Тип сцен:
-- переговоры,
-- принятие решений,
-- точки морального/юридического веса,
-- “идёт первым”.
-
-### 3.2 Лев Сафонов — Аналитик систем
-
-- [FACT] Возраст: 34–36.
-
-Роль:
-- логи,
-- модели,
-- аномалии,
-- пересчёт KPI.
-
-Рычаг:
-- доказательства,
-- реконструкция событий,
-- числовое обоснование действий.
-
-Ограничения:
-- низкая эффективность в поле,
-- требует времени/данных.
-
-Оптика:
-- данные первичны, интерпретации вторичны.
-
-Тип сцен:
-- серверные,
-- дампы,
-- графы связей,
-- выявление несоответствий.
-
-### 3.3 Айдар Булатов — Полевой оператор
-
-- [FACT] Возраст: 35–38.
-- [FACT] Корни: татарские.
-
-Роль:
-- физический доступ,
-- периметр,
-- безопасность,
-- быстрые решения на месте.
-
-Рычаг:
-- пространство,
-- маршруты,
-- время реакции.
-
-Ограничения:
-- не принимает юридических решений,
-- не ведёт аналитику.
-
-Оптика:
-- углы, дистанции, секунды до контакта.
-
-Тип сцен:
-- проникновение,
-- сопровождение,
-- короткий функциональный экшен.
-
-### 3.4 Лейсан Хакимова — Юрист / регуляторщик
-
-- [FACT] Возраст: 33–37.
-- [FACT] Пол: женский (единственная женщина в ядре — намеренно).
-- [CONSTRAINT] Лейсан не “решает всё бумажкой”. Каждое её продвижение имеет цену: часы/ночь работы, компромиссы формулировок, процессуальные уступки, риск развала допустимости.
-- [DECISION] В сценах её сила показывается через нагрузку: красные глаза, очередь реестров, бесконечные согласования, давление дедлайна.
-
-Роль:
-- правовая квалификация,
-- арбитраж,
-- лицензии,
-- взаимодействие с федеральными структурами.
-
-Рычаг:
-- подписи,
-- блокировки,
-- отзыв разрешений,
-- юридическая сила доказательств.
-
-Ограничения:
-- все действия должны быть процессуально чистыми,
-- не действует вне закона.
-
-Оптика:
-- формулировки,
-- риски,
-- что развалится в суде.
-
-Тип сцен:
-- документы,
-- Москва/регуляторы,
-- переговоры с корпорациями.
-
-- [DECISION] Самый опасный человек в комнате без оружия.
-
-### 3.5 Дамир Никитин — Младший полевой (идеалист)
-
-- [FACT] Возраст: 29–31.
-- [FACT] Профиль: второй номер в поле.
-- [DECISION] Дамир — “человек старой прошивки”: замечает физические и человеческие сигналы раньше датчиков и отчётов
-  (запах, ритм города, микро-поведение людей, несоответствия в быту).
-- [DECISION] Его наблюдения не являются “магией”: они обязаны получать последующую проверку через артефакты (EL/CM).
-
-Роль:
-- сбор первичных данных,
-- работа со свидетелями,
-- сопровождение операций.
-
-Рычаг:
-- мобильность,
-- эмпатия,
-- наблюдательность.
-
-Ограничения:
-- неопытность,
-- доверчивость к “правильности системы”.
-
-Оптика:
-- система должна работать честно.
-
-Функция в романе:
-- интерфейс читателя,
-- источник вопросов,
-- постепенная утрата иллюзий.
-
-Тип сцен:
-- бытовые контакты,
-- “человеческие” последствия решений.
-
-## 4. Внешние участники (recurring)
-
-### 4.1 Оскар Посторонний — Корпоративный офицер связи (embedded liaison)
-
-- [FACT] Статус: прикомандирован к ОСА как liaison от оператора критической инфраструктуры.
-- [FACT] Юридически не является сотрудником ОСА; административно и финансово подчинён оператору.
-- [DECISION] Входит в “комнату” (планёрки/разборы/коммуникации), но не имеет права командовать и не участвует в силовых действиях.
-
-Роль:
-
-- переводит корпоративную реальность в процедурный язык (контуры, SLA, регламенты),
-- обеспечивает легальные окна доступа и “совместные протоколы” (в т.ч. JAP),
-- предупреждает о реакциях оператора (чистки, апдейты, защита KPI).
-
-Рычаг:
-
-- знание внутреннего устройства доступа/логов/подписей,
-- инициирование корпоративных согласований “в допуске”,
-- канал к юридическому и комплаенс-контурaм оператора.
-
-Ограничения:
-
-- двойная лояльность (зарплата/карьера у оператора),
-- не имеет силового ресурса,
-- не может “сломать” корпоративный контур — только провести через процедуру,
-- уязвим к внутренним проверкам комплаенса и “сливу” на него ответственности.
-
-Оптика:
-
-- корпорация изнутри как машина KPI и рисков.
-
-Тип сцен:
-
-- планёрки с конфликтом лояльности,
-- сопровождение переговоров и “стерилизация” формулировок,
-- маленькие сделки за доступ, которые потом аукнутся.
-
-- [DECISION] Если нужен “тайный информатор”, он оформляется как отдельный внешний источник (другая сущность), а не как Оскар.
-
-### 4.2 Илья Воронцов — Региональный директор по эффективности (прокси KPI)
-
-- [FACT] Статус: сотрудник оператора инфраструктуры (или связанного интегратора), отвечает за KPI-профили и комплаенс исполнения.
-- [DECISION] Он не “злодей”, а фанатик устойчивости: искренне считает, что режет риски и спасает систему от коллапса.
-
-Роль:
-
-- продавливает KPI-режимы и “классы обеспечения”,
-- инициирует исключения и “предаудитные чистки” как процедуру,
-- ведёт переговоры через юристов, комплаенс и сроки.
-
-Рычаг:
-
-- профили KPI и веса (human_cost_weight и аналоги),
-- доступ/ограничение доступа к первичным логам через процедуры,
-- контрактные дедлайны и “в допуске”.
-
-Ограничения:
-
-- не имеет силового ресурса и не может “воевать” с государством,
-- боится регулятора и лицензии,
-- уязвим к EL/chain-of-custody и к приостановке.
-
-Оптика:
-“если система упадёт — умрут больше”; оптимизация как моральная позиция.
-
-Тип сцен:
-
-- разговоры “в допуске / не нарушено”,
-- переговоры в присутствии юриста,
-- попытки сужения формулировок, “стерилизация” отчётов,
-- конфликт ценностей без истерик.
-
-### 4.3 Внешний информатор (опциональная роль; не часть ансамбля)
-
-- [DECISION] Внешний информатор существует только при необходимости сюжетного триггера (дамп/ключ/свидетельство).
-- [DECISION] Он не сидит в “комнате” ОСА и не участвует в планёрках.
-- [DECISION] Любой контакт оформляется как риск (встреча, окно, угрозы, цена).
-
-## 5. Демография (канон)
-
-- [PROJECTION] +200 лет урбанизации → размывание “чистых” этничностей.
-- [DECISION] Команда отражает постэтническую реальность:
-  - татарские корни: 2–3,
-  - русские: 1–2,
-  - смешанные: 2–3.
-  Этничность — культурный фон, не сюжетный фокус.
-
-## 6. Правила использования в тексте
-
-- [DECISION] В каждой сцене активен 1–2 профильных специалиста; остальные — фоном.
-- [DECISION] Философия выражается через младшего или процедурные последствия, а не через монологи лидера.
-- [DECISION] Никаких “геройских” действий вне компетенции роли.
+## LLM-INTENT
+
+ROLE_TYPE: INTERFACE
+SCOPE: define cast registry and enforceable role-usage constraints for OSA scenes
+INPUTS:
+  - CANON-SYSTEMS-0001
+  - STORY-SKELETON-0001
+OUTPUTS:
+  - cast_registry
+  - role_constraints
+  - scene_usage_rules
+  - forbidden_patterns
+FORBIDDEN:
+  - invent_new_roles
+  - merge_roles
+  - superheroism
+  - essay_mode
+  - implicit_precedence
+  - causal_chains_as_canon
+
+---
+
+## DEFINITIONS
+
+[FACT][CAST-DEF-010] role = functional interface in the system, not a hero archetype.
+[FACT][CAST-DEF-011] leverage = procedural instrument enabling influence (order/access/time/space/metrics).
+[FACT][CAST-DEF-012] cannot = hard limitation (legal, physical, informational, organizational).
+[FACT][CAST-DEF-013] optics = professional perception filter used to interpret events.
+[FACT][CAST-DEF-014] scene_type = recurring scene pattern generated by the role.
+[FACT][CAST-DEF-015] field_core = mobile on-site unit.
+[FACT][CAST-DEF-016] regional_contour = stationary base function (resources, legality, ceiling).
+[FACT][CAST-DEF-017] liaison = embedded corporate officer; not OSA staff.
+[FACT][CAST-DEF-018] kpi_proxy = external actor driving KPI enforcement; not OSA member.
+[FACT][CAST-DEF-019] artifact_type ∈ {CD, EL, CM, FM, RP, PRS}.
+
+---
+
+## INVARIANTS
+
+[DECISION][CAST-INV-010] Characters MUST be treated as system interfaces, not heroes.
+[DECISION][CAST-INV-011] Each recurring cast member MUST have leverage + cannot + optics + scene_type.
+[DECISION][CAST-INV-012] Core composition MUST remain stable across Act I–III unless STORY-SKELETON explicitly changes it.
+
+[FORBIDDEN][CAST-INV-020] Duplicate functions across core members.
+[FORBIDDEN][CAST-INV-021] Universal characters solving multiple domains without artifacts and cost.
+[FORBIDDEN][CAST-INV-022] Overcompetence without constraints, price, and trace.
+
+---
+
+## CONTENT
+
+### 1. Team topology
+
+[DECISION][CAST-TOP-100] team_model = field_core(5) + regional_chief(1) + liaison(1) + kpi_proxy(1) + optional_informant(0..1).
+[DECISION][CAST-TOP-101] regional_chief MUST NOT be treated as field member.
+[DECISION][CAST-TOP-102] liaison MUST NOT be treated as OSA staff.
+[DECISION][CAST-TOP-103] kpi_proxy MUST NOT be treated as OSA member.
+
+[RULE][CAST-TOP-110] IF scene_type = field_operation THEN Participants SHOULD be subset(field_core) + optional(liaison) + optional(externals_by_protocol).
+[RULE][CAST-TOP-111] IF scene_type ∈ {base_procedure, ceiling_decision} THEN regional_chief MUST be present OR referenced via direct procedural channel.
+
+---
+
+### 2. Cast registry (roles)
+
+[STATE][CAST-REG-200] person.rinat_akhmetzyanov.role = regional_chief.
+[STATE][CAST-REG-201] person.rinat_akhmetzyanov.age_range_years = [48, 55].
+[STATE][CAST-REG-202] person.rinat_akhmetzyanov.leverage = {license_manipulation, quota_trading, regulatory_loopholes, federal_escalation_gate}.
+[STATE][CAST-REG-203] person.rinat_akhmetzyanov.cannot = {command_field_tactics, violate_audit_trace, show_emotion_to_subordinates}.
+[STATE][CAST-REG-204] person.rinat_akhmetzyanov.optics = silence_equals_approval_noise_equals_error.
+[STATE][CAST-REG-205] person.rinat_akhmetzyanov.scene_type = {strategic_triage, resource_bargaining, summoned_to_carpet}.
+[STATE][CAST-REG-206] person.rinat_akhmetzyanov.not_antagonist = true.
+
+[STATE][CAST-REG-300] person.miron_karimov.role = field_operation_lead.
+[STATE][CAST-REG-301] person.miron_karimov.leverage = {priority_switching, tactical_pacing, grey_zone_ownership}.
+[STATE][CAST-REG-302] person.miron_karimov.cannot = {panic, ignore_safety_protocol_without_logging}.
+[STATE][CAST-REG-303] person.miron_karimov.optics = chaos_management.
+[STATE][CAST-REG-304] person.miron_karimov.scene_type = {stabilize_team, operational_bargaining, absorb_pressure}.
+
+[STATE][CAST-REG-320] person.lev_safonov.role = systems_analyst.
+[STATE][CAST-REG-321] person.lev_safonov.leverage = {log_deep_dive, pattern_recognition, bypass_ui_limitations}.
+[STATE][CAST-REG-322] person.lev_safonov.cannot = {physical_fight, perceive_social_subtext}.
+[STATE][CAST-REG-323] person.lev_safonov.optics = wireframe_reality.
+[STATE][CAST-REG-324] person.lev_safonov.scene_type = {deduction_spree, server_room_archaeology, needle_finding}.
+[STATE][CAST-REG-325] person.lev_safonov.hud.style := "Terminal Monochrome".
+[STATE][CAST-REG-326] person.lev_safonov.hud.visuals := Wireframe overlays + scrolling hex-logs in peripheral vision. No artistic rendering.
+[STATE][CAST-REG-327] person.lev_safonov.hud.sensory_filter := "Audio-Damping". He mutes ambient noise to focus on data streams.
+
+[STATE][CAST-REG-340] person.aidar_bulatov.role = field_operator.
+[STATE][CAST-REG-341] person.aidar_bulatov.leverage = {area_denial, physical_breach, equipment_load_bearing}.
+[STATE][CAST-REG-342] person.aidar_bulatov.cannot = {engage_in_politics, act_without_orders_in_civilian_zone}.
+[STATE][CAST-REG-343] person.aidar_bulatov.optics = vectors_and_cover.
+[STATE][CAST-REG-344] person.aidar_bulatov.scene_type = {checking_corners, presence_intimidation, breaching}.
+[STATE][CAST-REG-345] person.aidar_bulatov.hud.style := "Tactical AR".
+[STATE][CAST-REG-346] person.aidar_bulatov.hud.visuals := Red/Green threat markers + path projection lines on floor.
+[STATE][CAST-REG-347] person.aidar_bulatov.hud.sensory_focus := "Haptic Feedback". He feels the drone's vibration through the floor before he sees it.
+
+[STATE][CAST-REG-370] person.leysan_khakimova.role = legal_regulator.
+[STATE][CAST-REG-371] person.leysan_khakimova.leverage = {license_revocation, blocking_transactions, admissibility_filter}.
+[STATE][CAST-REG-372] person.leysan_khakimova.cannot = {use_physical_force, lie_on_record}.
+[STATE][CAST-REG-373] person.leysan_khakimova.optics = liability_contract.
+[STATE][CAST-REG-374] person.leysan_khakimova.scene_type = {stare_down_corporates, fine_print_fast_read, sanitize_team_actions}.
+
+[STATE][CAST-REG-390] person.damir_nikitin.role = junior_field.
+[STATE][CAST-REG-391] person.damir_nikitin.leverage = {map_vs_territory_check, visual_forensics, sensor_blind_spot_spotting}.
+[STATE][CAST-REG-392] person.damir_nikitin.cannot = {rely_solely_on_database, ignore_physical_evidence}.
+[STATE][CAST-REG-393] person.damir_nikitin.optics = render_artifacts.
+[STATE][CAST-REG-394] person.damir_nikitin.scene_type = {manual_scene_exam, correct_assumptions, physical_tracking}.
+
+[STATE][CAST-REG-500] person.oskar_postoronny.role = liaison_from_operator.
+[STATE][CAST-REG-501] person.oskar_postoronny.leverage = {corporate_gatekeeping, access_delays, budget_withdrawal_threat}.
+[STATE][CAST-REG-502] person.oskar_postoronny.cannot = {command_osa_directly, hands_on_actions}.
+[STATE][CAST-REG-503] person.oskar_postoronny.optics = brand_risk.
+[STATE][CAST-REG-504] person.oskar_postoronny.scene_type = {deny_access_politely, nda_pressure, friction_point}.
+
+[STATE][CAST-REG-530] person.ilya_vorontsov.role = kpi_proxy_efficiency_director.
+[STATE][CAST-REG-531] person.ilya_vorontsov.leverage = {modify_success_metrics, retro_fines, audit_freeze}.
+[STATE][CAST-REG-532] person.ilya_vorontsov.cannot = {be_bribed, show_anger}.
+[STATE][CAST-REG-533] person.ilya_vorontsov.optics = coefficient_vision.
+[STATE][CAST-REG-534] person.ilya_vorontsov.scene_type = {announce_cuts_mid_op, calm_interrogation, efficiency_pressure}.
+
+[STATE][CAST-REG-560] person.yunna_tagirova.role = bio_hazard_containment_specialist.
+[STATE][CAST-REG-561] person.yunna_tagirova.age_range_years = [39, 42].
+[STATE][CAST-REG-562] person.yunna_tagirova.affiliation = federal_epidemiology_biosecurity_center.
+[STATE][CAST-REG-563] person.yunna_tagirova.leverage = {quarantine_authority, biometrics_access, triage_priority}.
+[STATE][CAST-REG-564] person.yunna_tagirova.cannot = {care_about_politics, hesitate_to_amputate, provide_emotional_comfort}.
+[STATE][CAST-REG-565] person.yunna_tagirova.optics = necrosis_prediction.
+[STATE][CAST-REG-566] person.yunna_tagirova.scene_type = {biohazard_entry, cold_medical_verdict, mechanical_stabilization}.
+
+[STATE][CAST-REG-580] external.informant.allowed = conditional.
+[STATE][CAST-REG-581] external.informant.trigger_types = {dump, key, witness}.
+[STATE][CAST-REG-582] external.informant.contact_cost = {high_paranoia, exposure_danger}.
+
+---
+
+### 3. Scene usage constraints
+
+[RULE][CAST-SCN-700] IF chapter_plan_exists = true THEN tags_required = {Participants, Focus}.
+[RULE][CAST-SCN-701] IF artifact_is_primary = true THEN tag_optional = Artifact.
+
+[RULE][CAST-SCN-800] IF scene_occurs = true THEN active_specialists_count ∈ [1, 2] AND others MUST be background.
+[RULE][CAST-SCN-801] IF role_competence_violation = true THEN action MUST be blocked OR paid_by_explicit_cost_and_trace = true.
+
+[RULE][CAST-SCN-810] IF constraint_reason_needed = entry_or_seizure_limit THEN regional_chief MUST be source_of_constraint = true.
+[RULE][CAST-SCN-820] IF team_sync_lost = true THEN field_operation_lead MUST act_as_sync_signal = true.
+[RULE][CAST-SCN-830] IF digital_layer_fails = true THEN field_operator_may_become_primary_scene_lead = true.
+[RULE][CAST-SCN-840] IF data_is_false_or_misleading = true THEN junior_field MUST validate_by_physical_artifacts = true.
+
+[RULE][CAST-SCN-860] IF act = III AND scene_domain ∈ {medical, biotech, evacuation} THEN bio_hazard_containment_specialist REQUIRED.
+
+---
+
+### 4. Demography reflection (text constraints)
+
+[DECISION][CAST-DEM-600] team_ethnicity_model = post_ethnic.
+[DECISION][CAST-DEM-601] ethnicity_in_text MUST be cultural_background_only.
+[FORBIDDEN][CAST-DEM-602] Ethnicity_as_primary_plot_axis.
+
+---
+
+## USAGE / RESOLUTION
+
+[DECISION][CAST-USE-010] Документ задаёт cast_registry и ограничения использования ролей для SCENE и PLAN.
+[DECISION][CAST-USE-011] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001.
+[RULE][CAST-USE-012] IF a scene violates FORBIDDEN in this document THEN scene MUST be rejected as invalid input.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: CANON-CAST-0001
+role_type: INTERFACE
+export:
+  cast_registry:
+    includes:
+      - person.rinat_akhmetzyanov
+      - person.miron_karimov
+      - person.lev_safonov
+      - person.aidar_bulatov
+      - person.leysan_khakimova
+      - person.damir_nikitin
+      - person.oskar_postoronny
+      - person.ilya_vorontsov
+      - person.yunna_tagirova
+      - external.informant
+  rules:
+    - CAST-TOP-100
+    - CAST-SCN-700
+    - CAST-SCN-800
+    - CAST-SCN-860
+~~~
+
+---
+
+## FORBIDDEN
+
+[FORBIDDEN][CAST-FBD-950] Inventing new core roles or merging roles without explicit CANON addendum.
+[FORBIDDEN][CAST-FBD-951] Superhero framing replacing procedure, artifacts, and constraints.
+[FORBIDDEN][CAST-FBD-952] Making liaison a traitor-villain by direct sabotage actions.
+[FORBIDDEN][CAST-FBD-953] Allowing biological combat enhancements as everyday norm for field operator.
+[FORBIDDEN][CAST-FBD-954] Using monologues as primary vehicle of philosophy instead of procedural consequences.
+[FORBIDDEN][CAST-FBD-955] Floating bullets without IDs.
+
+---
+
+## NON-NORMATIVE
+
+~~~markdown
+Example chapter tags:
+[Participants: Miron, Aidar, Leysan]
+[Focus: JAP entry + ISO snapshot + chain-of-custody]
+[Artifact: ISO + CM]
+~~~

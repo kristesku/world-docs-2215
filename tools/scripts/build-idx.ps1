@@ -1,5 +1,5 @@
 ﻿# tools/scripts/build-idx.ps1
-# Generate docs/08-idx/IDX-CORPUS-0001.md from YAML front-matter in docs/**/*.md
+# Generate docs/08-idx/IDX-CORPUS-0001.md from YAML front-matter in docs//*.md
 # Windows PowerShell 5.1 compatible
 
 $ErrorActionPreference = 'Stop'
@@ -84,6 +84,14 @@ depends_on: []
 scope: >
   Реестр всех документов корпуса: роли, статусы, зависимости.
 ---
+
+## RULES
+
+- [DECISION][CORP-010] IDX-CORPUS is normative for corpus membership.
+- [DECISION][CORP-011] A doc is considered part of the corpus IFF it is present in the Registry table.
+- [DECISION][CORP-012] Lint MUST fail if:
+  - any referenced `depends_on` id is missing from Registry, OR
+  - any `status: fixed` doc is missing from Registry.
 
 ## Registry
 

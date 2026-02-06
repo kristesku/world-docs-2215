@@ -4,153 +4,251 @@ title: >
   Default Environment Plan — 2215 (Scenario A)
 class: plan
 status: draft
-version: 0.1.0
-inputs: [PHYSICAL-BASELINE-2215-0001, PHYS-REPORT-0]
-depends_on:
-  - SPEC-DOC-0001
+version: 0.3.0
+inputs:
+  - BASELINE-PHYSICAL-LEVEL-MID-2215-0001
   - SSOT-SCENARIO-A-2215-0001
+depends_on:
+  - SSOT-DOC-STYLE-2215-0001
 scope: >
-  План-скелет (без утверждений о мире) для описания дефолтной среды 2215:
-  какие модули, какие секции, какие параметры и как их связывать с baseline/ssot/override.
+  Структурный PLAN-контракт для описания дефолтной среды 2215.
+  Определяет модули, категории параметров, типы значений и требования трассировки
+  baseline/override при использовании в сценах. Не фиксирует факты мира и значения.
 ---
 
-## 0. Purpose
+## LLM-INTENT
 
-- [DECISION] Документ задаёт структуру описания дефолтной среды (environment) для 2215.
-- [DECISION] Документ НЕ фиксирует факты о мире; факты/дефолты живут в baseline/ssot.
-- [DECISION] Любой новый baseline среды обязан соответствовать этой структуре.
+ROLE_TYPE: PLAN
+SCOPE: structural skeleton for environment baselines and scene snapshots; no world facts or default values
+INPUTS:
+  - BASELINE-PHYSICAL-LEVEL-MID-2215-0001
+  - SSOT-SCENARIO-A-2215-0001
+  - override_documents
+OUTPUTS:
+  - environment_modules
+  - parameter_schema
+  - scene_snapshot_contract
+FORBIDDEN:
+  - world_facts
+  - numeric_defaults
+  - narrative_explanations
 
-## 1. Terminology and references
+---
 
-- [DECISION] Environment = совокупность физических, сенсорных и инфраструктурных условий, воспринимаемых персонажем.
-- [DECISION] Access Level (LEVEL-LOW/MID/HIGH/...) = уровень гарантий среды.
-- [DECISION] Источник истины:
-  - baseline: дефолтные значения (DEFAULT/FORBIDDEN)
-  - ssot: инварианты мира и сценария (FACT/ASSUMPTION/PROJECTION/UNKNOWN)
-  - override: локальные переопределения baseline/ssot (FACT/DECISION)
+## DEFINITIONS
 
-## 2. Environment modules (обязательный набор)
+[DECISION][PLAN-DEF-010] environment = set of physical/sensory/infrastructure conditions perceived in a scene.
+[DECISION][PLAN-DEF-011] access_level ∈ {LEVEL-LOW, LEVEL-MID, LEVEL-HIGH}.
+[DECISION][PLAN-DEF-012] baseline = source of default values and prohibitions for environment (by access_level).
+[DECISION][PLAN-DEF-013] ssot = source of world invariants; SSOT is not used directly as scene numeric defaults.
+[DECISION][PLAN-DEF-014] override = local deviation from baseline with explicit cause, scope, and trace.
 
-- [DECISION] Дефолтная среда описывается модулями:
-  - Housing (квартира/общежитие/капсула)
-  - Building (подъезд/лифтовые/общие зоны)
-  - City (улица/общественные пространства/ночной режим)
-  - Transport (публичный/полуприватный/приватный)
-  - Workspaces (офисы/узлы/служебные помещения)
-  - Soundscape (шумовая картина)
-  - Light & visibility (свет/тени/наружная непрозрачность/витрины)
-  - Interfaces (видимые/скрытые интерфейсы, UX-инварианты)
-  - Privacy & logging (телеметрия, логи, запреты)
-  - Safety & enforcement (протоколы безопасности среды)
+---
 
-## 3. Parameter schema (как описывать внутри модулей)
+## INVARIANTS
 
-### 3.1 Categories
+[DECISION][PLAN-INV-010] PLAN MUST NOT assert world facts.
+[DECISION][PLAN-INV-011] PLAN MUST NOT contain numeric parameter values.
+[DECISION][PLAN-INV-012] Any environment baseline MUST conform to this module/category/value-type structure.
+[DECISION][PLAN-INV-013] Any scene using environment MUST be traceable to baseline and/or override and/or artifact reference.
 
-- [DECISION] Каждый модуль описывается категориями параметров:
-  - Geometry (площадь, высоты, планировка)
-  - Climate (температура, влажность, воздух)
-  - Acoustics (фон, изоляция, источники)
-  - Materials (оболочка, покрытия, текстуры)
-  - Energy (буферизация, доступность, отказоустойчивость)
-  - Maintenance (ручное/авто/предиктивное)
-  - Connectivity (сеть, фрикции, приоритеты)
-  - UI/Interaction (экраны, тактильность, скрытость)
-  - Mobility (доступ/время/фрикции перемещения)
-  - Constraints (FORBIDDEN/ограничения)
+---
 
-### 3.2 Value types
+## CONTENT
 
-- [DECISION] Допустимые типы значений:
-  - range: min/max + опционально p50
-  - enum: перечисление состояний
-  - boolean: да/нет
-  - narrative tag: короткий ярлык (без художественного текста)
-  - forbidden list: перечень запретов
+### 1. Environment modules (mandatory set)
 
-### 3.3 Normative markers
+[DECISION][PLAN-MOD-010] environment_modules MUST be:
+- Housing
+- Building
+- City
+- Transport
+- Workspaces
+- Soundscape
+- LightVisibility
+- Interfaces
+- PrivacyLogging
+- SafetyEnforcement
 
-- [DECISION] В plan допускаются только [DECISION].
-- [DECISION] В baseline допускаются [FACT] [DEFAULT] [FORBIDDEN].
-- [DECISION] Любой параметр baseline обязан иметь маркер.
+[DECISION][PLAN-MOD-011] Missing any module from PLAN-MOD-010 makes the environment baseline invalid.
 
-### 3.4 Sensor fields (как фиксировать "ощущаемое" без художественности)
+---
 
-- [DECISION] Сенсорные параметры описываются как измеримые поля (units mandatory), либо как короткие `narrative tag` (≤ 3 слова) без метафор и эмоциональных оценок.
-- [DECISION] Если параметр имеет единицы измерения, он должен использовать `range` или скаляр в baseline; в сцене допускается показывать 1 значение (point) как “снимок”.
-- [DECISION] Сенсорные поля не вводят фактов сами по себе: они ссылаются на baseline/override.
+### 2. Parameter categories (per module)
 
-## 4. Access Levels — обязательное покрытие
+[DECISION][PLAN-CAT-010] Each module MUST define parameter categories:
+- Geometry
+- Climate
+- Acoustics
+- Materials
+- Energy
+- Maintenance
+- Connectivity
+- UIInteraction
+- Mobility
+- Constraints
 
-- [DECISION] Любой пакет baseline среды обязан включать:
-  - LEVEL-LOW: краткая спецификация (минимум 5–10 параметров)
-  - LEVEL-MID: полный паспорт дефолтов (главный)
-  - LEVEL-HIGH: краткая спецификация (минимум 5–10 параметров)
+[DECISION][PLAN-CAT-011] Category Constraints MUST exist for every module.
 
-## 5. Scene integration (как пользоваться в сценах)
+---
 
-- [DECISION] Сцены не содержат маркеров статуса.
-- [DECISION] Для сцен задаётся “Environment Snapshot” в виде ссылок:
-  - access_level
-  - module overrides (если есть)
-  - ключевые сенсорные теги (2–5)
-- [DECISION] Если сцене нужен факт о среде — он берётся из baseline/ssot или фиксируется override.
+### 3. Allowed value types (for baseline/override)
 
-### 5.1 Environment Snapshot (нормативный формат для сцен)
+[DECISION][PLAN-VAL-010] Allowed value types are:
+- range (min/max + optional p50)
+- enum
+- boolean
+- narrative_tag (≤3 neutral words)
+- forbidden_list
 
-- [DECISION] В каждой сцене допускается (и рекомендуется) указывать `Environment Snapshot` в виде **2–5 сенсорных полей**, которые:
-  - измеримы (или являются нейтральными тегами),
-  - не объясняют причинность,
-  - не заменяют артефакты (CD/EL/CM), а дают фон ограничений/наблюдаемости.
-- [DECISION] Формат снапшота (встроенная строка/мини-блок в сцене):
-  - `access_level=<LEVEL-*>`
-  - `modules=[...]` (опционально, если есть overrides)
-  - `sensors={...}` (2–5 ключей)
-  - `route_tag=...` / `district=...` (опционально)
+[DECISION][PLAN-VAL-011] Numeric values are allowed only in BASELINE or OVERRIDE documents, never in PLAN.
 
-Пример (как форма, не как факт):
-`access_level=LEVEL-MID; sensors={noise=..dB, wind=..m/s, humidity=..%, latency=..ms, light=..K}`
+---
 
-### 5.2 Allowed sensor keys (список допустимых ключей для сцен)
+### 4. Normative markers
 
-- [DECISION] В сценах разрешены следующие ключи `sensors` (подмножество; 2–5 на сцену):
-  - `noise` (dB)
-  - `wind` (m/s)
-  - `humidity` (%)
-  - `temperature` (°C)
-  - `latency` (ms) — задержка сети/сигнала в контуре
-  - `packet_loss` (%) — если важно для наблюдаемости
-  - `light` (K) — цветовая температура света
-  - `visibility` (m) или enum (clear/haze/smog) — если это влияет на действие
-  - `traffic_flow` (0..1) — плотность потока как контекст фрикций
-  - `background_noise_tag` (narrative tag) — напр. `vent_hum`, `river_port_hum` (без описаний)
-- [DECISION] Запрещены эмоциональные/оценочные ключи и формулировки (например: “давит”, “страшно”, “мерзко”).
-  Эффект достигается **комбинацией** 2–5 нейтральных сенсорных полей и ограничений доступа/времени.
+[DECISION][PLAN-NORM-010] PLAN MUST use [DECISION] markers only.
+[DECISION][PLAN-NORM-011] PLAN MUST NOT use markers {FACT, DEFAULT, FORBIDDEN, RULE, NOTE, UNKNOWN}.
 
-### 5.3 Scene-to-baseline trace (требование трассируемости)
+---
 
-- [DECISION] Если сенсорное поле в сцене критично для действия (влияет на исход/решение/доступ), оно должно быть трассируемо:
-  - либо через baseline (дефолт),
-  - либо через override (локальное отклонение),
-  - либо через артефакт (например, EL item “telemetry snapshot”).
+### 5. Sensor fields (scene-facing, non-narrative)
 
-## 6. Override rules (переопределения)
+[DECISION][PLAN-SENS-010] Scene-facing sensor fields MUST be measurable keys or narrative_tag; no metaphors.
+[DECISION][PLAN-SENS-011] Sensor fields do not introduce facts; they reference baseline/override/artifact.
 
-- [DECISION] Любое отклонение от baseline оформляется документом `override` и обязано:
-  - указать, какой baseline пункт переопределён (точная ссылка/якорь)
-  - указать причину (редакционная/сюжетная/локальная)
-  - не вводить новые домыслы вне разрешённых статусов
+---
 
-## 7. Minimal compliance checklist
+### 6. Access level coverage (baseline requirement)
 
-- [DECISION] Baseline среды считается валидным, если:
-  - покрыты все модули из раздела 2
-  - для LEVEL-MID есть “паспорт” по категориям из 3.1
-  - присутствуют явные FORBIDDEN-ограничения (минимум 5)
-  - нет статусов вне разрешённых для class=baseline
-  - все зависимости заданы и разрешимы
+[DECISION][PLAN-ACL-010] Any environment baseline MUST include access levels:
+- LEVEL-LOW (≥5 parameters total across modules)
+- LEVEL-MID (full passport; primary)
+- LEVEL-HIGH (≥5 parameters total across modules)
 
-## 8. Deprecation of source drafts
+[DECISION][PLAN-ACL-011] LEVEL-MID is default only inside BASELINE value resolution; PLAN does not select values.
 
-- [DECISION] Любой report/draft (в т.ч. исходные конспекты) считается временным источником.
-- [DECISION] После извлечения информации он должен быть удалён или помечен deprecated в registry (по правилам корпуса).
+---
+
+### 7. Scene integration (Environment Snapshot)
+
+[DECISION][PLAN-SCN-010] Scenes MUST use environment only via Environment Snapshot (not via declarative exposition).
+[DECISION][PLAN-SCN-011] Environment Snapshot MAY include:
+- access_level
+- module_overrides (optional)
+- sensors (2–5 keys)
+- route_tag (optional)
+- district_tag (optional)
+
+[DECISION][PLAN-SCN-012] Snapshot MUST NOT explain causality and MUST NOT replace OSA artifacts (CD/EL/CM/FM/RP).
+
+---
+
+### 8. Allowed sensor keys (scene-level)
+
+[DECISION][PLAN-SCN-020] Allowed sensors keys are:
+- noise_db
+- wind_mps
+- humidity_percent
+- temperature_c
+- latency_ms
+- packet_loss_percent
+- light_k
+- visibility (meters_or_enum)
+- traffic_flow_0_1
+- background_noise_tag
+
+[DECISION][PLAN-SCN-021] Emotional or evaluative keys are not allowed.
+
+---
+
+### 9. Traceability requirement
+
+[DECISION][PLAN-TRC-010] Any sensor parameter that affects scene outcome MUST be traceable to:
+- baseline, OR
+- override, OR
+- artifact reference (e.g., telemetry snapshot).
+
+---
+
+### 10. Override requirements
+
+[DECISION][PLAN-OVR-010] Any deviation from baseline MUST be expressed via override document.
+[DECISION][PLAN-OVR-011] Override MUST specify:
+- overridden baseline anchor
+- justification
+- scope
+
+---
+
+### 11. Compliance checklist (mechanical)
+
+[DECISION][PLAN-CHK-010] Environment baseline is compliant IFF:
+- all modules from PLAN-MOD-010 are covered
+- LEVEL-MID passport exists
+- constraints are explicit
+- no forbidden markers appear in PLAN
+- dependencies are resolvable
+
+---
+
+## USAGE / RESOLUTION
+
+[DECISION][PLAN-USE-010] PLAN is a structural contract for baseline and scene authors only.
+[DECISION][PLAN-USE-011] PLAN does not participate in value precedence or selection.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: PLAN-DEFAULT-ENVIRONMENT-2215-0001
+role_type: PLAN
+export:
+  environment_modules:
+    - Housing
+    - Building
+    - City
+    - Transport
+    - Workspaces
+    - Soundscape
+    - LightVisibility
+    - Interfaces
+    - PrivacyLogging
+    - SafetyEnforcement
+  parameter_categories:
+    - Geometry
+    - Climate
+    - Acoustics
+    - Materials
+    - Energy
+    - Maintenance
+    - Connectivity
+    - UIInteraction
+    - Mobility
+    - Constraints
+  scene_snapshot_contract:
+    allowed_keys:
+      - access_level
+      - module_overrides
+      - sensors
+      - route_tag
+      - district_tag
+    sensors_allowed:
+      - noise_db
+      - wind_mps
+      - humidity_percent
+      - temperature_c
+      - latency_ms
+      - packet_loss_percent
+      - light_k
+      - visibility
+      - traffic_flow_0_1
+      - background_noise_tag
+~~~
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

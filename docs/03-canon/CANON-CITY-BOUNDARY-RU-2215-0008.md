@@ -8,86 +8,107 @@ version: 0.1.1
 inputs: []
 depends_on: []
 scope: >
-  Каноническое описание пределов города Набережные Челны в 2215 году:
-  периметр через якорные точки (населённые пункты/природные объекты),
-  и типы краёв (вода/пойма, лес, индустрия, градиент плотности).
+  Норматив (RULE) функциональной границы Челнов-2215 через периметр якорных
+  точек и типы городских краёв; используется для проверки географии сцен и
+  запрета урбанизации западного берега Камы.
 ---
 
-## 0. Термины
+## LLM-INTENT
 
-[DECISION] "Граница города" в этом документе — функциональная граница Челнов-2215.
-[DECISION] Всё внутри периметра якорных точек считается городской территорией Челнов-2215.
-[DECISION] Внутри периметра допускается неоднородная плотность застройки.
-[DECISION] За пределами периметра — не город Челны.
+ROLE_TYPE: RULE
+SCOPE: define functional city boundary of CHELNY-2215 via anchor perimeter and edge types
+INPUTS: [-> none]
+OUTPUTS: [city_boundary_perimeter, edge_type_taxonomy, anchor_points, boundary_invariants]
+FORBIDDEN: [invent_anchors, urbanize_west_bank, treat_elabuga_as_city, use_yurtovskoe_as_boundary]
 
-## 1. Инварианты
+## DEFINITIONS
 
-[DECISION] Западный берег Камы не урбанизируется.
-[DECISION] Западный берег Камы остаётся природной/охранной зоной.
-[DECISION] Доступ на западный берег Камы облегчается (больше мостов и маршрутов).
-[DECISION] Елабуга не входит в городскую территорию Челнов-2215.
-[DECISION] Юртовское лесничество не задаёт границу города.
-[DECISION] Юртовское лесничество рассматривается как локальная зелёная зона внутри юго-восточного сектора.
+[DECISION][CB-001] term.city_boundary = "функциональная граница Челнов-2215 (не административная карта XXI века)".
+[DECISION][CB-002] term.perimeter_anchor = "якорная точка (населённый пункт/природный объект), задающая периметр границы".
+[DECISION][CB-003] term.edge_type = "тип края городской территории (вода/пойма, лес, индустрия, градиент плотности, сельхоз-инфра)".
+[DECISION][CB-004] term.within_perimeter = "любая точка, лежащая внутри периметра, образованного якорными точками по часовой стрелке".
+[DECISION][CB-005] term.outside_perimeter = "любая точка, лежащая вне периметра".
 
-## 2. Периметр границы (по часовой стрелке)
+## INVARIANTS
 
-### 2.1 Западный сектор
+[DECISION][CB-010] west_bank_kama.urbanization = "MUST NOT".
+[DECISION][CB-011] west_bank_kama.status = "natural_or_protected_zone".
+[DECISION][CB-012] west_bank_kama.access = "MUST be improved via bridges and routes".
+[DECISION][CB-013] elabuga.is_within_chelny_city_boundary = "MUST NOT".
+[DECISION][CB-014] yurtovskoe_lesnichestvo.role = "internal_green_zone_in_SE_sector".
+[DECISION][CB-015] yurtovskoe_lesnichestvo.used_as_boundary = "MUST NOT".
 
-[DECISION] Западный якорь периметра: Бетьки.
-[DECISION] Западный край относится к водно-пойменному типу (Кама + пойма/луга).
-[DECISION] В западном секторе город заканчивается резко.
+## CONTENT
 
-### 2.2 Юго-западный сектор
+[DECISION][CB-020] perimeter.order = "clockwise".
+[DECISION][CB-021] perimeter.anchor.west = "Бетьки".
+[DECISION][CB-022] perimeter.anchor_chain.southwest = ["Старые Ерыклы", "Верхний Суык-Су", "Нижний Суык-Су"].
+[DECISION][CB-023] perimeter.anchor_chain.south = ["Новотроицкое", "Комсомолец", "посёлок совхоза Татарстан"].
+[DECISION][CB-024] perimeter.anchor_chain.southeast = ["Подгорный Такермен", "Верхний Такермен"].
+[DECISION][CB-025] perimeter.anchor.east = "Верхний Байлар".
+[DECISION][CB-026] perimeter.sector.northeast.extent = "toward river Ик (distant belt)".
+[DECISION][CB-027] perimeter.anchor_chain.north = ["Большая Шильна", "Малая Шильна", "Боровецкий лес"].
 
-[DECISION] Якорная цепочка юго-западного сектора: Старые Ерыклы → Верхний Суык-Су → Нижний Суык-Су.
-[DECISION] Юго-западный край относится к типу "градиент плотности" (мягкий переход).
-[DECISION] В юго-западном секторе плотность застройки падает постепенно.
+[DECISION][CB-030] edge_type.enum = ["water_floodplain", "industrial_logistics", "agro_infrastructure", "forest_protected", "density_gradient"].
 
-### 2.3 Южный сектор
+[DECISION][CB-031] edge_type.assignment.west = "water_floodplain".
+[DECISION][CB-032] edge_type.assignment.southwest = "density_gradient".
+[DECISION][CB-033] edge_type.assignment.south = "industrial_logistics".
+[DECISION][CB-034] edge_type.assignment.southeast = "agro_infrastructure".
+[DECISION][CB-035] edge_type.assignment.east = "density_gradient".
+[DECISION][CB-036] edge_type.assignment.northeast = "density_gradient".
+[DECISION][CB-037] edge_type.assignment.north = "forest_protected".
 
-[DECISION] Якорная цепочка южного сектора: Новотроицкое → Комсомолец → посёлок совхоза Татарстан.
-[DECISION] Южный край относится к индустриально-логистическому типу (системный пояс).
-[DECISION] В южном секторе край задаётся инфраструктурой города.
+[DECISION][CB-040] west_sector.termination_profile = "hard_stop".
+[DECISION][CB-041] southwest_sector.density_profile = "MUST decrease gradually toward anchors".
+[DECISION][CB-042] south_sector.boundary_driver = "infrastructure_belt".
+[DECISION][CB-043] southeast_sector.yurtovskoe_location = "MUST be within perimeter (SE internal green zone)".
+[DECISION][CB-044] northeast_sector.density_profile = "MAY be low_density while still within city boundary".
+[DECISION][CB-045] north_sector.forest_rule = "city_edge_adjacent_to_forest; city_MUST_NOT_enter_forest".
 
-### 2.4 Юго-восточный сектор
+[DECISION][CB-050] downstream.centers_definition_scope = "MUST be within this perimeter".
+[DECISION][CB-051] downstream.highways_definition_scope = "MUST be within this perimeter".
+[DECISION][CB-052] bridges_over_kama.semantic = "access_interface_to_nature; MUST NOT imply west_bank_urbanization".
 
-[DECISION] Якорная цепочка юго-восточного сектора: Подгорный Такермен → Верхний Такермен.
-[DECISION] Юго-восточный край относится к сельхоз-инфраструктурному типу (функциональный край).
-[DECISION] Юртовское лесничество является локальной зелёной зоной внутри этого сектора.
+## USAGE / RESOLUTION
 
-### 2.5 Восточный сектор
+[DECISION][CB-060] IF scene.location ∈ outside_perimeter THEN scene.location.MUST_NOT_be_labeled_as "Челны" or "городская территория Челнов-2215".
+[DECISION][CB-061] IF scene.location is on west_bank_kama THEN scene.urban_fabric_presence MUST_NOT be asserted.
+[DECISION][CB-062] IF scene.requires_elabuga THEN elabuga MUST be referenced as separate ядро/город вне границы Челнов-2215.
+[DECISION][CB-063] Any ambiguity about boundary placement MUST be treated as error and resolved by adding anchors (new CANON addendum), not by prose in scenes.
 
-[DECISION] Восточный якорь периметра: Верхний Байлар.
-[DECISION] Восточный край задаётся крайней якорной точкой (край расселения/городской территории).
+## OUTPUT CONTRACT
 
-### 2.6 Северо-восточный сектор
+~~~yaml
+doc_id: CANON-CITY-BOUNDARY-RU-2215-0008
+role_type: RULE
+export:
+  - rule_id: CB-010
+    intent: prohibit west bank urbanization
+    inputs: [west_bank_kama]
+    outputs: [allowed_urban_fabric_locations]
+  - rule_id: CB-020
+    intent: define clockwise anchor perimeter
+    inputs: [anchor_points]
+    outputs: [city_boundary_perimeter]
+  - rule_id: CB-030
+    intent: define edge type taxonomy and assignments
+    inputs: [sectors]
+    outputs: [edge_type_taxonomy, sector_edge_types]
+  - rule_id: CB-060
+    intent: scene labeling constraint for inside/outside perimeter
+    inputs: [scene.location]
+    outputs: [scene.validity, required_fix]
+~~~
 
-[DECISION] Северо-восточный край уходит далеко в сторону реки Ик.
-[DECISION] Северо-восточный край относится к типу "разреженный дальний пояс".
-[DECISION] В северо-восточном секторе допустима низкая плотность при сохранении городской принадлежности.
+## FORBIDDEN
 
-### 2.7 Северный сектор
+[FORBIDDEN][CB-900] Inventing new perimeter anchors without introducing a new CANON addendum.
+[FORBIDDEN][CB-901] Any statement that west bank of Kama is urbanized or contains continuous city fabric.
+[FORBIDDEN][CB-902] Treating Elabuga as a district inside Chelny city boundary.
+[FORBIDDEN][CB-903] Using "Юртовское лесничество" as a perimeter-defining boundary point.
+[FORBIDDEN][CB-904] Mixing administrative-2020s borders as if they were the functional-2215 boundary without explicit canon.
 
-[DECISION] Якорная цепочка северного сектора: Большая Шильна → Малая Шильна → Боровецкий лес.
-[DECISION] Северный край относится к лесному/охранному типу (лес как ограничитель урбанизации).
-[DECISION] Город подходит к Боровецкому лесу вплотную.
-[DECISION] Город не заходит в Боровецкий лес.
+## NON-NORMATIVE
 
-## 3. Типы краёв (каноническая типология)
-
-[DECISION] Водно-пойменный край: Кама и поймы (западный сектор).
-[DECISION] Индустриально-логистический край: системный пояс инфраструктуры (южный сектор).
-[DECISION] Сельхоз-инфраструктурный край: функциональный предел на агро-территориях (юго-восточный сектор).
-[DECISION] Лесной/охранный край: Боровецкий лес (северный сектор).
-[DECISION] Градиентный край: постепенное падение плотности (юго-западный и северо-восточный сектора).
-
-## 4. Следствия для других канон-документов
-
-[DECISION] Центры Челнов-2215 определяются внутри данного периметра.
-[DECISION] Магистрали Челнов-2215 определяются внутри данного периметра.
-[DECISION] Мосты через Каму рассматриваются как интерфейс доступа к природной зоне, а не как драйвер урбанизации западного берега.
-
-## 5. Открытые параметры
-
-[UNKNOWN] Требуется уточнить: где именно заканчивается регулярная городская ткань в северо-восточном секторе, если он "почти до Ика".
-[UNKNOWN] Требуется уточнить: список мостовых узлов (перечень точек/узлов доступа к западному берегу без урбанизации).
+[DECISION][CB-990] Example usage note: "выехали за периметр — формулировать как 'за город' / 'вне челнинской ткани', не как 'в соседний район Челнов'."

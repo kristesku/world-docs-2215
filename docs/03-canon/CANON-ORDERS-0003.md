@@ -1,179 +1,167 @@
 ---
 id: CANON-ORDERS-0003
 title: >
-  Ордера, мандаты и режимы доступа ОСА — процедурный канон (2215)
+  Canon Orders — OSA Warrants, Mandates, and Access Regimes (2215)
 class: canon
 status: draft
-version: 0.1.1
-inputs:
+version: 1.1.0
+inputs: []
+depends_on:
+  - SSOT-DOC-STYLE-2215-0001
+  - CANON-2215-CORE-0001
   - CANON-BASE-0001
-  - CANON-CONFLICT-0001
   - CANON-SYSTEMS-0001
+  - CANON-CONFLICT-0001
   - CANON-OSA-0005
-depends_on: []
 scope: >
-  Канон процедур ОСА: типы ордеров/мандатов, уровни доступа, сроки и триггеры
-  эскалации, требования к логам/цепочке сохранности, и правила работы с
-  экстерриториями и операторами инфраструктуры. Документ задаёт
-  «как действует ОСА», без описания сцен и без новых SSOT-метрик.
+  Процедурный канон ОСА: ордера, мандаты, уровни доступа, допустимость,
+  экстерриториальные режимы и модель доказательств. Без ввода новых SSOT-метрик.
 ---
 
-## 0. Rules
+## LLM-INTENT
 
-- [DECISION] Документ описывает только процедурные формы: кто может что разрешить/запретить/изъять и по какой процедуре.
-- [DECISION] Любая операция ОСА в сцене должна быть привязана к одному из типов ордера/мандата или к исключению (Emergency).
-- [DECISION] В каноне нет «абсолютных прав ОСА»: любой доступ имеет границу, срок, журналирование и возможность оспаривания.
-- [DECISION] Экстерритория не отменяет право; она меняет процедуру (совместность, аудит, задержки, ограничения доступа).
-- [DECISION] «Доказательство» в мире романа = артефакт + цепочка сохранности + допустимость в выбранной юрисдикции.
-- [DECISION] Ордера ОСА могут предусматривать процессуальное и физическое принуждение, включая задержание лиц, удержание периметра и применение силы, если это прямо указано в ордере и необходимо для:
-  - сохранности доказательств,
-  - безопасности людей,
-  - предотвращения немедленного ущерба.
+ROLE_TYPE: RULE
+SCOPE: define procedural authority model for OSA orders, access tiers, admissibility
+INPUTS:
+  - CANON-2215-CORE-0001
+  - CANON-OSA-0005
+OUTPUTS:
+  - access_tier_rules
+  - order_taxonomy
+  - escalation_rules
+  - admissibility_rules
+FORBIDDEN:
+  - world_parameter_binding
+  - scene_generation
+  - baseline_defaults
+  - new_world_metrics
 
-## 1. Термины (операционные определения)
+---
 
-- [FACT] Ордер (Order): формализованное разрешение на действие ОСА, которое иначе было бы незаконным/недопустимым.
-- [FACT] Мандат (Mandate): рамка полномочий ОСА в конкретном кейсе (объект, цель, пределы, срок), внутри которой выдаются ордера.
-- [FACT] Протокол совместного доступа (Joint Access Protocol, JAP): процедура доступа в зоны/системы, где у ОСА нет единоличной юрисдикции.
-- [FACT] Экстерритория: режим, в котором оператор/зона применяет особый правовой/контрактный контур, создающий задержки и «фильтры» доступа.
-- [FACT] Цепочка сохранности (Chain of Custody): непрерывный журнал владения/перемещения/копирования артефактов.
+## DEFINITIONS
 
-## 2. Уровни доступа (Access tiers)
+[FACT][ORD-DEF-010] Order = формализованное разрешение на действие ОСА, иначе недопустимое.
+[FACT][ORD-DEF-011] Mandate = рамка кейса (объект, цель, пределы, срок), внутри которой выдаются ордера.
+[FACT][ORD-DEF-012] JAP = Joint Access Protocol; совместная процедура доступа при разделённой юрисдикции.
+[FACT][ORD-DEF-013] Extraterritory = режим доступа с задержками и фильтрами, но без отмены права.
+[FACT][ORD-DEF-014] Chain_of_custody = непрерывный журнал владения и обращения артефактов.
 
-### 2.1 Tier A — Наблюдение (Observe)
+---
 
-- [DECISION] Разрешает: запрос телеметрии, получение агрегатов, чтение журналов событий в «read-only» режиме.
-- [DECISION] Запрещает: изъятие носителей, доступ к персональным данным без маскировки, вмешательство в контуры управления.
-- [DECISION] Типовой срок: 72 часа, с автоматическим закрытием или продлением.
+## INVARIANTS
 
-### 2.2 Tier B — Инспекция (Inspect)
+[DECISION][ORD-INV-010] Любое значимое действие ОСА MUST ссылаться на order OR mandate OR emergency_exception.
+[DECISION][ORD-INV-011] У ОСА MUST NOT существовать абсолютные права без срока, периметра и журналирования.
+[DECISION][ORD-INV-012] Экстерритория MUST изменять процедуру, но MUST NOT отменять применимое право.
+[DECISION][ORD-INV-013] Доказательство MUST состоять из artifact + chain_of_custody + admissibility.
+[DECISION][ORD-INV-014] Принуждение допустимо ONLY IF прямо указано в ордере и необходимо для допустимых целей.
 
-- [DECISION] Разрешает: доступ на объект, осмотр узлов, проверку конфигурации, отбор проб/снимков состояния, выборочный доступ к первичным логам.
-- [DECISION] Требует: уведомление оператора, фиксированный периметр действий, журналирование участников и устройств.
-- [DECISION] Типовой срок: 7–14 дней.
+---
 
-### 2.3 Tier C — Изъятие и заморозка (Seize & Freeze)
+## CONTENT
 
-- [DECISION] Разрешает: изъятие носителей/серверных образов/ключевых компонентов, «freeze» конфигурации, запрет на изменения без согласования.
-- [DECISION] Требует: цепочку сохранности, криптографическую фиксацию снимков, перечень артефактов и контроль доступа к ним.
-- [DECISION] Типовой срок: 30 дней (далее — продление судом/регулятором).
+### 1. Access tiers
 
-### 2.4 Tier D — Принудительное вмешательство (Enforce)
+[RULE][ORD-TIER-100] IF access_tier = A THEN allowed_actions = {telemetry_request, aggregates, read_only_logs}.
+[RULE][ORD-TIER-101] IF access_tier = A THEN forbidden_actions = {media_seizure, unmasked_personal_data, control_intervention}.
+[RULE][ORD-TIER-102] IF access_tier = A THEN typical_duration = 72h.
 
-- [DECISION] Разрешает: останов/ограничение режима, принудительный аудит, переключение контуров управления, временное внешнее администрирование.
-- [DECISION] Условие: наличие доказанного риска каскадного ущерба или повторяемого системного вреда.
-- [DECISION] Типовой срок: 72 часа (Emergency) или 7 дней (плановое вмешательство) с обязательным отчётом и апелляционным окном.
-- [DECISION] Tier D может включать силовой вход, удержание периметра, задержание лиц и применение оружия как часть процессуальной операции, но не отменяет требований ордера, журналирования и последующего контроля.
+[RULE][ORD-TIER-110] IF access_tier = B THEN allowed_actions = {site_access, node_inspection, state_capture, selective_logs}.
+[RULE][ORD-TIER-111] IF access_tier = B THEN requires = {operator_notice, fixed_perimeter, participant_logging}.
+[RULE][ORD-TIER-112] IF access_tier = B THEN typical_duration ∈ [7d, 14d].
 
-## 3. Типы ордеров ОСА (Order taxonomy)
+[RULE][ORD-TIER-120] IF access_tier = C THEN allowed_actions = {media_seizure, configuration_freeze}.
+[RULE][ORD-TIER-121] IF access_tier = C THEN requires = {chain_of_custody, cryptographic_snapshot, artifact_manifest}.
+[RULE][ORD-TIER-122] IF access_tier = C THEN typical_duration = 30d_extendable.
 
-### 3.1 O-01 Data Preservation Order (DPO) — «Сохранить данные»
+[RULE][ORD-TIER-130] IF access_tier = D THEN allowed_actions = {mode_stop, forced_audit, control_switch, temporary_administration}.
+[RULE][ORD-TIER-131] IF access_tier = D THEN condition = proven_systemic_harm.
+[RULE][ORD-TIER-132] IF access_tier = D THEN duration.emergency ≤ 72h AND duration.planned = 7d.
+[RULE][ORD-TIER-133] IF access_tier = D THEN force_allowed ONLY IF specified_in_order = true.
+[RULE][ORD-TIER-134] IF access_tier = D THEN requires = {order_scope, logging, post_control, appeal_window}.
 
-- [DECISION] Цель: запретить уничтожение/перезапись логов и телеметрии.
-- [DECISION] Действие: immediate hold на политики retention/rotation, фиксация контрольных сумм.
-- [DECISION] Типовой триггер: подозрение на подмену/дыры в логах, несостыковка источников.
+---
 
-### 3.2 O-02 Telemetry Access Order (TAO) — «Дать телеметрию»
+### 2. Order taxonomy
 
-- [DECISION] Цель: получить непрерывный поток или архив телеметрии по узлу/контурy.
-- [DECISION] Ограничение: минимум персональных данных; агрегирование по умолчанию.
-- [DECISION] Триггер: повторяемая аномалия «данные нормальные — реальность нет».
+[RULE][ORD-TAX-201] O-01 = Data_Preservation_Order; goal = prevent_log_destruction.
+[RULE][ORD-TAX-211] O-02 = Telemetry_Access_Order; goal = obtain_telemetry_with_minimization.
+[RULE][ORD-TAX-221] O-03 = Site_Inspection_Order; goal = physical_or_logical_site_access.
+[RULE][ORD-TAX-231] O-04 = Imaging_Snapshot_Order; goal = court_compatible_snapshot.
+[RULE][ORD-TAX-241] O-05 = Seizure_Order; goal = seize_specific_assets_with_proportionality.
+[RULE][ORD-TAX-251] O-05A = Detention_Order; goal = procedural_detention_not_punishment.
+[RULE][ORD-TAX-261] O-06 = Temporary_Service_Restriction_Order.
+[RULE][ORD-TAX-271] O-07 = Joint_Access_Protocol_Order.
+[RULE][ORD-TAX-281] O-08 = Protective_Custody_Witness_Order.
 
-### 3.3 O-03 Site Inspection Order (SIO) — «Допуск на объект»
+[RULE][ORD-TAX-290] New_order_types MAY be added ONLY IF not expressible as combination of O-01…O-08.
 
-- [DECISION] Цель: физический доступ к узлу/объекту/узловому складу/подстанции/серверной.
-- [DECISION] Условие: перечень зон; запрет на произвольное расширение периметра без апдейта ордера.
+---
 
-### 3.4 O-04 Imaging & Snapshot Order (ISO) — «Снимок состояния»
+### 3. Escalation
 
-- [DECISION] Цель: сделать судебно-пригодный снимок конфигурации/дисков/моделей/правил маршрутизации.
-- [DECISION] Требование: криптофиксация, журнал инструментов, контроль целостности.
+[RULE][ORD-ESC-300] IF anomaly_repeats ≥ 2 THEN escalation A_to_B = allowed.
+[RULE][ORD-ESC-301] IF log_sabotage OR non_reproducible_config THEN escalation B_to_C = allowed.
+[RULE][ORD-ESC-302] IF confirmed_systemic_harm THEN escalation C_to_D = allowed.
+[RULE][ORD-ESC-303] Any_escalation REQUIRES written_basis AND case_log_entry.
 
-### 3.5 O-05 Seizure Order (SO) — «Изъятие»
+---
 
-- [DECISION] Цель: изъять конкретные носители/модули/ключевые компоненты/партию компонентов.
-- [DECISION] Ограничение: изъятие должно быть соразмерно и минимизировать каскадный ущерб инфраструктуре.
+### 4. Extraterritory handling
 
-### 3.6 O-05A Detention Order (DO) — «Процессуальное задержание»
+[RULE][ORD-EXT-400] Extraterritory MUST be treated as delay_and_filter_mode_not_lawlessness.
+[RULE][ORD-EXT-401] Default_extraterritory_access MUST use JAP_over_solo_order.
+[RULE][ORD-EXT-402] IF operator_delay > SLA THEN delay MUST be logged_as_noncompliance.
 
-- [DECISION] Цель: временное лишение свободы конкретного лица в рамках кейса ОСА для:
-  - предотвращения уничтожения/подмены доказательств,
-  - обеспечения безопасности свидетелей,
-  - пресечения немедленного продолжения опасного режима.
-- [DECISION] Ограничение:
-  - задержание не является наказанием;
-  - имеет строгий срок и подлежит судебному/регуляторному контролю;
-  - должно быть прямо указано в ордере (лицо, основания, срок).
-- [DECISION] Типовой срок:
-  - краткосрочное задержание — часы;
-  - расширенное — до процессуального решения суда/регулятора.
+---
 
-### 3.7 O-06 Temporary Service Restriction Order (TSRO) — «Ограничить режим»
+### 5. Evidence and admissibility
 
-- [DECISION] Цель: временно понизить приоритеты/отключить контур/заморозить «ускоренный режим».
-- [DECISION] Условие: доказательство причинности или существенного риска повторения.
+[RULE][ORD-EVD-510] Chain_of_custody MUST include {artifact_id, source, method, integrity_hash, access_log, storage}.
+[RULE][ORD-EVD-520] Evidence inadmissible IF no_order OR perimeter_violation.
+[RULE][ORD-EVD-521] IF evidence_challenged THEN legalization_via_court_or_regulator REQUIRED.
 
-### 3.8 O-07 Joint Access Protocol Order (JAPO) — «Совместный доступ в экстерриторию»
+---
 
-- [DECISION] Цель: обеспечить доступ ОСА к зонам/системам через совместную процедуру (оператор + регулятор + ОСА).
-- [DECISION] Обязательные элементы: список систем, окно доступа, правила сопровождения, протокол разногласий, SLA по задержкам.
+### 6. Emergency mode
 
-### 3.9 O-08 Protective Custody / Witness Order (PCWO) — «Защита источника/свидетеля»
+[RULE][ORD-EMG-600] Emergency_condition = immediate_threat_to_humans_or_critical_infrastructure.
+[RULE][ORD-EMG-601] Emergency MUST strengthen_procedure_not_cancel_it.
+[RULE][ORD-EMG-602] Emergency_duration ≤ 72h.
+[RULE][ORD-EMG-603] Emergency REQUIRES post_report AND proportionality_review AND retro_legalization_or_rollback.
+[RULE][ORD-EMG-604] Emergency MUST NOT bypass extraterritory_rules_by_default.
 
-- [DECISION] Цель: обеспечить безопасность информатора/техника/подписанта при риске давления.
-- [DECISION] Ограничение: применяется точечно; не является инструментом наказания.
+---
 
-## 4. Триггеры эскалации (когда поднимаем tier)
+## USAGE / RESOLUTION
 
-- [DECISION] Tier A → B: повторяемость аномалии на ≥2 узлах или подтверждённое расхождение «телеметрия vs поле».
-- [DECISION] Tier B → C: признаки саботажа логов, невозможность воспроизвести конфигурацию, «слепые зоны» в наблюдаемости.
-- [DECISION] Tier C → D: подтверждённый системный вред (здоровье/инфраструктура) или вероятность каскадного отключения/коллапса сервиса.
-- [DECISION] Любая эскалация требует короткого письменного основания (1–2 абзаца) и регистрации в журнале кейса.
+[DECISION][ORD-USE-010] Документ обязателен для всех сцен с участием ОСА.
+[DECISION][ORD-USE-011] При конфликте применяется SPEC-PRIORITY-RESOLUTION-2215-0001.
 
-## 5. Экстерритории: правила задержек и «юридической пустоты»
+---
 
-- [FACT] Экстерритория вводит задержки доступа и фильтры, но не создаёт «беззаконие».
-- [DECISION] В экстерриториях по умолчанию действует JAP (совместность) вместо единоличного ордера ОСА.
-- [DECISION] Если оператор затягивает доступ сверх SLA, ОСА переводит режим в принудительный: DPO → ISO → SO → TSRO/Enforce, с фиксацией саботажа как отдельного нарушения.
-- [DECISION] «Формально правы» допустимо как исход: решения могут быть легальны, но приводить к вреду; тогда цель ОСА — коррекция режима, а не поиск единственного виновного.
+## OUTPUT CONTRACT
 
-## 6. Доказательства и цепочка сохранности
+~~~yaml
+doc_id: CANON-ORDERS-0003
+role_type: RULE
+export:
+  access_tiers: [A, B, C, D]
+  order_codes: [O-01, O-02, O-03, O-04, O-05, O-05A, O-06, O-07, O-08]
+  evidence_formula: "artifact + chain_of_custody + admissibility"
+~~~
 
-### 6.1 Что считается артефактом
+---
 
-- [FACT] Артефактами считаются: дампы логов, конфигурации, снимки моделей/правил, накладные и маршрутизация,
-  записи доступа, показания, физические компоненты.
+## FORBIDDEN
 
-### 6.2 Минимальные требования к Chain of Custody
+[FORBIDDEN][ORD-FBD-900] Absolute_rights_without_limits.
+[FORBIDDEN][ORD-FBD-901] Scenes_without_order_mandate_or_emergency.
+[FORBIDDEN][ORD-FBD-902] Emergency_as_procedure_bypass.
+[FORBIDDEN][ORD-FBD-903] Introducing_new_SSOT_metrics.
 
-- [DECISION] Любой артефакт обязан иметь:
-  - идентификатор,
-  - источник (кто/где/когда),
-  - метод получения,
-  - контроль целостности (хэш/подпись),
-  - список доступов/копий,
-  - место хранения и режим допуска.
+---
 
-### 6.3 Допустимость (admissibility)
+## NON-NORMATIVE
 
-- [DECISION] Артефакты, полученные без ордера/мандата или с нарушением периметра, считаются оспоримыми и требуют отдельной легализации через суд/регулятора.
-
-## 7. Режим Emergency (исключение)
-
-- [DECISION] Emergency допускается только при угрозе немедленного ущерба людям или критической инфраструктуре и является усиленным процессуальным режимом, а не отменой процедур.
-- [DECISION] Emergency-ордера действуют ≤72 часов и автоматически требуют:
-  - пост-отчёт,
-  - проверку соразмерности,
-  - ретро-легализацию или откат результатов (если признано нарушением).
-- [DECISION] Emergency не является обходом экстерриторий; он временно расширяет периметр действий для предотвращения ущерба.
-
-## 8. Интерфейсы с другими канонами и SSOT
-
-- [FACT] Документ обеспечивает сцены формальными рычагами: ордер → артефакт → юридическая проверка → коррекция режима.
-- [DECISION] Любые новые виды ордеров добавляются только если их нельзя выразить комбинацией существующих (O-01…O-08 + O-05A).
-
-## 9. Follow-ups (non-blocking)
-
-- [UNKNOWN] Точное имя и расшифровка ОСА (аббревиатура) как юридической структуры (если потребуется в тексте).
-- [UNKNOWN] Конкретные SLA задержек доступа в JAP (часы/дни) — зависит от выбранной модели арбитража и уровня зоны.
-- [UNKNOWN] Формализация «контрразведывательного режима» ордеров ОСА при внешнем вмешательстве (для будущих циклов канона; в текущей книге не активируется).
+(Empty by design)

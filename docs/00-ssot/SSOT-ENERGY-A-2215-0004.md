@@ -1,134 +1,175 @@
 ---
 id: SSOT-ENERGY-A-2215-0004
 title: >
-  Energy System — Scenario A (2215)
+  Energy System — Scenario A (2215, SSOT State)
 class: ssot
 status: draft
-version: 0.1.0
+version: 1.1.0
 inputs: []
 depends_on:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-ECONOMY-A-2215-0003
 scope: >
-  Каноническое SSOT-описание энергетической системы мира в 2215 году
-  в рамках Scenario A: первичная мощность, структура генерации,
-  электрификация потребления, связка с compute/ИИ, инфраструктурные
-  ограничения и failure modes.
+  SSOT-состояние энергетической системы мира в 2215 году (Scenario A).
+  Документ содержит только декларативные метрики (core/p90/range)
+  и бинарные/категориальные свойства энергосистемы.
+  Не содержит причинности, процедур, сценариев отказа или разрешения конфликтов.
 ---
 
-## 0. Scope and invariants
+## LLM-INTENT
 
-- [FACT] Документ описывает энергосистему исключительно в рамках Scenario A.
-- [FACT] Энергетика трактуется как критическая инфраструктура (надежность, резервы, восстановление).
-- [FACT] Энергетика не является жёстким ограничителем роста в Scenario A.
-- [FACT] Ископаемое топливо сохраняется только в остаточных нишах и не является доминантой энергобаланса.
+ROLE_TYPE: STATE
+SCOPE: global energy system state for Scenario A around year 2215
+INPUTS: []
+OUTPUTS:
+  - energy_metric_state
+FORBIDDEN:
+  - causal_logic
+  - resolution_rules
+  - narrative_explanations
+  - failure_models
 
-## 1. Global energy system (2215)
+---
 
-### 1.1 Total primary energy
+## DEFINITIONS
 
-- [FACT] Глобальная первичная мощность энергосистемы в 2215: порядка ~30 TW.
-- [FACT] Диапазон оценок мощности (p10/p50/p90): ~20 / ~30 / ~60 TW.
-- [FACT] Scenario A соответствует верхней части диапазона (рост + энергоизобилие).
+[DEF][ENG-DEF-010] energy_system = global generation, storage, transmission, and consumption of energy in Scenario A.
 
-### 1.2 Energy mix (структура генерации)
+---
 
-- [FACT] Доля низкоуглеродной энергии в Scenario A: порядка ~90–95%.
-- [ASSUMPTION] Энергосистема базируется на комбинации ВИЭ, атомной энергетики и высокоэффективных источников нового поколения.
-- [FACT] Ископаемое топливо сохраняется лишь в остаточных нишах (химия, землепользование).
-- [ASSUMPTION] Внутри низкоуглеродной доли доминируют:
-  - [ASSUMPTION] ВИЭ как массовая базовая генерация (солнечная/ветровая/регионально — гидро).
-  - [ASSUMPTION] Атомная энергетика как опорная часть базовой мощности и стабилизации.
-  - [ASSUMPTION] Источники нового поколения (в т.ч. ограниченный синтез) присутствуют, но не являются единственным доминантом.
-- [ASSUMPTION] Доли по типам генерации фиксируются как качественная структура (без точных процентов) до отдельного canon/override-решения.
+## INVARIANTS
 
-### 1.3 Energy efficiency and EROEI
+[FACT][ENG-000] Applicable only to Scenario A.
+[FACT][ENG-001] Energy system is treated as critical infrastructure.
+[FACT][ENG-002] Fossil fuels are not the dominant energy source.
+[FACT][ENG-003] Energy system does not impose a hard cap on economic growth within declared Scenario A metrics.
 
-- [FACT] Энергоёмкость мирового ВВП снизилась примерно в ~3 раза по сравнению с 2025.
-- [FACT] Средний EROEI энергосистемы в Scenario A стабилен или выше, чем в начале XXI века.
+---
 
-## 2. Electrification and end-use sectors
+## CONTENT
 
-### 2.1 Transport
+### 1. Primary energy (global)
 
-- [FACT] Доля транспорта на электричестве или водороде в Scenario A: близка к ~100%.
-- [FACT] Автоматизация транспорта в Scenario A: близка к ~100%.
-- [FACT] Грузооборот в Scenario A превышает уровень 2025 (до ~3×), при иной структуре грузов.
-- [FACT] Энергоэффективность транспорта в Scenario A улучшена до ~5× по сравнению с ДВС начала XXI века.
+[STATE][ENG-010] primary_energy_TW.core = 30
+[STATE][ENG-011] primary_energy_TW.p90 = 60
+[STATE][ENG-012] primary_energy_TW.range = [20, 60]
+[STATE][ENG-013] primary_energy_TW.unit = TW
+[STATE][ENG-014] primary_energy_TW.owner_domain = ENERGY
 
-### 2.2 Industry and buildings
+---
 
-- [FACT] Промышленность почти полностью электрифицирована и автоматизирована.
-- [FACT] Более ~90% жилого фонда построено или глубоко реконструировано в XXI–XXII вв.
-- [FACT] Здания интегрированы в «умные» энергосети с управлением спросом.
+### 2. Energy mix
 
-## 3. AI / compute ↔ energy coupling
+[STATE][ENG-020] low_carbon_share_percent.core = 95
+[STATE][ENG-021] low_carbon_share_percent.range = [90, 98]
+[STATE][ENG-022] low_carbon_share_percent.unit = percent
+[STATE][ENG-023] low_carbon_share_percent.owner_domain = ENERGY
 
-### 3.1 Energy demand of AI
+[STATE][ENG-024] fossil_energy_role = "residual_niche"
+[STATE][ENG-025] fossil_energy_role.owner_domain = ENERGY
 
-- [FACT] Энергопотребление ИИ в 2215 составляет десятки ЭДж/год.
-- [FACT] Для Scenario A верхняя оценка энергопотребления ИИ достигает ~150–200 ЭДж/год.
-- [FACT] Доля ИИ в мировом энергопотреблении: порядка ~10–20%.
+[STATE][ENG-026] generation_mix_structure = "renewables + nuclear + advanced_sources"
+[STATE][ENG-027] generation_mix_quantified = false
+[STATE][ENG-028] generation_mix_structure.owner_domain = ENERGY
 
-### 3.2 System response
+---
 
-- [FACT] Рост энергопотребления ИИ компенсируется ростом генерации и энергоэффективности.
-- [FACT] ИИ используется для оптимизации сетей, хранения и распределения энергии.
-- [FACT] Массовое энергопотребление ИИ не приводит к энергетическому кризису в Scenario A.
+### 3. Energy efficiency
 
-## 4. Grid, storage, and resilience (infrastructure layer)
+[STATE][ENG-030] global_energy_intensity_vs_2025.core = 0.33
+[STATE][ENG-031] global_energy_intensity_vs_2025.p90 = null
+[STATE][ENG-032] global_energy_intensity_vs_2025.range = null
+[STATE][ENG-033] global_energy_intensity_vs_2025.unit = ratio
+[STATE][ENG-034] global_energy_intensity_vs_2025.owner_domain = ENERGY
 
-### 4.1 Grid as critical infrastructure
+[STATE][ENG-035] system_eroei_trend = "stable_or_higher_than_2025"
+[STATE][ENG-036] system_eroei_trend.owner_domain = ENERGY
 
-- [FACT] Сети передачи и распределения являются ключевым ограничителем качества энергоснабжения, а не объём генерации.
-- [FACT] Сеть проектируется с резервированием, секционированием и автоматическим восстановлением (self-healing).
-- [ASSUMPTION] Значимая часть управления сетью автоматизирована и опирается на телеметрию в реальном времени.
+---
 
-### 4.2 Storage and peak capacity
+### 4. Electrification and end use
 
-- [FACT] Хранение энергии является обязательным слоем энергосистемы Scenario A.
-- [ASSUMPTION] Хранение реализуется комбинацией краткосрочных и среднесрочных контуров (сети/узлы/городские буферы).
-- [FACT] Пиковая мощность и устойчивость к пикам спроса обеспечиваются инфраструктурно, а не «ручным режимом».
+[STATE][ENG-040] transport_electrification_percent.core = 95
+[STATE][ENG-041] transport_electrification_percent.range = [90, 100]
+[STATE][ENG-042] transport_electrification_percent.unit = percent
+[STATE][ENG-043] transport_electrification_percent.owner_domain = ENERGY
 
-### 4.3 Reliability targets (behavioral defaults)
+[STATE][ENG-044] transport_automation_level.source = "SSOT-AUTOMATION-A-2215-0004"
+[STATE][ENG-045] transport_automation_level.owner_domain = AUTOMATION
+[DECISION][ENG-046] ENERGY SSOT MUST NOT redefine AUTOMATION-owned metrics.
 
-- [ASSUMPTION] Для LEVEL-MID дефолтом является редкость длительных отключений; локальные сбои допускаются как управляемые инциденты.
-- [ASSUMPTION] Каскадные отключения рассматриваются как исключительные события, требующие расследования и регуляторной реакции.
+[STATE][ENG-047] industry_electrification_level = "near_total"
+[STATE][ENG-048] industry_electrification_level.owner_domain = ENERGY
 
-## 5. Constraints and limits (energy)
+[STATE][ENG-049] buildings_modernized_share_percent.core = 90
+[STATE][ENG-050] buildings_modernized_share_percent.range = [85, 98]
+[STATE][ENG-051] buildings_modernized_share_percent.unit = percent
+[STATE][ENG-052] buildings_modernized_share_percent.owner_domain = URBANISM
 
-### 5.1 Materials and supply chains
+---
 
-- [ASSUMPTION] Критические материалы (проводники, силовая электроника, накопители, катализаторы, композиты) являются узким местом расширения сетей и хранения.
-- [ASSUMPTION] Ограничения поставок проявляются как задержки модернизации, квоты, приоритеты и политико-экономическое давление.
+### 5. Storage and grid (qualitative state)
 
-### 5.2 Grid expansion and permitting cycles
+[STATE][ENG-060] energy_storage_layer_present = true
+[STATE][ENG-061] energy_storage_scope = "short_and_mid_term"
+[STATE][ENG-062] energy_storage_scope.owner_domain = ENERGY
 
-- [ASSUMPTION] Долгие циклы строительства, сертификации и согласований ограничивают скорость масштабирования инфраструктуры.
-- [ASSUMPTION] Ускоренные режимы допускаются точечно (экстерритории/особые зоны), что создаёт риски непрозрачности и злоупотреблений.
+[STATE][ENG-063] grid_resilience_design = "redundant_segmented_self_healing"
+[STATE][ENG-064] grid_resilience_design.owner_domain = ENERGY
 
-### 5.3 Cooling / heat rejection for compute
+---
 
-- [ASSUMPTION] Рост compute-нагрузок требует контуров охлаждения и отвода тепла как инфраструктуры.
-- [ASSUMPTION] Водоёмкость охлаждения и география размещения compute-узлов становятся фактором планирования (вода/климат/инфраструктурные коридоры).
+### 6. Compute ↔ energy coupling (state only)
 
-## 6. Failure modes (energy)
+[STATE][ENG-070] ai_energy_share_percent.source = "SSOT-AUTOMATION-A-2215-0004"
+[STATE][ENG-071] ai_energy_share_percent.owner_domain = AUTOMATION
+[DECISION][ENG-072] ENERGY SSOT MUST NOT declare or export AUTOMATION-owned metrics.
 
-- [ASSUMPTION] Типовые сбои: отказ узла сети, деградация накопителей, программная ошибка диспетчеризации, киберинцидент, климатический удар по инфраструктуре.
-- [ASSUMPTION] Типовой эффект для LEVEL-MID: локальные ограничения мощности, перераспределение приоритетов, деградация сервисов (а не «темнота и коллапс»).
-- [ASSUMPTION] Рутинный режим реакции: автоматическое секционирование, перерасчёт приоритетов, включение резервов, пост-аудит и расследование причинности.
+---
 
-## 7. Systemic feedback loops
+## USAGE / RESOLUTION
 
-### 7.1 CAUSE → MECHANISM → CONSEQUENCE (energy)
+[FACT][ENG-090] Provides declarative numeric ranges and qualitative energy system states for downstream documents.
 
-- [FACT] CAUSE: Экономический рост и рост вычислений.
-- [FACT] MECHANISM: Рост спроса на энергию при одновременном повышении энергоэффективности.
-- [PROJECTION] CONSEQUENCE: Энергосистема расширяется без возврата к углеродной зависимости.
+[FORBIDDEN][ENG-091] Using this SSOT document for:
+- failure or outage modeling,
+- recovery or response procedures,
+- resolving core vs p90 conflicts.
 
-## 8. Interfaces to other SSOT modules
+---
 
-- [FACT] Energy → Economy: энергоизобилие и надёжность снижают ресурсные ограничения роста.
-- [FACT] Energy → Urbanism: 24/7 городские сервисы опираются на резервируемую энергетику и управление спросом.
-- [FACT] Energy → Automation: compute/роботизация требуют энергии и охлаждения; сбой энергии деградирует автоматизированные сервисы.
-- [FACT] Energy → Governance/Security: энергетическая инфраструктура является критическим объектом безопасности и стандартов.
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: SSOT-ENERGY-A-2215-0004
+role_type: STATE
+export:
+  - metric: primary_energy_TW
+    owner_domain: ENERGY
+    values: {core: 30, p90: 60, range: [20, 60]}
+    unit: TW
+
+  - metric: low_carbon_share_percent
+    owner_domain: ENERGY
+    values: {core: 95, p90: null, range: [90, 98]}
+    unit: percent
+
+  - metric: global_energy_intensity_vs_2025
+    owner_domain: ENERGY
+    values: {core: 0.33, p90: null, range: null}
+    unit: ratio
+~~~
+
+---
+
+## FORBIDDEN
+
+[FORBIDDEN][ENG-100] Introducing new energy metrics outside SSOT.
+[FORBIDDEN][ENG-101] Embedding causal chains, failure narratives, or procedures.
+[FORBIDDEN][ENG-102] Using qualitative states as resolution or decision logic.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)

@@ -1,8 +1,8 @@
 ﻿---
 id: SCENE-ACT-02-0001
 title: >
-  SCENE-CARDS — Акт II (Главы 11–15) —
-  логистика расширяет кейс → первичные контуры экстерриторий
+  SCENE-CARDS — Act II (Chapters 11–15) —
+  logistics expands the case → first contours of extraterritorial regimes
 class: scene
 status: fixed
 version: 0.2.0
@@ -15,196 +15,109 @@ inputs:
 depends_on:
   - SCENE-ACT-01-0001
 scope: >
-  Полный комплект SCENE-CARDS для Акта II (главы 11–15): расширение кейса
-  через логистику, появление институциональных границ и первых контуров
-  экстерриторий; рост ставок и наблюдаемости. Без художественного текста.
+  Full SCENE-CARDS set for Act II (chapters 11–15): case expansion through logistics,
+  emergence of institutional boundaries and first extraterritorial contours; higher stakes
+  and observability pressure. No художественный текст.
 ---
 
-## Формат карточки (норматив)
+# SCENE-ACT-02-0001 — SCENE-CARDS (Act II)
 
-**SCENE-ID** • Где • POV • Задача • Измеримое • Артефакт • CAUSE → MECHANISM → CONSEQUENCE • Выход • Крючок
+## LLM-INTENT
 
----
+ROLE_TYPE: STATE  
+SCOPE: define Act II scene cards as executable planning state (no prose).  
+INPUTS: [PHYSICAL-BASELINE-2215-0001, CANON-BASE-0001, CANON-CONFLICT-0001, CANON-SYSTEMS-0001, STORY-SKELETON-0001]  
+OUTPUTS: [scene_cards, measurable_fields, artifact_bindings, causal_spine, hooks]  
+FORBIDDEN: [prose, new_world_facts, new_macro_numbers, non-canon terminology]
 
-## CH-11 — Пересортировка
+## DEFINITIONS
 
-### SC-11.1
+[STATE][SC02-DEF-010] `scene_card` = record: where, POV, task, measurable, artifact, causal_chain, exit, hook.  
+[STATE][SC02-DEF-011] `measurable` = only what can be stated as a number/range/enum in-scene.  
+[STATE][SC02-DEF-012] `artifact` = CD/EL/CM/FM/RP/PRS excerpt per CANON-REPORTS/CANON-ARTIFACT-SNIPPETS.
 
-- **Где:** центральный логистический центр агломерации  
-- **POV:** аналитик  
-- **Задача:** показать масштаб и власть приоритетов  
-- **Измеримое:** throughput=18.2k_containers/h; SLA=99.2%  
-- **Артефакт:** **CM** — приоритетная матрица (health/energy/security tiers)  
-- **CAUSE→MECH→CONS:** оптимизация throughput → перераспределение потоков → локальные дефициты без «ошибок»  
-- **Выход:** доказано: «алгоритм решает»  
-- **Крючок:** сенсоры/контроллеры падают в нижний приоритет
+## RULES
 
-### SC-11.2
+[RULE][SC02-RUL-010] No художественный text; cards are operational scaffolding only.  
+[RULE][SC02-RUL-011] Each card MUST include: where, POV, task, measurable, artifact, CAUSE→MECH→CONS, exit, hook.  
+[RULE][SC02-RUL-012] Measurables MUST be traceable to baseline/override/artifact if they become plot-critical.
 
-- **Где:** пульт диспетчера логистики  
-- **POV:** лидер  
-- **Задача:** найти ручной след, а не статистику  
-- **Измеримое:** manual_route_overrides=1  
-- **Артефакт:** **EL** — override record + идентификатор исполнителя  
-- **CAUSE→MECH→CONS:** ручное вмешательство → партия уходит вне графика → узлы недополучают  
-- **Выход:** появляется конкретная нитка  
-- **Крючок:** «переписано по указанию центра»
+## FORMAT (NORMATIVE)
 
-### SC-11.3
+[RULE][SC02-FMT-010] Card fields = `SCENE-ID • Where • POV • Task • Measurable • Artifact • CAUSE→MECH→CONS • Exit • Hook`.
 
-- **Где:** мосты / коридоры над узлом  
-- **POV:** лидер  
-- **Задача:** коротко зафиксировать «машину масштаба»  
-- **Измеримое:** noise=68dB; wind=15m/s  
-- **Артефакт:** **CD** — фоновая телеметрия перемещения/контуров  
-- **CAUSE→MECH→CONS:** масштаб → дистанция управления → локальные исполнители бесправны  
-- **Выход:** тон удержан  
-- **Крючок:** доступ к центру маршрутизации закрыт региону
+## CONTENT
 
----
+### CH-11 — Re-sorting
 
-## CH-12 — Город над городом
+[STATE][SC02-CH11-011] SC-11.1 | where="Central logistics hub" | pov="Analyst" | task="show scale & priority power".  
+[STATE][SC02-CH11-012] measurable={throughput:"18.2k_containers/h", SLA:"99.2%"} | artifact="CM(priority_matrix: health/energy/security tiers)".  
+[STATE][SC02-CH11-013] causal="optimize throughput → flow redistribution → local shortages without 'errors'" | exit="proved: algorithm decides" | hook="sensors/controllers downgraded in priority".
 
-### SC-12.1
+[STATE][SC02-CH11-021] SC-11.2 | where="Logistics dispatcher console" | pov="Leader" | task="find manual trace, not statistics".  
+[STATE][SC02-CH11-022] measurable={manual_route_overrides:1} | artifact="EL(override_record + executor_id)".  
+[STATE][SC02-CH11-023] causal="manual intervention → shipment leaves schedule → nodes under-supplied" | exit="concrete thread appears" | hook="rewritten 'by center directive'".
 
-- **Где:** многоуровневые переходы / sky-link между мегаблоками  
-- **POV:** полевой  
-- **Задача:** архитектура как транспортный механизм и источник слепых зон  
-- **Измеримое:** transport_level=+40; traffic=0.74  
-- **Артефакт:** **CD** — карта уровневых маршрутов (wayfinding layer)  
-- **CAUSE→MECH→CONS:** вертикальная плотность → ускоренные коридоры → появляются теневые маршруты  
-- **Выход:** среда становится участником дела  
-- **Крючок:** контейнеры идут верхним коридором
+[STATE][SC02-CH11-031] SC-11.3 | where="Bridges/corridors above node" | pov="Leader" | task="fix ‘machine of scale’ in one beat".  
+[STATE][SC02-CH11-032] measurable={noise:"68dB", wind:"15m/s"} | artifact="CD(background movement telemetry/contours)".  
+[STATE][SC02-CH11-033] causal="scale → control distance → local executors powerless" | exit="tone held" | hook="routing center access closed to region".
 
-### SC-12.2
+### CH-12 — City over City
 
-- **Где:** общественная площадь / медиафасад (городская оболочка)  
-- **POV:** аналитик  
-- **Задача:** поп-культура эпохи как производная данных  
-- **Измеримое:** energy_flow_viz=real_time  
-- **Артефакт:** **CD** — data-инсталляция (публичное «дыхание города»)  
-- **CAUSE→MECH→CONS:** телеметрия города → художественная трансляция → культура из инфраструктуры  
-- **Выход:** мир живой, не только функциональный  
-- **Крючок:** всплеск энергопотребления совпадает с пропажей партии
+[STATE][SC02-CH12-011] SC-12.1 | where="Multi-level sky-links between megablocks" | pov="Field" | task="architecture as transport + blind-zone generator".  
+[STATE][SC02-CH12-012] measurable={transport_level:"+40", traffic_flow:0.74} | artifact="CD(level-route map / wayfinding layer)".  
+[STATE][SC02-CH12-013] causal="vertical density → accelerated corridors → shadow routes emerge" | exit="environment becomes case participant" | hook="containers move via upper corridor".
 
-### SC-12.3
+[STATE][SC02-CH12-021] SC-12.2 | where="Public square / media facade" | pov="Analyst" | task="pop-culture as derivative of data".  
+[STATE][SC02-CH12-022] measurable={energy_flow_viz:"real_time"} | artifact="CD(public data installation: city ‘breath’)".  
+[STATE][SC02-CH12-023] causal="city telemetry → artistic broadcast → culture from infrastructure" | exit="world feels alive" | hook="energy spike coincides with missing shipment".
 
-- **Где:** ОСА / сводка связей  
-- **POV:** лидер  
-- **Задача:** синтез: региональный уровень исчерпан  
-- **Измеримое:** nodes=3; supplier=1; routing_center=1  
-- **Артефакт:** **CM** — граф связей (graph)  
-- **CAUSE→MECH→CONS:** концентрация управления → единая точка → регион без полномочий  
-- **Выход:** формулировка «это выше нас»  
-- **Крючок:** нужен доступ к федеральному реестру лицензий (не на месте)
+[STATE][SC02-CH12-031] SC-12.3 | where="OSA / link briefing" | pov="Leader" | task="synthesis: regional level exhausted".  
+[STATE][SC02-CH12-032] measurable={nodes:3, supplier:1, routing_center:1} | artifact="CM(link graph export)".  
+[STATE][SC02-CH12-033] causal="management concentration → single point → region lacks authority" | exit="framed as 'above us'" | hook="need federal license registry access".
 
----
+### CH-13 — Witness
 
-## CH-13 — Свидетель
+[STATE][SC02-CH13-011] SC-13.1 | where="Contractor tech yard" | pov="Field" | task="find human link in chain".  
+[STATE][SC02-CH13-012] measurable={night_adjustments:true, observability_gap:"11m"} | artifact="EL(technician tablet local cache)".  
+[STATE][SC02-CH13-013] causal="verbal directives → manual route edits → reports stay clean" | exit="witness + mechanism appear" | hook="contract fear".
 
-### SC-13.1
+[STATE][SC02-CH13-021] SC-13.2 | where="Stairwell / narrow corridor" | pov="Leader" | task="extract exact ID without threats/pose".  
+[STATE][SC02-CH13-022] measurable={id_transfer:true} | artifact="EL(container_or_flight_id transfer record)".  
+[STATE][SC02-CH13-023] causal="fear → cooperation → precise route" | exit="trace becomes verifiable" | hook="destination=accelerated_regime/extraterritory".
 
-- **Где:** техплощадка подрядчика  
-- **POV:** полевой  
-- **Задача:** найти человеческое звено в цепи  
-- **Измеримое:** night_adjustments=true; observability_gap=11m  
-- **Артефакт:** **EL** — планшет техника (локальный кэш)  
-- **CAUSE→MECH→CONS:** устные указания → ручная правка маршрутов → отчётность чистая  
-- **Выход:** появляется свидетель и техника механики  
-- **Крючок:** боится за контракт
+[STATE][SC02-CH13-031] SC-13.3 | where="OSA / registry lookup" | pov="Analyst" | task="jurisdiction collision".  
+[STATE][SC02-CH13-032] measurable={license_scope:"federal", regional_competence:"limited"} | artifact="EL(state license registry entry)".  
+[STATE][SC02-CH13-033] causal="license issued by center → region cannot act → dead end" | exit="need federal warrant/signature" | hook="without Moscow loop won't close".
 
-### SC-13.2
+### CH-14 — Club “Contour”
 
-- **Где:** лестничный марш / узкий коридор (неофициальный разговор)  
-- **POV:** лидер  
-- **Задача:** получить конкретный ID без угроз/позы  
-- **Измеримое:** —  
-- **Артефакт:** **EL** — ID контейнера/рейса (передача идентификатора)  
-- **CAUSE→MECH→CONS:** страх → сотрудничество → точный маршрут  
-- **Выход:** след становится проверяемым  
-- **Крючок:** назначение = спецрежим/экстерритория
+[STATE][SC02-CH14-011] SC-14.1 | where="Underground club / repurposed parking" | pov="Leader" | task="meet informant + cultural layer".  
+[STATE][SC02-CH14-012] measurable={BPM:122, SPL:"96dB"} | artifact="CD(fixed set record: non-adaptive)".  
+[STATE][SC02-CH14-013] causal="people choose fixed form → collective rhythm → human layer near algorithms" | exit="pop-layer integrated" | hook="informant carries critical dump".
 
-### SC-13.3
+[STATE][SC02-CH14-021] SC-14.2 | where="Edge of hall / technical corner" | pov="Leader" | task="key fact: how ‘clean reports’ are made".  
+[STATE][SC02-CH14-022] measurable={observability_gap:"11m", aligns_with:"preaudit_cleanup"} | artifact="EL(dump: model seed/version or local decision cache)".  
+[STATE][SC02-CH14-023] causal="pre-audit edits → perfect reporting → harm exported beyond KPI" | exit="provable evasion mechanism" | hook="major convoy departs tomorrow".
 
-- **Где:** ОСА / проверка ID по реестрам  
-- **POV:** аналитик  
-- **Задача:** столкновение с юрисдикцией  
-- **Измеримое:** license_scope=federal; regional_competence=limited  
-- **Артефакт:** **EL** — запись в госреестре лицензий  
-- **CAUSE→MECH→CONS:** лицензия выдана центром → регион не может действовать → тупик  
-- **Выход:** необходимость ордера/подписи федерации  
-- **Крючок:** без Москвы дело не замкнуть (логика, не поездка)
+[STATE][SC02-CH14-031] SC-14.3 | where="Exit / night air" | pov="Field" | task="switch to operation mode".  
+[STATE][SC02-CH14-032] measurable={time_to_convoy_start:"7h"} | artifact="CD(convoy route)".  
+[STATE][SC02-CH14-033] causal="data obtained → physical evidence needed → interception plan" | exit="operation inevitable" | hook="security is private, 'not regional'".
 
----
+### CH-15 — Convoy 7-Delta
 
-## CH-14 — Клуб «Контур»
+[STATE][SC02-CH15-011] SC-15.1 | where="Upper autonomous corridor (agglomeration)" | pov="Field" | task="deploy operation; set time window".  
+[STATE][SC02-CH15-012] measurable={block_window:"150s"} | artifact="CD(stop mandate/authorization)".  
+[STATE][SC02-CH15-013] causal="suspicious route → stop → conflict with private security" | exit="contact; disruption risk" | hook="attempt to pull vehicles out of window".
 
-### SC-14.1
+[STATE][SC02-CH15-021] SC-15.2 | where="Container perimeter" | pov="Leader" | task="short hard action, no heroism".  
+[STATE][SC02-CH15-022] measurable={duration:"45–60s"} | artifact="CD(coercion use record)".  
+[STATE][SC02-CH15-023] causal="resistance → neutralization → perimeter control" | exit="access to cargo" | hook="not just metal inside".
 
-- **Где:** подземный клуб / перепрофилированная парковка (локальная сцена)  
-- **POV:** лидер  
-- **Задача:** встреча с информатором + культурный слой  
-- **Измеримое:** BPM=122; SPL=96dB  
-- **Артефакт:** **CD** — фиксированный сет (не адаптивный)  
-- **CAUSE→MECH→CONS:** люди выбирают фикс-форму → коллективный ритм → человеческий слой рядом с алгоритмами  
-- **Выход:** поп-культура встроена функционально  
-- **Крючок:** информатор несёт критический дамп
+[STATE][SC02-CH15-031] SC-15.3 | where="Opening / primary identification" | pov="Analyst" | task="federal-scale evidence".  
+[STATE][SC02-CH15-032] measurable={label:"accelerated_regime", license_scope:"federal"} | artifact="EL(RFID + license token / route ID)".  
+[STATE][SC02-CH15-033] causal="shipment goes to special regime → region not competent → federal warrant required" | exit="formal need for Moscow contour" | hook="Act II end: Moscow is unavoidable".
 
-### SC-14.2
+## OPEN ITEMS
 
-- **Где:** у края зала / технический угол  
-- **POV:** лидер  
-- **Задача:** получить ключевой факт о механике «чистоты отчётов»  
-- **Измеримое:** observability_gap=11m; aligns_with=preaudit_cleanup  
-- **Артефакт:** **EL** — дамп/seed версии модели или локальный decision-кэш  
-- **CAUSE→MECH→CONS:** правки перед аудитом → идеальная отчётность → вред выведен за KPI  
-- **Выход:** появляется доказуемый механизм уклонения  
-- **Крючок:** завтра уходит крупный конвой
-
-### SC-14.3
-
-- **Где:** выход / ночной воздух (короткая сборка)  
-- **POV:** полевой  
-- **Задача:** переключение в режим операции  
-- **Измеримое:** time_to_convoy_start=7h  
-- **Артефакт:** **CD** — маршрут конвоя  
-- **CAUSE→MECH→CONS:** есть данные → нужна физическая улика → план перехвата  
-- **Выход:** операция неизбежна  
-- **Крючок:** охрана частная и «не региональная»
-
----
-
-## CH-15 — Конвой 7-Delta
-
-### SC-15.1
-
-- **Где:** верхний автономный коридор (агломерация)  
-- **POV:** полевой  
-- **Задача:** развернуть операцию и задать временное окно  
-- **Измеримое:** block_window=150s  
-- **Артефакт:** **CD** — разрешение/мандат на останов  
-- **CAUSE→MECH→CONS:** подозрительный маршрут → останов → конфликт с ЧОПом  
-- **Выход:** контакт и риск срыва  
-- **Крючок:** попытка увести машины из окна
-
-### SC-15.2
-
-- **Где:** периметр у контейнеров  
-- **POV:** лидер  
-- **Задача:** короткий жёсткий экшен без геройства  
-- **Измеримое:** duration=45–60s  
-- **Артефакт:** **CD** — запись применения принуждения  
-- **CAUSE→MECH→CONS:** сопротивление → нейтрализация → контроль периметра  
-- **Выход:** доступ к грузу  
-- **Крючок:** внутри не просто железо
-
-### SC-15.3
-
-- **Где:** вскрытие / первичная идентификация  
-- **POV:** аналитик  
-- **Задача:** получить улику федерального масштаба  
-- **Измеримое:** label=accelerated_regime; license_scope=federal  
-- **Артефакт:** **EL** — RFID + лицензионный токен / маршрутный идентификатор  
-- **CAUSE→MECH→CONS:** партия уходит в спецрежим → регион не компетентен → нужен федеральный ордер  
-- **Выход:** формальная необходимость выхода на Москву  
-- **Крючок (финал Акта II):** Москва неизбежна как контур подписи/доступа
+[STATE][SC02-UNK-010] Unfilled measurables marked with ellipsis MUST be resolved via baseline/override before prose drafting.

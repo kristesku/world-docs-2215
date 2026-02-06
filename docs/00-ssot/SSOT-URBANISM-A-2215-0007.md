@@ -1,148 +1,157 @@
 ---
 id: SSOT-URBANISM-A-2215-0007
 title: >
-  Urbanism and City Systems — Scenario A (2215)
+  Urbanism and City Systems — Scenario A (2215, SSOT State)
 class: ssot
-status: draft
-version: 0.1.0
+status: fixed
+version: 1.1.0
 inputs:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-DEMOGRAPHY-A-2215-0002
   - BASELINE-LEVEL-MID-2215-0001
   - BASELINE-PHYSICAL-LEVEL-MID-2215-0001
 depends_on:
-  - SPEC-DOC-0001
+  - SSOT-DOC-STYLE-2215-0001
 scope: >
-  Каноническое SSOT-описание городской среды и систем агломераций
+  Каноническое SSOT-состояние городской среды и систем агломераций
   в 2215 году в рамках Scenario A: морфология, инфраструктуры, транспорт,
-  сенсорная среда, управление и ограничения.
+  сенсорная среда, управление и визуальный код.
 ---
 
-## 0. Invariants
+## LLM-INTENT
 
-- [FACT] Документ описывает урбанизм строго в рамках Scenario A.
-- [FACT] Город трактуется как инфраструктурная машина жизнеобеспечения и доступа.
-- [FACT] Базовой формой расселения являются агломерации высокой плотности.
-- [FACT] Городская среда по умолчанию находится в 24/7 функциональном режиме.
+ROLE_TYPE: STATE
+SCOPE: urban systems state for Scenario A in year ~2215 (LEVEL-MID defaults)
+INPUTS: []
+OUTPUTS: [urbanism_state, visual_code]
+FORBIDDEN: [causal_logic, resolution_rules, narrative_explanations, feedback_loops]
 
-## 1. Urbanization level and dominant form
+## DEFINITIONS
 
-- [FACT] Урбанизация мира находится в диапазоне ~80–85%.
-- [FACT] Доминируют крупные агломерации и метаполисы.
-- [FACT] Типичная городская ткань высокоплотная.
-- [FACT] Вертикализация является нормой в развитых регионах.
-- [FACT] Низкоплотная субурбия не является глобальным доминантом.
+[FACT][URB-DEF-010] Urbanism = морфология расселения и эксплуатационные режимы городской “машины”.
+[FACT][URB-DEF-011] City systems = критические инфраструктуры и их стандартные поведенческие режимы.
 
-## 2. City morphology (2215)
+## INVARIANTS
 
-### 2.1 Built form
+[DECISION][URB-INV-010] Документ применим только в рамках Scenario A.
+[DECISION][URB-INV-011] Город трактуется как инфраструктурная машина жизнеобеспечения.
+[DECISION][URB-INV-012] Базовой формой расселения являются агломерации высокой плотности.
+[DECISION][URB-INV-013] Городская среда по умолчанию находится в 24/7 функциональном режиме.
+[DECISION][URB-INV-020] `urban_population_share_percent` is owned and exported ONLY by this document (owner_domain = URBANISM).
 
-- [FACT] Массовая застройка имеет модульный характер.
-- [FACT] Преобладают многофункциональные здания и кварталы.
-- [FACT] Городская ткань оптимизирована под логистику, обслуживание и энергоэффективность.
-- [FACT] Архитектурная «уникальность» существует, но не является массовой нормой.
+## CONTENT
 
-### 2.2 Green and open space
+### 1. Urbanization Level and Dominant Form
 
-- [FACT] Зелёные зоны интегрированы как инфраструктурная функция.
-- [FACT] Зелёные элементы встраиваются в здания и транспортные коридоры.
-- [FACT] Классические «парки как пустоты» присутствуют, но не доминируют.
+[STATE][URB-010] urban_population_share_percent.core = 82
+[STATE][URB-011] urban_population_share_percent.range = [80, 85]
+[STATE][URB-012] dominant_settlement_form = "large_agglomerations_and_metapolises"
+[STATE][URB-013] typical_urban_fabric_density = "high"
+[STATE][URB-014] verticalization_norm = true
+[STATE][URB-015] low_density_suburbia_dominant = false
 
-## 3. Infrastructure baseline (2215)
+### 2. City Morphology (Built Form)
 
-### 3.1 Energy and utilities
+[STATE][URB-030] mass_built_form = "modular"
+[STATE][URB-031] mixed_use_blocks_prevalence = "high"
+[STATE][URB-032] urban_fabric_optimized_for = ["logistics", "maintenance", "energy_efficiency"]
+[STATE][URB-033] architectural_uniqueness = "present_not_mass_norm"
 
-- [FACT] Энергоснабжение города стабильно и непрерывно.
-- [FACT] Инфраструктуры проектируются с резервированием и автоматическим восстановлением.
-- [FACT] Водоснабжение и канализация являются непрерывными сервисами в LEVEL-MID.
-- [FACT] Системы очистки воздуха и микроклимата являются стандартным слоем инфраструктуры.
+### 3. Green and Open Space
 
-### 3.2 Maintenance and service layer
+[STATE][URB-050] green_space_role = "infrastructure_function" (biomass, oxygen).
+[STATE][URB-051] green_elements_integration = ["buildings", "transport_corridors"].
+[STATE][URB-052] parks_as_voids_dominant = false (integrated greenery preferred).
 
-- [FACT] Обслуживание города преимущественно автономное и фоновое.
-- [FACT] Городские сервисы опираются на телеметрию и непрерывное логирование.
-- [FACT] Часть работ выполняют роботы и дроны, включая клининг, ремонт и доставку.
+### 4. Infrastructure Baseline (LEVEL-MID)
 
-## 4. Transport and mobility
+[STATE][URB-070] city_energy_service = "stable_continuous".
+[STATE][URB-071] infrastructure_resilience = "redundant_self_healing".
+[STATE][URB-072] water_service_continuity = true.
+[STATE][URB-073] air_filtration_microclimate_layer = present.
 
-### 4.1 Default mobility
+### 5. Maintenance and Service Layer
 
-- [FACT] Городской транспорт преимущественно автономный.
-- [FACT] Общественный транспорт работает как сервис «по требованию».
-- [FACT] Полуобщественная мобильность реализуется через капсулы и шаттлы.
-- [FACT] Личный транспорт возможен, но не обязателен для повседневной жизни.
-- [FACT] Перемещения предсказуемы и относительно быстры в LEVEL-MID.
+[STATE][URB-090] city_maintenance_mode = "autonomous_background".
+[STATE][URB-091] city_operations_telemetry = "continuous".
+[STATE][URB-092] service_agents = ["robots", "drones"].
+[STATE][URB-093] service_domains = ["cleaning", "repair", "delivery"].
 
-### 4.2 Traffic and physical streets
+### 6. Transport and Mobility
 
-- [FACT] Дорожная сеть оптимизирована под автономное движение.
-- [FACT] Уличное пространство является управляемым ресурсом, а не «свободной ареной».
-- [FACT] Ручное управление транспортом не является массовой нормой.
+[STATE][URB-110] urban_transport_automation = "high".
+[STATE][URB-111] public_transport_mode = "on_demand_service".
+[STATE][URB-112] semi_public_mobility = ["capsules", "shuttles"].
+[STATE][URB-113] private_transport_necessity = false.
+[STATE][URB-114] manual_driving_mass_norm = false.
+[STATE][URB-115] street_space_managed = true.
+[STATE][URB-116] mobility_predictability = "high".
 
-## 5. Public space and access control
+### 7. Public Space and Access Control
 
-- [FACT] Доступ в пространства регулируется процедурами и идентификацией.
-- [FACT] Публичные пространства безопасны и обслуживаются автоматизированно.
-- [FACT] Уровни доступа к среде (LEVEL-LOW/MID/HIGH) определяют гарантию сервисов.
-- [FACT] LEVEL-* не является социальной иерархией как единственным фактором.
-- [FACT] Приватность трактуется как защищённая, но логируемая.
+[STATE][URB-140] access_control = present.
+[STATE][URB-141] public_spaces_safety = "high".
+[STATE][URB-142] access_levels = ["LEVEL-LOW", "LEVEL-MID", "LEVEL-HIGH"].
+[STATE][URB-143] access_level_is_social_hierarchy = false (functional hierarchy).
+[STATE][URB-144] privacy_mode = "protected_logged".
 
-## 6. Interface layer (UI invisibility)
+### 8. Interface Layer (UI Invisibility)
 
-- [FACT] Интерфейсы среды преимущественно скрытые.
-- [FACT] Пользовательский UI не обязан быть визуальным.
-- [FACT] Физические экраны не являются обязательными объектами городской среды.
-- [FACT] Городская система остаётся наблюдаемой для операторов, но «невидимой» для большинства граждан.
+[STATE][URB-160] environment_interfaces = "mostly_hidden".
+[STATE][URB-161] user_ui_visual_requirement = false.
+[STATE][URB-162] physical_screens_requirement = false.
+[STATE][URB-163] operator_observability = "high".
 
-## 7. Sensory profile (urban baseline)
+### 9. Sensory Profile (LEVEL-MID)
 
-- [FACT] Фоновый звуковой слой состоит из низкоинтенсивного «шума инфраструктуры».
-- [FACT] Резкие источники звука редки и подавляются системой среды.
-- [FACT] Освещение является управляемым и адаптивным слоем инфраструктуры.
-- [FACT] «Темнота города» не является стандартным состоянием.
-- [FACT] Воздух в жилой ткани в LEVEL-MID фильтрован и без выраженных запахов.
+[STATE][URB-180] ambient_sound = "low_intensity_infrastructure_noise".
+[STATE][URB-181] sharp_noise_events = "rare_suppressed".
+[STATE][URB-182] lighting_adaptive = true.
+[STATE][URB-183] city_darkness_default = false.
+[STATE][URB-184] indoor_air_smell = "filtered_low_odor".
 
-## 8. Climate adaptation in cities
+### 10. Climate Adaptation (Urban)
 
-- [FACT] Города несут климатические риски как системную нагрузку на инфраструктуры.
-- [FACT] Инфраструктуры проектируются с учётом тепловых волн и экстремальной погоды.
-- [FACT] Защита портов, узлов логистики и сетей входит в обязательные программы адаптации.
-- [PROJECTION] Частота локальных кризисов снижается за счёт резервирования и автоматического управления.
+[STATE][URB-200] urban_climate_risk = "system_load".
+[STATE][URB-201] adaptation_design_targets = ["heat_waves", "extreme_weather"].
+[STATE][URB-202] critical_nodes_protection = true.
+[STATE][URB-203] crisis_frequency_trend = "decreasing".
 
-## 9. Urban inequality and stratification (within Scenario A)
+### 11. Visual Code (Solar Brutalism)
 
-- [FACT] Неравенство доступа к среде существует.
-- [FACT] Основная форма неравенства выражается через уровни инфраструктурных гарантий и сервисов.
-- [FACT] Геттоизация не является обязательной нормой Scenario A.
-- [PROJECTION] В Scenario A действует тенденция к выравниванию по базовым инфраструктурным сервисам.
+[STATE][URB-VIS-050] facade.decor = prohibited (reason: thermal_reflectivity).
+[STATE][URB-VIS-051] interior.decor = allowed (condition: fire_retardant).
+[STATE][URB-VIS-052] exterior.palette = [white, light_grey, raw_concrete] (High Albedo).
+[STATE][URB-VIS-053] visual_noise = suppressed (no billboards/graffiti in MID).
 
-## 10. Governance and operating model
+## USAGE / RESOLUTION
 
-- [FACT] Город управляется как критическая инфраструктура с режимами безопасности и стандартизации.
-- [FACT] Регуляторы и операторы задают правила доступа, логирования и аварийных протоколов.
-- [FACT] Автономные подсистемы являются нормой, но не отменяют человеческого надзора.
-- [FACT] Городская безопасность опирается на наблюдение, идентификацию и предиктивное обслуживание.
+[DECISION][URB-USE-010] Документ предоставляет декларативные свойства городской среды (LEVEL-MID).
+[DECISION][URB-USE-011] Scenes must emphasize uniformity and lack of visual noise.
 
-## 11. Systemic feedback loops
+## OUTPUT CONTRACT
 
-### 11.1 CAUSE → MECHANISM → CONSEQUENCE (urbanism)
+~~~yaml
+doc_id: SSOT-URBANISM-A-2215-0007
+role_type: STATE
+export:
+  - metric: urban_population_share_percent
+    owner_domain: URBANISM
+    values:
+      core: 82
+      range: [80, 85]
+  - metric: facade.decor
+    owner_domain: URBANISM
+    values:
+      core: prohibited
+  - metric: visual_style
+    owner_domain: URBANISM
+    values:
+      core: Solar Brutalism
+~~~
 
-- [FACT] CAUSE: Высокая урбанизация и высокая плотность.
-- [FACT] MECHANISM: Снижение удельной стоимости инфраструктур на человека и рост эффективности обслуживания.
-- [PROJECTION] CONSEQUENCE: Стабильные 24/7 города как базовая форма расселения.
+## FORBIDDEN
 
-- [FACT] CAUSE: Масштабная автоматизация инфраструктур.
-- [FACT] MECHANISM: Телеметрия, непрерывное логирование, автономное обслуживание и ремонт.
-- [PROJECTION] CONSEQUENCE: Низкая видимость «машины города» при высокой надёжности сервисов.
-
-- [FACT] CAUSE: Климатические экстремумы как фон XXI–XXIII вв.
-- [FACT] MECHANISM: Резервирование сетей, адаптация зданий, перераспределение ресурсов и аварийные протоколы.
-- [PROJECTION] CONSEQUENCE: Снижение вероятности каскадных коллапсов городской инфраструктуры.
-
-## 12. Interfaces to other SSOT modules
-
-- [FACT] Urbanism → Demography: городская форма закрепляет высокий уровень урбанизации и снижает рождаемость.
-- [FACT] Urbanism → Economy: города являются основной площадкой производства сервисов и управления.
-- [FACT] Urbanism → Automation: невидимый слой автоматизации является нормой городской ткани.
-- [FACT] Urbanism → Physical Baseline: сенсорные и инфраструктурные дефолты сцены наследуют LEVEL-MID baseline.
-- [FACT] Urbanism → Governance/Security: городские режимы доступа и идентификации являются частью общей модели безопасности.
+[FORBIDDEN][URB-FBD-010] Introducing new world metrics outside SSOT.
+[FORBIDDEN][URB-FBD-011] Describing slums or chaotic decor in LEVEL-MID.
+[FORBIDDEN][URB-FBD-012] Using narrative logic to override infrastructure facts.

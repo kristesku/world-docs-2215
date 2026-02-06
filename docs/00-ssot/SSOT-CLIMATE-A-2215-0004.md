@@ -1,88 +1,221 @@
 ---
 id: SSOT-CLIMATE-A-2215-0004
 title: >
-  Climate State and Impacts — Scenario A (2215)
+  Climate State and Impacts — Scenario A (2215, SSOT State)
 class: ssot
 status: draft
-version: 0.1.0
+version: 1.1.0
 inputs: []
 depends_on:
+  - SSOT-DOC-STYLE-2215-0001
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-ENERGY-A-2215-0004
 scope: >
-  Каноническое SSOT-описание климатического состояния мира в 2215 году
-  в рамках Scenario A: уровень потепления и моря, режим экстремумов,
-  выбросы/баланс, последствия и адаптация как системный фон.
+  SSOT-состояние климатического фона мира в 2215 году (Scenario A): потепление,
+  уровень моря, баланс выбросов, режим экстремумов и состояние адаптационных контуров.
+  Документ содержит только декларативные числовые метрики (core/p90/range) и категориальные состояния.
+  Не содержит причинности, правил разрешения и процедур реагирования.
 ---
 
-## 0. Scope and invariants
+## LLM-INTENT
 
-- [FACT] Документ описывает климат исключительно в рамках Scenario A.
-- [FACT] Климат трактуется как стабилизированный на новом уровне фон, а не как сюжет «коллапса».
-- [FACT] Полный возврат к доиндустриальному климату не предполагается.
+ROLE_TYPE: STATE
+SCOPE: declarative climate state for Scenario A around year 2215
+INPUTS: []
+OUTPUTS:
+  - climate_state
+FORBIDDEN:
+  - causal_logic
+  - resolution_rules
+  - procedural_response
+  - narrative_explanations
 
-## 1. Climate state (2215)
+---
 
-### 1.1 Global warming and sea level
+## DEFINITIONS
 
-- [FACT] Потепление относительно доиндустриального уровня в 2215: порядка ~2–2.5°C.
-- [FACT] Повышение уровня моря к 2215: порядка ~1.5–2.0 м.
-- [FACT] Климат стабилизирован на новом уровне, без дальнейшего ускоряющегося потепления.
+[DEF][CLM-DEF-010] climate_state = global and region-typical climate parameters and operational impacts as infrastructure background.
 
-### 1.2 Emissions balance
+---
 
-- [FACT] Глобальные выбросы CO₂ в Scenario A к 2215 близки к нулю.
-- [FACT] Остаточные выбросы связаны преимущественно с землепользованием и трудноустранимыми процессами.
-- [FACT] Баланс выбросов и поглощения удерживается около нуля.
+## INVARIANTS
 
-## 2. Climate impacts and adaptation
+[FACT][CLM-000] Applicable only to Scenario A.
+[FACT][CLM-001] Climate is stabilized at a new level; default mode is not “collapse”.
+[FACT][CLM-002] Full return to preindustrial climate is not assumed.
+[FACT][CLM-003] Net CO₂ balance is maintained near zero (net ≈ 0).
 
-### 2.1 Physical impacts
+---
 
-- [FACT] Экстремальные погодные явления остаются более частыми, чем в XX веке.
-- [FACT] Климатические риски перераспределены географически, а не устранены полностью.
-- [ASSUMPTION] Типовые климатические экстремумы 2215: тепловые волны, ливневые события, штормовые системы, периоды засухи, комбинированные “мульти-риски”.
-- [FACT] Экстремумы рассматриваются как управляемый риск-профиль, требующий резервирования и инфраструктурных протоколов.
+## CONTENT
 
-### 2.2 Adaptation strategies
+### 1. Global warming and sea level (2215)
 
-- [FACT] Реализованы крупные инфраструктурные проекты адаптации (береговая защита, водные системы, агроадаптация).
-- [FACT] Программы переселения используются для регионов с устойчиво ухудшившейся пригодностью.
-- [FACT] Климатические потрясения в Scenario A стимулируют адаптацию, а не системный коллапс.
+[STATE][CLM-010] warming_C_vs_preindustrial.core = 2.5
+[STATE][CLM-011] warming_C_vs_preindustrial.p90 = null
+[STATE][CLM-012] warming_C_vs_preindustrial.range = [2.0, 2.5]
+[STATE][CLM-013] warming_C_vs_preindustrial.unit = C
+[STATE][CLM-014] warming_C_vs_preindustrial.owner_domain = CLIMATE
 
-## 3. Water, coasts, and food systems (adaptation layer)
+[STATE][CLM-015] sea_level_m.core = 1.7
+[STATE][CLM-016] sea_level_m.p90 = null
+[STATE][CLM-017] sea_level_m.range = [1.5, 2.0]
+[STATE][CLM-018] sea_level_m.unit = m
+[STATE][CLM-019] sea_level_m.owner_domain = CLIMATE
 
-### 3.1 Water systems
+[STATE][CLM-020] warming_trend_post_2215 = "stable_no_accelerating_increase"
+[STATE][CLM-021] warming_trend_post_2215.owner_domain = CLIMATE
 
-- [FACT] Водные системы (накопление, перераспределение, очистка) являются ключевым контуром адаптации.
-- [ASSUMPTION] Дефицит воды проявляется регионально и управляется инфраструктурно (а не “глобальной катастрофой”).
+---
 
-### 3.2 Coasts and sea level
+### 2. Emissions balance (2215)
 
-- [FACT] Береговая защита и перестройка портовой инфраструктуры являются обязательными программами для уязвимых регионов.
-- [ASSUMPTION] В ряде зон применяется организованное отступление/переселение как нормальная политика, а не аварийная паника.
+[STATE][CLM-030] net_co2_emissions_mode = "near_zero"
+[STATE][CLM-031] net_co2_emissions_mode.owner_domain = CLIMATE
 
-### 3.3 Agriculture and food stability
+[STATE][CLM-032] residual_emissions_primary_sources = ["land_use", "hard_to_abate_processes"]
+[STATE][CLM-033] residual_emissions_primary_sources.owner_domain = CLIMATE
 
-- [ASSUMPTION] Агросистемы адаптированы через селекцию/контролируемые среды/логистические резервы.
-- [FACT] Пищевые шоки возможны локально, но системный коллапс питания в Scenario A не является нормой.
+[STATE][CLM-034] emissions_sink_balance_state = "near_zero_equilibrium"
+[STATE][CLM-035] emissions_sink_balance_state.owner_domain = CLIMATE
 
-## 4. Failure modes (climate)
+---
 
-- [ASSUMPTION] Сбойный сценарий климата в Scenario A проявляется как серия локальных кризисов: перегрев, перегрузка водных систем, повреждение инфраструктуры, сбои логистики.
-- [ASSUMPTION] Типовой ответ: аварийные протоколы городов, перераспределение ресурсов, временные ограничения доступа, последующий инфраструктурный ремонт.
+### 3. Extremes and risk profile (state)
 
-## 5. Systemic feedback loops
+[STATE][CLM-050] extreme_weather_frequency_vs_20c = "higher"
+[STATE][CLM-051] extreme_weather_frequency_vs_20c.owner_domain = CLIMATE
 
-### 5.1 CAUSE → MECHANISM → CONSEQUENCE (climate)
+[STATE][CLM-052] climate_risk_distribution = "geographically_redistributed"
+[STATE][CLM-053] climate_risk_distribution.owner_domain = CLIMATE
 
-- [FACT] CAUSE: Жёсткая климатическая политика и кооперация.
-- [FACT] MECHANISM: Декарбонизация энергетики и снижение выбросов.
-- [PROJECTION] CONSEQUENCE: Стабилизация климата на уровне ~2–2.5°C.
+[STATE][CLM-054] typical_extreme_types = [
+  "heat_waves",
+  "intense_precipitation",
+  "storm_systems",
+  "drought_periods",
+  "compound_multi_risks"
+]
+[STATE][CLM-055] typical_extreme_types.owner_domain = CLIMATE
 
-## 6. Interfaces to other SSOT modules
+[STATE][CLM-056] extremes_handling_mode = "managed_risk_profile"
+[STATE][CLM-057] extremes_handling_mode.owner_domain = GOVERNANCE
 
-- [FACT] Climate → Demography: климатическая стабилизация снижает масштаб вынужденной миграции.
-- [FACT] Climate → Urbanism: города несут климатические риски как нагрузку на инфраструктуры и проектируются под экстремумы.
-- [FACT] Climate → Economy: климат-убытки существуют, но в Scenario A управляемы за счёт адаптационных программ.
-- [FACT] Climate → Governance/Security: кооперация по климату снижает вероятность ресурсных конфликтов, но не отменяет борьбу за материалы/воду.
+---
+
+### 4. Adaptation layer (state)
+
+[STATE][CLM-070] adaptation_infrastructure_programs_present = true
+[STATE][CLM-071] adaptation_infrastructure_programs_present.owner_domain = GOVERNANCE
+
+[STATE][CLM-072] adaptation_core_program_types = ["coastal_defense", "water_systems", "agro_adaptation"]
+[STATE][CLM-073] adaptation_core_program_types.owner_domain = CLIMATE
+
+[STATE][CLM-074] managed_relocation_programs_present = true
+[STATE][CLM-075] managed_relocation_programs_present.owner_domain = GOVERNANCE
+
+[STATE][CLM-076] climate_shocks_system_effect_mode = "adaptation_stimulus_not_collapse"
+[STATE][CLM-077] climate_shocks_system_effect_mode.owner_domain = CLIMATE
+
+---
+
+### 5. Water, coasts, food (state)
+
+[STATE][CLM-090] water_systems_role_in_adaptation = "key_contour"
+[STATE][CLM-091] water_systems_role_in_adaptation.owner_domain = CLIMATE
+
+[STATE][CLM-092] water_scarcity_mode = "regional_infrastructure_managed"
+[STATE][CLM-093] water_scarcity_mode.owner_domain = CLIMATE
+
+[STATE][CLM-094] coastal_protection_programs_obligatory = true
+[STATE][CLM-095] coastal_protection_programs_obligatory.owner_domain = GOVERNANCE
+
+[STATE][CLM-096] managed_retreat_is_normal_policy_in_some_zones = true
+[STATE][CLM-097] managed_retreat_is_normal_policy_in_some_zones.owner_domain = GOVERNANCE
+
+[STATE][CLM-098] food_system_stability_mode = "stable_with_local_shocks"
+[STATE][CLM-099] food_system_stability_mode.owner_domain = CLIMATE
+
+---
+
+## USAGE / RESOLUTION
+
+[FACT][CLM-900] Provides declarative climate and adaptation parameters for downstream documents.
+
+[FORBIDDEN][CLM-901] Using this SSOT document for:
+- emergency response protocols,
+- causal chains (“why it happened”),
+- default collapse-plot generation without override.
+
+---
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: SSOT-CLIMATE-A-2215-0004
+role_type: STATE
+export:
+  - metric: warming_C_vs_preindustrial
+    owner_domain: CLIMATE
+    values: {core: 2.5, p90: null, range: [2.0, 2.5]}
+    unit: C
+
+  - metric: sea_level_m
+    owner_domain: CLIMATE
+    values: {core: 1.7, p90: null, range: [1.5, 2.0]}
+    unit: m
+
+  - state: warming_trend_post_2215
+    owner_domain: CLIMATE
+    value: stable_no_accelerating_increase
+
+  - state: net_co2_emissions_mode
+    owner_domain: CLIMATE
+    value: near_zero
+
+  - state: emissions_sink_balance_state
+    owner_domain: CLIMATE
+    value: near_zero_equilibrium
+
+  - state: extreme_weather_frequency_vs_20c
+    owner_domain: CLIMATE
+    value: higher
+
+  - state: climate_risk_distribution
+    owner_domain: CLIMATE
+    value: geographically_redistributed
+
+  - state: typical_extreme_types
+    owner_domain: CLIMATE
+    value: [heat_waves, intense_precipitation, storm_systems, drought_periods, compound_multi_risks]
+
+  - state: extremes_handling_mode
+    owner_domain: GOVERNANCE
+    value: managed_risk_profile
+
+  - state: adaptation_infrastructure_programs_present
+    owner_domain: GOVERNANCE
+    value: true
+
+  - state: managed_relocation_programs_present
+    owner_domain: GOVERNANCE
+    value: true
+
+  - state: water_scarcity_mode
+    owner_domain: CLIMATE
+    value: regional_infrastructure_managed
+~~~
+
+---
+
+## FORBIDDEN
+
+[FORBIDDEN][CLM-990] Introducing new world metrics or numeric claims outside SSOT.
+[FORBIDDEN][CLM-991] Embedding causal chains, loops, resolution rules, or procedural response logic.
+[FORBIDDEN][CLM-992] Treating climate state as narrative directive.
+
+---
+
+## NON-NORMATIVE
+
+(Empty by design)
