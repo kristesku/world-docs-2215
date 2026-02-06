@@ -5,7 +5,7 @@ title: >
 class: canon
 status: fixed
 version: 0.1.0
-inputs: [WORLD-DOC-1, WORLD-DOC-2, CANON-BASE-0001]
+inputs: [ CANON-BASE-0001]
 depends_on: [CANON-BASE-0001]
 scope: >
   Формализация центрального конфликта как системной функции; тип антагониста; ставки; рычаг протагониста;
