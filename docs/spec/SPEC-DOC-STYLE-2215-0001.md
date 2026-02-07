@@ -1,0 +1,459 @@
+---
+id: SPEC-DOC-STYLE-2215-0001
+title: >
+  SSOT Document Style Guide — LLM-Executable Corpus Standard (2215)
+class: spec
+status: fixed
+version: 1.0.2
+prefix: STYLE
+doc_language: ru-RU
+prose_language: ru-RU
+scope: >
+  Норматив форматирования SSOT/BASELINE/CANON/IDX документов проекта 2215.
+  Цель: максимальная однозначность и исполняемость LLM (минимум интерпретации).
+  Этот документ определяет обязательные секции, типы блоков, допустимый язык,
+  контракт вывода и правила декомпозиции фактов/правил/привязок.
+depends_on: []
+inputs: []
+---
+
+## LLM-INTENT
+
+ROLE_TYPE: RULE
+SCOPE: define machine-readable corpus doc structure, language policy, record-stream formats, and compliance gates (compiler-grade)
+INPUTS: []
+OUTPUTS: [doc_style_rules, lint_gates, section_schema, rewrite_protocol, language_policy, record_stream_rules]
+FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exceptions, body_yaml_delimiters]
+
+## DEFINITIONS
+
+[FACT][STYLE-010] `document` = единица корпуса: YAML front-matter (опционально) + тело Markdown, ограниченное одним набором YAML delimiters в начале документа.
+[FACT][STYLE-011] `front_matter` = YAML-блок между двумя строками YAML delimiter в начале документа.
+[FACT][STYLE-012] `yaml_delimiter_line` = строка, равная `---` (используется только для front_matter delimiters).
+[FACT][STYLE-013] `skeleton` = фиксированный набор top-level секций (H2), используемый всеми документами корпуса.
+[FACT][STYLE-014] `statement` = атомарная строка с префиксом `[TAG][ID]` и единственной смысловой единицей.
+[FACT][STYLE-015] `statement_id` = стабильный идентификатор вида `<DOCPREFIX>-NNN`, где `NNN` — трёхзначный номер.
+[FACT][STYLE-016] `docprefix` = префикс для `statement_id`, задаваемый явно в YAML как `prefix:` ИЛИ выводимый как единственный общий префикс всех `statement_id` в документе.
+[FACT][STYLE-017] `ROLE_TYPE` = семантическая роль документа: STATE | RULE | BIND | INTERFACE | INDEX.
+[FACT][STYLE-018] `doc_class` = класс документа по YAML `class:` (ssot|baseline|canon|spec|protocol|idx|registry|plan|scene|override и др. по проекту).
+[FACT][STYLE-019] `NON-NORMATIVE` = раздел комментариев/примеров, не являющийся источником правил или фактов.
+
+[FACT][STYLE-260] `doc_language` = IETF language tag, заданный в YAML как `doc_language: <tag>`, определяющий основной язык недиегетического текста документа.
+[FACT][STYLE-270] `prose_language` = IETF language tag, заданный в YAML как `prose_language: <tag>`, определяющий обязательный язык диетического вывода (прозы), который документ ограничивает.
+[FACT][STYLE-280] `proper_name` = токен имени собственного (персонаж/топоним/организация/бренд), используемый в TYPE C или в прозе.
+[FACT][STYLE-290] `canon_ru` = каноническая русская форма `proper_name`, используемая для binding и вывода в прозе.
+[FACT][STYLE-300] `display_ru` = русская форма отображения `proper_name` в прозе; если отсутствует, используется `canon_ru`.
+[FACT][STYLE-310] `canon_en` = опциональная каноническая английская форма `proper_name` для англоязычных документов; MUST NOT быть выведена автоматически из `canon_ru`.
+[FACT][STYLE-320] `record_stream` = упорядоченная последовательность машиночитаемых записей (records), используемая как TYPE C input (сцены/таймлайн/массив событий и т.п.).
+[FACT][STYLE-330] `record_format_id` = идентификатор формата кодирования/парсинга `record_stream`, задаваемый в YAML как `record_format_id: <id>`.
+[FACT][STYLE-340] `dataset_id` = идентификатор набора, группирующий несколько документов в один логический `record_stream` (серия актов/частей), задаваемый в YAML как `dataset_id: <id>`.
+
+## INVARIANTS
+
+[DECISION][STYLE-030] Этот документ сам должен быть COMPLIANT по собственному стандарту (вариант A: self-application).
+[DECISION][STYLE-031] В корпусе допускается ровно один `skeleton` для всех документов; исключения возможны только через явный `[DECISION]` в документе-стандарте и должны быть машиночитаемыми.
+[DECISION][STYLE-032] Любая неоднозначность, позволяющая LLM выбрать “как удобнее”, трактуется как determinism hazard и должна устраняться правилом или lint gate.
+[DECISION][STYLE-033A] Любое правило в этом стандарте MUST быть формулируемо как проверяемый предикат; если предикат не определён, правило считается INVALID.
+[DECISION][STYLE-033B] Если правило допускает ≥2 интерпретации, документ-носитель правила MUST be treated as NON-COMPLIANT (ambiguity hazard).
+
+## CONTENT
+
+### 0. Prime Directive (NORMATIVE)
+
+[DECISION][STYLE-000] Corpus MUST be LLM-executable: deterministic parsing > human readability; explicit contracts > narrative explanations; atomic statements > prose.
+[FORBIDDEN][STYLE-001] “Essay mode”: long paragraphs; rhetorical connectors; implicit assumptions; “world flavor” to justify numbers.
+[DECISION][STYLE-002] Explanatory prose is FORBIDDEN in normative sections; only atomic statements and machine-readable blocks are allowed.
+
+### 1. Role-Type precedence (semantic) vs class precedence (applicability)
+
+[DECISION][STYLE-101] Role-type precedence (semantic) is: STATE → RULE → BIND → INTERFACE → INDEX.
+[DECISION][STYLE-102] ROLE_TYPE is restricted to: STATE | RULE | BIND | INTERFACE | INDEX.
+[FORBIDDEN][STYLE-103] Introducing new ROLE_TYPE identifiers.
+[DECISION][STYLE-104] Role-type precedence defines semantic authority (RULE constrains STATE; BIND selects STATE; INTERFACE defines ownership/consumes; INDEX navigates) and MUST NOT be used as document applicability order.
+[DECISION][STYLE-105] Document-class resolution order (applicability) MUST be taken ONLY from `SPEC-PRIORITY-RESOLUTION-2215-0001`.
+[FORBIDDEN][STYLE-106] Mixing role-type precedence with document-class resolution.
+[FORBIDDEN][STYLE-107] Introducing alternative document-class precedence inside this STYLE guide or any other doc.
+
+### 2. Mandatory Document Skeleton (top-level sections)
+
+[DECISION][STYLE-020] All documents MUST include the following H2 sections in this exact order (sections may be empty but MUST exist):
+[DECISION][STYLE-021] 1) `## LLM-INTENT`
+[DECISION][STYLE-022] 2) `## DEFINITIONS`
+[DECISION][STYLE-023] 3) `## INVARIANTS`
+[DECISION][STYLE-024] 4) `## CONTENT`
+[DECISION][STYLE-025] 5) `## USAGE / RESOLUTION`
+[DECISION][STYLE-026] 6) `## OUTPUT CONTRACT`
+[DECISION][STYLE-027] 7) `## FORBIDDEN`
+[DECISION][STYLE-028] 8) `## NON-NORMATIVE` (optional; if absent, examples are forbidden).
+[DECISION][STYLE-029] Headers MUST match exactly (case-sensitive; exact bytes).
+[FORBIDDEN][STYLE-033] Any additional top-level (H2) sections outside the skeleton.
+[FORBIDDEN][STYLE-034] Any `yaml_delimiter_line` inside the document body (segmentation hazard).
+
+### 2.1 YAML front-matter (normalization; deterministic parsing)
+
+[DECISION][STYLE-130] Any corpus document that is consumed as an input (i.e., referenced by `inputs`/`depends_on` or listed in IDX registry) MUST include `front_matter`.
+[DECISION][STYLE-131] `front_matter` MUST include keys: `id`, `title`, `class`, `status`, `version`, `scope`, `inputs`, `depends_on`.
+[DECISION][STYLE-132] `inputs` and `depends_on` MUST be present; when empty they MUST be `[]`; when non-empty they MUST be YAML block lists (`- <id>`) sorted lexicographically ascending.
+[DECISION][STYLE-133] `id` MUST be ASCII uppercase with digits and hyphens only (`[A-Z0-9-]+`) and MUST be unique within the corpus membership registry.
+[DECISION][STYLE-134] `version` MUST be semver-compatible (`MAJOR.MINOR.PATCH`).
+[DECISION][STYLE-135] `status` MUST be one of: `draft` | `fixed` | `deprecated`.
+[DECISION][STYLE-136] Non-core YAML keys are allowed ONLY if they are either standardized in this spec (e.g., `prefix`, `doc_language`, `prose_language`, `dataset_id`, `record_format_id`) OR prefixed with `x_`.
+[FORBIDDEN][STYLE-137] YAML anchors, aliases, and merge keys (parsing ambiguity).
+[FORBIDDEN][STYLE-138] Tabs in YAML or body text (parser ambiguity); indentation MUST be spaces only.
+
+### 3. LLM-INTENT block (required; machine header)
+
+[DECISION][STYLE-035] `## LLM-INTENT` MUST contain exactly these keys (order free, ≤ 20 lines total):
+[DECISION][STYLE-036] `ROLE_TYPE: STATE|RULE|BIND|INTERFACE|INDEX`
+[DECISION][STYLE-037] `SCOPE: <one-sentence>`
+[DECISION][STYLE-038] `INPUTS: <list>` (use `[]` when none)
+[DECISION][STYLE-039] `OUTPUTS: <list>` (use `[]` when none)
+[DECISION][STYLE-040] `FORBIDDEN: <list>` (use `[]` when none)
+[FORBIDDEN][STYLE-041] Hidden dependencies not listed in INPUTS when they affect interpretation or exports.
+
+### 4. Statement Grammar (atomic, tagged, id-stable)
+
+[DECISION][STYLE-042] All normative or factual content MUST be expressed as atomic `statement`s.
+[DECISION][STYLE-043] Each `statement` MUST use one tag prefix: [FACT] | [ASSUMPTION] | [PROJECTION] | [DECISION] | [FORBIDDEN] | [UNKNOWN] | [STATE] | [RULE] | [BIND].
+[DECISION][STYLE-044] Tag-to-role constraints:
+[DECISION][STYLE-045] ROLE_TYPE: STATE → allowed tags: [STATE], [DECISION], [FORBIDDEN] (definitions may use [FACT] only in `## DEFINITIONS`).
+[DECISION][STYLE-046] ROLE_TYPE: RULE → allowed tags: [RULE], [DECISION], [FORBIDDEN] (definitions may use [FACT] only in `## DEFINITIONS`).
+[DECISION][STYLE-047] ROLE_TYPE: BIND → allowed tags: [BIND], [DECISION], [FORBIDDEN] (definitions may use [FACT] only in `## DEFINITIONS`).
+[DECISION][STYLE-048] ROLE_TYPE: INTERFACE → allowed tags: [DECISION], [FORBIDDEN] (definitions may use [FACT] only in `## DEFINITIONS`).
+[DECISION][STYLE-049] ROLE_TYPE: INDEX → allowed tags: [DECISION], [FORBIDDEN] (tables in CONTENT are allowed).
+[DECISION][STYLE-050] Every `statement` MUST have a stable ID: `[TAG][<DOCPREFIX>-NNN]`.
+[DECISION][STYLE-051] `DOCPREFIX` MUST be declared in YAML as `prefix:` OR MUST be inferable as the unique common prefix of all `statement_id` in the document; otherwise lint MUST fail.
+[DECISION][STYLE-052] `NNN` MUST be 3 digits and SHOULD increment by 10 for edit headroom (010, 020, ...).
+[DECISION][STYLE-053] IDs MUST be stable across edits; rewriting MUST preserve existing IDs verbatim.
+[FORBIDDEN][STYLE-054] “Floating bullets” without `[TAG][ID]` in any normative section.
+[DECISION][STYLE-055] Statement length ≤ 3 lines.
+[FORBIDDEN][STYLE-056] Multi-paragraph statements.
+[DECISION][STYLE-057] Markdown emphasis (`**`, `_`) MUST NOT carry meaning; structure MUST be expressed by tags/ids/keys.
+[FORBIDDEN][STYLE-058] Using bold/italic as structure or as a proxy for tags.
+[DECISION][STYLE-059] Any new term used as a normative token MUST be defined in the same document under `## DEFINITIONS`; corpus-wide terms MUST be promoted only via the canonical vocabulary doc (e.g., `CANON-VOCAB-2215-0001`).
+[DECISION][STYLE-059A] Normative statements MUST match regex: `^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9]+-[0-9]{3}\]\s.+$`.
+[DECISION][STYLE-059B] In any normative section, any non-empty line that is not a statement or a fenced machine block MUST cause lint FAIL.
+
+### 5. Language and operators (no soft speech)
+
+[FORBIDDEN][STYLE-060] Softeners: “обычно”, “как правило”, “в целом”, “скорее”, “может быть”, “возможно” (если не зафиксировано условием).
+[DECISION][STYLE-061] Allowed operators: IF / THEN / ELSE; MUST / MUST NOT; ONLY IF; EXCEPT WHEN; REQUIRES; IMPLIES.
+[DECISION][STYLE-062] Quantifiers MUST be explicit: range `x ∈ [a, b]`; approx `x ≈ y` (only if unavoidable; prefer range).
+[DECISION][STYLE-063] Numeric values MUST include units when applicable.
+[DECISION][STYLE-063A] Allowed modals are restricted to: MUST, MUST NOT, FORBIDDEN, REQUIRED, FAIL, PASS (case-sensitive).
+[FORBIDDEN][STYLE-063B] Any modal verbs outside allowed modals in normative sections (including: should/should not, may, can, usually, typically, generally, often).
+
+### 5.1 Language Policy (corpus vs prose)
+
+[DECISION][STYLE-064] Corpus-wide `prose_language` MUST be `ru-RU` and MUST match the language of any generated diegetic prose.
+[DECISION][STYLE-065] Every corpus document MUST declare `doc_language` in YAML; allowed values are: `ru-RU` | `en-US`.
+[DECISION][STYLE-066] Any document that can be directly consumed by a prose generator (class: `protocol` OR class: `scene` OR any doc that constrains prose output) MUST declare `prose_language: ru-RU` in YAML; mismatch is a hard lint error.
+
+### 5.2 Proper Names and Scripts (no auto-transliteration)
+
+[DECISION][STYLE-084] Every `proper_name` referenced as a token in TYPE C inputs or prose MUST have a canonical Russian form `canon_ru` declared explicitly in the corpus (no implicit derivation).
+[DECISION][STYLE-085] In diegetic prose output, `proper_name` MUST be emitted using `display_ru` (fallback: `canon_ru`) only.
+[DECISION][STYLE-086] If `doc_language` is `en-US`, any mention of a `proper_name` in normative text MUST preserve the Russian spelling by referencing it as `ru:"<canon_ru>"` (and MAY add `en:"<canon_en>"`); the Russian string MUST NOT be altered.
+[DECISION][STYLE-087] Latin-script names MAY appear in Russian prose ONLY IF they are explicitly intended as the displayed form (i.e., stored as `display_ru` for that entity); otherwise Latin-script is forbidden in prose for that entity.
+[FORBIDDEN][STYLE-088] Auto-transliteration or back-transliteration between scripts (ru↔lat) for any `proper_name`.
+[FORBIDDEN][STYLE-089] Introducing aliases for `proper_name` unless they are explicitly declared as aliases in the canonical vocabulary/registry that owns that namespace.
+
+### 6. Role-specific CONTENT rules (normative)
+
+[DECISION][STYLE-067] ROLE_TYPE: STATE — `## CONTENT` MUST contain only `[STATE]` statements (plus `[DECISION]` / `[FORBIDDEN]` for constraints on reading).
+[DECISION][STYLE-068] ROLE_TYPE: STATE MAY use normative tables ONLY IF the table schema is declared in OUTPUT CONTRACT and the table is the sole representation of those records (registry-style).
+[FORBIDDEN][STYLE-069] STATE content: causal chains, resolution logic, “why” explanations.
+[DECISION][STYLE-070] ROLE_TYPE: RULE — `## CONTENT` MUST contain only `[RULE]`, `[DECISION]`, `[FORBIDDEN]` (plus non-normative examples in `## NON-NORMATIVE` only).
+[DECISION][STYLE-071] RULE statements MUST be decidable; use IF/THEN where applicable.
+[DECISION][STYLE-071A] Decidable rule format MUST be `PASS IFF <predicate>; ELSE FAIL` OR `IF <predicate> THEN <obligation>; ELSE FAIL`.
+[DECISION][STYLE-072] ROLE_TYPE: BIND — `## CONTENT` MUST contain only `[BIND]` statements that select among existing STATE values.
+[DECISION][STYLE-073] BIND MUST reference a RULE justification by ID for each selection.
+[DECISION][STYLE-074] ROLE_TYPE: INTERFACE — defines domain ownership/consumes/forbids; MUST NOT introduce metric values.
+[DECISION][STYLE-075] ROLE_TYPE: INDEX — contains navigation tables/pointers only; MUST NOT redefine rules or state.
+[DECISION][STYLE-075A] In ROLE_TYPE: INDEX, any table in CONTENT MUST be fully specified in OUTPUT CONTRACT (columns, types, primary key if applicable).
+
+### 6.1 Record Streams (TYPE C inputs: scenes / timelines / event arrays)
+
+[DECISION][STYLE-076] TYPE C inputs MUST be represented as `record_stream` and MUST NOT be interpreted as TYPE B world state.
+[DECISION][STYLE-077] Any document that contains a `record_stream` MUST declare `record_format_id` in YAML; if the dataset spans multiple documents, those docs MUST also declare the same `dataset_id`.
+[DECISION][STYLE-078] Any document that exports `record_stream` MUST define, in its `## OUTPUT CONTRACT`, a machine-readable parser contract including at least: `record_start_rule`, `required_fields`, `field_encoding`, `merge_policy`.
+[FORBIDDEN][STYLE-079] Mixing multiple incompatible record encodings inside the same exported `record_stream` without explicit separate exports per encoding.
+
+### 7. Causal chains (strict form)
+
+[DECISION][STYLE-080] Causal chains are allowed ONLY in ROLE_TYPE: RULE (or in explicitly allowed CANON artifacts declared by RULE docs).
+[DECISION][STYLE-081] Canonical tokens: `CAUSE → MECHANISM → CONSEQUENCE`.
+[DECISION][STYLE-082] If causal text is present, each node MUST be a separate atomic statement with its own ID.
+[FORBIDDEN][STYLE-083] Inline causal chains inside long paragraphs.
+
+### 8. Ownership, domains, and naming
+
+[DECISION][STYLE-090] Every metric MUST declare ownership in a ROLE_TYPE: STATE document (e.g., `metric.owner_domain = <DOMAIN>`), or via an INTERFACE ownership table referenced by that STATE.
+[FORBIDDEN][STYLE-091] Two domains defining the same metric value unless explicitly marked DUAL-ALLOWED by a RULE doc.
+[DECISION][STYLE-092] Ownership names MUST match the interface index (project-owned enum set).
+[DECISION][STYLE-093] Metric IDs MUST be snake_case and stable.
+[FORBIDDEN][STYLE-094] Reusing the same metric name for different meanings.
+[DECISION][STYLE-094A] Reserved keywords for corpus semantics are: ARTIFACT, BUNDLE, CONTRACT, GATE, LOCK, OVERRIDE, REGISTRY, PACK.
+[FORBIDDEN][STYLE-094B] Using synonyms for reserved keywords in normative sections (e.g., “package” вместо PACK, “checkpoint” вместо GATE).
+
+### 9. Numbers, units, strings, UNKNOWN
+
+[DECISION][STYLE-120] Numeric values MUST include units: `TW`, `EJ_per_year`, `C`, `m`, `%`, `years`, etc.
+[DECISION][STYLE-121] Strings that are tokens/enums SHOULD be UPPER_SNAKE_CASE; human text strings SHOULD be quoted consistently (`"..."`) where parsing matters.
+[DECISION][STYLE-122] Missing data MUST be represented as `UNKNOWN` or omitted; never elided with `...` or `…`.
+[FORBIDDEN][STYLE-123] Ellipsis placeholders (`...` / `…`) in any normative section; in `class: scene` this is a hard lint error.
+[DECISION][STYLE-124] If a `record_stream` uses JSON (e.g., JSON Lines), it MUST be declared via `record_format_id` and MUST have an explicit parser contract in OUTPUT CONTRACT; “implicit JSON” is forbidden.
+[DECISION][STYLE-124A] Any reference to an undefined term/metric/token in normative sections MUST be treated as [UNKNOWN] and MUST trigger lint FAIL unless explicitly allowed by a RULE.
+
+### 10. OUTPUT CONTRACT templates (normative; role-specific)
+
+[DECISION][STYLE-110] Every document MUST include `## OUTPUT CONTRACT` and it MUST be machine-readable.
+[DECISION][STYLE-111] OUTPUT CONTRACT SHOULD be expressed as YAML in a fenced block with language tag `yaml`.
+
+~~~yaml
+doc_id: <id>
+role_type: <ROLE_TYPE>
+export: <role-specific>
+~~~
+
+[DECISION][STYLE-112] STATE output contract schema:
+~~~yaml
+doc_id: <id>
+role_type: STATE
+export:
+  - metric: <metric_id>
+    owner_domain: <DOMAIN>
+    values:
+      core: <value|none>
+      p90: <value|none>
+      range: <[a,b]|none>
+    unit: <unit|none>
+~~~
+
+[DECISION][STYLE-113] RULE output contract schema:
+~~~yaml
+doc_id: <id>
+role_type: RULE
+export:
+  - rule_id: <STATEMENT_ID>
+    intent: <one-line>
+    inputs: <list>
+    outputs: <list>
+~~~
+
+[DECISION][STYLE-114] BIND output contract schema:
+~~~yaml
+doc_id: <id>
+role_type: BIND
+export:
+  - metric: <metric_id>
+    selected_value: core|p90|override
+    scope: baseline|canon|override
+    justification: <rule_id>
+~~~
+
+[DECISION][STYLE-115] INTERFACE output contract schema:
+~~~yaml
+doc_id: <id>
+role_type: INTERFACE
+export:
+  - owns: <list of domains|concepts>
+  - consumes: <list of domains|documents>
+  - forbids: <list of forbidden definitions>
+~~~
+
+[DECISION][STYLE-116] INDEX output contract schema:
+~~~yaml
+doc_id: <id>
+role_type: INDEX
+export:
+  - rows: <list>
+  - columns: <list>
+~~~
+
+[DECISION][STYLE-116A] Any spec that defines lint MUST export machine-readable lint configuration in OUTPUT CONTRACT as YAML (no prose).
+[FORBIDDEN][STYLE-117] Omitting OUTPUT CONTRACT even if `export` is empty.
+[FORBIDDEN][STYLE-118] Using freeform prose in OUTPUT CONTRACT instead of machine-readable schema.
+
+### 11. Rewrite protocol (deterministic transformation)
+
+[DECISION][STYLE-140] Rewrite MUST preserve meaning; only structure changes unless explicitly requested.
+[DECISION][STYLE-141] Rewrite MUST preserve all existing `statement_id`s verbatim; new statements MUST allocate new IDs without renumbering old ones.
+[DECISION][STYLE-142] Rewrite algorithm MUST be:
+[DECISION][STYLE-143] 1) Parse YAML front-matter; validate required keys.
+[DECISION][STYLE-144] 2) Infer ROLE_TYPE (or keep if valid); enforce tag constraints.
+[DECISION][STYLE-145] 3) Build mandatory skeleton; move all content under correct sections.
+[DECISION][STYLE-146] 4) Split prose/bullets into atomic statements; assign IDs; keep ≤ 3 lines per statement.
+[DECISION][STYLE-147] 5) Move examples into `## NON-NORMATIVE` only.
+[DECISION][STYLE-148] 6) Emit `## OUTPUT CONTRACT` matching role templates; if export is empty, still emit schema.
+[DECISION][STYLE-149] 7) Emit `## FORBIDDEN` tailored to doc role and scope.
+[DECISION][STYLE-150] 8) Run lint gates; fail if any gate fails.
+[DECISION][STYLE-151] Rewrite MUST NOT translate, transliterate, or back-transliterate any `proper_name`; Russian spellings MUST be preserved verbatim.
+[DECISION][STYLE-152] If `doc_language` is missing, rewrite MUST set it to `ru-RU` by default unless explicitly requested otherwise; prose constraints MUST keep `prose_language: ru-RU`.
+[DECISION][STYLE-153] If the document contains TYPE C records, rewrite MUST preserve the declared `record_format_id` (or set it explicitly) and MUST NOT silently convert encodings (e.g., KV → JSON) without an explicit request.
+[DECISION][STYLE-154] Any newly introduced corpus-wide term during rewrite MUST be added either to local `## DEFINITIONS` (local scope) or to the canonical vocabulary doc; silent “new term without definition” is forbidden.
+
+### 12. Compliance checklist (mechanical gates)
+
+[DECISION][STYLE-160] A document is COMPLIANT IFF all lint gates in this spec pass.
+[DECISION][STYLE-161] Non-compliant docs MUST be treated as invalid inputs (do not consume for generation).
+
+## USAGE / RESOLUTION
+
+[DECISION][STYLE-200] This spec is normative for all corpus docs unless a doc contains an explicit exemption statement that references this spec and declares its scope.
+[DECISION][STYLE-201] Exemptions MUST be minimal and MUST NOT weaken determinism (exemption itself must be decidable).
+[DECISION][STYLE-202] Applicability/precedence between documents is governed by `SPEC-PRIORITY-RESOLUTION-2215-0001`; this spec defines structure and lint gates only.
+[DECISION][STYLE-203] Consumers MUST treat only OUTPUT CONTRACT `export` as consumable semantics; any content outside OUTPUT CONTRACT is NON-COMPLIANT to consume.
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: SPEC-DOC-STYLE-2215-0001
+role_type: RULE
+export:
+  - rule_id_prefix: STYLE
+    corpus_language_policy:
+      doc_language_allowed: ["ru-RU","en-US"]
+      prose_language_required: "ru-RU"
+      proper_names:
+        canon_ru_required: true
+        prose_emit: "display_ru_then_canon_ru"
+        forbid_auto_transliteration: true
+    record_stream_rules:
+      require_record_format_id: true
+      require_dataset_id_for_series: true
+      require_parser_contract_keys: ["record_start_rule","required_fields","field_encoding","merge_policy"]
+    skeleton_h2_order:
+      - "LLM-INTENT"
+      - "DEFINITIONS"
+      - "INVARIANTS"
+      - "CONTENT"
+      - "USAGE / RESOLUTION"
+      - "OUTPUT CONTRACT"
+      - "FORBIDDEN"
+      - "NON-NORMATIVE"
+    allowed_role_types: ["STATE","RULE","BIND","INTERFACE","INDEX"]
+    allowed_tags: ["FACT","ASSUMPTION","PROJECTION","DECISION","FORBIDDEN","UNKNOWN","STATE","RULE","BIND"]
+    statement_line_regex: '^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9]+-[0-9]{3}\]\s.+$'
+    allowed_modals: ["MUST","MUST NOT","FORBIDDEN","REQUIRED","FAIL","PASS"]
+    forbidden_modals: ["should","may","can","usually","typically","generally","often"]
+    lint_gates:
+      - gate_id: STYLE-LINT-001
+        intent: "no extra H2 sections"
+      - gate_id: STYLE-LINT-002
+        intent: "every normative line is a tagged statement with stable id"
+      - gate_id: STYLE-LINT-003
+        intent: "LLM-INTENT has required keys and <=20 lines"
+      - gate_id: STYLE-LINT-004
+        intent: "OUTPUT CONTRACT present and machine-readable"
+      - gate_id: STYLE-LINT-005
+        intent: "prefix declared or inferable"
+      - gate_id: STYLE-LINT-006
+        intent: "no yaml_delimiter_line in body"
+      - gate_id: STYLE-LINT-007
+        intent: "no ellipsis placeholders in normative sections"
+      - gate_id: STYLE-LINT-008
+        intent: "front_matter required keys present and normalized (inputs/depends_on lists)"
+      - gate_id: STYLE-LINT-009
+        intent: "doc_language present and allowed"
+      - gate_id: STYLE-LINT-010
+        intent: "prose_language required for prose-consumed docs and must equal ru-RU"
+      - gate_id: STYLE-LINT-011
+        intent: "record_stream docs declare record_format_id (+dataset_id for series) and have parser contract keys"
+      - gate_id: STYLE-LINT-012
+        intent: "headers match exactly (case-sensitive) and follow skeleton order"
+      - gate_id: STYLE-LINT-013
+        intent: "no forbidden modals/softeners in normative sections"
+      - gate_id: STYLE-LINT-014
+        intent: "no consumption of non-export content is allowed"
+  - rewrite_protocol:
+      - "STYLE-140"
+      - "STYLE-141"
+      - "STYLE-142"
+      - "STYLE-143"
+      - "STYLE-144"
+      - "STYLE-145"
+      - "STYLE-146"
+      - "STYLE-147"
+      - "STYLE-148"
+      - "STYLE-149"
+      - "STYLE-150"
+      - "STYLE-151"
+      - "STYLE-152"
+      - "STYLE-153"
+      - "STYLE-154"
+~~~
+
+## FORBIDDEN
+
+[FORBIDDEN][STYLE-900] Treating NON-NORMATIVE content as a source of constraints or facts.
+[FORBIDDEN][STYLE-901] Silent relaxation of any MUST/MUST NOT rule without an explicit exemption statement.
+[FORBIDDEN][STYLE-902] Consuming content outside of declared OUTPUT CONTRACT of a document.
+[FORBIDDEN][STYLE-903] Using unscoped numbers (numbers without units where units are applicable).
+[FORBIDDEN][STYLE-904] Using `yaml_delimiter_line` in document body (segmentation hazard).
+[FORBIDDEN][STYLE-905] Auto-transliteration/back-transliteration of any proper names or toponyms (ru↔lat) without explicit canon/alias declaration.
+[FORBIDDEN][STYLE-906] Emitting diegetic prose in any language other than `prose_language: ru-RU`.
+[FORBIDDEN][STYLE-907] Changing `record_format_id` or mixing record encodings inside a dataset without an explicit exemption statement.
+[FORBIDDEN][STYLE-908] Using synonyms for reserved keywords (CONTRACT/GATE/LOCK/OVERRIDE/REGISTRY/PACK) in normative sections.
+
+## NON-NORMATIVE
+
+### Example: Minimal compliant doc (illustrative; delimiter lines replaced to avoid segmentation hazards in examples)
+
+~~~text
+YAML_FRONT_MATTER_BEGIN
+id: EXAMPLE-0001
+title: >
+  Example Doc
+class: canon
+status: draft
+version: 0.1.0
+prefix: EXA
+doc_language: en-US
+prose_language: ru-RU
+inputs: []
+depends_on: []
+scope: >
+  Example scope.
+YAML_FRONT_MATTER_END
+
+## LLM-INTENT
+
+ROLE_TYPE: RULE
+SCOPE: example rules
+INPUTS: []
+OUTPUTS: []
+FORBIDDEN: []
+
+## DEFINITIONS
+
+[FACT][EXA-010] `foo` = bar.
+
+## INVARIANTS
+
+[DECISION][EXA-020] Foo MUST remain bar.
+
+## CONTENT
+
+[RULE][EXA-030] IF foo == bar THEN baz MUST be qux; ELSE FAIL.
+
+## USAGE / RESOLUTION
+
+[DECISION][EXA-040] Applies globally.
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: EXAMPLE-0001
+role_type: RULE
+export: []
+~~~
+
+## FORBIDDEN
+
+[FORBIDDEN][EXA-900] Inventing baz.
+
+## NON-NORMATIVE
+
+(empty)
+~~~

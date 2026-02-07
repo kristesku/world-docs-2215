@@ -1,75 +1,134 @@
 ﻿# tools/scripts/build-idx.ps1
-# Generate docs/08-idx/IDX-CORPUS-0001.md from YAML front-matter in docs//*.md
+# Generate docs/idx/IDX-CORPUS-0001.md from YAML front-matter + ROLE_TYPE
 # Windows PowerShell 5.1 compatible
 
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 $docsRoot = Join-Path $repoRoot 'docs'
-$idxPath  = Join-Path $docsRoot '08-idx\IDX-CORPUS-0001.md'
+$idxPath  = Join-Path $docsRoot 'idx\IDX-CORPUS-0001.md'
 
 function Get-FrontMatterMap([string]$content) {
-  if ($content -notmatch "(?s)^---\s*\r?\n(.*?)\r?\n---\s*\r?\n") { return $null }
-  $fm = $Matches[1]
-
-  $map = @{}
-  foreach ($line in ($fm -split "\r?\n")) {
-    if ($line -match '^\s*#') { continue }
-    if ($line -match '^\s*([A-Za-z0-9_]+)\s*:\s*(.*)\s*$') {
-      $k = $Matches[1]
-      $v = $Matches[2].Trim()
-      $map[$k] = $v
+    if ($content -notmatch "(?s)^---\s*\r?\n(.*?)\r?\n---\s*\r?\n") {
+        return $null
     }
-  }
-  return $map
+
+    $fm = $Matches[1]
+    $map = @{}
+
+    foreach ($line in ($fm -split "\r?\n")) {
+        if ($line -match '^\s*#') { continue }
+        if ($line -match '^\s*([A-Za-z0-9_]+)\s*:\s*(.*)\s*$') {
+            $k = $Matches[1]
+            $v = $Matches[2].Trim()
+            $map[$k] = $v
+        }
+    }
+
+    return $map
 }
 
-function Normalize-Inputs([string]$inputsRaw) {
-  if ([string]::IsNullOrWhiteSpace($inputsRaw)) { return '—' }
+function Normalize-DocIdCsv($raw) {
+    # Accepts: $null | "" | "A,B" | "[A, B]" | array
+    # Returns: "" or "A,B" (deduped, preserves first-seen order)
+    if ($null -eq $raw) { return '' }
 
-  $s = $inputsRaw.Trim()
+    $items = @()
 
-  # inputs: [A, B, C] -> A,B,C
-  if ($s.StartsWith('[') -and $s.EndsWith(']')) {
-    $inner = $s.Substring(1, $s.Length - 2)
-    $parts = $inner -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' }
-    if ($parts.Count -eq 0) { return '—' }
-    return ($parts -join ',')
-  }
+    if ($raw -is [System.Array]) {
+        $items = @(
+            $raw |
+            ForEach-Object { "$_".Trim() } |
+            Where-Object { $_ -ne '' -and $_ -ne '—' }
+        )
+    } else {
+        $s = "$raw".Trim()
+        if ([string]::IsNullOrWhiteSpace($s)) { return '' }
+        if ($s -eq '—') { return '' }
 
-  return $s
+        # [A, B] -> A, B
+        if ($s.StartsWith('[') -and $s.EndsWith(']')) {
+            $s = $s.Substring(1, $s.Length - 2)
+        }
+
+        # Split by comma OR newline (extra safety)
+        $items = @(
+            ($s -split '[,\r\n]+' ) |
+            ForEach-Object { $_.Trim() } |
+            Where-Object { $_ -ne '' -and $_ -ne '—' }
+        )
+    }
+
+    if ($items.Count -eq 0) { return '' }
+
+    # Dedup, preserve order of first appearance
+    $seen = New-Object 'System.Collections.Generic.HashSet[string]'
+    $out  = New-Object 'System.Collections.Generic.List[string]'
+
+    foreach ($it in $items) {
+        if ($seen.Add($it)) { [void]$out.Add($it) }
+    }
+
+    return ($out -join ',')
+}
+
+function Get-RoleType([string]$content) {
+    # Extract ROLE_TYPE from ## LLM-INTENT block
+    $regex = New-Object System.Text.RegularExpressions.Regex(
+        "(?ms)^\s*##\s+LLM-INTENT\s*\r?\n.*?^\s*ROLE_TYPE\s*:\s*(?<rt>[A-Za-z0-9_\-]+)\s*$"
+    )
+
+    $m = $regex.Match($content)
+    if ($m.Success) {
+        return $m.Groups['rt'].Value.Trim()
+    }
+
+    return ''
+}
+
+function Normalize-RoleType([string]$rt) {
+    if ([string]::IsNullOrWhiteSpace($rt)) { return '' }
+    $allow = @('STATE','RULE','BIND','INTERFACE','INDEX','PLAN','REGISTRY')
+    if ($allow -contains $rt) { return $rt }
+    return "INVALID($rt)"
 }
 
 $rows = @()
 
 Get-ChildItem -Path $docsRoot -Recurse -Filter *.md | ForEach-Object {
-  $full = $_.FullName
-  $rel  = $full.Substring($repoRoot.Path.Length + 1) -replace '\\','/'
 
-  $txt = Get-Content -Raw -Encoding utf8 -LiteralPath $full
-  $fm  = Get-FrontMatterMap $txt
-  if ($null -eq $fm) { return }
+    $full = $_.FullName
+    $rel  = $full.Substring($repoRoot.Path.Length + 1) -replace '\\','/'
 
-  $id = $fm['id']
-  if ([string]::IsNullOrWhiteSpace($id)) { return }
+    $txt = Get-Content -Raw -Encoding utf8 -LiteralPath $full
+    $fm  = Get-FrontMatterMap $txt
+    if ($null -eq $fm) { return }
 
-  $class   = $fm['class']
-  $status  = $fm['status']
-  $version = $fm['version']
-  $inputs  = Normalize-Inputs $fm['inputs']
+    $id = $fm['id']
+    if ([string]::IsNullOrWhiteSpace($id)) { return }
 
-  $rows += [PSCustomObject]@{
-    id      = $id.Trim()
-    file    = $rel
-    class   = if ($class)   { $class.Trim() }   else { '' }
-    status  = if ($status)  { $status.Trim() }  else { '' }
-    version = if ($version) { $version.Trim() } else { '' }
-    inputs  = $inputs
-  }
+    $class      = $fm['class']
+    $status     = $fm['status']
+    $version    = $fm['version']
+    $inputs     = Normalize-DocIdCsv $fm['inputs']
+    $depends_on = Normalize-DocIdCsv $fm['depends_on']
+    $roleType   = Normalize-RoleType (Get-RoleType $txt)
+
+    $rows += [PSCustomObject]@{
+        id         = $id.Trim()
+        file       = $rel
+        class      = if ($class)   { $class.Trim() }   else { '' }
+        status     = if ($status)  { $status.Trim() }  else { '' }
+        version    = if ($version) { $version.Trim() } else { '' }
+        role_type  = $roleType
+        inputs     = $inputs
+        depends_on = $depends_on
+    }
 }
 
-# stable ordering
-$rows = $rows | Sort-Object class, id
+# NOTE: git неважен — оставляем порядок файлового обхода (как есть).
+# Если захочешь “читаемый” порядок — раскомментируй:
+# $rows = $rows | Sort-Object class, id
 
 $header = @'
 ---
@@ -78,34 +137,121 @@ title: >
   Corpus Registry
 class: idx
 status: draft
-version: 0.1.0
+version: 0.2.0
+prefix: CORP
+doc_language: ru-RU
 inputs: []
 depends_on: []
 scope: >
-  Реестр всех документов корпуса: роли, статусы, зависимости.
+  Нормативный реестр членства документов корпуса. Определяет, какие doc_id
+  считаются частью корпуса, и предоставляет машиночитаемую таблицу навигации.
 ---
 
-## RULES
+## LLM-INTENT
 
-- [DECISION][CORP-010] IDX-CORPUS is normative for corpus membership.
-- [DECISION][CORP-011] A doc is considered part of the corpus IFF it is present in the Registry table.
-- [DECISION][CORP-012] Lint MUST fail if:
-  - any referenced `depends_on` id is missing from Registry, OR
-  - any `status: fixed` doc is missing from Registry.
+ROLE_TYPE: INDEX
+SCOPE: normative corpus membership registry and navigation table
+INPUTS: []
+OUTPUTS: [registry_rows]
+FORBIDDEN: [worldbuilding, prose, implicit_membership, rule_definition, state_definition]
 
-## Registry
+## DEFINITIONS
 
-| id | file | class | status | version | inputs | notes |
-| -- | ---- | ----- | ------ | ------- | ------ | ----- |
-'@ + "`r`n"
+[FACT][CORP-010] `registry_row` = запись таблицы с полями {id, file, class, status, version, role_type, inputs, depends_on, notes}.
+[FACT][CORP-020] `membership` = свойство документа считаться частью корпуса.
+[FACT][CORP-030] `primary_key` = поле `id`.
+
+## INVARIANTS
+
+[DECISION][CORP-100] Document HAS membership IFF its `id` exists in Registry table; ELSE FAIL.
+[DECISION][CORP-110] Any `depends_on` reference MUST exist in Registry; ELSE FAIL.
+[DECISION][CORP-120] Any document with `status: fixed` MUST exist in Registry; ELSE FAIL.
+[DECISION][CORP-130] `id` MUST be unique across rows; ELSE FAIL.
+[DECISION][CORP-140] Registry table is the ONLY authoritative membership source; ELSE FAIL.
+
+[FORBIDDEN][CORP-150] Implicit membership by folder presence.
+[FORBIDDEN][CORP-160] Redefining rules or state inside this INDEX.
+[FORBIDDEN][CORP-170] Narrative or descriptive prose.
+
+## CONTENT
+
+| id | file | class | status | version | role_type | inputs | depends_on | notes |
+| -- | ---- | ----- | ------ | ------- | --------- | ------ | ---------- | ----- |
+'@
+$header += "`r`n"
 
 $body = ($rows | ForEach-Object {
-  # notes intentionally empty for manual curation
-  '| {0} | {1} | {2} | {3} | {4} | {5} | |' -f $_.id, $_.file, $_.class, $_.status, $_.version, $_.inputs
+    '| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | |' -f `
+        $_.id,
+        $_.file,
+        $_.class,
+        $_.status,
+        $_.version,
+        $_.role_type,
+        $_.inputs,
+        $_.depends_on
 }) -join "`r`n"
+
+$footer = @'
+
+## USAGE / RESOLUTION
+
+[DECISION][CORP-200] Tools generating AI_CONTEXT or performing lint MUST consume only rows of this table; ELSE FAIL.
+[DECISION][CORP-210] Filename MUST equal `<id>.md`; ELSE FAIL.
+[DECISION][CORP-220] Path column is informational and MUST NOT redefine membership.
+
+## OUTPUT CONTRACT
+
+~~~yaml
+doc_id: IDX-CORPUS-0001
+role_type: INDEX
+export:
+  column_types:
+    id: doc_id
+    file: path
+    class: enum
+    status: enum
+    version: semver
+    role_type: enum
+    inputs: doc_id_csv
+    depends_on: doc_id_csv
+    notes: text
+  column_encoding:
+    doc_id_csv:
+      separator: ","
+      empty: ""
+  columns:
+    - id
+    - file
+    - class
+    - status
+    - version
+    - role_type
+    - inputs
+    - depends_on
+    - notes
+  primary_key: id
+  rows_source: CONTENT
+~~~
+
+## FORBIDDEN
+
+[FORBIDDEN][CORP-900] Using folder scan as corpus membership.
+[FORBIDDEN][CORP-901] Consuming documents not present in this registry.
+[FORBIDDEN][CORP-902] Treating comments or prose as registry data.
+[FORBIDDEN][CORP-903] Using placeholders like "—" in CSV-typed columns.
+
+## NON-NORMATIVE
+
+(empty)
+'@
 
 # Write UTF-8 with BOM (чтобы Windows-инструменты не ломали кириллицу)
 $utf8Bom = New-Object System.Text.UTF8Encoding($true)
-[System.IO.File]::WriteAllText($idxPath, ($header + $body + "`r`n"), $utf8Bom)
+[System.IO.File]::WriteAllText(
+    $idxPath,
+    ($header + $body + "`r`n" + $footer),
+    $utf8Bom
+)
 
 Write-Host ('IDX generated: ' + $idxPath)
