@@ -6,7 +6,7 @@ class: plan
 status: draft
 version: 0.3.0
 inputs:
-  - BASELINE-PHYSICAL-LEVEL-MID-2215-0001
+  - BASELINE-PHYSICALLEVELMID-2215-0001
   - SSOT-SCENARIO-A-2215-0001
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
@@ -21,7 +21,7 @@ scope: >
 ROLE_TYPE: INTERFACE
 SCOPE: structural skeleton for environment baselines and scene snapshots; no world facts or default values
 INPUTS:
-  - BASELINE-PHYSICAL-LEVEL-MID-2215-0001
+  - BASELINE-PHYSICALLEVELMID-2215-0001
   - SSOT-SCENARIO-A-2215-0001
   - override_documents
 OUTPUTS:

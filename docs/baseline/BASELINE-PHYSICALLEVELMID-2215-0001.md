@@ -1,12 +1,16 @@
 ---
-id: BASELINE-PHYSICAL-LEVEL-MID-2215-0001
+id: BASELINE-PHYSICALLEVELMID-2215-0001
 title: >
   Physical Environment Baseline — LEVEL-MID (2215)
 class: baseline
 status: fixed
-version: 1.1.0
+version: 1.1.1
+prefix: PHY
+doc_language: ru-RU
+prose_language: ru-RU
 inputs: []
 depends_on:
+  - SPEC-DOC-STYLE-2215-0001
   - SSOT-SCENARIO-A-2215-0001
 scope: >
   Исполняемый baseline физической среды и повседневных условий для сцен романа в 2215 году.
@@ -18,7 +22,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: enforce LEVEL-MID physical-environment defaults and forbid out-of-band physical states in scenes.
-INPUTS: [scene.level, scene.environment_snapshot]
+INPUTS: [scene.access_level, scene.environment_snapshot]
 OUTPUTS: [resolved_level, resolved_defaults, forbidden_violations]
 FORBIDDEN: [invent_physical_baseline_values, mix_levels_without_override, narrative_explanations_as_baseline]
 
@@ -35,7 +39,7 @@ FORBIDDEN: [invent_physical_baseline_values, mix_levels_without_override, narrat
 [DECISION][PHY-INV-011] If a scene does not specify `access_level`, THEN `access_level = LEVEL-MID`.
 [DECISION][PHY-INV-012] `LEVEL-LOW` and `LEVEL-HIGH` MUST be used ONLY IF explicitly specified in the scene.
 [FORBIDDEN][PHY-INV-020] Scenes MUST NOT introduce assumptions, analytics, or source citations as baseline content.
-[FORBIDDEN][PHY-INV-021] Scenes MUST NOT replace baseline constraints with CANON/SCENARIO reasoning.
+[FORBIDDEN][PHY-INV-021] Scenes MUST NOT replace baseline constraints with CANON or SCENARIO reasoning.
 [FORBIDDEN][PHY-INV-022] Scenes MUST NOT use emotional judgments where a measurable baseline parameter is defined.
 
 ## CONTENT
@@ -119,7 +123,7 @@ FORBIDDEN: [invent_physical_baseline_values, mix_levels_without_override, narrat
 [DECISION][PHY-SNS-050] `traffic_flow.range = [0.45, 0.80]` and `traffic_flow.p50 = 0.62` with domain `0..1` where `1 = high_friction`.
 [FORBIDDEN][PHY-SNS-051] `traffic_flow > 0.92` is forbidden WITHOUT explicit `override`.
 
-[DECISION][PHY-SNS-060] `background_noise_tag` MAY be used as a neutral label with length ≤ 3 words.
+[DECISION][PHY-SNS-060] IF `background_noise_tag` is used THEN it MUST be a neutral label with length ≤ 3 words; ELSE FAIL.
 [FORBIDDEN][PHY-SNS-061] `background_noise_tag` MUST NOT be emotional (examples: oppressive, terrifying, depressing).
 
 ### 8) Global forbidden defaults
@@ -139,26 +143,26 @@ FORBIDDEN: [invent_physical_baseline_values, mix_levels_without_override, narrat
 ## USAGE / RESOLUTION
 
 [DECISION][PHY-USE-010] Resolution target: produce `resolved_level` and a set of `resolved_defaults` for the scene.
-[DECISION][PHY-USE-011] A scene MAY select 2–5 fields from `environment_snapshot` and use them directly.
+[DECISION][PHY-USE-011] IF `environment_snapshot` is used in a scene THEN the scene MUST select k ∈ [2, 5] fields from it; ELSE FAIL.
 [DECISION][PHY-USE-012] Any `override` MUST be explicit and local: it changes only the referenced parameter(s), not the entire level.
 [DECISION][PHY-USE-013] If a scene needs luxury/utopia or slums/collapse, THEN it MUST switch to `LEVEL-HIGH` or `LEVEL-LOW` respectively, not “bend” LEVEL-MID.
 
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: BASELINE-PHYSICAL-LEVEL-MID-2215-0001
+doc_id: BASELINE-PHYSICALLEVELMID-2215-0001
 role_type: RULE
 export:
   - rule_id: PHY-ACL-010
-    intent: default access_level to LEVEL-MID when unspecified
+    intent: "default access_level to LEVEL-MID when unspecified"
     inputs: [scene.access_level]
     outputs: [scene.access_level]
   - rule_id: PHY-SNS-013
-    intent: forbid noise_*_db above 85 unless explicit override
+    intent: "forbid noise_*_db above 85 unless explicit override"
     inputs: [scene.environment_snapshot.noise_*_db, scene.override]
     outputs: [forbidden_violations]
   - rule_id: PHY-CHK-012
-    intent: out-of-range sensor values require explicit override and become events
+    intent: "out-of-range sensor values require explicit override and become events"
     inputs: [scene.environment_snapshot.*, scene.override]
     outputs: [forbidden_violations, resolved_defaults]
 ~~~
@@ -166,7 +170,7 @@ export:
 ## FORBIDDEN
 
 [FORBIDDEN][PHY-FRB-010] Introducing new baseline physical ranges without updating this baseline document.
-[FORBIDDEN][PHY-FRB-011] Mixing LEVEL-MID defaults with LEVEL-LOW/LEVEL-HIGH states without explicit scene level selection.
+[FORBIDDEN][PHY-FRB-011] Mixing LEVEL-MID defaults with LEVEL-LOW or LEVEL-HIGH states without explicit scene level selection.
 [FORBIDDEN][PHY-FRB-012] Using emotional evaluation in place of baseline-measurable parameters when such parameters are present.
 [FORBIDDEN][PHY-FRB-013] Treating out-of-range sensor values as “background” without explicit override.
 

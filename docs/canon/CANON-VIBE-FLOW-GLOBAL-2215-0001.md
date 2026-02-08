@@ -1,72 +1,117 @@
 ---
 id: CANON-VIBE-FLOW-GLOBAL-2215-0001
 title: >
-  Atmosphere Reference — Nujabes & Logic ("Solar Flow" State)
+  Atmosphere Reference — Nujabes & Logic ("Solar Flow" Profile)
 class: canon
 status: draft
-version: 1.0.0
-inputs: [CANON-VIBE-RESTLESS-GLOBAL-2215-0001]
-depends_on: []
+version: 1.0.1
+prefix: FLO
+doc_language: ru-RU
+prose_language: ru-RU
+inputs:
+  - CANON-VIBE-RESTLESS-GLOBAL-2215-0001
+depends_on:
+  - SPEC-DOC-ID-2215-0001
+  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон для «светлых» и высокоинтеллектуальных сцен: состояние потока,
-  дедуктивные прорывы, эстетика «солнечного брутализма». Используется как
-  ограничитель генерации сцен и диалогов.
+  RULE-канон для “flow” сцен: инсайт, аккуратное исполнение, ясная рефлексия.
+  Документ ограничивает ритм/саундскейп/визуальные маркеры через решаемые
+  токены сцены. Без SSOT-метрик и без инфодампа.
 ---
 
 ## LLM-INTENT
 
-ROLE_TYPE: RULE  
-SCOPE: enforce solar_flow vibe constraints for insight, execution, and reflective scenes  
-INPUTS: [scene.type, scene.state]  
-OUTPUTS: [prose_rhythm_rules, soundscape_rules, dialogue_constraints]  
-FORBIDDEN: [gritty_bass, choppy_prose, emotional_monologue, noir_cliches]
+ROLE_TYPE: RULE
+SCOPE: enforce FLOW vibe constraints when scene.vibe == "FLOW"
+INPUTS: [CANON-VIBE-RESTLESS-GLOBAL-2215-0001, scene.inputs, scene.vibe, scene.context, scene.directives, scene.sound_markers, scene.visual_markers]
+OUTPUTS: [sound_marker_pool, visual_marker_pool, flow_requirements]
+FORBIDDEN: [noir_cliches, gritty_bass_dominance, choppy_fragmentation, emotional_monologue_exposition, music_reference_in_prose]
 
 ## DEFINITIONS
 
-[FACT][FLOW-DEF-010] `solar_flow_vibe` = режим сцены с высокой когнитивной синхронизацией и ощущением ясности.  
-[FACT][FLOW-DEF-011] `nujabes_layer` = атмосферный слой: солнечный свет, тёплый бетон, мягкие повторяющиеся текстуры.  
-[FACT][FLOW-DEF-012] `logic_layer` = ритмический слой: высокая плотность мысли, быстрые и точные формулировки.  
+[FACT][FLO-010] `scene.inputs` = список doc_id, явно подключённых сценой как входы.
+[FACT][FLO-011] `scene.vibe` = строковый тег профиля атмосферы сцены.
+[FACT][FLO-012] `scene.context` = набор контекстных токенов сцены (UPPER_SNAKE_CASE).
+[FACT][FLO-013] `scene.directives` = набор директив генерации сцены (UPPER_SNAKE_CASE).
+[FACT][FLO-014] `scene.sound_markers` = список звуковых токенов сцены (UPPER_SNAKE_CASE).
+[FACT][FLO-015] `scene.visual_markers` = список визуальных токенов сцены (UPPER_SNAKE_CASE).
 
 ## INVARIANTS
 
-[DECISION][FLOW-INV-010] `solar_flow_vibe` применяется ONLY IF выполнено хотя бы одно условие:
-- команда действует синхронно и эффективно;
-- персонаж находится в глубокой дедукции;
-- сцена подчёркивает красоту и целостность мира.
-
-[FORBIDDEN][FLOW-INV-011] Использование `solar_flow_vibe` в сценах:
-- процедурного тупика;
-- бюрократического конфликта;
-- насилия как доминанты.
+[RULE][FLO-020] IF "CANON-VIBE-FLOW-GLOBAL-2215-0001" IN scene.inputs THEN PASS IFF scene.vibe == "FLOW"; ELSE PASS.
+[RULE][FLO-030] IF scene.vibe == "FLOW" THEN PASS IFF scene.context intersects {"INSIGHT","EXECUTION","REFLECTION","PLANNING","CREATION"}; ELSE PASS.
+[RULE][FLO-040] IF scene.vibe == "FLOW" THEN PASS IFF "NOIR_DEFAULT" NOT IN scene.context; ELSE PASS.
 
 ## CONTENT
 
-[RULE][FLOW-100] IF scene.type ∈ {insight, execution, reflection} THEN USE solar_flow_vibe.  
-[RULE][FLOW-101] IF scene.type ∈ {routine, struggle, bureaucracy} THEN USE CANON-VIBE-RESTLESS.  
+### A. Pools (normative tokens)
 
-[RULE][FLOW-110] Soundscape constraints:
-- IF solar_flow_vibe THEN low-frequency grit MUST NOT dominate.
-- IF solar_flow_vibe THEN ambient tones MUST be perceived as ordered and rhythmic.
+~~~yaml
+sound_marker_pool:
+  - ORDERED_AMBIENT_TONES
+  - SOFT_LOOP_BEAT
+  - CLEAN_LOW_END
+  - QUIET_TRANSIENTS
+  - CONTROLLED_REVERB_SPACE
 
-[RULE][FLOW-120] Prose rhythm constraints:
-- IF solar_flow_vibe THEN sentence_length ∈ [medium, long].
-- IF solar_flow_vibe THEN clauses MAY cascade logically.
-- IF solar_flow_vibe THEN rhetorical fragmentation MUST NOT be used.
+sound_marker_required:
+  - ORDERED_AMBIENT_TONES
+  - SOFT_LOOP_BEAT
 
-[RULE][FLOW-130] Dialogue constraints:
-- IF solar_flow_vibe THEN hesitation_markers MUST NOT appear.
-- IF solar_flow_vibe THEN dialogue_speed = high.
-- IF solar_flow_vibe THEN exchanges imply shared context without exposition.
+visual_marker_pool:
+  - WARM_REFLECTION_ON_MASS
+  - MATTE_STABLE_SURFACES
+  - LOW_GLARE_GLASS
+  - SUN_AS_REFLECTION_NOT_SPOTLIGHT
+  - CLEAN_VOLUME_READABILITY
 
-[RULE][FLOW-140] Visual constraints:
-- IF solar_flow_vibe THEN lighting MUST reference low sun / warm reflection.
-- IF solar_flow_vibe THEN materials MUST read as warm, massive, stable.
+visual_marker_required:
+  - MATTE_STABLE_SURFACES
+  - WARM_REFLECTION_ON_MASS
+
+directive_required:
+  - SENTENCE_PROFILE_MEDIUM_LONG
+  - NO_RHETORICAL_FRAGMENTATION
+  - LOGICAL_CHAIN_VISIBLE
+  - DIALOGUE_HIGH_SIGNAL_LOW_NOISE
+  - SHARED_CONTEXT_NO_EXPOSITION
+
+forbidden_directives:
+  - EMOTION_MONOLOGUE_EXPLAINS_INSIGHT
+  - MUSIC_REFERENCE_IN_PROSE
+  - NOIR_CLICHE_STACK
+~~~
+
+### B. Soundscape constraints
+
+[RULE][FLO-110] IF scene.vibe == "FLOW" THEN PASS IFF scene.sound_markers.count ∈ [1,3]; ELSE PASS.
+[RULE][FLO-120] IF scene.vibe == "FLOW" THEN PASS IFF every(scene.sound_markers) ∈ sound_marker_pool; ELSE FAIL.
+[RULE][FLO-130] IF scene.vibe == "FLOW" THEN PASS IFF "ORDERED_AMBIENT_TONES" IN scene.sound_markers; ELSE FAIL.
+[RULE][FLO-140] IF scene.vibe == "FLOW" THEN PASS IFF "SOFT_LOOP_BEAT" IN scene.sound_markers; ELSE FAIL.
+
+### C. Visual constraints
+
+[RULE][FLO-210] IF scene.vibe == "FLOW" THEN PASS IFF scene.visual_markers.count ∈ [1,3]; ELSE PASS.
+[RULE][FLO-220] IF scene.vibe == "FLOW" THEN PASS IFF every(scene.visual_markers) ∈ visual_marker_pool; ELSE FAIL.
+[RULE][FLO-230] IF scene.vibe == "FLOW" THEN PASS IFF "MATTE_STABLE_SURFACES" IN scene.visual_markers; ELSE FAIL.
+[RULE][FLO-240] IF scene.vibe == "FLOW" THEN PASS IFF "WARM_REFLECTION_ON_MASS" IN scene.visual_markers; ELSE FAIL.
+
+### D. Prose/dialogue directives constraints
+
+[RULE][FLO-310] IF scene.vibe == "FLOW" THEN PASS IFF "SENTENCE_PROFILE_MEDIUM_LONG" IN scene.directives; ELSE FAIL.
+[RULE][FLO-320] IF scene.vibe == "FLOW" THEN PASS IFF "NO_RHETORICAL_FRAGMENTATION" IN scene.directives; ELSE FAIL.
+[RULE][FLO-330] IF scene.vibe == "FLOW" THEN PASS IFF "LOGICAL_CHAIN_VISIBLE" IN scene.directives; ELSE FAIL.
+[RULE][FLO-340] IF scene.vibe == "FLOW" THEN PASS IFF "DIALOGUE_HIGH_SIGNAL_LOW_NOISE" IN scene.directives; ELSE FAIL.
+[RULE][FLO-350] IF scene.vibe == "FLOW" THEN PASS IFF "SHARED_CONTEXT_NO_EXPOSITION" IN scene.directives; ELSE FAIL.
+[RULE][FLO-360] IF scene.vibe == "FLOW" THEN PASS IFF every(forbidden_directives) NOT IN scene.directives; ELSE FAIL.
 
 ## USAGE / RESOLUTION
 
-- `solar_flow_vibe` overrides CANON-VIBE-RESTLESS ONLY within the active scene.
-- Scene MUST revert to baseline vibe after resolution of insight/execution.
-- Precedence: RULE → CANON → SCENE.
+[DECISION][FLO-400] Scenes MUST treat this doc as applicable ONLY IF scene.vibe == "FLOW".
+[DECISION][FLO-410] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][FLO-420] This doc MUST NOT override locality constraints; locality MUST be constrained by location canon/docs; ELSE FAIL.
+[DECISION][FLO-430] This doc MUST NOT be consumed as a default substitute for CANON-VIBE-RESTLESS-GLOBAL-2215-0001; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
@@ -74,31 +119,34 @@ FORBIDDEN: [gritty_bass, choppy_prose, emotional_monologue, noir_cliches]
 doc_id: CANON-VIBE-FLOW-GLOBAL-2215-0001
 role_type: RULE
 export:
-  - rule_id: FLOW-100
-    intent: select solar_flow_vibe based on scene type
-    inputs: [scene.type]
-    outputs: [vibe_profile]
-  - rule_id: FLOW-110
-    intent: constrain soundscape under solar_flow_vibe
-    inputs: [scene.state]
-    outputs: [soundscape_rules]
-  - rule_id: FLOW-120
-    intent: constrain prose rhythm under solar_flow_vibe
-    inputs: [scene.state]
-    outputs: [prose_rules]
-  - rule_id: FLOW-130
-    intent: constrain dialogue under solar_flow_vibe
-    inputs: [scene.state]
-    outputs: [dialogue_rules]
+  - rule_id: FLO-020
+    intent: "applicability bound to explicit scene.inputs + scene.vibe"
+    inputs: [scene.inputs, scene.vibe]
+    outputs: [flow_requirements]
+  - rule_id: FLO-120
+    intent: "sound markers must be selected from allowed pool"
+    inputs: [scene.sound_markers]
+    outputs: [sound_marker_pool, flow_requirements]
+  - rule_id: FLO-230
+    intent: "require matte stable surfaces visual marker"
+    inputs: [scene.visual_markers]
+    outputs: [visual_marker_pool, flow_requirements]
+  - rule_id: FLO-310
+    intent: "require medium-long sentence profile directive"
+    inputs: [scene.directives]
+    outputs: [flow_requirements]
+  - rule_id: FLO-360
+    intent: "forbid prohibited directives under FLOW"
+    inputs: [scene.directives]
+    outputs: [flow_requirements]
 ~~~
 
 ## FORBIDDEN
 
-[FORBIDDEN][FLOW-FRB-010] Использование «нуарной» эстетики (дождь, неон, грязный бас).  
-[FORBIDDEN][FLOW-FRB-011] Эмоциональные монологи как объяснение инсайта.  
-[FORBIDDEN][FLOW-FRB-012] Превращение вайба в музыкальную отсылку внутри текста.
+[FORBIDDEN][FLO-900] Using noir-by-default framing as FLOW baseline.
+[FORBIDDEN][FLO-910] Treating music references as diegetic content in generated prose.
+[FORBIDDEN][FLO-920] Consuming NON-NORMATIVE examples as rules.
 
 ## NON-NORMATIVE
 
-Пример (не норма):  
-«Мысль цеплялась за лог, лог раскрывался связью, и карта была ясна, как чертёж на стекле».
+(empty)

@@ -5,94 +5,79 @@ title: >
 class: baseline
 status: fixed
 version: 1.3.0
+prefix: PSY
+doc_language: ru-RU
+prose_language: ru-RU
 inputs:
-  - BASELINE-SOCIAL-CIVIC-2215-0001
+  - BASELINE-SOCIAL-2215-0001
   - SSOT-URBANISM-A-2215-0007
-depends_on:
+depends_on: []
 scope: >
-  Психологический портрет и базовое мировоззрение жителя LEVEL-MID.
-  Включает отношение к труду, власти, технологиям и среде.
+  Психологический baseline жителя LEVEL-MID. Только состояния.
 ---
 
 ## LLM-INTENT
 
 ROLE_TYPE: STATE
-SCOPE: define default psychological traits and attitudes.
-INPUTS: [BASELINE-SOCIAL-CIVIC-2215-0001, SSOT-URBANISM-A-2215-0007]
+SCOPE: define default psychological traits and attitudes
+INPUTS: [BASELINE-SOCIAL-2215-0001, SSOT-URBANISM-A-2215-0007]
 OUTPUTS: [behavioral_norms, world_attitudes, neuroses]
-FORBIDDEN: [sterile_utopia, robotic_emotionlessness, romantic_nature_worship]
+FORBIDDEN: []
 
 ## DEFINITIONS
 
-[FACT][PSY-DEF-010] **Density Fatigue** = хроническая усталость от постоянного присутствия людей.
-[FACT][PSY-DEF-011] **Transactionalism** = привычка оценивать действия через "затраты/выгода".
-[FACT][PSY-DEF-012] **Algorithmic Fatalism** = вера в то, что Система всегда выигрывает математически.
+[FACT][PSY-010] Density_Fatigue = хроническая усталость от высокой плотности людей.
+[FACT][PSY-020] Transactionalism = оценка действий через затраты и выгоду.
+[FACT][PSY-030] Algorithmic_Fatalism = вера в математическое превосходство системы.
 
 ## INVARIANTS
 
-[DECISION][PSY-INV-010] Citizens are "Armor-Clad": headphones/glasses create a personal bubble.
-[DECISION][PSY-INV-011] Silence is the ultimate luxury; Noise is the default state.
-[DECISION][PSY-INV-012] Nostalgia is directed at the "Pre-Algorithm Era" (messy but free).
+[DECISION][PSY-040] Personal_bubble_devices MUST be common.
+[DECISION][PSY-050] Noise MUST be default.
+[DECISION][PSY-060] Silence MUST be perceived_as_luxury.
 
 ## CONTENT
 
-### 1. Public Behavior (The Commuter Shell)
+[STATE][PSY-100] public_mask = THOUSAND_YARD_STARE.
+[STATE][PSY-110] conflict_response = IGNORE_OR_EVADE.
+[STATE][PSY-120] personal_space = COMPRESSIBLE.
+[STATE][PSY-130] politeness = EFFICIENT_MINIMAL.
 
-[STATE][PSY-BEH-010] public_mask = "Thousand-Yard Stare" (looking through people).
-[STATE][PSY-BEH-011] conflict_response = "Ignore/Evade" (confrontation is too expensive).
-[STATE][PSY-BEH-012] personal_space = "Compressible" (tolerate crowding, expand when able).
-[STATE][PSY-BEH-013] politeness = "Efficient" (nodding, moving fast, not blocking flow).
+[STATE][PSY-140] dominant_stress = UNPLANNED_DEBT.
+[STATE][PSY-150] reflex_pre_transaction = CHECK_BALANCE.
+[STATE][PSY-160] waste_reaction = IRRITATION.
 
-### 2. Resource Neurosis (The Accountant Within)
+[STATE][PSY-170] trust_circle = UNIT_ONLY.
+[STATE][PSY-180] physical_touch_outside_unit = ZERO.
+[STATE][PSY-190] strangers = OBSTACLES_OR_DATA_POINTS.
 
-[STATE][PSY-ECO-020] dominant_stress = "Unplanned Debt" (accidentally breaking infrastructure).
-[STATE][PSY-ECO-021] reflex = "Check Balance" before any transaction.
-[STATE][PSY-ECO-022] waste_reaction = Visceral irritation (wasting water feels like bleeding).
+[STATE][PSY-200] syndrome_box_claustrophobia = PRESENT.
+[STATE][PSY-210] syndrome_algorithmic_paranoia = PRESENT.
+[STATE][PSY-220] syndrome_touch_aggression = PRESENT.
 
-### 3. Intimacy & Trust
+[STATE][PSY-230] mech_sensory = ACTIVE_NOISE_CANCELLATION.
+[STATE][PSY-240] mech_chemical = FUNCTIONAL_STIMS.
+[STATE][PSY-250] mech_control = MICRO_CUSTOMIZATION.
 
-[STATE][PSY-SOC-030] trust_circle = "The Unit" (Family/Roommates vs The World).
-[STATE][PSY-SOC-031] physical_touch = High within Unit, Zero outside.
-[STATE][PSY-SOC-032] strangers = "Obstacles" or "Data Points".
+[STATE][PSY-260] work_view = LICENSE_TO_EXIST.
+[STATE][PSY-270] corp_trust = ZERO.
+[STATE][PSY-280] automation_fear = HIGH.
 
-### 4. Specific Pathologies
+[STATE][PSY-290] state_view = PROTECTIVE_BUT_COLD.
+[STATE][PSY-300] justice_view = ARITHMETIC.
+[STATE][PSY-310] politics_interest = LOW.
 
-[STATE][PSY-PATH-040] syndrome="Box Claustrophobia" (panic when ventilation stops).
-[STATE][PSY-PATH-041] syndrome="Algorithmic Paranoia" (believing bad luck is a 'shadow ban').
-[STATE][PSY-PATH-042] syndrome="Touch Aggression" (snapping when bumped too often).
+[STATE][PSY-320] city_view = LIFE_SUPPORT_SYSTEM.
+[STATE][PSY-330] nature_view = LUXURY_GOOD.
+[STATE][PSY-340] weather_view = INFRASTRUCTURE_FAILURE_SIGNAL.
 
-### 5. Coping Mechanisms
-
-[STATE][PSY-COPE-050] mech_sensory = "Active Noise Cancellation" (mandatory wear).
-[STATE][PSY-COPE-051] mech_chemical = "Stims/Sedatives" (functional use for shifts).
-[STATE][PSY-COPE-052] mech_control = "Micro-customization of personal corner".
-
-### 6. Core Attitudes (Worldview)
-
-#### Work & Corporations
-[STATE][PSY-ATT-060] work_view = "License to Exist". Job is not a career, it's debt service.
-[STATE][PSY-ATT-061] corp_trust = "Zero". Corps are predators, but necessary providers.
-[STATE][PSY-ATT-062] automation_fear = "High". Every update might optimize your role away.
-
-#### The State & Governance
-[STATE][PSY-ATT-070] state_view = "The Wall". It protects from the Outside, but it is cold and hard.
-[STATE][PSY-ATT-071] justice_view = "Arithmetic". You don't ask for mercy, you ask for a recount.
-[STATE][PSY-ATT-072] politics = "Irrelevant". Algorithms decide, humans just sign.
-
-#### City & Nature
-[STATE][PSY-ATT-080] city_view = "Life Support Suit". Outside is death/chaos; City is survival.
-[STATE][PSY-ATT-081] nature_view = "Abstract Luxury". Real wood/grass is for the rich.
-[STATE][PSY-ATT-082] weather_view = "System Failure". Rain/Snow means the dome/drainage is struggling.
-
-#### Technology & Art
-[STATE][PSY-ATT-090] tech_view = "Invisible Utility". Not magic, just plumbing. Only noticed when broken.
-[STATE][PSY-ATT-091] progress_view = "Skeptical". 'New' usually means 'More Efficient for Them, Harder for Me'.
-[STATE][PSY-ATT-092] art_view = "The Human Signal". Valued because it's inefficient/messy (e.g., analog music).
+[STATE][PSY-350] tech_view = INVISIBLE_UTILITY.
+[STATE][PSY-360] progress_view = SKEPTICAL.
+[STATE][PSY-370] art_view = HUMAN_SIGNAL.
 
 ## USAGE / RESOLUTION
 
-[DECISION][PSY-USE-010] Characters are cynical but functional survivors.
-[DECISION][PSY-USE-011] "Hope" is usually about stability, not revolution.
+[DECISION][PSY-400] Characters MUST default_to cynical_functional_survivor_profile.
 
 ## OUTPUT CONTRACT
 
@@ -100,14 +85,19 @@ FORBIDDEN: [sterile_utopia, robotic_emotionlessness, romantic_nature_worship]
 doc_id: BASELINE-PSYCH-2215-0001
 role_type: STATE
 export:
-  - metric: worldview.work
+  - metric: worldview.work_view
     owner_domain: PSYCH
     values:
-      core: License to Exist
+      core: LICENSE_TO_EXIST
+    unit: none
 ~~~
 
 ## FORBIDDEN
 
-[FORBIDDEN][PSY-FBD-010] Romanticizing nature as something "cute" (it's dangerous/expensive).
-[FORBIDDEN][PSY-FBD-011] Characters trusting corporations blindly.
-[FORBIDDEN][PSY-FBD-012] Viewing technology with wonder (it's mundane).
+[FORBIDDEN][PSY-900] Romanticized_nature_defaults.
+[FORBIDDEN][PSY-910] Blind_corporate_trust.
+[FORBIDDEN][PSY-920] Technology_as_wonder.
+
+## NON-NORMATIVE
+
+(empty)

@@ -2,13 +2,13 @@
 id: REG-UNKNOWN-2215-0001
 title: >
   UNKNOWN Registry — 2215 Corpus
-  (Extraction: , BASELINE-PHYSICAL-LEVEL-MID-2215-0001)
+  (Extraction: , BASELINE-PHYSICALLEVELMID-2215-0001)
 class: registry
 status: draft
 version: 1.0.0
 inputs:
   - 
-  - BASELINE-PHYSICAL-LEVEL-MID-2215-0001
+  - BASELINE-PHYSICALLEVELMID-2215-0001
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
 scope: >
@@ -21,7 +21,7 @@ scope: >
 
 ROLE_TYPE: STATE
 SCOPE: track and control consciously unresolved world assumptions (UNKNOWNs).
-INPUTS: [, BASELINE-PHYSICAL-LEVEL-MID-2215-0001]
+INPUTS: [, BASELINE-PHYSICALLEVELMID-2215-0001]
 OUTPUTS: [unknown_records]
 FORBIDDEN: [implicit_resolution, silent_assumptions, narrative_filling]
 
@@ -62,7 +62,7 @@ unknown_id=UNK-2215-0001;
 statement="Никотин / ингаляции — биомед vs культура.";
 type=CANON_DECISION;
 closure_path="Resolved: Pharma-inhalers only, combustion banned.";
-target_doc="BASELINE-SOCIAL-CIVIC-2215-0001";
+target_doc="BASELINE-SOCIAL-2215-0001";
 owner=SYSTEM;
 state=closed.
 
@@ -71,7 +71,7 @@ unknown_id=UNK-2215-0002;
 statement="Домашние животные — санитарные ограничения.";
 type=CANON_DECISION;
 closure_path="Resolved: Biomass tax, robotics norm.";
-target_doc="BASELINE-SOCIAL-CIVIC-2215-0001";
+target_doc="BASELINE-SOCIAL-2215-0001";
 owner=SYSTEM;
 state=closed.
 
@@ -107,7 +107,7 @@ unknown_id=UNK-2215-0006;
 statement="Утилизация тел умерших — этика vs ресурсы.";
 type=CANON_DECISION;
 closure_path="Resolved: Mandatory Aquamation (Water Reclamation). No burials.";
-target_doc="BASELINE-SOCIAL-CIVIC-2215-0001";
+target_doc="BASELINE-SOCIAL-2215-0001";
 owner=SYSTEM;
 state=closed.
 
@@ -116,7 +116,7 @@ unknown_id=UNK-2215-0007;
 statement="Статус 'Offline' — право или девиантность.";
 type=CANON_DECISION;
 closure_path="Resolved: Public offline = suspicious/illegal. Private = luxury.";
-target_doc="BASELINE-SOCIAL-CIVIC-2215-0001";
+target_doc="BASELINE-SOCIAL-2215-0001";
 owner=SYSTEM;
 state=closed.
 
@@ -125,7 +125,7 @@ unknown_id=UNK-2215-0008;
 statement="Регулирование фертильности и интимных контактов.";
 type=CANON_DECISION;
 closure_path="Resolved: Licensing for kids, viral monitoring for contact.";
-target_doc="BASELINE-SOCIAL-CIVIC-2215-0001";
+target_doc="BASELINE-SOCIAL-2215-0001";
 owner=SYSTEM;
 state=closed.
 

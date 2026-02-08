@@ -15,13 +15,29 @@ function Get-FrontMatterMap([string]$content) {
 
     $fm = $Matches[1]
     $map = @{}
+    $currentKey = $null
 
     foreach ($line in ($fm -split "\r?\n")) {
         if ($line -match '^\s*#') { continue }
+
+        # 1. Ловим строку вида "key: value" (или просто "key:")
         if ($line -match '^\s*([A-Za-z0-9_]+)\s*:\s*(.*)\s*$') {
             $k = $Matches[1]
             $v = $Matches[2].Trim()
             $map[$k] = $v
+            $currentKey = $k
+        }
+        # 2. Ловим строку списка "- value", если уже известен ключ
+        elseif ($currentKey -ne $null -and $line -match '^\s*-\s+(.*)$') {
+            $val = $Matches[1].Trim()
+            
+            # Добавляем к существующему значению через запятую.
+            # Функция Normalize-DocIdCsv потом сама разберется с форматом.
+            if (-not [string]::IsNullOrWhiteSpace($map[$currentKey])) {
+                $map[$currentKey] += ", $val"
+            } else {
+                $map[$currentKey] = $val
+            }
         }
     }
 
@@ -175,13 +191,13 @@ FORBIDDEN: [worldbuilding, prose, implicit_membership, rule_definition, state_de
 
 ## CONTENT
 
-| id | file | class | status | version | role_type | inputs | depends_on | notes |
-| -- | ---- | ----- | ------ | ------- | --------- | ------ | ---------- | ----- |
+| id | file | class | status | version | role_type | inputs | depends_on |
+| -- | ---- | ----- | ------ | ------- | --------- | ------ | ---------- |
 '@
 $header += "`r`n"
 
 $body = ($rows | ForEach-Object {
-    '| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | |' -f `
+    '| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} |' -f `
         $_.id,
         $_.file,
         $_.class,

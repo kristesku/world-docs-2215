@@ -1,5 +1,5 @@
 ---
-id: BASELINE-SECURITY-USE-OF-FORCE-2215-0001
+id: BASELINE-SECURITY-2215-0001
 title: >
   Security Baseline — 2215 (Use of Force, Detention, Jurisdiction)
 class: baseline
@@ -10,9 +10,9 @@ inputs:
   - SSOT-SCENARIO-A-2215-0001
 depends_on:
   - CANON-BASE-RULE-GLOBAL-2215-0001
-  - BASELINE-URBAN-OBSERVABILITY-2215-0001
+  - BASELINE-OBSERVABILITY-2215-0001
   - BASELINE-DIGITALIDENTITY-2215-0001
-  - BASELINE-SOCIAL-CIVIC-2215-0001
+  - BASELINE-SOCIAL-2215-0001
 scope: >
   Исполняемый baseline применения силы и процедур безопасности (LEVEL-MID) в 2215 году.
   Определяет допустимые триггеры, ступени эскалации, задержание, юрисдикцию
@@ -27,9 +27,9 @@ INPUTS:
   - SSOT-GOVERNANCE-SECURITY-A-2215-0005
   - SSOT-SCENARIO-A-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
-  - BASELINE-URBAN-OBSERVABILITY-2215-0001
+  - BASELINE-OBSERVABILITY-2215-0001
   - BASELINE-DIGITALIDENTITY-2215-0001
-  - BASELINE-SOCIAL-CIVIC-2215-0001
+  - BASELINE-SOCIAL-2215-0001
 OUTPUTS: [rule_id, escalation_state, detention_state, jurisdiction_outcome]
 FORBIDDEN: [prose, cultural_exposition, heroic_myth, mixed_role_types, vigilante_logic]
 

@@ -1,97 +1,132 @@
 ---
 id: CANON-VIBE-RESTLESS-GLOBAL-2215-0001
 title: >
-  Atmosphere Reference — UNKLE "Restless" (Audio & Narrative Vibe)
+  Atmosphere Reference — UNKLE "Restless" (Operational Vibe Profile)
 class: canon
 status: draft
-version: 0.1.0
-inputs: []
-depends_on: []
+version: 0.1.1
+prefix: RST
+doc_language: ru-RU
+prose_language: ru-RU
+inputs:
+  - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
+  - CANON-CAST-GLOBAL-2215-0001
+  - CANON-CITY-RU-2215-0007
+  - CANON-LOC-CHELNY-2215-0001
+  - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
+depends_on:
+  - SPEC-DOC-ID-2215-0001
+  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон для стилизации сцен (ритм, саундскейп, сенсорика, психология команды)
-  по аудио-референсу UNKLE — “Restless” для Челнов-2215. Без метрик SSOT и без художественного текста.
+  RULE-канон для “restless” сцен: поток действий + износ без мелодрамы,
+  процедурная повторяемость, инфраструктурный саундскейп, утилитарный диалог.
+  Ограничения задаются через решаемые токены сцены. Без SSOT-метрик и без прозы.
 ---
 
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: enforce “Restless” vibe constraints for Chelny-2215 scenes (soundscape, prose rhythm, team psychology).
-INPUTS: [CANON-CITY-RU-2215-0007, CANON-LOC-CHELNY-2215-0001, CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-CAST-GLOBAL-2215-0001]
-OUTPUTS: [scene_style_profile, prose_rhythm_rules, soundscape_rules, dialogue_rules, forbidden_patterns]
-FORBIDDEN: [lyrics_quotes, noir_cliches, essay_mode, metaphoric_system_persona, mood_exposition]
+SCOPE: enforce RESTLESS vibe constraints when scene.vibe == "RESTLESS"
+INPUTS: [CANON-LOC-CHELNY-2215-0001, CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001, scene.inputs, scene.vibe, scene.context, scene.directives, scene.sound_markers, scene.dialogue_markers]
+OUTPUTS: [sound_marker_pool, dialogue_marker_pool, restless_requirements]
+FORBIDDEN: [lyrics_quotes, noir_cliches, system_anthropomorphism, essay_mode, smalltalk_default]
 
 ## DEFINITIONS
 
-[FACT][VIBE-DEF-010] `vibe_profile` = набор правил, ограничивающих ритм прозы, саундскейп, сенсорные якоря и динамику команды в сцене.
-[FACT][VIBE-DEF-011] `restless_vibe` = профиль “driving fatigue”: поток действий + износ без мелодрамы.
-[FACT][VIBE-DEF-012] `soundscape_layer_low_end` = низкочастотный фон инфраструктуры (гул/вибрация/фазовые шумы).
-[FACT][VIBE-DEF-013] `soundscape_layer_beat` = ритмика логистики и процедур (повторяемые такты, механическая регулярность).
-[FACT][VIBE-DEF-014] `soundscape_layer_vocals` = голосовые интерфейсы (интерком, терминалы, краткие реплики).
-[FACT][VIBE-DEF-015] `bend_resend_loop` = цикл “отказ/ограничение → правка параметров → повтор запроса” без эмоциональной экспозиции.
-[FACT][VIBE-DEF-016] `procedural_spiral` = драматургический эффект “решение частичное → цикл запускается снова”.
+[FACT][RST-010] `scene.inputs` = список doc_id, явно подключённых сценой как входы.
+[FACT][RST-011] `scene.vibe` = строковый тег профиля атмосферы сцены.
+[FACT][RST-012] `scene.context` = набор контекстных токенов сцены (UPPER_SNAKE_CASE).
+[FACT][RST-013] `scene.directives` = набор директив генерации сцены (UPPER_SNAKE_CASE).
+[FACT][RST-014] `scene.sound_markers` = список звуковых токенов сцены (UPPER_SNAKE_CASE).
+[FACT][RST-015] `scene.dialogue_markers` = список токенов диалога/взаимодействия (UPPER_SNAKE_CASE).
 
 ## INVARIANTS
 
-[DECISION][VIBE-INV-010] Scenes tagged with `restless_vibe` MUST express: flow_state AND wear_state.
-[DECISION][VIBE-INV-011] Any atmospheric detail MUST map to: (infrastructure) OR (procedure) OR (human_cost), not decoration.
-[DECISION][VIBE-INV-012] System MUST NOT be anthropomorphized; system-facing content MUST comply with CANON-SYSTEM-VOICE-GLOBAL-2215-0001.
-[DECISION][VIBE-INV-013] City soundscape MUST be non-silent; silence MAY appear ONLY IF it is an anomaly or controlled regime marker.
-[DECISION][VIBE-INV-014] Dialogue between team members MUST be utilitarian; social-smalltalk MUST NOT be the default interaction mode.
+[RULE][RST-020] IF "CANON-VIBE-RESTLESS-GLOBAL-2215-0001" IN scene.inputs THEN PASS IFF scene.vibe == "RESTLESS"; ELSE PASS.
+[RULE][RST-030] IF scene.vibe == "RESTLESS" THEN PASS IFF scene.context intersects {"ROUTINE","FIELD_OP","INSPECTION","DATA_CAPTURE","ACCESS_GATE","TRIAGE","BUREAUCRACY","TRANSIT_SLOW"}; ELSE PASS.
+[RULE][RST-040] IF scene.vibe == "RESTLESS" THEN PASS IFF "SYSTEM_AS_CHARACTER" NOT IN scene.context; ELSE PASS.
+[RULE][RST-050] IF scene.vibe == "RESTLESS" AND "SILENCE" IN scene.context THEN PASS IFF "SILENCE_AS_ANOMALY" IN scene.directives; ELSE PASS.
 
 ## CONTENT
 
-[RULE][VIBE-100] IF scene.location = "CHELNY-2215" THEN apply `restless_vibe` constraints as default style profile.
-[RULE][VIBE-101] IF scene.type ∈ {field_op, inspection, data_capture, access_gate, triage} THEN enforce `bend_resend_loop` as micro-structure.
-[RULE][VIBE-102] IF a character expresses emotion THEN represent it as operational output (timing, errors, omissions, fatigue markers), not as monologue.
+### A) Pools (normative tokens)
 
-### Soundscape rules
+~~~yaml
+sound_marker_pool:
+  - LOW_END_HUM_CONTINUOUS
+  - PROCEDURAL_TICK_CADENCE
+  - FILTERED_INTERCOM_VOICE
+  - HEAT_EXCHANGE_HISS
+  - DRY_AIR_HVAC
 
-[RULE][VIBE-110] `soundscape_layer_low_end` MUST be present as continuous background cue (hum/vibration/heat-exchange).
-[RULE][VIBE-111] `soundscape_layer_beat` MUST be represented as repetition with stable cadence (procedural tick, conveyor rhythm, dispatch cadence).
-[RULE][VIBE-112] `soundscape_layer_vocals` MUST sound filtered/flattened (intercom/PA/terminal tone), not theatrical voice acting.
-[RULE][VIBE-113] IF sound is described THEN it MUST use cold mechanical descriptors (frequency, vibration, continuity, interference) and MUST NOT use romanticized noir audio tropes.
+sound_marker_required:
+  - LOW_END_HUM_CONTINUOUS
+  - PROCEDURAL_TICK_CADENCE
 
-### Prose rhythm rules
+dialogue_marker_pool:
+  - REQUEST_CONSTRAINT_DELTA_CONFIRM
+  - NO_SMALLTALK_DEFAULT
+  - COMPETENCE_TRUST_ROUTING
+  - PROTOCOL_PHRASE_MINIMAL
+  - FATIGUE_AS_TIMING_ERRORS
 
-[RULE][VIBE-120] Sentence length profile MUST satisfy: short_ratio ≥ 0.60 where short_sentence_words ∈ [3, 12].
-[RULE][VIBE-121] Paragraph length MUST satisfy: paragraph_sentences ∈ [1, 4] for action/procedure beats.
-[RULE][VIBE-122] IF a refusal/deny occurs (access, data, window, order) THEN the next 1–3 sentences MUST execute `bend_resend_loop`.
-[RULE][VIBE-123] Exposition blocks MUST NOT exceed 4 sentences consecutively in `restless_vibe` scenes.
+directive_required:
+  - SENTENCE_PROFILE_SHORT_HEAVY
+  - PARAGRAPH_PROFILE_1_TO_4_SENTENCES
+  - EMOTION_AS_OPERATIONAL_OUTPUT
+  - RESOLUTION_PARTIAL_WITH_RESIDUAL
 
-### Procedural spiral rules (macro)
+directive_conditional:
+  - if_context: ACCESS_DENY
+    require: BEND_RESEND_LOOP
+  - if_context: WINDOW_DENY
+    require: BEND_RESEND_LOOP
+  - if_context: DATA_DENY
+    require: BEND_RESEND_LOOP
 
-[RULE][VIBE-130] Chapter/scene resolution MUST be partial: solved_scope ⊂ problem_space.
-[RULE][VIBE-131] IF a win occurs THEN it MUST include a residual (new constraint, new window, new admissibility risk, new dependency).
-[RULE][VIBE-132] IF a loss occurs THEN it MUST be framed as “lost window / lost admissibility / lost observability”, not as “defeat of hero”.
+forbidden_directives:
+  - LYRICS_QUOTE
+  - NOIR_CLICHE_STACK
+  - SYSTEM_ANTHROPOMORPHISM
+  - ESSAY_MODE_BLOCK
+~~~
 
-### Sensory / tactile rules
+### B) Soundscape constraints
 
-[RULE][VIBE-140] Sensory cues MUST prefer: heat, vibration, dry air, matte surfaces, service seams, access hatches.
-[RULE][VIBE-141] IF describing “weight of system” THEN encode it as: physical load (heat/noise/space pressure) OR interface load (HUD strain, access friction), not mysticism.
-[RULE][VIBE-142] Any tactile metaphor MUST preserve causality (source hardware → sensation), and MUST NOT imply sentient infrastructure.
+[RULE][RST-110] IF scene.vibe == "RESTLESS" THEN PASS IFF scene.sound_markers.count ∈ [2,4]; ELSE PASS.
+[RULE][RST-120] IF scene.vibe == "RESTLESS" THEN PASS IFF every(scene.sound_markers) ∈ sound_marker_pool; ELSE FAIL.
+[RULE][RST-130] IF scene.vibe == "RESTLESS" THEN PASS IFF "LOW_END_HUM_CONTINUOUS" IN scene.sound_markers; ELSE FAIL.
+[RULE][RST-140] IF scene.vibe == "RESTLESS" THEN PASS IFF "PROCEDURAL_TICK_CADENCE" IN scene.sound_markers; ELSE FAIL.
 
-### Team psychology / dialogue rules
+### C) Dialogue constraints
 
-[RULE][VIBE-150] Team talk MUST default to data exchange: request → constraint → delta → confirm.
-[RULE][VIBE-151] Social friction MUST be minimized: no apology rituals, no “how are you”, no bonding banter as default.
-[RULE][VIBE-152] Trust MUST be expressed as functional reliance: “I trust your competency for this task”, not declarations of friendship.
-[RULE][VIBE-153] “Sync without words” MAY be used ONLY IF it is manifested via: gestures, timings, pre-agreed protocol phrases, shared artifacts.
+[RULE][RST-210] IF scene.vibe == "RESTLESS" THEN PASS IFF every(scene.dialogue_markers) ∈ dialogue_marker_pool; ELSE FAIL.
+[RULE][RST-220] IF scene.vibe == "RESTLESS" THEN PASS IFF "REQUEST_CONSTRAINT_DELTA_CONFIRM" IN scene.dialogue_markers; ELSE FAIL.
+[RULE][RST-230] IF scene.vibe == "RESTLESS" THEN PASS IFF "NO_SMALLTALK_DEFAULT" IN scene.dialogue_markers; ELSE FAIL.
 
-### Integration rules
+### D) Prose/directives constraints
 
-[RULE][VIBE-160] IF a system insert is used THEN it MUST follow CANON-SYSTEM-VOICE-GLOBAL-2215-0001 schema and MUST count toward scene density constraints there.
-[RULE][VIBE-161] IF an OSA artifact snippet is shown THEN it MUST follow CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001 forms and MUST NOT include literary adjectives.
+[RULE][RST-310] IF scene.vibe == "RESTLESS" THEN PASS IFF "SENTENCE_PROFILE_SHORT_HEAVY" IN scene.directives; ELSE FAIL.
+[RULE][RST-320] IF scene.vibe == "RESTLESS" THEN PASS IFF "PARAGRAPH_PROFILE_1_TO_4_SENTENCES" IN scene.directives; ELSE FAIL.
+[RULE][RST-330] IF scene.vibe == "RESTLESS" THEN PASS IFF "EMOTION_AS_OPERATIONAL_OUTPUT" IN scene.directives; ELSE FAIL.
+[RULE][RST-340] IF scene.vibe == "RESTLESS" THEN PASS IFF "RESOLUTION_PARTIAL_WITH_RESIDUAL" IN scene.directives; ELSE FAIL.
+[RULE][RST-350] IF scene.vibe == "RESTLESS" AND "ACCESS_DENY" IN scene.context THEN PASS IFF "BEND_RESEND_LOOP" IN scene.directives; ELSE FAIL.
+[RULE][RST-360] IF scene.vibe == "RESTLESS" AND "WINDOW_DENY" IN scene.context THEN PASS IFF "BEND_RESEND_LOOP" IN scene.directives; ELSE FAIL.
+[RULE][RST-370] IF scene.vibe == "RESTLESS" AND "DATA_DENY" IN scene.context THEN PASS IFF "BEND_RESEND_LOOP" IN scene.directives; ELSE FAIL.
+[RULE][RST-380] IF scene.vibe == "RESTLESS" THEN PASS IFF every(forbidden_directives) NOT IN scene.directives; ELSE FAIL.
+
+### E) Integration constraints (inputs as gates)
+
+[RULE][RST-410] IF scene.vibe == "RESTLESS" AND "SYSTEM_INSERT" IN scene.context THEN PASS IFF "CANON-SYSTEM-VOICE-GLOBAL-2215-0001" IN scene.inputs; ELSE PASS.
+[RULE][RST-420] IF scene.vibe == "RESTLESS" AND "ARTIFACT_SNIPPET" IN scene.context THEN PASS IFF "CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001" IN scene.inputs; ELSE PASS.
 
 ## USAGE / RESOLUTION
 
-[DECISION][VIBE-RES-010] This document applies at layer CANON and constrains SCENE generation for Chelny-2215 scenes.
-[DECISION][VIBE-RES-011] Resolution order for style conflicts MUST be: RULE (SSOT-DOC-STYLE) → CANON-SYSTEM-VOICE → CANON-VIBE-RESTLESS → scene-specific overrides.
-[DECISION][VIBE-RES-012] A scene is `restless_vibe` compliant IFF all of the following hold:
-- sentence profile satisfies VIBE-120 and VIBE-121;
-- soundscape satisfies VIBE-110..VIBE-113;
-- dialogue satisfies VIBE-150..VIBE-153;
-- no forbidden patterns (section FORBIDDEN) are present.
-[DECISION][VIBE-RES-013] If a scene needs non-restless pacing THEN it MUST declare an explicit scene override doc-id and list which rules are disabled.
+[DECISION][RST-500] Scenes MUST treat this doc as applicable ONLY IF scene.vibe == "RESTLESS".
+[DECISION][RST-510] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][RST-520] This doc MUST NOT override locality constraints; locality MUST be constrained by location canon/docs; ELSE FAIL.
+[DECISION][RST-530] This doc MUST NOT be implied by folder membership or by location mention without explicit scene.vibe or scene.inputs; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
@@ -99,39 +134,36 @@ FORBIDDEN: [lyrics_quotes, noir_cliches, essay_mode, metaphoric_system_persona, 
 doc_id: CANON-VIBE-RESTLESS-GLOBAL-2215-0001
 role_type: RULE
 export:
-  - rule_id: VIBE-100
-    intent: apply restless_vibe profile to Chelny-2215 scenes
-    inputs: [scene.location]
-    outputs: [scene_style_profile]
-  - rule_id: VIBE-120
-    intent: enforce sentence length profile for restless prose
-    inputs: [scene.text]
-    outputs: [prose_rhythm_rules]
-  - rule_id: VIBE-110
-    intent: enforce 3-layer soundscape presence
-    inputs: [scene.description]
-    outputs: [soundscape_rules]
-  - rule_id: VIBE-150
-    intent: enforce utilitarian team dialogue pattern
-    inputs: [scene.dialogue]
-    outputs: [dialogue_rules]
-  - rule_id: VIBE-160
-    intent: enforce integration constraints with system voice and artifacts
-    inputs: [scene.inserts]
-    outputs: [integration_constraints]
+  - rule_id: RST-020
+    intent: "applicability bound to explicit scene.inputs + scene.vibe"
+    inputs: [scene.inputs, scene.vibe]
+    outputs: [restless_requirements]
+  - rule_id: RST-120
+    intent: "sound markers must be selected from allowed pool"
+    inputs: [scene.sound_markers]
+    outputs: [sound_marker_pool, restless_requirements]
+  - rule_id: RST-220
+    intent: "require utilitarian dialogue pattern marker"
+    inputs: [scene.dialogue_markers]
+    outputs: [restless_requirements]
+  - rule_id: RST-350
+    intent: "require bend_resend_loop directive on deny contexts"
+    inputs: [scene.context, scene.directives]
+    outputs: [restless_requirements]
+  - rule_id: RST-410
+    intent: "gate system inserts by requiring system-voice doc in scene.inputs"
+    inputs: [scene.context, scene.inputs]
+    outputs: [restless_requirements]
 ~~~
 
 ## FORBIDDEN
 
-[FORBIDDEN][VIBE-FBD-010] Quoting lyrics or reproducing track text (any length).
-[FORBIDDEN][VIBE-FBD-011] Noir-by-default clichés: constant rain, acid neon fetish, trenchcoat aesthetics as norm.
-[FORBIDDEN][VIBE-FBD-012] “System as character”: first/second person, emotions, sarcasm, moral judgment attributed to system.
-[FORBIDDEN][VIBE-FBD-013] Essay mode: paragraphs > 4 sentences in action/procedure scenes.
-[FORBIDDEN][VIBE-FBD-014] “Victory ends the loop”: total closure without residual constraint (violates VIBE-130..VIBE-131).
-[FORBIDDEN][VIBE-FBD-015] Social-smalltalk as default team behavior in operational scenes.
+[FORBIDDEN][RST-900] Quoting lyrics or reproducing track text (any length).
+[FORBIDDEN][RST-910] Noir-by-default clichés as baseline framing.
+[FORBIDDEN][RST-920] Anthropomorphizing the system as a speaking character.
+[FORBIDDEN][RST-930] Treating essay blocks as a substitute for procedure/constraints.
+[FORBIDDEN][RST-940] Consuming NON-NORMATIVE examples as rules.
 
 ## NON-NORMATIVE
 
-[NON-NORMATIVE][VIBE-EX-010] Example micro-structure (bend_resend_loop): deny → parameter change → re-issue → window gained.
-[NON-NORMATIVE][VIBE-EX-011] Example soundscape layering: low-end hum (infrastructure) + repetitive procedural tick (logistics) + filtered intercom prompt (interfaces).
-[NON-NORMATIVE][VIBE-EX-012] Example trust expression: competence-based reliance stated as task routing, not as emotional affirmation.
+(empty)

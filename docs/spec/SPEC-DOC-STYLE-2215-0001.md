@@ -4,7 +4,7 @@ title: >
   SSOT Document Style Guide — LLM-Executable Corpus Standard (2215)
 class: spec
 status: fixed
-version: 1.0.2
+version: 1.0.4
 prefix: STYLE
 doc_language: ru-RU
 prose_language: ru-RU
@@ -13,7 +13,8 @@ scope: >
   Цель: максимальная однозначность и исполняемость LLM (минимум интерпретации).
   Этот документ определяет обязательные секции, типы блоков, допустимый язык,
   контракт вывода и правила декомпозиции фактов/правил/привязок.
-depends_on: []
+depends_on:
+  - SPEC-PRIORITY-RESOLUTION-2215-0001
 inputs: []
 ---
 
@@ -21,7 +22,7 @@ inputs: []
 
 ROLE_TYPE: RULE
 SCOPE: define machine-readable corpus doc structure, language policy, record-stream formats, and compliance gates (compiler-grade)
-INPUTS: []
+INPUTS: [SPEC-PRIORITY-RESOLUTION-2215-0001]
 OUTPUTS: [doc_style_rules, lint_gates, section_schema, rewrite_protocol, language_policy, record_stream_rules]
 FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exceptions, body_yaml_delimiters]
 
@@ -32,11 +33,18 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [FACT][STYLE-012] `yaml_delimiter_line` = строка, равная `---` (используется только для front_matter delimiters).
 [FACT][STYLE-013] `skeleton` = фиксированный набор top-level секций (H2), используемый всеми документами корпуса.
 [FACT][STYLE-014] `statement` = атомарная строка с префиксом `[TAG][ID]` и единственной смысловой единицей.
-[FACT][STYLE-015] `statement_id` = стабильный идентификатор вида `<DOCPREFIX>-NNN`, где `NNN` — трёхзначный номер.
+[FACT][STYLE-015] `statement_id` = стабильный идентификатор вида `<DOCPREFIX>-NNN<SFX>`, где `NNN` — трёхзначный номер, а `<SFX>` — опциональный суффикс `A..Z` для разветвления/уточнения без перенумерации.
 [FACT][STYLE-016] `docprefix` = префикс для `statement_id`, задаваемый явно в YAML как `prefix:` ИЛИ выводимый как единственный общий префикс всех `statement_id` в документе.
 [FACT][STYLE-017] `ROLE_TYPE` = семантическая роль документа: STATE | RULE | BIND | INTERFACE | INDEX.
 [FACT][STYLE-018] `doc_class` = класс документа по YAML `class:` (ssot|baseline|canon|spec|protocol|idx|registry|plan|scene|override и др. по проекту).
 [FACT][STYLE-019] `NON-NORMATIVE` = раздел комментариев/примеров, не являющийся источником правил или фактов.
+
+[FACT][STYLE-020A] `structural_heading_line` = строка Markdown-заголовка уровня H3 (`### ...`), используемая только для визуальной/навигационной группировки.
+[FACT][STYLE-020B] `statement_continuation_line` = строка продолжения statement, начинающаяся с двух пробелов; относится к предыдущей statement-строке.
+[FACT][STYLE-020C] `markdown_table_line` = строка Markdown-таблицы (`| ... |`) или строки выравнивания (`| --- |`), используемая только в случаях, разрешённых правилами ROLE_TYPE.
+[FACT][STYLE-020D] `statement_line` = непустая строка, удовлетворяющая `STYLE-059A`.
+[FACT][STYLE-020E] `fenced_machine_block` = fenced block, ограниченный строками `~~~` (опциональный язык после opening fence), закрывающийся строкой `~~~`.
+[FACT][STYLE-020F] `allowed_normative_line_type` = {statement_line, statement_continuation_line, fenced_machine_block, structural_heading_line, markdown_table_line}.
 
 [FACT][STYLE-260] `doc_language` = IETF language tag, заданный в YAML как `doc_language: <tag>`, определяющий основной язык недиегетического текста документа.
 [FACT][STYLE-270] `prose_language` = IETF language tag, заданный в YAML как `prose_language: <tag>`, определяющий обязательный язык диетического вывода (прозы), который документ ограничивает.
@@ -88,6 +96,9 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [DECISION][STYLE-029] Headers MUST match exactly (case-sensitive; exact bytes).
 [FORBIDDEN][STYLE-033] Any additional top-level (H2) sections outside the skeleton.
 [FORBIDDEN][STYLE-034] Any `yaml_delimiter_line` inside the document body (segmentation hazard).
+[DECISION][STYLE-095] Structural H3 headings are permitted ONLY as `### <title>` lines inside `## CONTENT` and `## NON-NORMATIVE`; ELSE FAIL.
+[DECISION][STYLE-096] H3 structural heading line MUST match regex: `^###\s.+$`; ELSE FAIL.
+[FORBIDDEN][STYLE-097] Heading levels H4+ (`####` and deeper) are forbidden in all sections; ELSE FAIL.
 
 ### 2.1 YAML front-matter (normalization; deterministic parsing)
 
@@ -121,18 +132,23 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [DECISION][STYLE-047] ROLE_TYPE: BIND → allowed tags: [BIND], [DECISION], [FORBIDDEN] (definitions may use [FACT] only in `## DEFINITIONS`).
 [DECISION][STYLE-048] ROLE_TYPE: INTERFACE → allowed tags: [DECISION], [FORBIDDEN] (definitions may use [FACT] only in `## DEFINITIONS`).
 [DECISION][STYLE-049] ROLE_TYPE: INDEX → allowed tags: [DECISION], [FORBIDDEN] (tables in CONTENT are allowed).
-[DECISION][STYLE-050] Every `statement` MUST have a stable ID: `[TAG][<DOCPREFIX>-NNN]`.
+[DECISION][STYLE-050] Every `statement` MUST have a stable ID: `[TAG][<DOCPREFIX>-NNN<SFX>]`.
 [DECISION][STYLE-051] `DOCPREFIX` MUST be declared in YAML as `prefix:` OR MUST be inferable as the unique common prefix of all `statement_id` in the document; otherwise lint MUST fail.
-[DECISION][STYLE-052] `NNN` MUST be 3 digits and SHOULD increment by 10 for edit headroom (010, 020, ...).
+[DECISION][STYLE-052] New `statement_id`s MUST allocate `NNN` as 3 digits and MUST increment by 10 for edit headroom (010, 020, ...); optional suffix `A..Z` is allowed only to split/branch an existing `NNN` without renumbering.
 [DECISION][STYLE-053] IDs MUST be stable across edits; rewriting MUST preserve existing IDs verbatim.
 [FORBIDDEN][STYLE-054] “Floating bullets” without `[TAG][ID]` in any normative section.
-[DECISION][STYLE-055] Statement length ≤ 3 lines.
+[DECISION][STYLE-055] Statement physical length MUST be ≤ 3 lines.
+[DECISION][STYLE-055A] Any statement continuation lines MUST match `statement_continuation_line` and MUST appear only immediately after a statement line; total lines (statement + continuations) MUST be ≤ 3; ELSE FAIL.
 [FORBIDDEN][STYLE-056] Multi-paragraph statements.
 [DECISION][STYLE-057] Markdown emphasis (`**`, `_`) MUST NOT carry meaning; structure MUST be expressed by tags/ids/keys.
 [FORBIDDEN][STYLE-058] Using bold/italic as structure or as a proxy for tags.
 [DECISION][STYLE-059] Any new term used as a normative token MUST be defined in the same document under `## DEFINITIONS`; corpus-wide terms MUST be promoted only via the canonical vocabulary doc (e.g., `CANON-VOCAB-2215-0001`).
-[DECISION][STYLE-059A] Normative statements MUST match regex: `^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9]+-[0-9]{3}\]\s.+$`.
-[DECISION][STYLE-059B] In any normative section, any non-empty line that is not a statement or a fenced machine block MUST cause lint FAIL.
+[DECISION][STYLE-059A] Normative statement lines MUST match regex: `^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9]+-[0-9]{3}[A-Z]?\]\s.+$`.
+[DECISION][STYLE-059B] In any normative section, any non-empty line MUST be of allowed_normative_line_type; ELSE FAIL.
+[DECISION][STYLE-059C] `structural_heading_line` MUST match `^###\s.+$`; ELSE FAIL.
+[DECISION][STYLE-059D] `statement_continuation_line` MUST match `^ {2}\S.*$`; ELSE FAIL.
+[DECISION][STYLE-059E] `markdown_table_line` MUST match `^\|.*\|$` OR `^\|[ \-:|]+\|$`; ELSE FAIL.
+[FORBIDDEN][STYLE-059F] Markdown tables in normative sections are FORBIDDEN unless ROLE_TYPE is INDEX OR (ROLE_TYPE is STATE AND table usage satisfies STYLE-068); ELSE FAIL.
 
 ### 5. Language and operators (no soft speech)
 
@@ -141,7 +157,7 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [DECISION][STYLE-062] Quantifiers MUST be explicit: range `x ∈ [a, b]`; approx `x ≈ y` (only if unavoidable; prefer range).
 [DECISION][STYLE-063] Numeric values MUST include units when applicable.
 [DECISION][STYLE-063A] Allowed modals are restricted to: MUST, MUST NOT, FORBIDDEN, REQUIRED, FAIL, PASS (case-sensitive).
-[FORBIDDEN][STYLE-063B] Any modal verbs outside allowed modals in normative sections (including: should/should not, may, can, usually, typically, generally, often).
+[FORBIDDEN][STYLE-063B] Any modal verbs outside allowed modals in normative sections MUST cause lint FAIL.
 
 ### 5.1 Language Policy (corpus vs prose)
 
@@ -153,15 +169,15 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 
 [DECISION][STYLE-084] Every `proper_name` referenced as a token in TYPE C inputs or prose MUST have a canonical Russian form `canon_ru` declared explicitly in the corpus (no implicit derivation).
 [DECISION][STYLE-085] In diegetic prose output, `proper_name` MUST be emitted using `display_ru` (fallback: `canon_ru`) only.
-[DECISION][STYLE-086] If `doc_language` is `en-US`, any mention of a `proper_name` in normative text MUST preserve the Russian spelling by referencing it as `ru:"<canon_ru>"` (and MAY add `en:"<canon_en>"`); the Russian string MUST NOT be altered.
-[DECISION][STYLE-087] Latin-script names MAY appear in Russian prose ONLY IF they are explicitly intended as the displayed form (i.e., stored as `display_ru` for that entity); otherwise Latin-script is forbidden in prose for that entity.
+[DECISION][STYLE-086] If `doc_language` is `en-US`, any mention of a `proper_name` in normative text MUST preserve the Russian spelling by referencing it as `ru:"<canon_ru>"`; `en:"<canon_en>"` is permitted only if `canon_en` is explicitly declared; the Russian string MUST NOT be altered.
+[DECISION][STYLE-087] Latin-script names are permitted in Russian prose ONLY IF they are explicitly intended as the displayed form (i.e., stored as `display_ru` for that entity); otherwise Latin-script is forbidden in prose for that entity.
 [FORBIDDEN][STYLE-088] Auto-transliteration or back-transliteration between scripts (ru↔lat) for any `proper_name`.
 [FORBIDDEN][STYLE-089] Introducing aliases for `proper_name` unless they are explicitly declared as aliases in the canonical vocabulary/registry that owns that namespace.
 
 ### 6. Role-specific CONTENT rules (normative)
 
 [DECISION][STYLE-067] ROLE_TYPE: STATE — `## CONTENT` MUST contain only `[STATE]` statements (plus `[DECISION]` / `[FORBIDDEN]` for constraints on reading).
-[DECISION][STYLE-068] ROLE_TYPE: STATE MAY use normative tables ONLY IF the table schema is declared in OUTPUT CONTRACT and the table is the sole representation of those records (registry-style).
+[DECISION][STYLE-068] ROLE_TYPE: STATE MUST NOT use normative tables EXCEPT WHEN the table schema is declared in OUTPUT CONTRACT AND the table is the sole representation of those records (registry-style); ELSE FAIL.
 [FORBIDDEN][STYLE-069] STATE content: causal chains, resolution logic, “why” explanations.
 [DECISION][STYLE-070] ROLE_TYPE: RULE — `## CONTENT` MUST contain only `[RULE]`, `[DECISION]`, `[FORBIDDEN]` (plus non-normative examples in `## NON-NORMATIVE` only).
 [DECISION][STYLE-071] RULE statements MUST be decidable; use IF/THEN where applicable.
@@ -199,7 +215,7 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 ### 9. Numbers, units, strings, UNKNOWN
 
 [DECISION][STYLE-120] Numeric values MUST include units: `TW`, `EJ_per_year`, `C`, `m`, `%`, `years`, etc.
-[DECISION][STYLE-121] Strings that are tokens/enums SHOULD be UPPER_SNAKE_CASE; human text strings SHOULD be quoted consistently (`"..."`) where parsing matters.
+[DECISION][STYLE-121] Tokens/enums MUST be UPPER_SNAKE_CASE; parsing-relevant human strings MUST be quoted consistently using `"` (double quotes).
 [DECISION][STYLE-122] Missing data MUST be represented as `UNKNOWN` or omitted; never elided with `...` or `…`.
 [FORBIDDEN][STYLE-123] Ellipsis placeholders (`...` / `…`) in any normative section; in `class: scene` this is a hard lint error.
 [DECISION][STYLE-124] If a `record_stream` uses JSON (e.g., JSON Lines), it MUST be declared via `record_format_id` and MUST have an explicit parser contract in OUTPUT CONTRACT; “implicit JSON” is forbidden.
@@ -208,7 +224,7 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 ### 10. OUTPUT CONTRACT templates (normative; role-specific)
 
 [DECISION][STYLE-110] Every document MUST include `## OUTPUT CONTRACT` and it MUST be machine-readable.
-[DECISION][STYLE-111] OUTPUT CONTRACT SHOULD be expressed as YAML in a fenced block with language tag `yaml`.
+[DECISION][STYLE-111] OUTPUT CONTRACT MUST be expressed as YAML in a fenced block with language tag `yaml`.
 
 ~~~yaml
 doc_id: <id>
@@ -280,14 +296,14 @@ export:
 [DECISION][STYLE-140] Rewrite MUST preserve meaning; only structure changes unless explicitly requested.
 [DECISION][STYLE-141] Rewrite MUST preserve all existing `statement_id`s verbatim; new statements MUST allocate new IDs without renumbering old ones.
 [DECISION][STYLE-142] Rewrite algorithm MUST be:
-[DECISION][STYLE-143] 1) Parse YAML front-matter; validate required keys.
-[DECISION][STYLE-144] 2) Infer ROLE_TYPE (or keep if valid); enforce tag constraints.
-[DECISION][STYLE-145] 3) Build mandatory skeleton; move all content under correct sections.
-[DECISION][STYLE-146] 4) Split prose/bullets into atomic statements; assign IDs; keep ≤ 3 lines per statement.
-[DECISION][STYLE-147] 5) Move examples into `## NON-NORMATIVE` only.
-[DECISION][STYLE-148] 6) Emit `## OUTPUT CONTRACT` matching role templates; if export is empty, still emit schema.
-[DECISION][STYLE-149] 7) Emit `## FORBIDDEN` tailored to doc role and scope.
-[DECISION][STYLE-150] 8) Run lint gates; fail if any gate fails.
+[DECISION][STYLE-143] 1. Parse YAML front-matter; validate required keys.
+[DECISION][STYLE-144] 2. Infer ROLE_TYPE (or keep if valid); enforce tag constraints.
+[DECISION][STYLE-145] 3. Build mandatory skeleton; move all content under correct sections.
+[DECISION][STYLE-146] 4. Split prose/bullets into atomic statements; assign IDs; keep ≤ 3 lines per statement.
+[DECISION][STYLE-147] 5. Move examples into `## NON-NORMATIVE` only.
+[DECISION][STYLE-148] 6. Emit `## OUTPUT CONTRACT` matching role templates; if export is empty, still emit schema.
+[DECISION][STYLE-149] 7. Emit `## FORBIDDEN` tailored to doc role and scope.
+[DECISION][STYLE-150] 8. Run lint gates; fail if any gate fails.
 [DECISION][STYLE-151] Rewrite MUST NOT translate, transliterate, or back-transliterate any `proper_name`; Russian spellings MUST be preserved verbatim.
 [DECISION][STYLE-152] If `doc_language` is missing, rewrite MUST set it to `ru-RU` by default unless explicitly requested otherwise; prose constraints MUST keep `prose_language: ru-RU`.
 [DECISION][STYLE-153] If the document contains TYPE C records, rewrite MUST preserve the declared `record_format_id` (or set it explicitly) and MUST NOT silently convert encodings (e.g., KV → JSON) without an explicit request.
@@ -334,14 +350,26 @@ export:
       - "NON-NORMATIVE"
     allowed_role_types: ["STATE","RULE","BIND","INTERFACE","INDEX"]
     allowed_tags: ["FACT","ASSUMPTION","PROJECTION","DECISION","FORBIDDEN","UNKNOWN","STATE","RULE","BIND"]
-    statement_line_regex: '^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9]+-[0-9]{3}\]\s.+$'
+    statement_line_regex: '^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9]+-[0-9]{3}[A-Z]?\]\s.+$'
+    structural_line_policy:
+      h3_regex: '^###\s.+$'
+      allowed_sections: ["CONTENT","NON-NORMATIVE"]
+      forbid_h4_plus: true
+    statement_continuation_regex: '^ {2}\S.*$'
+    structural_heading_regex: '^###\s.+$'
+    markdown_table_regex:
+      - '^\|.*\|$'
+      - '^\|[ \-:|]+\|$'
     allowed_modals: ["MUST","MUST NOT","FORBIDDEN","REQUIRED","FAIL","PASS"]
-    forbidden_modals: ["should","may","can","usually","typically","generally","often"]
+    forbidden_modals: ["SHOULD","MAY","CAN","USUALLY","TYPICALLY","GENERALLY","OFTEN"]
+    forbidden_softeners: ["обычно","как правило","в целом","скорее","может быть","возможно"]
     lint_gates:
       - gate_id: STYLE-LINT-001
         intent: "no extra H2 sections"
       - gate_id: STYLE-LINT-002
-        intent: "every normative line is a tagged statement with stable id"
+        intent: "every normative line is a tagged statement with stable id OR allowed structural line"
+      - gate_id: STYLE-LINT-015
+        intent: "H3 headings allowed only in CONTENT/NON-NORMATIVE; H4+ forbidden"
       - gate_id: STYLE-LINT-003
         intent: "LLM-INTENT has required keys and <=20 lines"
       - gate_id: STYLE-LINT-004
@@ -456,4 +484,3 @@ export: []
 ## NON-NORMATIVE
 
 (empty)
-~~~

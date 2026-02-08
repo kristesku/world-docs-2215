@@ -4,7 +4,7 @@ title: >
   Document ID Contract — Corpus Doc-ID Grammar, Namespaces, and Lint Gates (2215)
 class: spec
 status: draft
-version: 1.1.0
+version: 1.1.1
 prefix: DOCID
 doc_language: ru-RU
 prose_language: ru-RU
@@ -25,62 +25,53 @@ INPUTS: []
 OUTPUTS: [doc_id_grammar, allowed_families, family_scope_schemas, class_family_mapping, lint_gates]
 FORBIDDEN: [implicit_id_schemes, freeform_id_segments, mixed_scope_orders, non_decidable_exceptions]
 
----
-
 ## DEFINITIONS
 
 [FACT][DOCID-010] `doc_id` = значение YAML-ключа `id` документа корпуса, являющееся глобальным идентификатором.
-[FACT][DOCID-011] `family` = первый сегмент `doc_id`.
-[FACT][DOCID-012] `topic` = второй сегмент `doc_id`.
+[FACT][DOCID-011] `family` = первый сегмент `doc_id` (split by `-`).
+[FACT][DOCID-012] `topic` = второй сегмент `doc_id` (split by `-`).
 [FACT][DOCID-013] `scope` = сегменты между `topic` и `seq`.
 [FACT][DOCID-014] `seq` = последний сегмент (`0001..9999`).
 [FACT][DOCID-015] `series_key` = `<family>-<topic>-<scope>`.
 
 [FACT][DOCID-016] `class_family_match` = YAML `class` согласован с `family`.
 [FACT][DOCID-017] `legacy_doc_id` = исторический id, нарушающий текущую схему.
-[FACT][DOCID-018] `migration_redirect` = устаревший механизм соответствия old→new (не обязателен).
-
+[FACT][DOCID-018] `migration_redirect` = механизм соответствия old→new (опциональный механизм совместимости, не обязателен для closed-world).
 [FACT][DOCID-019] `rename_replace` = операция, при которой документ переименован, файл переименован, все inbound/outbound ссылки заменены, а старый `doc_id` полностью отсутствует в IDX и корпусе.
-
 [FACT][DOCID-020] `corpus_closed_world` = допущение, что весь корпус полностью перечислен в IDX-CORPUS; ссылки вне него не учитываются lint gates.
 
----
+[FACT][DOCID-021] `id_changed` = булев флаг lint: true IFF новое значение `id` отличается от ранее зафиксированного значения для этого же документа (по истории корпуса/репозитория).
 
 ## INVARIANTS
 
-[DECISION][DOCID-020] Every corpus document MUST have decidably valid `doc_id`; ELSE FAIL.
-[DECISION][DOCID-021] Deterministic grammar MUST override naming preference; ELSE FAIL.
-[DECISION][DOCID-022] Deviations MUST be either legacy OR resolved via rename_replace; ELSE FAIL.
-
----
+[DECISION][DOCID-030] Every corpus document MUST have decidably valid `doc_id`; ELSE FAIL.
+[DECISION][DOCID-031] Deterministic grammar MUST override naming preference; ELSE FAIL.
+[DECISION][DOCID-032] Deviations MUST be either legacy OR resolved via rename_replace; ELSE FAIL.
 
 ## CONTENT
 
-### 1) Charset
+### 1. Charset
 
-[RULE][DOCID-030] `doc_id` MUST match `^[A-Z0-9-]+$`; ELSE FAIL.
-[RULE][DOCID-031] Hyphen-delimited segments only.
-[RULE][DOCID-032] Non-ASCII and underscores FORBIDDEN.
+[RULE][DOCID-040] PASS IFF `doc_id` matches `^[A-Z0-9-]+$`; ELSE FAIL.
+[RULE][DOCID-041] PASS IFF `doc_id` contains no underscores (`_`); ELSE FAIL.
 
----
+### 2. Sequence
 
-### 2) Sequence
+[RULE][DOCID-050] PASS IFF `doc_id` matches `-[0-9]{4}$`; ELSE FAIL.
+[RULE][DOCID-051] PASS IFF `seq_int` derived from `seq` satisfies `seq_int ∈ [1, 9999]`; ELSE FAIL.
+[RULE][DOCID-052] PASS IFF `doc_id` is unique inside `series_key` within IDX-CORPUS; ELSE FAIL.
 
-[RULE][DOCID-040] MUST end with `-dddd`.
-[RULE][DOCID-041] `0001..9999`.
-[RULE][DOCID-042] unique inside `series_key`.
+### 3. Family ↔ class
 
----
+[RULE][DOCID-060] PASS IFF `family` is in `allowed_families`; ELSE FAIL.
+[RULE][DOCID-061] IF `legacy_doc_id = false` THEN PASS IFF `class_family_match = true`; ELSE FAIL.
+[RULE][DOCID-062] IF `status = fixed` AND `id_changed = true` THEN PASS IFF `rename_replace = true` AND `corpus_closed_world = true`; ELSE FAIL.
 
-### 3) Family ↔ class
+### 4. Scope schemas
 
-[RULE][DOCID-050] `family` MUST be in allowed set.
-[RULE][DOCID-051] `class_family_match` MUST hold for non-legacy.
-
-[RULE][DOCID-052] A `status: fixed` document MUST NOT change its `doc_id`
-UNLESS `rename_replace = true` AND `corpus_closed_world = true`; ELSE FAIL.
-
----
+[RULE][DOCID-070] PASS IFF `doc_id` matches form `<family>-<topic>-<scope>-<seq>`; ELSE FAIL.
+[RULE][DOCID-071] PASS IFF `topic` is a single segment token and matches `^[A-Z0-9]+$`; ELSE FAIL.
+[RULE][DOCID-072] PASS IFF `scope` conforms to `family_scope_schemas[family]`; ELSE FAIL.
 
 ~~~yaml
 allowed_families:
@@ -106,17 +97,7 @@ class_family_mapping:
   plan: PLAN
   scene: SCENE
   override: OVERRIDE
-~~~
 
----
-
-### 4) Scope schemas
-
-[RULE][DOCID-060] Form `<family>-<topic>-<scope>-<seq>`.
-[RULE][DOCID-061] `topic` single segment (no hyphens).
-[RULE][DOCID-062] `scope` MUST follow family schema.
-
-~~~yaml
 family_scope_schemas:
   SSOT: "<family>-<topic>-<scenario>-<year>-<seq>"
   BASELINE: "<family>-<topic>-<year>-<seq>"
@@ -130,24 +111,20 @@ family_scope_schemas:
   OVERRIDE: "<family>-<topic>-<scope_variant>-<year>-<seq>"
 ~~~
 
----
-
 ### 5) Canonical forms
 
-[RULE][DOCID-070] SSOT → `SSOT-<TOPIC>-<SCENARIO>-2215-<SEQ>`
-[RULE][DOCID-071] SPEC → `SPEC-<TOPIC>-2215-<SEQ>`
-[RULE][DOCID-072] CANON → `CANON-<TOPIC>-<SCOPE>-2215-<SEQ>`
-[RULE][DOCID-073] PROTOCOL → `PROTOCOL-<TOPIC>-2215-<SEQ>`
-[RULE][DOCID-074] IDX → `IDX-<TOPIC>-<SEQ>`
-
----
+[RULE][DOCID-080] PASS IFF SSOT form is `SSOT-<TOPIC>-<SCENARIO>-2215-<SEQ>`; ELSE FAIL.
+[RULE][DOCID-081] PASS IFF SPEC form is `SPEC-<TOPIC>-2215-<SEQ>`; ELSE FAIL.
+[RULE][DOCID-082] PASS IFF CANON form is `CANON-<TOPIC>-<SCOPE>-2215-<SEQ>`; ELSE FAIL.
+[RULE][DOCID-083] PASS IFF PROTOCOL form is `PROTOCOL-<TOPIC>-2215-<SEQ>`; ELSE FAIL.
+[RULE][DOCID-084] PASS IFF IDX form is `IDX-<TOPIC>-<SEQ>`; ELSE FAIL.
 
 ### 6) Legacy handling (упрощённый режим)
 
-[RULE][DOCID-080] `legacy_doc_id` MUST be declared in allowlist.
-[RULE][DOCID-081] New docs MUST NOT use legacy forms.
-[RULE][DOCID-082] Legacy ids SHOULD be eliminated by `rename_replace` when feasible.
-[RULE][DOCID-083] `migration_redirect` MAY be used but is OPTIONAL.
+[RULE][DOCID-090] PASS IFF `legacy_doc_id` is declared in `legacy_allowlist`; ELSE FAIL.
+[RULE][DOCID-091] PASS IFF new documents do not use legacy forms; ELSE FAIL.
+[RULE][DOCID-092] PASS IFF any legacy id remains present only while it is in `legacy_allowlist`; ELSE FAIL.
+[RULE][DOCID-093] Absence of `migration_redirect` MUST NOT cause lint FAIL.
 
 ~~~yaml
 legacy_allowlist:
@@ -156,33 +133,51 @@ legacy_allowlist:
     required_action: rename_replace
 ~~~
 
----
-
 ## USAGE / RESOLUTION
 
 [DECISION][DOCID-100] Spec is normative for all corpus docs.
 [DECISION][DOCID-101] `doc_id` is primary key.
-[DECISION][DOCID-102] Filename MUST equal `<doc_id>.md`.
-
----
+[RULE][DOCID-102] PASS IFF filename equals `<doc_id>.md`; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
 ~~~yaml
 doc_id: SPEC-DOC-ID-2215-0001
 role_type: RULE
-lint_gates:
-  - DOCID-LINT-001: charset valid
-  - DOCID-LINT-002: seq valid
-  - DOCID-LINT-003: family allowed
-  - DOCID-LINT-004: topic single segment
-  - DOCID-LINT-005: scope schema valid
-  - DOCID-LINT-006: class_family_match
-  - DOCID-LINT-007: uniqueness
-  - DOCID-LINT-008: fixed rename allowed only via rename_replace
+export:
+  - gate_id: DOCID-LINT-001
+    intent: charset valid
+    predicate: "doc_id matches ^[A-Z0-9-]+$ and contains no underscores"
+  - gate_id: DOCID-LINT-002
+    intent: seq valid
+    predicate: "doc_id ends with -[0-9]{4} and seq_int ∈ [1,9999]"
+  - gate_id: DOCID-LINT-003
+    intent: family allowed
+    predicate: "family ∈ allowed_families"
+  - gate_id: DOCID-LINT-004
+    intent: topic single segment
+    predicate: "topic matches ^[A-Z0-9]+$"
+  - gate_id: DOCID-LINT-005
+    intent: scope schema valid
+    predicate: "scope conforms to family_scope_schemas[family]"
+  - gate_id: DOCID-LINT-006
+    intent: class_family_match
+    predicate: "legacy_doc_id=false => class_family_mapping[class]=family"
+  - gate_id: DOCID-LINT-007
+    intent: uniqueness
+    predicate: "doc_id unique within series_key in IDX-CORPUS"
+  - gate_id: DOCID-LINT-008
+    intent: fixed rename allowed only via rename_replace
+    predicate: "status=fixed and id_changed=true => rename_replace=true and corpus_closed_world=true"
+  - gate_id: DOCID-LINT-009
+    intent: filename equals doc_id
+    predicate: "filename == doc_id + .md"
+config:
+  allowed_families_ref: "CONTENT.allowed_families"
+  class_family_mapping_ref: "CONTENT.class_family_mapping"
+  family_scope_schemas_ref: "CONTENT.family_scope_schemas"
+  legacy_allowlist_ref: "CONTENT.legacy_allowlist"
 ~~~
-
----
 
 ## FORBIDDEN
 
@@ -191,12 +186,10 @@ lint_gates:
 [FORBIDDEN][DOCID-902] Mixed scope schemas.
 [FORBIDDEN][DOCID-903] Creating new legacy forms.
 
----
-
 ## NON-NORMATIVE
 
 rename_replace workflow:
-1) rename file  
-2) change id  
-3) replace all references  
-4) ensure old id absent in IDX  
+1) rename file
+2) change id
+3) replace all references
+4) ensure old id absent in IDX

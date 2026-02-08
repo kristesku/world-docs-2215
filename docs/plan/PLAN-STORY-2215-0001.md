@@ -1,16 +1,18 @@
 ﻿---
-id: PLAN-STORY-SKELETON-2215-0001
+id: PLAN-STORY-2215-0001
 title: >
   Сюжетный каркас романа — 5 актов, 3 больших кейса, процедурная спираль ОСА
 class: plan
 status: fixed
-version: 0.2.1
+version: 0.2.2
 prefix: PSSK
 doc_language: ru-RU
 prose_language: ru-RU
 inputs:
+  - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
   - CANON-CAST-GLOBAL-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
+  - CANON-ORDERS-GLOBAL-2215-0003
   - CANON-REPORTS-GLOBAL-2215-0006
   - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
@@ -24,9 +26,9 @@ scope: >
 
 ## LLM-INTENT
 
-ROLE_TYPE: INTERFACE
+ROLE_TYPE: RULE
 SCOPE: enforceable story structure (acts/cases/chapters/tags) without prose; supports deterministic chapter authoring
-INPUTS: [CANON-CAST-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-REPORTS-GLOBAL-2215-0006, CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, SPEC-SCENE-CONTRACT-2215-0001]
+INPUTS: [CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001, CANON-CAST-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-ORDERS-GLOBAL-2215-0003, CANON-REPORTS-GLOBAL-2215-0006, CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, SPEC-SCENE-CONTRACT-2215-0001, SPEC-PRIORITY-RESOLUTION-2215-0001]
 OUTPUTS: [act_case_structure, procedural_spiral_pattern, chapter_tags_contract]
 FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lecture_exposition, softeners]
 
@@ -41,12 +43,46 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 [FACT][PSSK-070] `tags.participants` = список имён, допустимых только из `CANON-CAST-GLOBAL-2215-0001`.
 [FACT][PSSK-080] `tags.artifact` = типизированная ссылка на артефакт (см. `CANON-REPORTS-GLOBAL-2215-0006` и `CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001`).
 
+[FACT][PSSK-090] `act_case_structure` = YAML-пейлоад (ключ верхнего уровня `act_case_structure`) в `## CONTENT`, являющийся единственным авторитетным источником структуры актов/кейсов/глав.
+[FACT][PSSK-091] `acts` = `act_case_structure.acts` (list).
+[FACT][PSSK-092] `acts.count` = len(`act_case_structure.acts`).
+[FACT][PSSK-093] `cases` = множество всех `case_id`, извлечённых из `act_case_structure.acts[*].case.case_id`.
+[FACT][PSSK-094] `cases.count` = cardinality(`cases`).
+
+[FACT][PSSK-095] `chapter_cards` = все записи `act_case_structure.acts[*].chapters[*]` (с сохранением `act_id` как контекста).
+[FACT][PSSK-096] `chapter_cards.count` = сумма len(`act_case_structure.acts[i].chapters`) по всем актам.
+[FACT][PSSK-097] `scene.active_specialists.count` = count(unique(`tags.participants`)) для каждой главы, где учитываются только участники, присутствующие в `tags.participants` этой главы.
+
+[FACT][PSSK-098] `focus.ensemble` = булево требование, что множество значений `tags.focus` по всем главам покрывает ≥4 различных `procedural_spiral_step` и каждая из этих ≥4 встречается ≥2 раз.
+[FACT][PSSK-190] `ratio.procedure` = 0.60 (нормативный параметр композиции; не вычисляется из пейлоада).
+[FACT][PSSK-191] `ratio.operation` = 0.40 (нормативный параметр композиции; не вычисляется из пейлоада).
+
+[FACT][PSSK-101] `operation_peak.acts` = [II,III,V] (нормативный список актов с пиком операций).
+[FACT][PSSK-102] `operation_peak.primary` = [II,III] (нормативный список первичных актов пика операций).
+
+[FACT][PSSK-103] `ending.type` = partial_win (нормативный токен типа финала).
+[FACT][PSSK-104] `ending.world_state` = stable_adjusted (нормативный токен состояния мира в финале).
+[FACT][PSSK-105] `ending.tone` = cold_stability (нормативный токен тона финала).
+
+[FACT][PSSK-106] `OSA.jurisdiction` = federal_direct_subordination_moscow (нормативный токен юрисдикции ОСА).
+[FACT][PSSK-107] `regional_authorities_must_not_command_OSA` = true (нормативный запрет командования ОСА региональными органами).
+
+[FACT][PSSK-108] `antagonist_form` = optimization_contour_not_person (нормативный токен формы антагониста).
+[FACT][PSSK-109] `dramaturgic_deficit` = infrastructure_windows_not_survival_poverty (нормативный токен дефицита драматургии).
+[FACT][PSSK-110] `engine_of_plot` = procedural_escalation_not_catch_villain (нормативный токен двигателя сюжета).
+
+[FACT][PSSK-111] `system_inserts` = вставки “системного голоса” в главы (формат и допустимость задаёт `CANON-SYSTEM-VOICE-GLOBAL-2215-0001`).
+
+[FACT][PSSK-112] `macro_frame` = триплет причинности {cause, mechanism, consequence}, заданный в `## CONTENT` как токены.
+[FACT][PSSK-113] `complies_with(X)` = предикат: все требования документа X, применимые к объекту проверки, удовлетворены; иначе FAIL.
+[FACT][PSSK-114] `grounded_via(A,B)` = предикат: термин/режим/зона упомянуты только если их определение/правовой якорь присутствует в документах A и B; иначе FAIL.
+
 ## INVARIANTS
 
-[DECISION][PSSK-100] acts.count MUST be 5; ELSE FAIL.
-[DECISION][PSSK-110] cases.count MUST be 3; ELSE FAIL.
+[DECISION][PSSK-118] acts.count MUST be 5; ELSE FAIL.
+[DECISION][PSSK-119] cases.count MUST be 3; ELSE FAIL.
 [DECISION][PSSK-120] focus.ensemble MUST be true; ELSE FAIL.
-[DECISION][PSSK-121] scene.active_specialists.count MUST be in [1,2]; ELSE FAIL.
+[DECISION][PSSK-121] For every chapter, scene.active_specialists.count MUST be in [1,2]; ELSE FAIL.
 [DECISION][PSSK-130] ratio.procedure MUST be 0.60; ELSE FAIL.
 [DECISION][PSSK-131] ratio.operation MUST be 0.40; ELSE FAIL.
 [DECISION][PSSK-140] operation_peak.acts MUST equal [II,III,V]; ELSE FAIL.
@@ -154,7 +190,7 @@ act_case_structure:
         goal: show_observability_managed_by_supply_and_priorities
         constraint: scarcity_is_administrative_legal_only
         turning_point: trace_flows_to_special_zone_extraterritory
-      act_turning_point: portal_to_black_box_extraterritory_found
+      act_turning_point: gateway_to_black_box_extraterritory_found
       chapters:
         - chapter_id: A2-C01
           title: "Несоответствие накладных"
@@ -387,8 +423,8 @@ team_focus_by_act:
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: PLAN-STORY-SKELETON-2215-0001
-role_type: INTERFACE
+doc_id: PLAN-STORY-2215-0001
+role_type: RULE
 export:
   act_case_structure:
     encoding: yaml
@@ -433,10 +469,3 @@ export:
 [FORBIDDEN][PSSK-904] Any change to acts.count or cases.count without higher-priority override.
 
 ## NON-NORMATIVE
-
-~~~text
-Replacement plan (operator-side):
-- Rename file to PLAN-STORY-SKELETON-2215-0001.md
-- Replace all references from PLAN-STORY-SKELETON-2215-0001 to PLAN-STORY-SKELETON-2215-0001
-- Remove old file from corpus (or keep outside registry)
-~~~

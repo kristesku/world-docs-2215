@@ -4,7 +4,7 @@ title: >
   Digital Identity Baseline — 2215 (BAN_ID, Access, Post-Mortem)
 class: baseline
 status: fixed
-version: 1.0.1
+version: 1.0.2
 prefix: DID
 doc_language: ru-RU
 prose_language: ru-RU
@@ -14,7 +14,7 @@ inputs:
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
-  - BASELINE-SOCIAL-CIVIC-2215-0001
+  - BASELINE-SOCIAL-2215-0001
 scope: >
   Исполняемый baseline цифровой идентичности и сетевых прав (LEVEL-MID) в 2215 году.
   Определяет жизненный цикл BAN_ID, режимы доступа, псевдонимность, аудит,
@@ -29,7 +29,7 @@ INPUTS:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-LIFE-A-2215-0007
   - CANON-BASE-RULE-GLOBAL-2215-0001
-  - BASELINE-SOCIAL-CIVIC-2215-0001
+  - BASELINE-SOCIAL-2215-0001
 OUTPUTS: [rule_id, access_outcomes, prohibited_patterns]
 FORBIDDEN: [prose, cultural_exposition, speculative_ethics, mixed_role_types, world_parameter_binding]
 
@@ -55,7 +55,7 @@ FORBIDDEN: [prose, cultural_exposition, speculative_ethics, mixed_role_types, wo
 
 [DECISION][DID-INV-010] This document MUST be treated as executable baseline for LEVEL-MID.
 [DECISION][DID-INV-011] `BAN_ID` MUST be the primary identity primitive at LEVEL-MID.
-[DECISION][DID-INV-012] Any deviation REQUIRES explicit override OR a different LEVEL baseline.
+[DECISION][DID-INV-012] Any deviation MUST use explicit override OR a different LEVEL baseline.
 
 [FORBIDDEN][DID-INV-013] Introducing alternative identity primitives as defaults without explicit override.
 [FORBIDDEN][DID-INV-014] Importing pre-2215 norms of anonymity as baseline defaults.
@@ -85,7 +85,7 @@ FORBIDDEN: [prose, cultural_exposition, speculative_ethics, mixed_role_types, wo
 ### 3) Pseudonymity
 
 [RULE][DID-PSN-010] IF `user.uses_pseudonym` = true THEN `pseudonym` MUST be registry_linked_to_BAN_ID.
-[RULE][DID-PSN-011] IF `zone` = public_mid THEN pseudonym MAY be displayed_instead_of_BAN_ID.
+[DECISION][DID-PSN-011] IF `zone` = public_mid THEN `pseudonym` display MAY replace BAN_ID display.
 [RULE][DID-PSN-012] IF `investigation.status` = active THEN pseudonym_linkage MUST be resolvable.
 
 [FORBIDDEN][DID-PSN-020] Unresolvable pseudonyms at LEVEL-MID.
@@ -100,28 +100,28 @@ FORBIDDEN: [prose, cultural_exposition, speculative_ethics, mixed_role_types, wo
 [FORBIDDEN][DID-AUD-020] Deleting `audit_log` entries.
 [FORBIDDEN][DID-AUD-021] Disabling audit logging at LEVEL-MID without explicit override.
 
-### 5) Right Suspension
+### 5) Right Suspension and Freezing
 
-[RULE][DID-SUS-010] IF `legal_status` = suspect THEN rights MAY be suspended.
-[RULE][DID-SUS-011] IF rights suspended THEN essential_services_access MUST remain enabled_minimal.
-[RULE][DID-SUS-012] IF `investigation.status` = active THEN `BAN_ID` MAY be frozen.
+[DECISION][DID-SUS-010] IF `legal_status` = suspect THEN rights suspension MAY be permitted.
+[RULE][DID-SUS-011] IF rights are suspended THEN essential_services_access MUST remain enabled_minimal.
+[DECISION][DID-SUS-012] IF `investigation.status` = active THEN `BAN_ID` freezing MAY be permitted.
 [RULE][DID-SUS-013] IF `BAN_ID.status` = frozen THEN `identity_claim` MUST be allowed_only_for_essential_services.
 
 ### 6) Post-Mortem Digital Status
 
 [RULE][DID-PM-010] IF `person.status` = dead THEN `post_mortem_package` MUST be created.
 [RULE][DID-PM-011] `digital_snapshot` MUST be allowed.
-[RULE][DID-PM-012] `interactive_identity_continuation` MUST be forbidden.
+[FORBIDDEN][DID-PM-012] `interactive_identity_continuation`.
 [RULE][DID-PM-013] Access MUST be governed_by_will_or_default_heirs.
 [RULE][DID-PM-014] `audit_log` MUST remain immutable.
 
-### 7) Retention
+### 7) Data Retention and Erasure
 
-[DECISION][DID-RET-010] `audit_log_retention_years` ∈ [30, 80].
-[DECISION][DID-RET-011] `essential_identity_events_retention_years` ∈ [10, 30].
+[DECISION][DID-RET-010] `audit_log_retention_years` MUST satisfy x ∈ [30, 80] years.
+[DECISION][DID-RET-011] `essential_identity_events_retention_years` MUST satisfy x ∈ [10, 30] years.
 
-[RULE][DID-RET-020] Erasure MUST be limited_to_non_essential_artifacts.
-[RULE][DID-RET-021] Essential identity events MUST NOT be erased.
+[RULE][DID-RET-020] IF `user.requests_erasure` = true THEN erasure MUST be limited_to_non_essential_artifacts.
+[FORBIDDEN][DID-RET-021] Erasure of essential identity events.
 
 ---
 

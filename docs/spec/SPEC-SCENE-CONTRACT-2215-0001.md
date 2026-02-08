@@ -11,7 +11,7 @@ prose_language: ru-RU
 inputs: []
 depends_on:
   - BASELINE-DAILYOPS-2215-0002
-  - BASELINE-SOCIAL-CIVIC-2215-0001
+  - BASELINE-SOCIAL-2215-0001
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003
@@ -61,7 +61,7 @@ FORBIDDEN: [world_parameter_binding, ssot_direct_usage, lecture_exposition, impl
 scene_default_sources:
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
-  - BASELINE-SOCIAL-CIVIC-2215-0001
+  - BASELINE-SOCIAL-2215-0001
   - BASELINE-DAILYOPS-2215-0002
 
 scene_osa_required_sources:
