@@ -1,17 +1,15 @@
 ---
 id: CANON-VIBE-RESTLESS-GLOBAL-2215-0001
 title: >
-  Atmosphere Reference — UNKLE "Restless" (Operational Vibe Profile)
+  Atmosphere Reference — UNKLE ("Restless" Profile)
 class: canon
 status: draft
-version: 0.1.1
+version: 0.2.1
 prefix: RST
 doc_language: ru-RU
 prose_language: ru-RU
 inputs:
   - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
-  - CANON-CAST-GLOBAL-2215-0001
-  - CANON-CITY-RU-2215-0007
   - CANON-LOC-CHELNY-2215-0001
   - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
 depends_on:
@@ -19,114 +17,96 @@ depends_on:
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон для “restless” сцен: поток действий + износ без мелодрамы,
-  процедурная повторяемость, инфраструктурный саундскейп, утилитарный диалог.
-  Ограничения задаются через решаемые токены сцены. Без SSOT-метрик и без прозы.
+  RULE-канон базового “driving fatigue” профиля: поток действий + износ без
+  мелодрамы, процедурность, инфраструктурный низкочастотный фон. Профиль
+  активируется только при `scene.vibe == "RESTLESS"`. Без SSOT-метрик и
+  без художественных объяснений.
 ---
 
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: enforce RESTLESS vibe constraints when scene.vibe == "RESTLESS"
-INPUTS: [CANON-LOC-CHELNY-2215-0001, CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001, scene.inputs, scene.vibe, scene.context, scene.directives, scene.sound_markers, scene.dialogue_markers]
-OUTPUTS: [sound_marker_pool, dialogue_marker_pool, restless_requirements]
-FORBIDDEN: [lyrics_quotes, noir_cliches, system_anthropomorphism, essay_mode, smalltalk_default]
+SCOPE: enforce restless constraints when scene.vibe == "RESTLESS"
+INPUTS: [scene.inputs, scene.vibe, scene.tag.VIBE, scene.context, scene.sound_markers, scene.directives, prose.text]
+OUTPUTS: [restless_requirements, restless_marker_pools]
+FORBIDDEN: [lyrics_quotes, noir_cliches_as_default, essay_mode, system_anthropomorphism]
 
 ## DEFINITIONS
 
 [FACT][RST-010] `scene.inputs` = список doc_id, явно подключённых сценой как входы.
-[FACT][RST-011] `scene.vibe` = строковый тег профиля атмосферы сцены.
-[FACT][RST-012] `scene.context` = набор контекстных токенов сцены (UPPER_SNAKE_CASE).
-[FACT][RST-013] `scene.directives` = набор директив генерации сцены (UPPER_SNAKE_CASE).
-[FACT][RST-014] `scene.sound_markers` = список звуковых токенов сцены (UPPER_SNAKE_CASE).
-[FACT][RST-015] `scene.dialogue_markers` = список токенов диалога/взаимодействия (UPPER_SNAKE_CASE).
+[FACT][RST-011] `scene.vibe` = строковый токен активного vibe-профиля сцены.
+[FACT][RST-012] `scene.tag.VIBE` = строковый alias; PASS IFF `scene.tag.VIBE == ""` OR `scene.tag.VIBE == scene.vibe`; ELSE FAIL.
+[FACT][RST-013] `scene.context` = множество контекстных токенов сцены.
+[FACT][RST-014] `scene.sound_markers` = список токенов звуковых приёмов сцены.
+[FACT][RST-015] `scene.directives` = список директив генерации прозы сцены.
+[FACT][RST-016] `prose_text` = строка, равная `prose.text`.
+
+[FACT][RST-030] `vibe_token` ∈ {"RESTLESS","KINETIC","FLOW","VELVET","VOID"}.
+[FACT][RST-031] `is_defined(x)` = true IFF `x` существует AND `x != ""`; ELSE false.
+[FACT][RST-032] `count(xs)` = целое число элементов в `xs`.
+[FACT][RST-033] `contains(xs, x)` = true IFF `x` содержится в `xs`; ELSE false.
+[FACT][RST-034] `all_in(xs, pool)` = true IFF ∀`e`∈`xs`: `e`∈`pool`; ELSE false.
+[FACT][RST-035] `is_subset(required, actual)` = true IFF ∀`e`∈`required`: `contains(actual,e)`; ELSE false.
+[FACT][RST-036] `contains_substring(text, token)` = true IFF `text` содержит `token` как подстроку; ELSE false.
+[FACT][RST-037] `contains_none(text, pool)` = true IFF ∀`t`∈`pool`: NOT `contains_substring(text,t)`; ELSE false.
+[FACT][RST-038] `in_inputs(inputs, doc_id)` = true IFF `doc_id` содержится в `inputs`; ELSE false.
 
 ## INVARIANTS
 
-[RULE][RST-020] IF "CANON-VIBE-RESTLESS-GLOBAL-2215-0001" IN scene.inputs THEN PASS IFF scene.vibe == "RESTLESS"; ELSE PASS.
-[RULE][RST-030] IF scene.vibe == "RESTLESS" THEN PASS IFF scene.context intersects {"ROUTINE","FIELD_OP","INSPECTION","DATA_CAPTURE","ACCESS_GATE","TRIAGE","BUREAUCRACY","TRANSIT_SLOW"}; ELSE PASS.
-[RULE][RST-040] IF scene.vibe == "RESTLESS" THEN PASS IFF "SYSTEM_AS_CHARACTER" NOT IN scene.context; ELSE PASS.
-[RULE][RST-050] IF scene.vibe == "RESTLESS" AND "SILENCE" IN scene.context THEN PASS IFF "SILENCE_AS_ANOMALY" IN scene.directives; ELSE PASS.
+[RULE][RST-020] PASS IFF `scene.vibe ∈ vibe_token`; ELSE FAIL.
+[RULE][RST-021] PASS IFF (`scene.tag.VIBE == ""`) OR (`scene.tag.VIBE == scene.vibe`); ELSE FAIL.
+[RULE][RST-022] PASS IFF (NOT in_inputs(scene.inputs, "CANON-VIBE-RESTLESS-GLOBAL-2215-0001")) OR (scene.vibe == "RESTLESS"); ELSE FAIL.
 
 ## CONTENT
 
-### A) Pools (normative tokens)
+### 1) Pools (normative tokens)
 
 ~~~yaml
 sound_marker_pool:
-  - LOW_END_HUM_CONTINUOUS
-  - PROCEDURAL_TICK_CADENCE
-  - FILTERED_INTERCOM_VOICE
-  - HEAT_EXCHANGE_HISS
-  - DRY_AIR_HVAC
+  - INFRA_LOW_END_HUM
+  - PROCEDURAL_TICK
+  - FILTERED_INTERFACE_VOCALS
 
-sound_marker_required:
-  - LOW_END_HUM_CONTINUOUS
-  - PROCEDURAL_TICK_CADENCE
+required_directive_pool:
+  - SHORT_SENTENCES_DOMINANT
+  - ACTION_PARAGRAPHS_1_TO_4_SENTENCES
+  - BEND_RESEND_LOOP_ON_DENY
+  - EXPLANATION_BLOCKS_FORBIDDEN
+  - TEAM_DIALOGUE_UTILITARIAN
 
-dialogue_marker_pool:
-  - REQUEST_CONSTRAINT_DELTA_CONFIRM
-  - NO_SMALLTALK_DEFAULT
-  - COMPETENCE_TRUST_ROUTING
-  - PROTOCOL_PHRASE_MINIMAL
-  - FATIGUE_AS_TIMING_ERRORS
-
-directive_required:
-  - SENTENCE_PROFILE_SHORT_HEAVY
-  - PARAGRAPH_PROFILE_1_TO_4_SENTENCES
-  - EMOTION_AS_OPERATIONAL_OUTPUT
-  - RESOLUTION_PARTIAL_WITH_RESIDUAL
-
-directive_conditional:
-  - if_context: ACCESS_DENY
-    require: BEND_RESEND_LOOP
-  - if_context: WINDOW_DENY
-    require: BEND_RESEND_LOOP
-  - if_context: DATA_DENY
-    require: BEND_RESEND_LOOP
-
-forbidden_directives:
-  - LYRICS_QUOTE
-  - NOIR_CLICHE_STACK
-  - SYSTEM_ANTHROPOMORPHISM
-  - ESSAY_MODE_BLOCK
+forbidden_lexeme_pool_ru:
+  - "каждую ночь дождь"
+  - "кислотный неон"
+  - "тренч"
+  - "город как живой"
+  - "система злится"
 ~~~
 
-### B) Soundscape constraints
+### 2) Marker constraints
 
-[RULE][RST-110] IF scene.vibe == "RESTLESS" THEN PASS IFF scene.sound_markers.count ∈ [2,4]; ELSE PASS.
-[RULE][RST-120] IF scene.vibe == "RESTLESS" THEN PASS IFF every(scene.sound_markers) ∈ sound_marker_pool; ELSE FAIL.
-[RULE][RST-130] IF scene.vibe == "RESTLESS" THEN PASS IFF "LOW_END_HUM_CONTINUOUS" IN scene.sound_markers; ELSE FAIL.
-[RULE][RST-140] IF scene.vibe == "RESTLESS" THEN PASS IFF "PROCEDURAL_TICK_CADENCE" IN scene.sound_markers; ELSE FAIL.
+[RULE][RST-110] PASS IFF (scene.vibe != "RESTLESS") OR (count(scene.sound_markers) ∈ [1,3]); ELSE FAIL.
+[RULE][RST-111] PASS IFF (scene.vibe != "RESTLESS") OR all_in(scene.sound_markers, sound_marker_pool); ELSE FAIL.
+[RULE][RST-112] PASS IFF (scene.vibe != "RESTLESS") OR contains(scene.sound_markers, "INFRA_LOW_END_HUM"); ELSE FAIL.
 
-### C) Dialogue constraints
+### 3) Directive constraints
 
-[RULE][RST-210] IF scene.vibe == "RESTLESS" THEN PASS IFF every(scene.dialogue_markers) ∈ dialogue_marker_pool; ELSE FAIL.
-[RULE][RST-220] IF scene.vibe == "RESTLESS" THEN PASS IFF "REQUEST_CONSTRAINT_DELTA_CONFIRM" IN scene.dialogue_markers; ELSE FAIL.
-[RULE][RST-230] IF scene.vibe == "RESTLESS" THEN PASS IFF "NO_SMALLTALK_DEFAULT" IN scene.dialogue_markers; ELSE FAIL.
+[RULE][RST-120] PASS IFF (scene.vibe != "RESTLESS") OR is_subset(required_directive_pool, scene.directives); ELSE FAIL.
 
-### D) Prose/directives constraints
+### 4) Integration gates (explicit via directives)
 
-[RULE][RST-310] IF scene.vibe == "RESTLESS" THEN PASS IFF "SENTENCE_PROFILE_SHORT_HEAVY" IN scene.directives; ELSE FAIL.
-[RULE][RST-320] IF scene.vibe == "RESTLESS" THEN PASS IFF "PARAGRAPH_PROFILE_1_TO_4_SENTENCES" IN scene.directives; ELSE FAIL.
-[RULE][RST-330] IF scene.vibe == "RESTLESS" THEN PASS IFF "EMOTION_AS_OPERATIONAL_OUTPUT" IN scene.directives; ELSE FAIL.
-[RULE][RST-340] IF scene.vibe == "RESTLESS" THEN PASS IFF "RESOLUTION_PARTIAL_WITH_RESIDUAL" IN scene.directives; ELSE FAIL.
-[RULE][RST-350] IF scene.vibe == "RESTLESS" AND "ACCESS_DENY" IN scene.context THEN PASS IFF "BEND_RESEND_LOOP" IN scene.directives; ELSE FAIL.
-[RULE][RST-360] IF scene.vibe == "RESTLESS" AND "WINDOW_DENY" IN scene.context THEN PASS IFF "BEND_RESEND_LOOP" IN scene.directives; ELSE FAIL.
-[RULE][RST-370] IF scene.vibe == "RESTLESS" AND "DATA_DENY" IN scene.context THEN PASS IFF "BEND_RESEND_LOOP" IN scene.directives; ELSE FAIL.
-[RULE][RST-380] IF scene.vibe == "RESTLESS" THEN PASS IFF every(forbidden_directives) NOT IN scene.directives; ELSE FAIL.
+[RULE][RST-130] PASS IFF (scene.vibe != "RESTLESS") OR (NOT contains(scene.directives, "USES_SYSTEM_INSERTS")) OR in_inputs(scene.inputs, "CANON-SYSTEM-VOICE-GLOBAL-2215-0001"); ELSE FAIL.
+[RULE][RST-131] PASS IFF (scene.vibe != "RESTLESS") OR (NOT contains(scene.directives, "USES_ARTIFACT_SNIPPETS")) OR in_inputs(scene.inputs, "CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001"); ELSE FAIL.
+[RULE][RST-132] PASS IFF (scene.vibe != "RESTLESS") OR in_inputs(scene.inputs, "CANON-LOC-CHELNY-2215-0001"); ELSE FAIL.
 
-### E) Integration constraints (inputs as gates)
+### 5) Lexeme constraints (decidable on prose_text)
 
-[RULE][RST-410] IF scene.vibe == "RESTLESS" AND "SYSTEM_INSERT" IN scene.context THEN PASS IFF "CANON-SYSTEM-VOICE-GLOBAL-2215-0001" IN scene.inputs; ELSE PASS.
-[RULE][RST-420] IF scene.vibe == "RESTLESS" AND "ARTIFACT_SNIPPET" IN scene.context THEN PASS IFF "CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001" IN scene.inputs; ELSE PASS.
+[RULE][RST-140] PASS IFF (scene.vibe != "RESTLESS") OR (NOT is_defined(prose_text)) OR contains_none(prose_text, forbidden_lexeme_pool_ru); ELSE FAIL.
 
 ## USAGE / RESOLUTION
 
-[DECISION][RST-500] Scenes MUST treat this doc as applicable ONLY IF scene.vibe == "RESTLESS".
-[DECISION][RST-510] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
-[DECISION][RST-520] This doc MUST NOT override locality constraints; locality MUST be constrained by location canon/docs; ELSE FAIL.
-[DECISION][RST-530] This doc MUST NOT be implied by folder membership or by location mention without explicit scene.vibe or scene.inputs; ELSE FAIL.
+[DECISION][RST-200] This document applies ONLY IF `scene.vibe == "RESTLESS"`; ELSE PASS.
+[DECISION][RST-201] Conflict resolution MUST follow `SPEC-PRIORITY-RESOLUTION-2215-0001`; ELSE FAIL.
+[DECISION][RST-202] If a scene must not be RESTLESS THEN it MUST set `scene.vibe` explicitly (or be routed by CANON-VIBE-ROUTER); ELSE PASS.
 
 ## OUTPUT CONTRACT
 
@@ -134,36 +114,48 @@ forbidden_directives:
 doc_id: CANON-VIBE-RESTLESS-GLOBAL-2215-0001
 role_type: RULE
 export:
-  - rule_id: RST-020
+  - rule_id: RST-022
     intent: "applicability bound to explicit scene.inputs + scene.vibe"
     inputs: [scene.inputs, scene.vibe]
     outputs: [restless_requirements]
+  - rule_id: RST-111
+    intent: "restrict sound markers to pool and count 1..3"
+    inputs: [scene.vibe, scene.sound_markers]
+    outputs: [restless_requirements, restless_marker_pools]
   - rule_id: RST-120
-    intent: "sound markers must be selected from allowed pool"
-    inputs: [scene.sound_markers]
-    outputs: [sound_marker_pool, restless_requirements]
-  - rule_id: RST-220
-    intent: "require utilitarian dialogue pattern marker"
-    inputs: [scene.dialogue_markers]
+    intent: "require directive subset for restless prose/dialogue structure"
+    inputs: [scene.vibe, scene.directives]
     outputs: [restless_requirements]
-  - rule_id: RST-350
-    intent: "require bend_resend_loop directive on deny contexts"
-    inputs: [scene.context, scene.directives]
+  - rule_id: RST-130
+    intent: "require system-voice doc when USES_SYSTEM_INSERTS directive is present"
+    inputs: [scene.vibe, scene.directives, scene.inputs]
     outputs: [restless_requirements]
-  - rule_id: RST-410
-    intent: "gate system inserts by requiring system-voice doc in scene.inputs"
-    inputs: [scene.context, scene.inputs]
+  - rule_id: RST-132
+    intent: "require Chelny locality doc for RESTLESS scenes"
+    inputs: [scene.vibe, scene.inputs]
     outputs: [restless_requirements]
+  - rule_id: RST-140
+    intent: "forbid noir/system-anthropomorphism lexemes in RESTLESS prose when prose_text is defined"
+    inputs: [scene.vibe, prose.text]
+    outputs: [restless_requirements]
+config:
+  sound_marker_pool_ref: "CONTENT.sound_marker_pool"
+  required_directive_pool_ref: "CONTENT.required_directive_pool"
+  forbidden_lexeme_pool_ru_ref: "CONTENT.forbidden_lexeme_pool_ru"
+  vibe_field: "scene.vibe"
+  vibe_alias_field: "scene.tag.VIBE"
 ~~~
 
 ## FORBIDDEN
 
 [FORBIDDEN][RST-900] Quoting lyrics or reproducing track text (any length).
-[FORBIDDEN][RST-910] Noir-by-default clichés as baseline framing.
-[FORBIDDEN][RST-920] Anthropomorphizing the system as a speaking character.
-[FORBIDDEN][RST-930] Treating essay blocks as a substitute for procedure/constraints.
-[FORBIDDEN][RST-940] Consuming NON-NORMATIVE examples as rules.
+[FORBIDDEN][RST-901] Consuming NON-NORMATIVE examples as rules.
+[FORBIDDEN][RST-902] Applying RESTLESS constraints without `scene.vibe == "RESTLESS"`.
 
 ## NON-NORMATIVE
 
-(empty)
+~~~text
+Design intent (not normative):
+- “Flow + wear”: actions continue, but every win leaves a residual constraint.
+- Team dialogue is routing and confirmation, not bonding.
+~~~

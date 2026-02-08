@@ -12,7 +12,7 @@ inputs:
   - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
   - CANON-CAST-GLOBAL-2215-0001
   - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
-  - CANON-VOCAB-2215-0001
+  - CANON-VOCAB-GLOBAL-2215-0001
   - SPEC-SCENE-CONTRACT-2215-0001
   - PLAN-STORY-2215-0001
 depends_on:
@@ -82,7 +82,7 @@ FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, impli
 
 ### 4. Vocabulary and roles
 
-[DECISION][SGP-070] Canonical terms MUST be used when defined in `CANON-VOCAB-2215-0001`; ELSE FAIL.
+[DECISION][SGP-070] Canonical terms MUST be used when defined in `CANON-VOCAB-GLOBAL-2215-0001`; ELSE FAIL.
 [DECISION][SGP-071] Characters MUST act strictly within assigned institutional roles from `CANON-CAST-GLOBAL-2215-0001`; ELSE FAIL.
 
 [FORBIDDEN][SGP-072] Non-canonical synonyms for defined terms.

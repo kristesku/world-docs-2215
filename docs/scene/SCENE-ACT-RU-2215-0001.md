@@ -1,11 +1,13 @@
 ﻿---
 id: SCENE-ACT-RU-2215-0001
 title: >
-  SCENE-CARDS — Акт I (Главы 1–10) —
-  Инцидент Приоритета (Paradox) → Выход на Логистику
+  SCENE-CARDS — Act I (Chapters 1–10) —
+  Priority Incident (Paradox) → Logistics Output
 class: scene
-status: fixed
-version: 1.3.0
+status: applied
+version: 1.4.0
+doc_language: en
+prose_language: ru-RU
 inputs:
   - BASELINE-PHYSICALLEVELMID-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
@@ -17,9 +19,10 @@ inputs:
 depends_on:
   - PLAN-STORY-2215-0001
 scope: >
-  Полный комплект SCENE-CARDS для Акта I.
-  Инцидент: Type IV Paradox (Снос жилого блока).
-  Угроза: Insolvency.
+  Full set of SCENE-CARDS for Act I (CH-01..CH-10).
+  Incident: Type IV Paradox (Demolition).
+  Threat: Insolvency.
+  Includes transition chapters to Act II.
 ---
 
 ## LLM-INTENT
@@ -52,7 +55,7 @@ FORBIDDEN: [prose, world_explanations, new_metrics, gap_filling, meta_diegesis]
 
 ### Chapter 2: The Logic of Error
 
-[FACT][SCA1-004] scene_id=SC-02.1; chapter_id=CH-02; time="08:00 (Morning)"; where="Лаборатория ОСА"; pov="Лёва"; goal="дебаг парадокса"; measurable="code_diff=match; timestamp=valid"; artifact="EL(registry_conflict_dump)"; cmc="оба реестра валидны → арбитр отсутствовал → система выбрала 'эффективность' (снос)"; output="диагноз: Type IV Paradox"; hook="реестр изменен вчера"; tags="coding, flow, cold_light".
+[FACT][SCA1-004] scene_id=SC-02.1; chapter_id=CH-02; time="08:00 (Morning)"; where="Лаборатория ОСА"; pov="Лев"; goal="дебаг парадокса"; measurable="code_diff=match; timestamp=valid"; artifact="EL(registry_conflict_dump)"; cmc="оба реестра валидны → арбитр отсутствовал → система выбрала 'эффективность' (снос)"; output="диагноз: Type IV Paradox"; hook="реестр изменен вчера"; tags="coding, flow, cold_light".
 [FACT][SCA1-005] scene_id=SC-02.2; chapter_id=CH-02; time="09:30 (Day)"; where="Кабинет Ильи (Мэрия)"; pov="Лейсан"; goal="получить ордер на изъятие"; measurable="budget_impact=negligible"; artifact="CD(official_denial)"; cmc="Илья защищает систему → 'это оптимизация' → отказ в ордере"; output="конфликт юрисдикций"; hook="Лейсан: 'Тогда мы зайдем через черный ход'"; tags="bureaucracy, restless".
 
 ### Chapter 3: The Human Cost
@@ -62,20 +65,33 @@ FORBIDDEN: [prose, world_explanations, new_metrics, gap_filling, meta_diegesis]
 
 ### Chapter 4: Following the Money (Debt)
 
-[FACT][SCA1-008] scene_id=SC-04.1; chapter_id=CH-04; time="16:00 (Day)"; where="Серверная (вирт)"; pov="Лёва"; goal="трекинг полимера"; measurable="trace_depth=4_hops"; artifact="CM(supply_chain_graph)"; cmc="полимер → поставщик (StroyComposite) → логистический хаб → субподряд"; output="след ведет в порт"; hook="защищенный канал"; tags="hacking, flow".
+[FACT][SCA1-008] scene_id=SC-04.1; chapter_id=CH-04; time="16:00 (Day)"; where="Серверная (вирт)"; pov="Лев"; goal="трекинг полимера"; measurable="trace_depth=4_hops"; artifact="CM(supply_chain_graph)"; cmc="полимер → поставщик (StroyComposite) → логистический хаб → субподряд"; output="след ведет в порт"; hook="защищенный канал"; tags="hacking, flow".
 [FACT][SCA1-009] scene_id=SC-04.2; chapter_id=CH-04; time="19:00 (Evening)"; where="Допросная"; pov="Лейсан"; goal="давление через Insolvency"; measurable="heart_rate=120; credit_score=low"; artifact="CD(debt_assignment_warrant)"; cmc="угроза Tier 2 Debt → техник колется → 'меня заставили обновить реестр'"; output="свидетель"; hook="имя куратора"; tags="interrogation, tension, velvet".
-[FACT][SCA1-CH02-EXTRA] scene_id=SC-04.3; chapter_id=CH-04; time="22:00 (Night)"; where="Капсула Айдара"; pov="Айдар"; goal="техническое обслуживание тела"; measurable="calibration_drift=0.02%"; artifact="EL(maintenance_log)"; cmc="снятие нейро-интерфейса → фантомная боль → ручная полировка контактов"; output="человек-механизм"; hook="В соседней капсуле кто-то плачет, но шумодав отсекает звук"; tags="maintenance, isolation, kinetic".
 
-### Chapter 5: Escalation (The Raid)
+### Chapter 5: Капсула
 
-[FACT][SCA1-010] scene_id=SC-05.1; chapter_id=CH-05; time="23:45 (Night)"; where="Логистический Хаб (Порт)"; pov="Мирон"; goal="координация штурма"; measurable="security_level=mid"; artifact="CD(warrant_seizure)"; cmc="вход по ордеру → сопротивление ЧОП → демонстрация силы"; output="периметр взят"; hook="Лёва, ищи сервер"; tags="raid, kinetic, rain".
-[FACT][SCA1-011] scene_id=SC-05.2; chapter_id=CH-05; time="23:55 (Night)"; where="Серверная Хаба"; pov="Лёва"; goal="цифровая археология"; measurable="purge_time=60s"; artifact="EL(undelete_log)"; cmc="попытка стирания → перехват → восстановление лога обновления"; output="доказательство вмешательства"; hook="команда пришла извне (Экстерритория)"; tags="hacking, timer, kinetic".
-[FACT][SCA1-012] scene_id=SC-05.3; chapter_id=CH-05; time="00:10 (Night)"; where="Выход из Хаба"; pov="Айдар"; goal="эвакуация улик"; measurable="hostiles=0"; artifact="none"; cmc="успешный отход → напряжение спало → победа в битве"; output="улика у нас"; hook="звонок Мирону (код Красный)"; tags="victory, kinetic".
+[FACT][SCA1-010] scene_id=SC-05.1; chapter_id=CH-05; time="22:00 (Night)"; where="Капсула Айдара"; pov="Айдар"; goal="техническое обслуживание тела"; measurable="calibration_drift=0.02%"; artifact="EL(maintenance_log)"; cmc="снятие нейро-интерфейса → фантомная боль → ручная полировка контактов"; output="человек-механизм"; hook="В соседней капсуле кто-то плачет, но шумодав отсекает звук"; tags="maintenance, isolation, kinetic".
 
-### Chapter 6: The Wall (Legal Void)
+### Chapter 6: Escalation (The Raid)
 
-[FACT][SCA1-013] scene_id=SC-06.1; chapter_id=CH-06; time="09:00 (Next Day)"; where="Кабинет Мирона"; pov="Мирон"; goal="принятие удара"; measurable="auth_level=federal"; artifact="CD(jurisdiction_override)"; cmc="звонок из Центра → 'это стратегический партнер' → приказ заморозить дело"; output="Type II Conflict (Jurisdiction)"; hook="Мирон: 'Сбор на крыше'"; tags="defeat, restless".
-[FACT][SCA1-014] scene_id=SC-06.2; chapter_id=CH-06; time="09:30 (Day)"; where="Крыша (курилка)"; pov="Мирон"; goal="сплочение команды"; measurable="morale=low"; artifact="none"; cmc="система против нас → нужно искать обходной путь → работаем неофициально"; output="решение идти до конца"; hook="Лёва: 'Я знаю, как обойти защиту'"; tags="wind, smoke, restless".
+[FACT][SCA1-011] scene_id=SC-06.1; chapter_id=CH-06; time="23:45 (Night)"; where="Логистический Хаб (Порт)"; pov="Мирон"; goal="координация штурма"; measurable="security_level=mid"; artifact="CD(warrant_seizure)"; cmc="вход по ордеру → сопротивление ЧОП → демонстрация силы"; output="периметр взят"; hook="Лев, ищи сервер"; tags="raid, kinetic, rain".
+[FACT][SCA1-012] scene_id=SC-06.2; chapter_id=CH-06; time="23:55 (Night)"; where="Серверная Хаба"; pov="Лев"; goal="цифровая археология"; measurable="purge_time=60s"; artifact="EL(undelete_log)"; cmc="попытка стирания → перехват → восстановление лога обновления"; output="доказательство вмешательства"; hook="команда пришла извне (Экстерритория)"; tags="hacking, timer, kinetic".
+[FACT][SCA1-013] scene_id=SC-06.3; chapter_id=CH-06; time="00:10 (Night)"; where="Выход из Хаба"; pov="Айдар"; goal="эвакуация улик"; measurable="hostiles=0"; artifact="none"; cmc="успешный отход → напряжение спало → победа в битве"; output="улика у нас"; hook="звонок Мирону (код Красный)"; tags="victory, kinetic".
+
+### Chapter 7: The Wall (Legal Void)
+
+[FACT][SCA1-014] scene_id=SC-07.1; chapter_id=CH-07; time="09:00 (Next Day)"; where="Кабинет Мирона"; pov="Мирон"; goal="принятие удара"; measurable="auth_level=federal"; artifact="CD(jurisdiction_override)"; cmc="звонок из Центра → 'это стратегический партнер' → приказ заморозить дело"; output="Type II Conflict (Jurisdiction)"; hook="Мирон: 'Сбор на крыше'"; tags="defeat, restless".
+[FACT][SCA1-015] scene_id=SC-07.2; chapter_id=CH-07; time="09:30 (Day)"; where="Крыша (курилка)"; pov="Мирон"; goal="сплочение команды"; measurable="morale=low"; artifact="none"; cmc="система против нас → нужно искать обходной путь → работаем неофициально"; output="решение идти до конца"; hook="Лев: 'Я знаю, как обойти защиту'"; tags="wind, smoke, restless".
+
+### Chapter 8: Пересортировка
+
+[FACT][SCA1-016] scene_id=SC-08.1; chapter_id=CH-08; time="10:00 (Day)"; where="Лаборатория ОСА"; pov="Лев"; goal="систематизация хаоса"; measurable="data_integrity=check"; artifact="EL(recovered_index)"; cmc="анализ восстановленных логов → выявление структуры подставных фирм → сортировка по приоритету"; output="карта связей"; hook="упоминание старого протокола"; tags="analysis, quiet, data".
+[FACT][SCA1-017] scene_id=SC-08.2; chapter_id=CH-08; time="11:30 (Day)"; where="Гараж ОСА"; pov="Дамир"; goal="проверка снаряжения"; measurable="gear_status=ready"; artifact="CM(inventory_list)"; cmc="после рейда нужна калибровка → чистка приводов → подготовка к долгой работе"; output="техническая готовность"; hook="Мирон вызывает всех"; tags="maintenance, kinetic".
+
+### Chapter 9: Это правило
+
+[FACT][SCA1-018] scene_id=SC-09.1; chapter_id=CH-09; time="14:00 (Day)"; where="Переговорная"; pov="Лейсан"; goal="поиск юридической лазейки"; measurable="law_compliance=borderline"; artifact="CD(internal_regulation_draft)"; cmc="изучение устава ОСА → пункт о чрезвычайных полномочиях → трактовка в нашу пользу"; output="обоснование действий"; hook="мы не нарушаем закон, мы его уточняем"; tags="bureaucracy, strategy".
+[FACT][SCA1-019] scene_id=SC-09.2; chapter_id=CH-09; time="14:30 (Day)"; where="Переговорная"; pov="Мирон"; goal="установка новых правил игры"; measurable="team_consensus=100%"; artifact="RP(mission_statement)"; cmc="брифинг команды → объявление о работе 'под радаром' → принятие рисков"; output="новая доктрина"; hook="переход ко второму акту"; tags="leadership, tension".
 
 ## USAGE / RESOLUTION
 

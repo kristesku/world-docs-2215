@@ -2,12 +2,11 @@
 id: REG-UNKNOWN-2215-0001
 title: >
   UNKNOWN Registry — 2215 Corpus
-  (Extraction: , BASELINE-PHYSICALLEVELMID-2215-0001)
+  (Extraction: BASELINE-PHYSICALLEVELMID-2215-0001)
 class: registry
 status: draft
 version: 1.0.0
 inputs:
-  - 
   - BASELINE-PHYSICALLEVELMID-2215-0001
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
@@ -21,7 +20,7 @@ scope: >
 
 ROLE_TYPE: STATE
 SCOPE: track and control consciously unresolved world assumptions (UNKNOWNs).
-INPUTS: [, BASELINE-PHYSICALLEVELMID-2215-0001]
+INPUTS: [BASELINE-PHYSICALLEVELMID-2215-0001]
 OUTPUTS: [unknown_records]
 FORBIDDEN: [implicit_resolution, silent_assumptions, narrative_filling]
 
@@ -42,18 +41,6 @@ FORBIDDEN: [implicit_resolution, silent_assumptions, narrative_filling]
   - ссылки на doc_id и раздел,
   - смены `state` на `closed`.
 [FORBIDDEN][UNK-INV-013] Введение новых world-фактов без закрытия соответствующей UNKNOWN.
-
-## CONTENT
-
----
-id: REG-UNKNOWN-2215-0001
-title: >
-  UNKNOWN Registry — 2215 Corpus
-class: registry
-status: active
-version: 1.1.0
----
-... (DEFINITIONS and INVARIANTS remain the same) ...
 
 ## CONTENT
 

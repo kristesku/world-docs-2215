@@ -6,7 +6,7 @@ class: canon
 status: fixed
 version: 1.1.0
 inputs:
-  - CANON-VOCAB-2215-0001
+  - CANON-VOCAB-GLOBAL-2215-0001
   - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
 depends_on: []
 scope: >
@@ -19,7 +19,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: define mandatory forms and constraints for OSA artifact snippets used in scenes
-INPUTS: [CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-VOCAB-2215-0001]
+INPUTS: [CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-VOCAB-GLOBAL-2215-0001]
 OUTPUTS: [artifact_schema_id, admissibility_constraints]
 FORBIDDEN: [narrative_text, freeform_documents, persona_voice]
 

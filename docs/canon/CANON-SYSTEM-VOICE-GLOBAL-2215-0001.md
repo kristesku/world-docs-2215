@@ -6,7 +6,7 @@ class: canon
 status: draft
 version: 0.3.0
 inputs:
-  - CANON-VOCAB-2215-0001
+  - CANON-VOCAB-GLOBAL-2215-0001
   - CANON-REPORTS-GLOBAL-2215-0006
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
@@ -23,7 +23,7 @@ scope: >
 ROLE_TYPE: RULE
 SCOPE: define allowed system voice inserts and constrain schema, sources, events, metrics, and style
 INPUTS:
-  - CANON-VOCAB-2215-0001
+  - CANON-VOCAB-GLOBAL-2215-0001
   - CANON-REPORTS-GLOBAL-2215-0006
 OUTPUTS:
   - system_voice_schema
@@ -170,7 +170,7 @@ export:
     outputs: [system_voice_schema]
   - rule_id: SVO-050
     intent: "Restrict allowed metrics and units inside inserts"
-    inputs: [CANON-VOCAB-2215-0001]
+    inputs: [CANON-VOCAB-GLOBAL-2215-0001]
     outputs: [allowed_metrics]
   - rule_id: SVO-060
     intent: "Constrain language/tone to non-personified procedural style"

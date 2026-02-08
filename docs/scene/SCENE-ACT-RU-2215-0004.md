@@ -1,11 +1,13 @@
 ﻿---
 id: SCENE-ACT-RU-2215-0004
 title: >
-  SCENE-CARDS — Акт IV (Главы 21–25) —
-  Москва: арбитраж, лицензии, контуры ответственности и контрмеры системы
+  SCENE-CARDS — Act IV (Chapters 23–29) —
+  Moscow: arbitration, licenses, responsibility contours and system countermeasures
 class: scene
-status: fixed
-version: 1.1.0
+status: applied
+version: 1.2.0
+doc_language: en
+prose_language: ru-RU
 inputs:
   - BASELINE-PHYSICALLEVELMID-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
@@ -15,9 +17,9 @@ inputs:
 depends_on:
   - SCENE-ACT-RU-2215-0003
 scope: >
-  Полный комплект SCENE-CARDS для Акта IV (главы 21–25): эскалация в институциональном
-  центре; сходимость линий ответственности/логов/регламентов; ответ системы процедурами,
-  санкциями и блокировками. Без художественного текста.
+  Full set of SCENE-CARDS for Act IV (chapters 23–29): escalation in the institutional
+  center; convergence of responsibility lines/logs/regulations; system response via
+  procedures, sanctions, and blocking.
 ---
 
 ## LLM-INTENT
@@ -45,36 +47,44 @@ FORBIDDEN: [prose, world_explanations, new_metrics, unscoped_numbers, gap_fillin
 
 ## CONTENT
 
-### CH-21 — Arbitration Machine
+### CH-23 — Завтрак
 
-[FACT][SCA4-CH21-EXTRA] scene_id=SC-21.0; chapter_id=CH-21; time="08:00 (Morning)"; where="Пентхаус Оператора (Чистая зона)"; pov="Оператор (Антагонист)"; goal="завтрак с дочерью перед школой"; measurable="air_purity=99.9%; breakfast_quality=premium"; artifact="none"; cmc="дочь жалуется на сложный урок истории → отец объясняет, что порядок важнее хаоса → его вера искренняя"; output="злодей очеловечен"; hook="Дочь: 'А правда, что за стеной люди болеют?' Отец: 'Мы работаем, чтобы не болели'"; tags="luxury, family, flow".
-[FACT][SCA4-001] scene_id=SC-21.1; chapter_id=CH-21; time="09:00 (Morning)"; where="арбитражный комплекс, приём дел"; pov="лидер"; goal="показать масштаб федеральной машины и цену времени"; measurable="queue_cases=126; wait_time=4h10m"; artifact="CD(e_ticket_case_card)"; cmc="централизованный поток → задержки → срочность теряется"; output="ощущение: время съедает правду"; hook="оператор зарегистрировал встречное заявление"; tags="queue, bureaucracy, restless".
-[FACT][SCA4-002] scene_id=SC-21.2; chapter_id=CH-21; time="11:30 (Day)"; where="зал слушаний"; pov="юрист ОСА"; goal="формально изложить причинность и упереться в «нет нарушений»"; measurable="KPI_compliance=97%; harm_episodes=11"; artifact="EL(decision_logs_med_protocols_bundle)"; cmc="модель по контракту → подписи по регламенту → нарушений нет"; output="правовая ничья"; hook="суд требует конкретного виновного субъекта"; tags="sterile, court, flow".
-[FACT][SCA4-003] scene_id=SC-21.3; chapter_id=CH-21; time="12:15 (Day)"; where="кулуар / коридор"; pov="лидер"; goal="реакция оператора — закрыть шум без признания вины"; measurable="settlement_offer=without_admission"; artifact="CD(settlement_draft)"; cmc="репутационный риск → попытка замять → система сохраняется"; output="ОСА отказывается"; hook="«ищите подрядчика»"; tags="whisper, shadow, velvet".
+[FACT][SCA4-001] scene_id=SC-23.1; chapter_id=CH-23; time="08:00 (Morning)"; where="Пентхаус Оскара (Чистая зона)"; pov="Оскар"; goal="завтрак с дочерью перед школой"; measurable="air_purity=99.9%; breakfast_quality=premium"; artifact="none"; cmc="дочь жалуется на сложный урок истории → отец объясняет, что порядок важнее хаоса → его вера искренняя"; output="агент системы показан с человеческой стороны"; hook="Дочь: 'А правда, что за стеной люди болеют?' Оскар: 'Мы работаем, чтобы не болели'"; tags="luxury, family, flow".
 
-### CH-22 — Shell Companies
+### CH-24 — Arbitration Machine
 
-[FACT][SCA4-004] scene_id=SC-22.1; chapter_id=CH-22; time="14:00 (Day)"; where="контур реестров юрлиц / ownership-анализ"; pov="аналитик"; goal="раскрутить цепочку ответственности"; measurable="contract_layers=4; SPV_present=true"; artifact="CM(ownership_tree)"; cmc="дробление контрактов → ответственность рассеивается → нет субъекта"; output="виновный растворён процедурно"; hook="SPV ликвидирована месяц назад"; tags="data, dead_end, analytic".
-[FACT][SCA4-005] scene_id=SC-22.2; chapter_id=CH-22; time="16:00 (Afternoon)"; where="адрес SPV (офис-оболочка)"; pov="полевой"; goal="физически подтвердить пустоту"; measurable="employees=0; assets=0"; artifact="EL(premises_inspection_act)"; cmc="фиктивная структура → нет активов → нет взыскания"; output="тупик подтверждён"; hook="контракты всё равно легитимны"; tags="dust, echo, void".
-[FACT][SCA4-006] scene_id=SC-22.3; chapter_id=CH-22; time="17:30 (Evening)"; where="разговор с чиновником-куратором / контур разъяснений"; pov="юрист ОСА"; goal="институциональное сопротивление без злодейства"; measurable="response=within_norms; responsibility_refused=true"; artifact="CD(clarification_letter)"; cmc="самосохранение аппарата → формализм → давление на ОСА"; output="путь «уголовка» закрыт"; hook="остаётся рычаг лицензии оператора"; tags="office, fatigue, restless".
+[FACT][SCA4-002] scene_id=SC-24.1; chapter_id=CH-24; time="09:00 (Morning)"; where="Арбитражный комплекс, приём дел"; pov="Мирон"; goal="показать масштаб федеральной машины и цену времени"; measurable="queue_cases=126; wait_time=4h10m"; artifact="CD(e_ticket_case_card)"; cmc="централизованный поток → задержки → срочность теряется"; output="ощущение: время съедает правду"; hook="оператор зарегистрировал встречное заявление"; tags="queue, bureaucracy, restless".
+[FACT][SCA4-003] scene_id=SC-24.2; chapter_id=CH-24; time="11:30 (Day)"; where="Зал слушаний"; pov="Лейсан"; goal="формально изложить причинность и упереться в «нет нарушений»"; measurable="KPI_compliance=97%; harm_episodes=11"; artifact="EL(decision_logs_med_protocols_bundle)"; cmc="модель по контракту → подписи по регламенту → нарушений нет"; output="правовая ничья"; hook="суд требует конкретного виновного субъекта"; tags="sterile, court, flow".
+[FACT][SCA4-004] scene_id=SC-24.3; chapter_id=CH-24; time="12:15 (Day)"; where="Кулуар / коридор"; pov="Мирон"; goal="реакция оператора — закрыть шум без признания вины"; measurable="settlement_offer=without_admission"; artifact="CD(settlement_draft)"; cmc="репутационный риск → попытка замять → система сохраняется"; output="ОСА отказывается"; hook="«ищите подрядчика»"; tags="whisper, shadow, velvet".
 
-### CH-23 — Public Pressure
+### CH-25 — Shell Companies
 
-[FACT][SCA4-007] scene_id=SC-23.1; chapter_id=CH-23; time="19:00 (Evening)"; where="пресс-контур регулятора"; pov="лидер"; goal="борьба за формулировки"; measurable="text_reduction=−60%"; artifact="EL(report_diff_versions)"; cmc="политический риск → стерилизация языка → факты обезврежены"; output="правда становится беззубой"; hook="лидер настаивает оставить цифры ущерба"; tags="media, conflict, flow".
-[FACT][SCA4-008] scene_id=SC-23.2; chapter_id=CH-23; time="20:00 (Evening)"; where="реакция рынка / страховщиков (монтаж)"; pov="аналитик"; goal="показать, что цифры — это давление"; measurable="insurance_risk_coef_delta=+8%"; artifact="CD(insurance_contour_notifications)"; cmc="цифры публичны → риск монетизируется → оператору становится дорого"; output="появляется экономический рычаг"; hook="оператор готовит апелляцию"; tags="stocks, panic, kinetic".
-[FACT][SCA4-009] scene_id=SC-23.3; chapter_id=CH-23; time="23:00 (Night)"; where="ночной переход / вентиляционный гул (Москва как холод)"; pov="лидер"; goal="медитативная сцена «власть как климат»"; measurable="ventilation_noise=58dB"; artifact="CD(background_transition_telemetry)"; cmc="решения рождаются здесь → регионы исполняют → дистанция"; output="тон удержан"; hook="входящее от информатора"; tags="city_hum, cold, void".
+[FACT][SCA4-005] scene_id=SC-25.1; chapter_id=CH-25; time="14:00 (Day)"; where="Контур реестров юрлиц / ownership-анализ"; pov="Лев"; goal="раскрутить цепочку ответственности"; measurable="contract_layers=4; SPV_present=true"; artifact="CM(ownership_tree)"; cmc="дробление контрактов → ответственность рассеивается → нет субъекта"; output="виновный растворён процедурно"; hook="SPV ликвидирована месяц назад"; tags="data, dead_end, analytic".
+[FACT][SCA4-006] scene_id=SC-25.2; chapter_id=CH-25; time="16:00 (Afternoon)"; where="Адрес SPV (офис-оболочка)"; pov="Дамир"; goal="физически подтвердить пустоту"; measurable="employees=0; assets=0"; artifact="EL(premises_inspection_act)"; cmc="фиктивная структура → нет активов → нет взыскания"; output="тупик подтверждён"; hook="контракты всё равно легитимны"; tags="dust, echo, void".
+[FACT][SCA4-007] scene_id=SC-25.3; chapter_id=CH-25; time="17:30 (Evening)"; where="Разговор с чиновником-куратором / контур разъяснений"; pov="Лейсан"; goal="институциональное сопротивление без злодейства"; measurable="response=within_norms; responsibility_refused=true"; artifact="CD(clarification_letter)"; cmc="самосохранение аппарата → формализм → давление на ОСА"; output="путь «уголовка» закрыт"; hook="остаётся рычаг лицензии оператора"; tags="office, fatigue, restless".
 
-### CH-24 — The Leak
+### CH-26 — Public Pressure
 
-[FACT][SCA4-010] scene_id=SC-24.1; chapter_id=CH-24; time="00:30 (Deep Night)"; where="транспортный уровень +40 / закрытый переход"; pov="лидер"; goal="безопасная встреча и получение улики умысла"; measurable="manual_override_window=11m"; artifact="EL(local_dump_or_signature_key_or_config_cache)"; cmc="правки перед аудитом → идеальная отчётность → вред скрыт за KPI"; output="доказательство умышленной коррекции"; hook="правки централизованы"; tags="wind, stealth, velvet".
-[FACT][SCA4-011] scene_id=SC-24.2; chapter_id=CH-24; time="00:45 (Deep Night)"; where="разговор (коротко)"; pov="информатор"; goal="человеческий риск без мелодрамы"; measurable="none"; artifact="none"; cmc="страх потери контракта/работы → сотрудничество → личная цена"; output="доверие хрупкое"; hook="«апдейт модели завтра»"; tags="fear, whisper, velvet".
-[FACT][SCA4-012] scene_id=SC-24.3; chapter_id=CH-24; time="02:00 (Deep Night)"; where="ОСА / верификация дампа"; pov="аналитик"; goal="превратить «сказал» в проверяемый факт"; measurable="human_cost_weight_changed_pre_audit=true"; artifact="EL(model_config_diff)"; cmc="занижение веса → решения оптимальны → люди платят"; output="есть прямой рычаг для регулятора"; hook="требование приостановки лицензии"; tags="code, truth, flow".
+[FACT][SCA4-008] scene_id=SC-26.1; chapter_id=CH-26; time="19:00 (Evening)"; where="Пресс-контур регулятора"; pov="Мирон"; goal="борьба за формулировки"; measurable="text_reduction=−60%"; artifact="EL(report_diff_versions)"; cmc="политический риск → стерилизация языка → факты обезврежены"; output="правда становится беззубой"; hook="Мирон настаивает оставить цифры ущерба"; tags="media, conflict, flow".
+[FACT][SCA4-009] scene_id=SC-26.2; chapter_id=CH-26; time="20:00 (Evening)"; where="Реакция рынка / страховщиков (монтаж)"; pov="Лев"; goal="показать, что цифры — это давление"; measurable="insurance_risk_coef_delta=+8%"; artifact="CD(insurance_contour_notifications)"; cmc="цифры публичны → риск монетизируется → оператору становится дорого"; output="появляется экономический рычаг"; hook="оператор готовит апелляцию"; tags="stocks, panic, kinetic".
+[FACT][SCA4-010] scene_id=SC-26.3; chapter_id=CH-26; time="23:00 (Night)"; where="Ночной переход / вентиляционный гул (Москва как холод)"; pov="Мирон"; goal="медитативная сцена «власть как климат»"; measurable="ventilation_noise=58dB"; artifact="CD(background_transition_telemetry)"; cmc="решения рождаются здесь → регионы исполняют → дистанция"; output="тон удержан"; hook="входящее от Информатора"; tags="city_hum, cold, void".
 
-### CH-25 — The Ultimatum
+### CH-27 — The Leak
 
-[FACT][SCA4-013] scene_id=SC-25.1; chapter_id=CH-25; time="05:00 (Pre-dawn)"; where="временный штаб ОСА (Москва)"; pov="лидер"; goal="стратегический выбор под дедлайн"; measurable="model_update_in=18h"; artifact="CD(action_plan)"; cmc="ждать суда → проигрыш; действовать быстро → шанс"; output="решение о принудительном аудите"; hook="запрос на приостановку отправлен"; tags="deadline, coffee, restless".
-[FACT][SCA4-014] scene_id=SC-25.2; chapter_id=CH-25; time="05:30 (Pre-dawn)"; where="внутренний спор команды (диалог специалистов)"; pov="команда"; goal="показать конфликт методов"; measurable="none"; artifact="none"; cmc="юрист за процедуру, полевой за силовой вход → компромисс → точечная операция"; output="согласован план «атаковать режим, не людей»"; hook="нужно окно полномочий"; tags="argument, tension, kinetic".
-[FACT][SCA4-015] scene_id=SC-25.3; chapter_id=CH-25; time="06:00 (Dawn)"; where="финал главы / уведомление"; pov="лидер"; goal="запустить ускорение Акта V"; measurable="regulator_reply=prelim_approved; access_window=12h"; artifact="CD(notification_or_draft_order)"; cmc="доказательства достаточны → окно возможно → начинается гонка"; output="старт финального акта"; hook="оператор начнёт чистку"; tags="dawn, start, kinetic".
+[FACT][SCA4-011] scene_id=SC-27.1; chapter_id=CH-27; time="00:30 (Deep Night)"; where="Транспортный уровень +40 / закрытый переход"; pov="Мирон"; goal="безопасная встреча и получение улики умысла"; measurable="manual_override_window=11m"; artifact="EL(local_dump_or_signature_key_or_config_cache)"; cmc="правки перед аудитом → идеальная отчётность → вред скрыт за KPI"; output="доказательство умышленной коррекции"; hook="правки централизованы"; tags="wind, stealth, velvet".
+[FACT][SCA4-012] scene_id=SC-27.2; chapter_id=CH-27; time="00:45 (Deep Night)"; where="Разговор (коротко)"; pov="Информатор"; goal="человеческий риск без мелодрамы"; measurable="none"; artifact="none"; cmc="страх потери контракта/работы → сотрудничество → личная цена"; output="доверие хрупкое"; hook="«апдейт модели завтра»"; tags="fear, whisper, velvet".
+[FACT][SCA4-013] scene_id=SC-27.3; chapter_id=CH-27; time="02:00 (Deep Night)"; where="ОСА / верификация дампа"; pov="Лев"; goal="превратить «сказал» в проверяемый факт"; measurable="human_cost_weight_changed_pre_audit=true"; artifact="EL(model_config_diff)"; cmc="занижение веса → решения оптимальны → люди платят"; output="есть прямой рычаг для регулятора"; hook="требование приостановки лицензии"; tags="code, truth, flow".
+
+### CH-28 — Допрос Ильи
+
+[FACT][SCA4-014] scene_id=SC-28.1; chapter_id=CH-28; time="03:30 (Night)"; where="Следственный кабинет (закрытый контур)"; pov="Лейсан"; goal="вскрытие функции Ильи"; measurable="pulse=calm; logic=flawless"; artifact="EL(interrogation_transcript)"; cmc="предъявление улик (правки логов) → Илья признает факт, но не вину → 'я спасал систему от коллапса'"; output="Илья — не злодей, а предохранитель"; hook="система без правок убила бы больше"; tags="interrogation, philosophy, cold".
+[FACT][SCA4-015] scene_id=SC-28.2; chapter_id=CH-28; time="04:15 (Pre-dawn)"; where="Коридор изолятора"; pov="Мирон"; goal="осознание масштаба компромисса"; measurable="doubt_level=high"; artifact="none"; cmc="слова Ильи имеют смысл → победа над ним не решит проблему → система требует жертв"; output="моральная дилемма"; hook="но закон есть закон"; tags="reflection, shadow, restless".
+
+### CH-29 — The Ultimatum
+
+[FACT][SCA4-016] scene_id=SC-29.1; chapter_id=CH-29; time="05:00 (Pre-dawn)"; where="Временный штаб ОСА (Москва)"; pov="Мирон"; goal="стратегический выбор под дедлайн"; measurable="model_update_in=18h"; artifact="CD(action_plan)"; cmc="ждать суда → проигрыш; действовать быстро → шанс"; output="решение о принудительном аудите"; hook="запрос на приостановку отправлен"; tags="deadline, coffee, restless".
+[FACT][SCA4-017] scene_id=SC-29.2; chapter_id=CH-29; time="05:30 (Pre-dawn)"; where="Внутренний спор команды"; pov="Мирон"; goal="показать конфликт методов"; measurable="none"; artifact="none"; cmc="Лейсан за процедуру, Дамир/Айдар за силовой вход → компромисс → точечная операция"; output="согласован план «атаковать режим, не людей»"; hook="нужно окно полномочий"; tags="argument, tension, kinetic".
+[FACT][SCA4-018] scene_id=SC-29.3; chapter_id=CH-29; time="06:00 (Dawn)"; where="Финал главы / уведомление"; pov="Мирон"; goal="запустить ускорение Акта V"; measurable="regulator_reply=prelim_approved; access_window=12h"; artifact="CD(notification_or_draft_order)"; cmc="доказательства достаточны → окно возможно → начинается гонка"; output="старт финального акта"; hook="оператор начнёт чистку"; tags="dawn, start, kinetic".
 
 ## USAGE / RESOLUTION
 

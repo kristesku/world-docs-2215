@@ -18,7 +18,7 @@ scope: >
 
 ## LLM-INTENT
 
-ROLE_TYPE: STATE
+ROLE_TYPE: RULE
 SCOPE: define default psychological traits and attitudes
 INPUTS: [BASELINE-SOCIAL-2215-0001, SSOT-URBANISM-A-2215-0007]
 OUTPUTS: [behavioral_norms, world_attitudes, neuroses]
@@ -83,7 +83,7 @@ FORBIDDEN: []
 
 ~~~yaml
 doc_id: BASELINE-PSYCH-2215-0001
-role_type: STATE
+role_type: RULE
 export:
   - metric: worldview.work_view
     owner_domain: PSYCH

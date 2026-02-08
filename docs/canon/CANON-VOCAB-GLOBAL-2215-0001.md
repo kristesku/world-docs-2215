@@ -168,7 +168,7 @@ before scene finalization.
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: CANON-VOCAB-2215-0001
+doc_id: CANON-VOCAB-GLOBAL-2215-0001
 role_type: RULE
 export:
   - rule_id: VOCAB-100..405

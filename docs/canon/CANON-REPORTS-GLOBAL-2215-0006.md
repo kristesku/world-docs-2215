@@ -113,10 +113,10 @@ FORBIDDEN:
 ## INVARIANTS
 
 [DECISION][REP-070] PASS IFF (status ∈ {draft, fixed, deprecated}); ELSE FAIL.
-[DECISION][REP-030] PASS IFF (all applicable rules exported in OUTPUT CONTRACT are enforced by consumers); ELSE FAIL.
-[DECISION][REP-031] PASS IFF (non_empty(header.mandate_refs) OR non_empty(header.order_refs)); ELSE FAIL.
-[DECISION][REP-032] PASS IFF (full_artifact_body_shown = false); ELSE FAIL.
-[DECISION][REP-033] PASS IFF (header.jurisdiction ∈ {NORMAL, EXTRATERRITORIAL, MIXED} AND header.admissibility_basis ∈ {LAW, CONTRACT, JAP, EMERGENCY}); ELSE FAIL.
+[DECISION][REP-071] PASS IFF (all applicable rules exported in OUTPUT CONTRACT are enforced by consumers); ELSE FAIL.
+[DECISION][REP-072] PASS IFF (non_empty(header.mandate_refs) OR non_empty(header.order_refs)); ELSE FAIL.
+[DECISION][REP-073] PASS IFF (full_artifact_body_shown = false); ELSE FAIL.
+[DECISION][REP-074] PASS IFF (header.jurisdiction ∈ {NORMAL, EXTRATERRITORIAL, MIXED} AND header.admissibility_basis ∈ {LAW, CONTRACT, JAP, EMERGENCY}); ELSE FAIL.
 
 ## CONTENT
 
