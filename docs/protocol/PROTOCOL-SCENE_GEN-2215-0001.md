@@ -6,30 +6,30 @@ class: protocol
 status: fixed
 version: 1.5.0
 prefix: SGP
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
-  - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
+  - CANON-ARTIFACT_SNIPPETS-RU-2215-0001
   - CANON-CAST-GLOBAL-2215-0001
-  - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
+  - CANON-SYSTEM_VOICE-GLOBAL-2215-0001
   - CANON-VOCAB-GLOBAL-2215-0001
-  - SPEC-SCENE-CONTRACT-2215-0001
+  - SPEC-SCENE_CONTRACT-2215-0001
   - PLAN-STORY-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   Интерфейсный протокол генерации художественного текста глав.
   Определяет контракт входов/выходов и допустимые формы прозы/структуры.
   Легальность сцены и доказательность валидируются
-  только через SPEC-SCENE-CONTRACT-2215-0001 (предварительная проверка).
+  только через SPEC-SCENE_CONTRACT-2215-0001 (предварительная проверка).
 ---
 
 ## LLM-INTENT
 
 ROLE_TYPE: INTERFACE
 SCOPE: define input/output and prose/structure constraints for deterministic chapter generation (compiler-grade)
-INPUTS: [chapter_card, active_CANON_set, SPEC-SCENE-CONTRACT-2215-0001]
+INPUTS: [chapter_card, active_CANON_set, SPEC-SCENE_CONTRACT-2215-0001]
 OUTPUTS: [chapter_prose_text, inline_artifact_extracts]
 FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, unscoped_numbers]
 
@@ -38,7 +38,7 @@ FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, unsco
 [FACT][SGP-010] `chapter` = один художественный текст, соответствующий ровно одной записи `STORY-SKELETON`.
 [FACT][SGP-011] `chapter_card` = структурированный вход с полями {chapter_id, title, participants, focus, artifact}.
 [FACT][SGP-012] `active_CANON_set` = набор применимых документов `class: canon` для главы и их зависимости (как вход, без пересказа).
-[FACT][SGP-013] `artifact_extract` = короткий процедурный фрагмент, формат которого задаётся `CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001`.
+[FACT][SGP-013] `artifact_extract` = короткий процедурный фрагмент, формат которого задаётся `CANON-ARTIFACT_SNIPPETS-RU-2215-0001`.
 [FACT][SGP-014] `observable_system_interaction` = наблюдаемое взаимодействие с системным контуром (процедура/ограничение/артефакт), выраженное в сцене без лекционной подачи.
 [FACT][SGP-015] `procedural_spiral_step` ∈ {DETECTION, INVESTIGATION, BUREAUCRATIC_WALL, ESCALATION, NEW_JURISDICTION, REMEDY}.
 
@@ -46,7 +46,7 @@ FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, unsco
 
 [DECISION][SGP-020] LLM MUST output prose only; any non-prose output is invalid.
 [DECISION][SGP-021] One chapter MUST correspond to exactly one `chapter_card`; ELSE FAIL.
-[DECISION][SGP-022] Protocol assumes scene legality is pre-validated by `SPEC-SCENE-CONTRACT-2215-0001`; legality rules are not defined here.
+[DECISION][SGP-022] Protocol assumes scene legality is pre-validated by `SPEC-SCENE_CONTRACT-2215-0001`; legality rules are not defined here.
 [DECISION][SGP-023] This protocol defines the sole prose legality and structure contract for chapters; ELSE FAIL.
 
 [FORBIDDEN][SGP-030] plan_text OR analysis_text OR meta-commentary.
@@ -59,7 +59,7 @@ FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, unsco
 
 [DECISION][SGP-040] `chapter_card` MUST be provided before generation; ELSE FAIL.
 [DECISION][SGP-041] `active_CANON_set` MUST be provided before generation; ELSE FAIL.
-[DECISION][SGP-042] `SPEC-SCENE-CONTRACT-2215-0001` MUST be provided before generation; ELSE FAIL.
+[DECISION][SGP-042] `SPEC-SCENE_CONTRACT-2215-0001` MUST be provided before generation; ELSE FAIL.
 
 ### 2. Mandatory chapter structure
 
@@ -92,7 +92,7 @@ FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, unsco
 ### 5. System voice
 
 [DECISION][SGP-080] System output MAY appear only as short inserts (inline excerpts); ELSE FAIL.
-[DECISION][SGP-081] System language MUST follow `CANON-SYSTEM-VOICE-GLOBAL-2215-0001`; ELSE FAIL.
+[DECISION][SGP-081] System language MUST follow `CANON-SYSTEM_VOICE-GLOBAL-2215-0001`; ELSE FAIL.
 
 [FORBIDDEN][SGP-082] System as narrator or character.
 [FORBIDDEN][SGP-083] Emotive or metaphorical system language.
@@ -105,8 +105,8 @@ FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, unsco
 ## USAGE / RESOLUTION
 
 [DECISION][SGP-100] Protocol MUST be applied to all LLM-generated chapters; ELSE FAIL.
-[DECISION][SGP-101] Conflict resolution MUST follow `SPEC-PRIORITY-RESOLUTION-2215-0001`; ELSE FAIL.
-[DECISION][SGP-102] Scene admissibility MUST be validated upstream by `SPEC-SCENE-CONTRACT-2215-0001`; ELSE FAIL.
+[DECISION][SGP-101] Conflict resolution MUST follow `SPEC-PRIORITY_RESOLUTION-2215-0001`; ELSE FAIL.
+[DECISION][SGP-102] Scene admissibility MUST be validated upstream by `SPEC-SCENE_CONTRACT-2215-0001`; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
@@ -117,14 +117,14 @@ input_contract:
   required:
     - chapter_card
     - active_CANON_set
-    - SPEC-SCENE-CONTRACT-2215-0001
+    - SPEC-SCENE_CONTRACT-2215-0001
 output_contract:
   produces:
     - chapter_prose_text
   must_include:
     artifact_extracts:
       min_count: 1
-      format_ref: CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
+      format_ref: CANON-ARTIFACT_SNIPPETS-RU-2215-0001
     observable_system_interaction:
       min_count: 1
     consequence_ending: true
@@ -135,7 +135,7 @@ forbidden_outputs:
   - world_explanations
   - unscoped_numbers
 notes:
-  legality_validated_by: SPEC-SCENE-CONTRACT-2215-0001
+  legality_validated_by: SPEC-SCENE_CONTRACT-2215-0001
 ~~~
 
 ## FORBIDDEN

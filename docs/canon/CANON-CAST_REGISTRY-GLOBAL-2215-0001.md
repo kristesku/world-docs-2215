@@ -10,8 +10,8 @@ doc_language: en
 prose_language: ru-RU
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   Реестр состава ФССУ и связанных акторов как данных (STATE): сущности персонажей,
   их role/leverage/cannot/optics/scene_types и маппинг токенов для сцен.
@@ -83,7 +83,7 @@ FORBIDDEN: [rule_definition, prose, implicit_membership, new_metrics]
 ## USAGE / RESOLUTION
 
 [DECISION][CASTREG-300] Any consumer validating scene tags MUST validate `display_name_ru` values against this table; ELSE FAIL.
-[DECISION][CASTREG-310] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][CASTREG-310] Conflict resolution MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001; ELSE FAIL.
 [DECISION][CASTREG-320] `nickname_ru` (e.g., «Лёва» for Лев) is allowed ONLY in dialogue text, never in tags/metadata.
 
 ## OUTPUT CONTRACT

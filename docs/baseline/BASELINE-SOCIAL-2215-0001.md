@@ -6,13 +6,13 @@ class: baseline
 status: fixed
 version: 1.2.1
 prefix: SOC
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-LIFE-A-2215-0007
 depends_on:
-  - CANON-BASE-RULE-GLOBAL-2215-0001
+  - CANON-BASE_RULE-GLOBAL-2215-0001
 scope: >
   Исполняемый baseline гражданских, социальных и биоэтических норм
   повседневной жизни (LEVEL-MID) в 2215 году.
@@ -27,7 +27,7 @@ SCOPE: enforceable civic, social, and bio-ethical defaults for citizens (LEVEL-M
 INPUTS:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-LIFE-A-2215-0007
-  - CANON-BASE-RULE-GLOBAL-2215-0001
+  - CANON-BASE_RULE-GLOBAL-2215-0001
 OUTPUTS: [rule_id, enforcement_outcomes, prohibited_patterns]
 FORBIDDEN: [moral_judgements, prose, cultural_exposition, speculative_ethics, mixed_role_types]
 

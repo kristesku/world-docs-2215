@@ -10,11 +10,11 @@ doc_language: en
 prose_language: ru-RU
 inputs:
   - CANON-CAST_REGISTRY-GLOBAL-2215-0001
-  - CANON-CAST-VOICE-2215-0001
+  - CANON-CAST_VOICE-GLOBAL-2215-0001
   - PLAN-STORY-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   Канонические дуги персонажей: начальное состояние, кризисная точка,
   финальное состояние. Определяет эмоциональную траекторию для каждого
@@ -27,7 +27,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: define enforceable character arc constraints for chapter generation
-INPUTS: [CANON-CAST_REGISTRY-GLOBAL-2215-0001, CANON-CAST-VOICE-2215-0001, PLAN-STORY-2215-0001]
+INPUTS: [CANON-CAST_REGISTRY-GLOBAL-2215-0001, CANON-CAST_VOICE-GLOBAL-2215-0001, PLAN-STORY-2215-0001]
 OUTPUTS: [arc_table, arc_constraints]
 FORBIDDEN: [fiction_prose, backstory_exposition, psychological_diagnosis, hero_journey_template]
 
@@ -214,7 +214,7 @@ arcs:
 [DECISION][ARC-USE-010] Chapter generation MUST check arc table for each participant and maintain trajectory; ELSE FAIL.
 [DECISION][ARC-USE-011] Character voice in early acts MUST reflect start_state; after crisis_point — end_state (gradual transition).
 [DECISION][ARC-USE-012] crisis_point.act is a guide, not a hard boundary; crisis may begin ±1 chapter earlier.
-[DECISION][ARC-USE-013] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][ARC-USE-013] Conflict resolution MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 

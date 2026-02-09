@@ -7,7 +7,7 @@ status: fixed
 version: 1.2.0
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
   - SSOT-CONSISTENCY-A-2215-0009
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-ENERGY-A-2215-0004

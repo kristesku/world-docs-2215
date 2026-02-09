@@ -6,16 +6,16 @@ class: canon
 status: draft
 version: 1.0.0
 prefix: FSSU
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - CANON-CONFLICT-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003
-  - CANON-SYSTEM-ONTOLOGY-2215-0001
+  - CANON-SYSTEM_ONTOLOGY-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   RULE-канон об ФССУ как федеральной госструктуре.
   Определяет мандат, критерий юрисдикции, ограничения полномочий и принципы ИИ-слоя.
@@ -26,7 +26,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: define FSSU mandate, jurisdiction criterion, authority limits and AI principles
-INPUTS: [CANON-CONFLICT-GLOBAL-2215-0001, CANON-ORDERS-GLOBAL-2215-0003, CANON-SYSTEM-ONTOLOGY-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001]
+INPUTS: [CANON-CONFLICT-GLOBAL-2215-0001, CANON-ORDERS-GLOBAL-2215-0003, CANON-SYSTEM_ONTOLOGY-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001]
 OUTPUTS: [FSSU_identity, jurisdiction_criterion, allowed_actions, ai_principles]
 FORBIDDEN: [FSSU_as_police, FSSU_as_court, arbitrary_surveillance, action_without_order]
 
@@ -60,8 +60,8 @@ FORBIDDEN: [FSSU_as_police, FSSU_as_court, arbitrary_surveillance, action_withou
 
 ## USAGE / RESOLUTION
 
-[DECISION][FSSU-800] Термины Systemic_Asset, Systemic_Channel, Systemic_Hazard, Safety_Impact, Sovereignty_Impact MUST разрешаться через CANON-SYSTEM-ONTOLOGY-2215-0001.
-[DECISION][FSSU-810] Разрешение конфликтов MUST следовать SPEC-PRIORITY-RESOLUTION-2215-0001.
+[DECISION][FSSU-800] Термины Systemic_Asset, Systemic_Channel, Systemic_Hazard, Safety_Impact, Sovereignty_Impact MUST разрешаться через CANON-SYSTEM_ONTOLOGY-GLOBAL-2215-0001.
+[DECISION][FSSU-810] Разрешение конфликтов MUST следовать SPEC-PRIORITY_RESOLUTION-2215-0001.
 
 ## OUTPUT CONTRACT
 
@@ -93,5 +93,5 @@ export:
 
 ~~~text
 Документ является глобальным шлюзом: без региональных привязок.
-Региональные нормы и “как устроено в Челнах” выносятся в CANON-FSSU-REGIONAL-RU16-2215-0001 и CANON-LOC-FSSU-OFFICE-CHELNY-2215-0001.
+Региональные нормы и “как устроено в Челнах” выносятся в CANON-FSSU_REGIONAL-RU16-2215-0001 и CANON-LOC_FSSU_OFFICE-CHELNY-2215-0001.
 ~~~

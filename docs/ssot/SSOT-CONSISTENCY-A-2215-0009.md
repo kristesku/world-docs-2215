@@ -7,7 +7,7 @@ status: draft
 version: 1.1.0
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-ECONOMY-A-2215-0003
   - SSOT-DEMOGRAPHY-A-2215-0002

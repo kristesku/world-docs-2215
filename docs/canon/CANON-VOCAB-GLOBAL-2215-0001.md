@@ -19,7 +19,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: enforce canonical operational vocabulary and forbid genre-breaking language
-INPUTS: [CANON-BASE-RULE-GLOBAL-2215-0001, CANON-CAST-GLOBAL-2215-0001, CANON-REPORTS-GLOBAL-2215-0006]
+INPUTS: [CANON-BASE_RULE-GLOBAL-2215-0001, CANON-CAST-GLOBAL-2215-0001, CANON-REPORTS-GLOBAL-2215-0006]
 OUTPUTS: [allowed_term, forbidden_term, substitution_rule]
 FORBIDDEN: [genre_slang, emotional_language, narrative_justification]
 

@@ -7,7 +7,7 @@ status: fixed
 version: 1.1.0
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
 scope: >

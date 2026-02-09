@@ -6,14 +6,14 @@ class: canon
 status: draft
 version: 0.1.0
 prefix: CASTRUL
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - CANON-CAST_REGISTRY-GLOBAL-2215-0001
   - PLAN-STORY-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   RULE-канон использования состава ФССУ в сценах: топология, обязательность ролей,
   ограничения доменной компетенции, требования к тегам сцен и запреты.
@@ -95,7 +95,7 @@ FORBIDDEN: [invent_new_roles, merge_roles, superheroism, essay_mode, implicit_pr
 ## USAGE / RESOLUTION
 
 [DECISION][CASTRUL-900] Consumers MUST resolve tokens/roles via CANON-CAST_REGISTRY-GLOBAL-2215-0001; ELSE FAIL.
-[DECISION][CASTRUL-910] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][CASTRUL-910] Conflict resolution MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001; ELSE FAIL.
 [RULE][CASTRUL-920] IF a scene violates FORBIDDEN in this document THEN scene MUST be rejected as invalid input; ELSE FAIL.
 
 ## OUTPUT CONTRACT

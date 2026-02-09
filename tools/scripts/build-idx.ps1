@@ -2,7 +2,7 @@
 # Generate docs/idx/IDX-CORPUS-0001.md from YAML front-matter + ROLE_TYPE
 # Windows PowerShell 5.1 compatible
 # COMPLIANCE TARGETS:
-# - SPEC-DOC-STYLE-2215-0001: no BOM, LF-only, no trailing whitespace, exactly one final newline
+# - SPEC-DOC_STYLE-2215-0001: no BOM, LF-only, no trailing whitespace, exactly one final newline
 # - IDX-CORPUS OUTPUT CONTRACT: doc_id_csv empty is "" (truly empty), separator is "," (no spaces)
 
 $ErrorActionPreference = 'Stop'
@@ -169,7 +169,7 @@ title: >
 class: idx
 status: draft
 prefix: CORP
-doc_language: ru-RU
+doc_language: en-US
 inputs: []
 depends_on: []
 scope: >

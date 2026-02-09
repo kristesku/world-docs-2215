@@ -6,7 +6,7 @@ class: baseline
 status: fixed
 version: 1.3.0
 prefix: PSY
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - BASELINE-SOCIAL-2215-0001

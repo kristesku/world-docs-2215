@@ -6,14 +6,14 @@ class: canon
 status: draft
 version: 0.4.0
 prefix: CHELNYI
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
-  - CANON-LOC-CHELNY-REGISTRY-2215-0001
-  - CANON-LOC-CHELNY-RULES-2215-0001
+  - CANON-LOC_CHELNY_REGISTRY-GLOBAL-2215-0001
+  - CANON-LOC_CHELNY_RULES-GLOBAL-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   INTERFACE-шлюз для scene-дефолтов Челнов-2215: объявляет владение доменом
   локальных маркеров и указывает, какие документы содержат STATE-пулы и RULE-правила.
@@ -25,16 +25,16 @@ scope: >
 ROLE_TYPE: INTERFACE
 SCOPE: single entrypoint for Chelny-2215 local sensory defaults (thin gateway only)
 INPUTS:
-  - CANON-LOC-CHELNY-REGISTRY-2215-0001
-  - CANON-LOC-CHELNY-RULES-2215-0001
+  - CANON-LOC_CHELNY_REGISTRY-GLOBAL-2215-0001
+  - CANON-LOC_CHELNY_RULES-GLOBAL-2215-0001
 OUTPUTS: [owns, consumes, forbids]
 FORBIDDEN: [rule_definition, state_definition, token_pool_values, narrative_prose]
 
 ## DEFINITIONS
 
 [FACT][CHELNYI-010] `LOC_CHELNY_2215` = ownership domain for Chelny-2215 local sensory/cue tokens and their consumption interface.
-[FACT][CHELNYI-011] `registry_doc` = CANON-LOC-CHELNY-REGISTRY-2215-0001.
-[FACT][CHELNYI-012] `rules_doc` = CANON-LOC-CHELNY-RULES-2215-0001.
+[FACT][CHELNYI-011] `registry_doc` = CANON-LOC_CHELNY_REGISTRY-GLOBAL-2215-0001.
+[FACT][CHELNYI-012] `rules_doc` = CANON-LOC_CHELNY_RULES-GLOBAL-2215-0001.
 
 ## INVARIANTS
 
@@ -55,8 +55,8 @@ role_type: INTERFACE
 export:
   - owns: ["LOC_CHELNY_2215"]
   - consumes:
-      - "CANON-LOC-CHELNY-REGISTRY-2215-0001"
-      - "CANON-LOC-CHELNY-RULES-2215-0001"
+      - "CANON-LOC_CHELNY_REGISTRY-GLOBAL-2215-0001"
+      - "CANON-LOC_CHELNY_RULES-GLOBAL-2215-0001"
   - forbids:
       - "token_pool_values_inside_interface_doc"
       - "rule_or_state_definition_inside_interface_doc"

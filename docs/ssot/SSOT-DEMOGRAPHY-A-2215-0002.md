@@ -10,7 +10,7 @@ inputs:
   - SSOT-ECONOMY-A-2215-0003
   - SSOT-LIFE-A-2215-0007
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
 scope: >
   SSOT-состояние демографии мира в 2215 году (Scenario A).
   Документ содержит только декларативные числовые и качественные

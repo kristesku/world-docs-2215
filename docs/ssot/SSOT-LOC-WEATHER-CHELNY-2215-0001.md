@@ -6,11 +6,11 @@ class: ssot
 status: draft
 version: 0.1.0
 prefix: CHW
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
 scope: >
   Декларативные SSOT-метрики погодного режима для сцен в Набережных Челнах (2215).
   Документ предназначен для потребления генератором прозы как дефолт и не содержит

@@ -10,7 +10,7 @@ depends_on:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-DEMOGRAPHY-A-2215-0002
   - SSOT-ECONOMY-A-2215-0003
-  - SPEC-QUALITATIVE-ENUMS-2215-0001
+  - SPEC-QUALITATIVE_ENUMS-2215-0001
 scope: >
   SSOT-состояние повседневной жизни, телесности и социально-технологической
   реальности человека в 2215 году (Scenario A). Документ содержит только

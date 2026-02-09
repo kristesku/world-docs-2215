@@ -10,7 +10,7 @@ inputs:
   - SSOT-DEMOGRAPHY-A-2215-0002
   - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
 scope: >
   Каноническое SSOT-состояние городской среды и систем агломераций
   в 2215 году в рамках Scenario A: морфология, инфраструктуры, транспорт,

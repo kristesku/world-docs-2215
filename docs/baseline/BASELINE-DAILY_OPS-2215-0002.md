@@ -6,16 +6,16 @@ class: baseline
 status: draft
 version: 1.1.2
 prefix: OPS
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003
-  - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
+  - CANON-ARTIFACT_SNIPPETS-RU-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   Исполняемый baseline повседневной эксплуатации города (LEVEL-MID) в 2215 году:
   доступы, очереди, сервис-классы, инциденты, журналирование, типовые проверки.
@@ -31,8 +31,8 @@ INPUTS:
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003
-  - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - CANON-ARTIFACT_SNIPPETS-RU-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 OUTPUTS: [daily_ops_norms, access_defaults, incident_reactions, logging_constraints]
 FORBIDDEN: [new_world_metrics, governance_macro_exposition, moral_judgements, prose, scene_generation]
 
@@ -130,7 +130,7 @@ FORBIDDEN: [new_world_metrics, governance_macro_exposition, moral_judgements, pr
 
 [DECISION][OPS-USE-010] This baseline MUST be referenced by scenes involving: access control, queues, service delivery, incidents, evidence/logging, appeals.
 [DECISION][OPS-USE-011] Any scene deviating from these defaults MUST include an explicit override reference (and localized constraints/cost).
-[DECISION][OPS-USE-012] Priority order is defined by SPEC-PRIORITY-RESOLUTION-2215-0001; baseline MUST NOT override canon/scene.
+[DECISION][OPS-USE-012] Priority order is defined by SPEC-PRIORITY_RESOLUTION-2215-0001; baseline MUST NOT override canon/scene.
 
 ---
 

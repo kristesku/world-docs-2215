@@ -6,14 +6,14 @@ class: baseline
 status: fixed
 version: 1.0.2
 prefix: DID
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-LIFE-A-2215-0007
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - CANON-BASE-RULE-GLOBAL-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - CANON-BASE_RULE-GLOBAL-2215-0001
   - BASELINE-SOCIAL-2215-0001
 scope: >
   Исполняемый baseline цифровой идентичности и сетевых прав (LEVEL-MID) в 2215 году.
@@ -28,7 +28,7 @@ SCOPE: enforceable digital identity and access defaults for citizens (LEVEL-MID)
 INPUTS:
   - SSOT-SCENARIO-A-2215-0001
   - SSOT-LIFE-A-2215-0007
-  - CANON-BASE-RULE-GLOBAL-2215-0001
+  - CANON-BASE_RULE-GLOBAL-2215-0001
   - BASELINE-SOCIAL-2215-0001
 OUTPUTS: [rule_id, access_outcomes, prohibited_patterns]
 FORBIDDEN: [prose, cultural_exposition, speculative_ethics, mixed_role_types, world_parameter_binding]

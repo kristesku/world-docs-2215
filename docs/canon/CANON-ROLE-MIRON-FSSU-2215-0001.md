@@ -6,17 +6,17 @@ class: canon
 status: draft
 version: 1.0.0
 prefix: OMR
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs: []
 depends_on:
   - CANON-FSSU-GLOBAL-2215-0005
-  - CANON-FSSU-REGIONAL-RU16-2215-0001
-  - CANON-FSSU-TEAM-STRUCT-2215-0001
-  - CANON-SYSTEM-ONTOLOGY-2215-0001
-  - SPEC-DOC-ID-2215-0001
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - CANON-FSSU_REGIONAL-RU16-2215-0001
+  - CANON-FSSU_TEAM_STRUCT-GLOBAL-2215-0001
+  - CANON-SYSTEM_ONTOLOGY-GLOBAL-2215-0001
+  - SPEC-DOC_ID-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   RULE-канон роли Мирона как руководителя флагманской команды ФССУ (RU-16) и операционного владельца кейса.
   Фиксирует модель двойного подчинения, операционные полномочия, рамки принуждения,
@@ -28,14 +28,14 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: define Miron role contract as FSSU flagship team lead and default case owner
-INPUTS: [CANON-FSSU-GLOBAL-2215-0005, CANON-FSSU-REGIONAL-RU16-2215-0001, CANON-FSSU-TEAM-STRUCT-2215-0001]
+INPUTS: [CANON-FSSU-GLOBAL-2215-0005, CANON-FSSU_REGIONAL-RU16-2215-0001, CANON-FSSU_TEAM_STRUCT-GLOBAL-2215-0001]
 OUTPUTS: [miron_authorities, miron_limits, miron_responsibility, miron_role_culture]
 FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 
 ## DEFINITIONS
 
 [FACT][OMR-010] `miron` = руководитель флагманской проектной команды регионального отдела ФССУ (RU-16).
-[FACT][OMR-020] `case_owner` = роль операционного владельца активированного кейса с персональной ответственностью (см. CANON-FSSU-TEAM-STRUCT-2215-0001).
+[FACT][OMR-020] `case_owner` = роль операционного владельца активированного кейса с персональной ответственностью (см. CANON-FSSU_TEAM_STRUCT-GLOBAL-2215-0001).
 [FACT][OMR-030] `functional_subordination` = функциональное подчинение профильным контурам ФССУ вне тактики активного кейса.
 [FACT][OMR-040] `operational_subordination` = операционное подчинение внутри активного кейса по линии `case_owner`.
 [FACT][OMR-050] `coercion_escalation` = эскалация принуждения как процедурного инструмента в рамках активного кейса (см. CANON-FSSU-GLOBAL-2215-0005).
@@ -112,7 +112,7 @@ FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 ## USAGE / RESOLUTION
 
 [DECISION][OMR-950] Любая сцена, использующая роль Мирона в ФССУ, MUST следовать OMR-100..OMR-900; ELSE FAIL.
-[DECISION][OMR-960] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][OMR-960] Conflict resolution MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 

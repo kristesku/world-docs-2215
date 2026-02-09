@@ -6,12 +6,12 @@ class: baseline
 status: fixed
 version: 1.0.1
 prefix: OBS
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - SSOT-SCENARIO-A-2215-0001
 depends_on:
-  - CANON-BASE-RULE-GLOBAL-2215-0001
+  - CANON-BASE_RULE-GLOBAL-2215-0001
   - BASELINE-SOCIAL-2215-0001
   - BASELINE-DIGITAL_IDENTITY-2215-0001
 scope: >
@@ -25,7 +25,7 @@ scope: >
 ROLE_TYPE: RULE
 SCOPE: enforceable defaults for urban observability and telemetry (LEVEL-MID)
 INPUTS:
-  - CANON-BASE-RULE-GLOBAL-2215-0001
+  - CANON-BASE_RULE-GLOBAL-2215-0001
   - BASELINE-SOCIAL-2215-0001
   - BASELINE-DIGITAL_IDENTITY-2215-0001
 OUTPUTS: [rule_id, observability_surface, access_rights]

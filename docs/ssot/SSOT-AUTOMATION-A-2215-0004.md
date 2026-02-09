@@ -7,7 +7,7 @@ status: draft
 version: 1.1.0
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
   - SSOT-SCENARIO-A-2215-0001
 scope: >
   SSOT-состояние ИИ, автоматизации и роботизации мира в 2215 году (Scenario A).

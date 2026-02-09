@@ -6,10 +6,10 @@ class: ssot
 status: draft
 version: 1.0.0
 prefix: SCNA
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs: []
-depends_on: [SPEC-DOC-STYLE-2215-0001]
+depends_on: [SPEC-DOC_STYLE-2215-0001]
 scope: >
   Каноническое SSOT-описание Scenario A как единственного допустимого
   макро-состояния мира к ~2215. Документ содержит только декларативные

@@ -7,7 +7,7 @@ status: draft
 version: 1.1.0
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
@@ -135,7 +135,7 @@ FORBIDDEN:
 ## USAGE / RESOLUTION
 
 [DECISION][ORD-USE-010] Документ обязателен для всех сцен с участием ФССУ.
-[DECISION][ORD-USE-011] При конфликте применяется SPEC-PRIORITY-RESOLUTION-2215-0001.
+[DECISION][ORD-USE-011] При конфликте применяется SPEC-PRIORITY_RESOLUTION-2215-0001.
 
 ---
 

@@ -9,7 +9,7 @@ version: 1.0.0
 inputs:
   - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
 scope: >
   Реестр осознанных неопределённостей корпуса (2215):
   единая точка учёта UNKNOWN, их типизация и формальный путь закрытия

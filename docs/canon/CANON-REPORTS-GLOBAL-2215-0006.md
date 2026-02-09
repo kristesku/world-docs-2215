@@ -6,15 +6,15 @@ class: canon
 status: draft
 version: 0.3.1
 prefix: REP
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - CANON-ORDERS-GLOBAL-2215-0003
   - CANON-FSSU-GLOBAL-2215-0005
   - CANON-ZONES-GLOBAL-2215-0004
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   RULE-канон форматов артефактов ФССУ: минимально достаточные структуры для сцен,
   обязательные поля, связи с ордерами/мандатами, и правила допустимости (chain-of-custody).
@@ -229,7 +229,7 @@ FORBIDDEN:
 [DECISION][REP-901] PASS IFF (if a scene introduces an FSSU claim then evidence_ref(s) and order/method basis are present in shown excerpts); ELSE FAIL.
 [DECISION][REP-902] PASS IFF (if scope touches extraterritorial zone then header.jurisdiction and header.admissibility_basis are present and admissibility_basis ∈ {JAP, CONTRACT} when applicable); ELSE FAIL.
 [DECISION][REP-903] PASS IFF (if any mandatory header field cannot be satisfied then scene_artifact_excerpts.count = 0); ELSE FAIL.
-[DECISION][REP-904] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][REP-904] Conflict resolution MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 

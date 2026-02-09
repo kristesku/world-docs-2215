@@ -6,15 +6,15 @@ class: protocol
 status: draft
 version: 1.0.0
 prefix: CHPG
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-METRICS-GLOBAL-2215-0002
-  - CANON-SCENE-RULESET-2215-0001
+  - CANON-SCENE_RULESET-GLOBAL-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
   - PROTOCOL-SCENE_GEN-2215-0001
 scope: >
   Протокол интерактивной генерации главы романа 2215 в чате.
@@ -73,7 +73,7 @@ part_header:
 [DECISION][CHPG-050] `part_assumptions` MUST be emitted exactly in the following machine form; ELSE FAIL.
 ~~~yaml
 part_assumptions:
-  resolution_order: "SPEC-PRIORITY-RESOLUTION-2215-0001"
+  resolution_order: "SPEC-PRIORITY_RESOLUTION-2215-0001"
   core_binder: "CANON-CORE-GLOBAL-2215-0001"
   numeric_rules: "CANON-METRICS-GLOBAL-2215-0002"
   baseline_mode: "MID"
@@ -94,7 +94,7 @@ part_assumptions:
 ## USAGE / RESOLUTION
 
 [DECISION][CHPG-070] This protocol MUST be applied to all chat-based chapter generation outputs; ELSE FAIL.
-[DECISION][CHPG-071] Conflict resolution MUST follow `SPEC-PRIORITY-RESOLUTION-2215-0001`; ELSE FAIL.
+[DECISION][CHPG-071] Conflict resolution MUST follow `SPEC-PRIORITY_RESOLUTION-2215-0001`; ELSE FAIL.
 [DECISION][CHPG-072] Validity of overrides and admissibility MUST be resolved by the active scene contract/ruleset referenced in `chapter_context`; ELSE FAIL.
 
 ## OUTPUT CONTRACT

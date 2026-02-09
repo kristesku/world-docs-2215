@@ -9,7 +9,7 @@ doc_language: en
 prose_language: ru-RU
 inputs: []
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003

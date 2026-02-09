@@ -6,14 +6,14 @@ class: canon
 status: fixed
 version: 0.3.1
 prefix: CAST
-doc_language: ru-RU
+doc_language: en-US
 prose_language: ru-RU
 inputs:
   - CANON-CAST_REGISTRY-GLOBAL-2215-0001
   - CANON-CAST_RULES-GLOBAL-2215-0001
 depends_on:
-  - SPEC-DOC-STYLE-2215-0001
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-DOC_STYLE-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   INTERFACE-шлюз канона состава ФССУ. Этот документ НЕ содержит реестра (STATE)
   и НЕ содержит правил (RULE). Он определяет единственную точку входа и
@@ -44,7 +44,7 @@ FORBIDDEN: [registry_definition, rule_definition, prose, mixed_semantics]
 ## CONTENT
 
 [DECISION][CAST-200] Consumers requiring FSSU cast MUST load both INPUTS of this document; ELSE FAIL.
-[DECISION][CAST-210] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][CAST-210] Conflict resolution MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001; ELSE FAIL.
 
 ## USAGE / RESOLUTION
 

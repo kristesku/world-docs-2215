@@ -9,17 +9,17 @@ prefix: PSSK
 doc_language: en
 prose_language: ru-RU
 inputs:
-  - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
+  - CANON-ARTIFACT_SNIPPETS-RU-2215-0001
   - CANON-CAST-GLOBAL-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003
   - CANON-REPORTS-GLOBAL-2215-0006
-  - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
+  - CANON-SYSTEM_VOICE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-ARCS-GLOBAL-2215-0001
 depends_on:
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
-  - SPEC-SCENE-CONTRACT-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
+  - SPEC-SCENE_CONTRACT-2215-0001
 scope: >
   PLAN-макроструктура романа 2215: акты/кейсы/главы и обязательные
   процедурные теги глав. Без художественного текста и без SSOT-метрик.
@@ -31,7 +31,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: enforceable story structure (acts/cases/chapters/tags) without prose; supports deterministic chapter authoring
-INPUTS: [CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001, CANON-CAST-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-ORDERS-GLOBAL-2215-0003, CANON-REPORTS-GLOBAL-2215-0006, CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, CANON-ARCS-GLOBAL-2215-0001, SPEC-SCENE-CONTRACT-2215-0001, SPEC-PRIORITY-RESOLUTION-2215-0001]
+INPUTS: [CANON-ARTIFACT_SNIPPETS-RU-2215-0001, CANON-CAST-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-ORDERS-GLOBAL-2215-0003, CANON-REPORTS-GLOBAL-2215-0006, CANON-SYSTEM_VOICE-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, CANON-ARCS-GLOBAL-2215-0001, SPEC-SCENE_CONTRACT-2215-0001, SPEC-PRIORITY_RESOLUTION-2215-0001]
 OUTPUTS: [act_case_structure, procedural_spiral_pattern, chapter_tags_contract]
 FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lecture_exposition, softeners]
 
@@ -45,7 +45,7 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 [FACT][PSSK-055] `chapter_type` ∈ {procedural, character_beat, interlude}. `procedural` = стандартная глава. `character_beat` = глава-якорь, фокус на персонаже за пределами процедуры. `interlude` = короткая вставка (POV антагониста-агента, город, пауза).
 [FACT][PSSK-060] `tags.focus` = доминантный `procedural_spiral_step` для главы (для character_beat/interlude допустимо метафорическое соответствие).
 [FACT][PSSK-070] `tags.participants` = список имён, допустимых только из `CANON-CAST_REGISTRY-GLOBAL-2215-0001`.
-[FACT][PSSK-080] `tags.artifact` = типизированная ссылка на артефакт (см. `CANON-REPORTS-GLOBAL-2215-0006` и `CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001`). Для character_beat допустимо `none`.
+[FACT][PSSK-080] `tags.artifact` = типизированная ссылка на артефакт (см. `CANON-REPORTS-GLOBAL-2215-0006` и `CANON-ARTIFACT_SNIPPETS-RU-2215-0001`). Для character_beat допустимо `none`.
 
 [FACT][PSSK-090] `act_case_structure` = YAML-пейлоад (ключ верхнего уровня `act_case_structure`) в `## CONTENT`, являющийся единственным авторитетным источником структуры актов/кейсов/глав.
 [FACT][PSSK-091] `acts` = `act_case_structure.acts` (list).
@@ -75,7 +75,7 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 [FACT][PSSK-109] `dramaturgic_deficit` = infrastructure_windows_not_survival_poverty.
 [FACT][PSSK-110] `engine_of_plot` = procedural_escalation_not_catch_villain.
 
-[FACT][PSSK-111] `system_inserts` = вставки "системного голФССУ" в главы (формат и допустимость задаёт `CANON-SYSTEM-VOICE-GLOBAL-2215-0001`).
+[FACT][PSSK-111] `system_inserts` = вставки "системного голФССУ" в главы (формат и допустимость задаёт `CANON-SYSTEM_VOICE-GLOBAL-2215-0001`).
 
 [FACT][PSSK-112] `macro_frame` = триплет причинности {cause, mechanism, consequence}, заданный в `## CONTENT` как токены.
 [FACT][PSSK-113] `complies_with(X)` = предикат: все требования X удовлетворены; иначе FAIL.
@@ -105,7 +105,7 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 [DECISION][PSSK-170] antagonist_form MUST be optimization_contour_not_person; ELSE FAIL.
 [DECISION][PSSK-171] dramaturgic_deficit MUST be infrastructure_windows_not_survival_poverty; ELSE FAIL.
 [DECISION][PSSK-172] engine_of_plot MUST be procedural_escalation_not_catch_villain; ELSE FAIL.
-[DECISION][PSSK-180] system_inserts MUST comply_with CANON-SYSTEM-VOICE-GLOBAL-2215-0001; ELSE FAIL.
+[DECISION][PSSK-180] system_inserts MUST comply_with CANON-SYSTEM_VOICE-GLOBAL-2215-0001; ELSE FAIL.
 
 ## CONTENT
 
@@ -683,14 +683,14 @@ team_focus_by_act:
 ```
 
 [DECISION][PSSK-320] tags.participants MUST be validated against CANON-CAST_REGISTRY-GLOBAL-2215-0001; ELSE FAIL.
-[DECISION][PSSK-321] tags.artifact MUST be validated against CANON-REPORTS-GLOBAL-2215-0006 and CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001; ELSE FAIL.
+[DECISION][PSSK-321] tags.artifact MUST be validated against CANON-REPORTS-GLOBAL-2215-0006 and CANON-ARTIFACT_SNIPPETS-RU-2215-0001; ELSE FAIL.
 [DECISION][PSSK-322] any_zone_extraterritory_JAP MUST be grounded via CANON-ORDERS-GLOBAL-2215-0003 and CANON-SYSTEMS-GLOBAL-2215-0001; ELSE FAIL.
 
 ## USAGE / RESOLUTION
 
 [DECISION][PSSK-400] Consumers MUST treat act_case_structure YAML as the only authoritative payload of this document; ELSE FAIL.
-[DECISION][PSSK-401] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
-[DECISION][PSSK-402] Scene admissibility constraints MUST follow SPEC-SCENE-CONTRACT-2215-0001; ELSE FAIL.
+[DECISION][PSSK-401] Conflict resolution MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001; ELSE FAIL.
+[DECISION][PSSK-402] Scene admissibility constraints MUST follow SPEC-SCENE_CONTRACT-2215-0001; ELSE FAIL.
 [DECISION][PSSK-403] Scene content (cards) MUST be sourced from SCENE-ACT-RU-2215-{0001..0005}; this document provides structure and tags only; ELSE FAIL.
 
 ## OUTPUT CONTRACT
@@ -726,7 +726,7 @@ export:
                 fields:
                   participants: {type: list, item: string, source: "CANON-CAST_REGISTRY-GLOBAL-2215-0001"}
                   focus: {type: enum, values: ["anomaly_detection","investigation","bureaucratic_wall","escalation","new_jurisdiction_level","remedy"]}
-                  artifact: {type: string, source: ["CANON-REPORTS-GLOBAL-2215-0006","CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001"]}
+                  artifact: {type: string, source: ["CANON-REPORTS-GLOBAL-2215-0006","CANON-ARTIFACT_SNIPPETS-RU-2215-0001"]}
               scene_source: {type: string}
               synopsis: {type: string}
   procedural_spiral_pattern:
@@ -734,7 +734,7 @@ export:
   chapter_tags_contract:
     participants_source: "CANON-CAST_REGISTRY-GLOBAL-2215-0001"
     focus_enum: ["anomaly_detection","investigation","bureaucratic_wall","escalation","new_jurisdiction_level","remedy"]
-    artifact_sources: ["CANON-REPORTS-GLOBAL-2215-0006","CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001"]
+    artifact_sources: ["CANON-REPORTS-GLOBAL-2215-0006","CANON-ARTIFACT_SNIPPETS-RU-2215-0001"]
   case_layer_map:
     case_1: [L1_algorithmic_harm, L3_supply_chain_surface]
     case_2: [L3_supply_chain_deep, L2_extraterritory_gateway]

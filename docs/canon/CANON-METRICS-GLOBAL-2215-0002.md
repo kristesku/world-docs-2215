@@ -9,7 +9,7 @@ inputs:
   - CANON-CORE-GLOBAL-2215-0001
   - SSOT-CONSISTENCY-A-2215-0009
 depends_on:
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 scope: >
   RULE-канон использования числовых метрик в тексте: откуда берутся дефолты,
   как оформляются upper-tail случаи и какие процедурные последствия обязательны.
@@ -23,7 +23,7 @@ SCOPE: regulate narrative usage of numeric world metrics and enforce procedural 
 INPUTS:
   - CANON-CORE-GLOBAL-2215-0001
   - SSOT-CONSISTENCY-A-2215-0009
-  - SPEC-PRIORITY-RESOLUTION-2215-0001
+  - SPEC-PRIORITY_RESOLUTION-2215-0001
 OUTPUTS:
   - numeric_source_rules
   - upper_tail_rules
@@ -127,7 +127,7 @@ THEN output MUST be treated as invalid.
 ### 3. Source precedence (numbers)
 
 [RULE][MET-030] IF numeric_value_conflict = true
-THEN resolution_order MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001.
+THEN resolution_order MUST follow SPEC-PRIORITY_RESOLUTION-2215-0001.
 
 [RULE][MET-031] IF numeric_default_needed = true
 THEN CANON-CORE-GLOBAL-2215-0001 MUST be the only default source.
