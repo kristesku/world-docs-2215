@@ -1,7 +1,7 @@
 ---
 id: CANON-ORDERS-GLOBAL-2215-0003
 title: >
-  Canon Orders — OSA Warrants, Mandates, and Access Regimes (2215)
+  Canon Orders — FSSU Warrants, Mandates, and Access Regimes (2215)
 class: canon
 status: draft
 version: 1.1.0
@@ -11,19 +11,19 @@ depends_on:
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
-  - CANON-OSA-GLOBAL-2215-0005
+  - CANON-FSSU-GLOBAL-2215-0005
 scope: >
-  Процедурный канон ОСА: ордера, мандаты, уровни доступа, допустимость,
+  Процедурный канон ФССУ: ордера, мандаты, уровни доступа, допустимость,
   экстерриториальные режимы и модель доказательств. Без ввода новых SSOT-метрик.
 ---
 
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: define procedural authority model for OSA orders, access tiers, admissibility
+SCOPE: define procedural authority model for FSSU orders, access tiers, admissibility
 INPUTS:
   - CANON-CORE-GLOBAL-2215-0001
-  - CANON-OSA-GLOBAL-2215-0005
+  - CANON-FSSU-GLOBAL-2215-0005
 OUTPUTS:
   - access_tier_rules
   - order_taxonomy
@@ -39,7 +39,7 @@ FORBIDDEN:
 
 ## DEFINITIONS
 
-[FACT][ORD-DEF-010] Order = формализованное разрешение на действие ОСА, иначе недопустимое.
+[FACT][ORD-DEF-010] Order = формализованное разрешение на действие ФССУ, иначе недопустимое.
 [FACT][ORD-DEF-011] Mandate = рамка кейса (объект, цель, пределы, срок), внутри которой выдаются ордера.
 [FACT][ORD-DEF-012] JAP = Joint Access Protocol; совместная процедура доступа при разделённой юрисдикции.
 [FACT][ORD-DEF-013] Extraterritory = режим доступа с задержками и фильтрами, но без отмены права.
@@ -49,8 +49,8 @@ FORBIDDEN:
 
 ## INVARIANTS
 
-[DECISION][ORD-INV-010] Любое значимое действие ОСА MUST ссылаться на order OR mandate OR emergency_exception.
-[DECISION][ORD-INV-011] У ОСА MUST NOT существовать абсолютные права без срока, периметра и журналирования.
+[DECISION][ORD-INV-010] Любое значимое действие ФССУ MUST ссылаться на order OR mandate OR emergency_exception.
+[DECISION][ORD-INV-011] У ФССУ MUST NOT существовать абсолютные права без срока, периметра и журналирования.
 [DECISION][ORD-INV-012] Экстерритория MUST изменять процедуру, но MUST NOT отменять применимое право.
 [DECISION][ORD-INV-013] Доказательство MUST состоять из artifact + chain_of_custody + admissibility.
 [DECISION][ORD-INV-014] Принуждение допустимо ONLY IF прямо указано в ордере и необходимо для допустимых целей.
@@ -134,7 +134,7 @@ FORBIDDEN:
 
 ## USAGE / RESOLUTION
 
-[DECISION][ORD-USE-010] Документ обязателен для всех сцен с участием ОСА.
+[DECISION][ORD-USE-010] Документ обязателен для всех сцен с участием ФССУ.
 [DECISION][ORD-USE-011] При конфликте применяется SPEC-PRIORITY-RESOLUTION-2215-0001.
 
 ---

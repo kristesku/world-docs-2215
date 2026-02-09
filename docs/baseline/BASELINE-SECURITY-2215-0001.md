@@ -11,7 +11,7 @@ inputs:
 depends_on:
   - CANON-BASE-RULE-GLOBAL-2215-0001
   - BASELINE-OBSERVABILITY-2215-0001
-  - BASELINE-DIGITALIDENTITY-2215-0001
+  - BASELINE-DIGITAL_IDENTITY-2215-0001
   - BASELINE-SOCIAL-2215-0001
 scope: >
   Исполняемый baseline применения силы и процедур безопасности (LEVEL-MID) в 2215 году.
@@ -28,7 +28,7 @@ INPUTS:
   - SSOT-SCENARIO-A-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
   - BASELINE-OBSERVABILITY-2215-0001
-  - BASELINE-DIGITALIDENTITY-2215-0001
+  - BASELINE-DIGITAL_IDENTITY-2215-0001
   - BASELINE-SOCIAL-2215-0001
 OUTPUTS: [rule_id, escalation_state, detention_state, jurisdiction_outcome]
 FORBIDDEN: [prose, cultural_exposition, heroic_myth, mixed_role_types, vigilante_logic]
@@ -39,7 +39,7 @@ FORBIDDEN: [prose, cultural_exposition, heroic_myth, mixed_role_types, vigilante
 
 [FACT][SEC-DEF-010] LEVEL-MID = стандартные городские условия без специальных лицензий.
 [FACT][SEC-DEF-011] law_enforcement = государственные полицейские/следственные органы в рамках обычной юрисдикции.
-[FACT][SEC-DEF-012] OSA = федеральная межведомственная структура; применение ограничено угрозой базовым функциям государства.
+[FACT][SEC-DEF-012] FSSU = федеральная межведомственная структура; применение ограничено угрозой базовым функциям государства.
 [FACT][SEC-DEF-013] use_of_force = применение физического воздействия, ограничений, устройств или оружия.
 [FACT][SEC-DEF-014] escalation_state = deescalate | restrain | incapacitate | lethal.
 [FACT][SEC-DEF-015] detention = временное ограничение свободы до процессуального решения.
@@ -56,7 +56,7 @@ FORBIDDEN: [prose, cultural_exposition, heroic_myth, mixed_role_types, vigilante
 [DECISION][SEC-INV-011] Security actions MUST be procedural, auditable, and role-bound.
 [DECISION][SEC-INV-012] Escalation MUST be stepwise unless immediate threat is present.
 [FORBIDDEN][SEC-INV-013] Depicting baseline security as ad-hoc personal discretion without procedure.
-[FORBIDDEN][SEC-INV-014] Depicting OSA as a direct-command chain subject to personal calls.
+[FORBIDDEN][SEC-INV-014] Depicting FSSU as a direct-command chain subject to personal calls.
 
 ---
 
@@ -116,15 +116,15 @@ FORBIDDEN: [prose, cultural_exposition, heroic_myth, mixed_role_types, vigilante
 [FORBIDDEN][SEC-AUD-020] Unlogged use_of_force actions.
 [FORBIDDEN][SEC-AUD-021] Deleting or editing custody_log.
 
-### 7. Jurisdiction and OSA Invocation
+### 7. Jurisdiction and FSSU Invocation
 
 [RULE][SEC-JUR-010] IF threat_to_core_state_functions = false THEN law_enforcement MUST retain jurisdiction.
-[RULE][SEC-JUR-011] IF threat_to_core_state_functions = true THEN OSA MAY be invoked.
-[RULE][SEC-JUR-012] IF OSA invoked = true THEN interagency_notification MUST be mandatory.
-[RULE][SEC-JUR-013] IF OSA invoked = true THEN scope MUST be limited to threat containment.
+[RULE][SEC-JUR-011] IF threat_to_core_state_functions = true THEN FSSU MAY be invoked.
+[RULE][SEC-JUR-012] IF FSSU invoked = true THEN interagency_notification MUST be mandatory.
+[RULE][SEC-JUR-013] IF FSSU invoked = true THEN scope MUST be limited to threat containment.
 
-[FORBIDDEN][SEC-JUR-020] OSA acting as routine city police at LEVEL-MID baseline.
-[FORBIDDEN][SEC-JUR-021] OSA invocation without threat_to_core_state_functions.
+[FORBIDDEN][SEC-JUR-020] FSSU acting as routine city police at LEVEL-MID baseline.
+[FORBIDDEN][SEC-JUR-021] FSSU invocation without threat_to_core_state_functions.
 
 ### 8. De-escalation and Exit Conditions
 
@@ -140,7 +140,7 @@ FORBIDDEN: [prose, cultural_exposition, heroic_myth, mixed_role_types, vigilante
 [DECISION][SEC-USE-010] Any urban security scene MUST apply SEC-TRG-* and SEC-UOF-* unless overridden.
 [DECISION][SEC-USE-011] Any detention scene MUST apply SEC-DTN-* and SEC-AUD-* unless overridden.
 [DECISION][SEC-USE-012] Any device access scene MUST apply SEC-IDV-* unless overridden.
-[DECISION][SEC-USE-013] Any OSA appearance MUST apply SEC-JUR-* unless overridden.
+[DECISION][SEC-USE-013] Any FSSU appearance MUST apply SEC-JUR-* unless overridden.
 [FORBIDDEN][SEC-USE-014] Depicting vigilante enforcement as baseline legitimacy at LEVEL-MID.
 
 ---
@@ -164,9 +164,9 @@ export:
     inputs: [device_access_requested]
     outputs: [warrant_required]
   - rule_id: SEC-JUR-011
-    intent: allow OSA invocation only for threats to core state functions
+    intent: allow FSSU invocation only for threats to core state functions
     inputs: [threat_to_core_state_functions]
-    outputs: [OSA_invocation]
+    outputs: [FSSU_invocation]
 ~~~
 
 ---

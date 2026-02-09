@@ -13,7 +13,7 @@ depends_on:
 scope: >
   Каноническая системная архитектура мира романа 2215: институциональные контуры,
   операторы критической инфраструктуры, экстерриториальные режимы,
-  наблюдаемость, ответственность за ИИ и процедурные рычаги ОСА.
+  наблюдаемость, ответственность за ИИ и процедурные рычаги ФССУ.
   Документ НЕ выбирает числовые параметры мира.
 ---
 
@@ -53,7 +53,7 @@ FORBIDDEN:
 [DECISION][SYS-INV-012] Операторы MUST действовать в лицензируемом и отзывном режиме.
 [DECISION][SYS-INV-013] Экстерритория MUST NOT трактоваться как суверенитет.
 [DECISION][SYS-INV-014] Наблюдаемость MUST NOT быть тотальной по умолчанию.
-[DECISION][SYS-INV-015] ОСА MUST функционировать как процедурный инструмент, а не универсальный орган.
+[DECISION][SYS-INV-015] ФССУ MUST функционировать как процедурный инструмент, а не универсальный орган.
 
 ---
 
@@ -107,7 +107,7 @@ FORBIDDEN:
   accelerated_approvals,
   restricted_external_audit,
   special_reporting,
-  osa_entry_by_incident_or_warrant
+  FSSU_entry_by_incident_or_warrant
 }.
 [STATE][SYS-043] extraterritory_constraints = {
   licensed,
@@ -174,16 +174,16 @@ FORBIDDEN:
 
 ---
 
-### 8. OSA levers and resistance
+### 8. FSSU levers and resistance
 
-[STATE][SYS-080] osa_levers = {
+[STATE][SYS-080] FSSU_levers = {
   data_and_site_access_warrants,
   media_seizure,
   temporary_mode_suspension,
   regulatory_checks_or_license_actions,
   extraterritorial_mandates_on_incidents
 }.
-[STATE][SYS-081] osa_constraints = {
+[STATE][SYS-081] FSSU_constraints = {
   approval_delays,
   jurisdiction_disputes,
   corporate_legal_resistance,
@@ -208,7 +208,7 @@ FORBIDDEN:
 
 [UNKNOWN][SYS-100] Specific operator and regulator identities.
 [UNKNOWN][SYS-101] KPI formulas causing pathological optimization.
-[UNKNOWN][SYS-102] Exact OSA warrant issuance timings.
+[UNKNOWN][SYS-102] Exact FSSU warrant issuance timings.
 [UNKNOWN][SYS-103] Topology of key hubs and routes in Chelny.
 [UNKNOWN][SYS-104] Threshold for center takeover of regional control.
 
@@ -232,7 +232,7 @@ export:
   extraterritory_types: [industrial_logistics, rnd_biotech_med]
   observability_model: fragmented
   ai_responsibility_model: mixed
-  osa_levers:
+  FSSU_levers:
     - data_and_site_access_warrants
     - media_seizure
     - temporary_mode_suspension

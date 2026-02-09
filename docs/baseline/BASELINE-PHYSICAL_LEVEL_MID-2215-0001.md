@@ -1,5 +1,5 @@
 ---
-id: BASELINE-PHYSICALLEVELMID-2215-0001
+id: BASELINE-PHYSICAL_LEVEL_MID-2215-0001
 title: >
   Physical Environment Baseline — LEVEL-MID (2215)
 class: baseline
@@ -150,7 +150,7 @@ FORBIDDEN: [invent_physical_baseline_values, mix_levels_without_override, narrat
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: BASELINE-PHYSICALLEVELMID-2215-0001
+doc_id: BASELINE-PHYSICAL_LEVEL_MID-2215-0001
 role_type: RULE
 export:
   - rule_id: PHY-ACL-010

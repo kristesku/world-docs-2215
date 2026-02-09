@@ -1,23 +1,22 @@
 ---
-id: BASELINE-OSA-CASE-ACTIVATION-2215-0001
+id: BASELINE-FSSU-CASE-ACTIVATION-2215-0001
 title: >
-  ОСА — Активация кейса — intake, triage, пороги и немедленные эффекты (2215)
+  ФССУ — Активация кейса — intake, triage, пороги и немедленные эффекты (2215)
 class: baseline
 status: draft
 version: 1.0.0
 prefix: OCA
 doc_language: ru-RU
 prose_language: ru-RU
-inputs:
-  - PROCESS-CASE-ACTIVATION-OSA-2215-0001
+inputs: []
 depends_on:
-  - CANON-OSA-GLOBAL-2215-0005
+  - CANON-FSSU-GLOBAL-2215-0005
   - CANON-SYSTEM-ONTOLOGY-2215-0001
   - SPEC-DOC-ID-2215-0001
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-baseline процедуры активации кейса ОСА: intake → triage → activation → assignment.
+  RULE-baseline процедуры активации кейса ФССУ: intake → triage → activation → assignment.
   Задаёт пороги кейса (Safety_Impact / Sovereignty_Impact) и немедленные эффекты (preservation window).
   Не описывает региональные конвейеры и локации.
 ---
@@ -25,22 +24,22 @@ scope: >
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: define baseline procedure for OSA case activation from intake to assignment with impact thresholds and immediate safeguards
-INPUTS: [PROCESS-CASE-ACTIVATION-OSA-2215-0001]
+SCOPE: define baseline procedure for FSSU case activation from intake to assignment with impact thresholds and immediate safeguards
+INPUTS: []
 OUTPUTS: [activation_flow, activation_thresholds, decision_authority, immediate_effects]
 FORBIDDEN: [scene_text, narrative_prose, undefined_terms, regional_specifics]
 
 ## DEFINITIONS
 
 [FACT][OCA-010] `intake_signal` = входящий сигнал/инцидент, требующий triage на предмет юрисдикции и порогов кейса.
-[FACT][OCA-020] `triage` = процедура квалификации `intake_signal` по OSA-JUR-010 и оценке Impact.
+[FACT][OCA-020] `triage` = процедура квалификации `intake_signal` по FSSU-JUR-010 и оценке Impact.
 [FACT][OCA-030] `activation` = перевод `intake_signal` в `case` с назначением `case_owner` и фиксацией формы.
 [FACT][OCA-040] `case_threshold` = порог, при котором Impact считается достаточным для активации кейса.
 [FACT][OCA-050] `preservation_window` = немедленный режим защиты данных/следов до стабилизации Systemic_Channel и фиксации артефактов.
 
 ## INVARIANTS
 
-[DECISION][OCA-100] `activation` MUST be gated by OSA-JUR-010 (см. CANON-OSA-GLOBAL-2215-0005).
+[DECISION][OCA-100] `activation` MUST be gated by FSSU-JUR-010 (см. CANON-FSSU-GLOBAL-2215-0005).
 [DECISION][OCA-110] `triage` MUST produce an explicit record: {Systemic_Asset, Systemic_Channel, Safety_Impact, Sovereignty_Impact}.
 [DECISION][OCA-120] `activation` MUST assign `case_owner`.
 [FORBIDDEN][OCA-130] Активация кейса без фиксируемой процедурной формы (mandate/order/emergency).
@@ -56,7 +55,7 @@ FORBIDDEN: [scene_text, narrative_prose, undefined_terms, regional_specifics]
 
 ### 2. Jurisdiction Gate
 
-[RULE][OCA-300] IF OSA-300 FAIL THEN `activation.permitted` MUST be false; ELSE FAIL.
+[RULE][OCA-300] IF FSSU-300 FAIL THEN `activation.permitted` MUST be false; ELSE FAIL.
 [RULE][OCA-310] IF `activation.permitted` = false THEN `intake_signal.route` MUST be "transfer_by_competence"; ELSE FAIL.
 
 ### 3. Impact Threshold Gate
@@ -89,13 +88,13 @@ FORBIDDEN: [scene_text, narrative_prose, undefined_terms, regional_specifics]
 
 ## USAGE / RESOLUTION
 
-[DECISION][OCA-900] Любая сцена, где активируется кейс ОСА, MUST следовать OCA-200..OCA-810; ELSE FAIL.
+[DECISION][OCA-900] Любая сцена, где активируется кейс ФССУ, MUST следовать OCA-200..OCA-810; ELSE FAIL.
 [DECISION][OCA-910] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: BASELINE-OSA-CASE-ACTIVATION-2215-0001
+doc_id: BASELINE-FSSU-CASE-ACTIVATION-2215-0001
 role_type: RULE
 export:
   - rule_id: OCA-200
@@ -104,7 +103,7 @@ export:
     outputs: [triage.required]
   - rule_id: OCA-300
     intent: jurisdiction gate
-    inputs: [OSA-300]
+    inputs: [FSSU-300]
     outputs: [activation.permitted]
   - rule_id: OCA-400
     intent: impact threshold gate
@@ -130,6 +129,6 @@ export:
 
 ~~~text
 Этот baseline описывает только “как кейс появляется” и какие немедленные эффекты включаются.
-Региональный конвейер RU-16 (включая human gate и ГОРОД-1/2) фиксируется в CANON-OSA-REGIONAL-RU16-2215-0001.
-Whitelist low-impact автономии фиксируется в REG-OSA-AUTO-LOWIMPACT-2215-0001.
+Региональный конвейер RU-16 (включая human gate и ГОРОД-1/2) фиксируется в CANON-FSSU-REGIONAL-RU16-2215-0001.
+Whitelist low-impact автономии фиксируется в REG-FSSU-AUTO-LOWIMPACT-2215-0001.
 ~~~

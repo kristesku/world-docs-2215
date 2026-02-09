@@ -1,5 +1,5 @@
 ---
-id: BASELINE-DIGITALIDENTITY-2215-0001
+id: BASELINE-DIGITAL_IDENTITY-2215-0001
 title: >
   Digital Identity Baseline — 2215 (BAN_ID, Access, Post-Mortem)
 class: baseline
@@ -128,7 +128,7 @@ FORBIDDEN: [prose, cultural_exposition, speculative_ethics, mixed_role_types, wo
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: BASELINE-DIGITALIDENTITY-2215-0001
+doc_id: BASELINE-DIGITAL_IDENTITY-2215-0001
 role_type: RULE
 export:
   - rule_id: DID-LC-012

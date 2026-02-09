@@ -1,5 +1,5 @@
 ---
-id: PROTOCOL-CHAPTERDELIVERY-2215-0001
+id: PROTOCOL-CHAPTER_DELIVERY-2215-0001
 title: >
   Chapter Generation Protocol — Chat Parts 3–4 (2215)
 class: protocol
@@ -15,7 +15,7 @@ inputs:
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
-  - SCENE-GEN-PROTOCOL-0001
+  - PROTOCOL-SCENE_GEN-2215-0001
 scope: >
   Протокол интерактивной генерации главы романа 2215 в чате.
   Глава всегда выводится частями (3–4). Каждая часть самодостаточна,
@@ -51,7 +51,7 @@ FORBIDDEN: [full_chapter_single_message, missing_part_headers, unsourced_numbers
 [DECISION][CHPG-026] Any `override_trigger` MUST be declared and MUST map to an explicit override doc_id in `part_assumptions.overrides_used`; ELSE FAIL.
 [FORBIDDEN][CHPG-027] Emitting PART N+1 without `continuation_prompt`.
 [DECISION][CHPG-028] This protocol MUST NOT define prose legality or prose structure; ELSE FAIL.
-[DECISION][CHPG-029] Prose legality and structure constraints MUST be delegated to `SCENE-GEN-PROTOCOL-0001`; ELSE FAIL.
+[DECISION][CHPG-029] Prose legality and structure constraints MUST be delegated to `PROTOCOL-SCENE_GEN-2215-0001`; ELSE FAIL.
 
 ## CONTENT
 
@@ -100,7 +100,7 @@ part_assumptions:
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: PROTOCOL-CHAPTERDELIVERY-2215-0001
+doc_id: PROTOCOL-CHAPTER_DELIVERY-2215-0001
 role_type: INTERFACE
 export:
   - rule_id: CHPG-020
@@ -124,7 +124,7 @@ export:
     inputs: [chapter_part_text, chapter_context]
     outputs: [override_compliance_flag]
   - rule_id: CHPG-029
-    intent: "delegate prose legality/structure constraints to SCENE-GEN-PROTOCOL-0001"
+    intent: "delegate prose legality/structure constraints to PROTOCOL-SCENE_GEN-2215-0001"
     inputs: [chapter_context]
     outputs: [prose_legality_delegation]
 ~~~

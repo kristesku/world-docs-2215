@@ -1,7 +1,7 @@
 ---
 id: CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
 title: >
-  OSA Artifacts — Snippet Templates and Procedural Forms (2215)
+  FSSU Artifacts — Snippet Templates and Procedural Forms (2215)
 class: canon
 status: fixed
 version: 1.1.0
@@ -10,7 +10,7 @@ inputs:
   - CANON-SYSTEM-VOICE-GLOBAL-2215-0001
 depends_on: []
 scope: >
-  Canonical procedural specification of OSA artifact snippets (CD/EL/CM,
+  Canonical procedural specification of FSSU artifact snippets (CD/EL/CM,
   orders, logs, access receipts). Purpose: constrain LLM output to fixed,
   auditable forms; prohibit narrative drift; guarantee evidence usability.
 ---
@@ -18,14 +18,14 @@ scope: >
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: define mandatory forms and constraints for OSA artifact snippets used in scenes
+SCOPE: define mandatory forms and constraints for FSSU artifact snippets used in scenes
 INPUTS: [CANON-SYSTEM-VOICE-GLOBAL-2215-0001, CANON-VOCAB-GLOBAL-2215-0001]
 OUTPUTS: [artifact_schema_id, admissibility_constraints]
 FORBIDDEN: [narrative_text, freeform_documents, persona_voice]
 
 ## DEFINITIONS
 
-[FACT][ART-DEF-001] Artifact = procedural record produced or consumed by OSA during a case.
+[FACT][ART-DEF-001] Artifact = procedural record produced or consumed by FSSU during a case.
 [FACT][ART-DEF-002] Snippet = partial artifact excerpt embedded in narrative text.
 [FACT][ART-DEF-003] EL item = Evidence Ledger record with chain-of-custody.
 [FACT][ART-DEF-004] Case scope = explicit perimeter (zone/node/mode) bound to an artifact.
@@ -77,19 +77,19 @@ export:
 
 ~~~json
 {
-  "case_id": "OSA-2215-RU-16-0007",
+  "case_id": "FSSU-2215-RU-16-0007",
   "evidence_id": "E-002",
   "type": "log_extract",
   "source": "OBSERVABILITY",
   "scope": "RU-16/CHELNY/Node-HOSP-3/Telemetry",
   "ts_collected": "2215-05-18T21:05:00+03:00",
-  "collector": "OSA/Lev-Safonov",
+  "collector": "FSSU/Lev-Safonov",
   "hash": "sha256:...",
   "custody": {
     "sealed": true,
     "seal_id": "SEAL-2215-000118",
     "custody_chain": [
-      { "ts": "2215-05-18T21:06:00+03:00", "holder": "OSA", "action": "sealed" }
+      { "ts": "2215-05-18T21:06:00+03:00", "holder": "FSSU", "action": "sealed" }
     ]
   },
   "notes": "Primary logs missing within retention window."
@@ -100,12 +100,12 @@ export:
 
 ~~~json
 {
-  "case_id": "OSA-2215-RU-16-0007",
+  "case_id": "FSSU-2215-RU-16-0007",
   "event": "custody_transfer",
   "ts": "2215-05-19T10:52:00+03:00",
   "evidence_id": "E-001",
   "from": "Z4/Regime-Holder/Escort-Unit",
-  "to": "OSA/Aidar-Bulatov",
+  "to": "FSSU/Aidar-Bulatov",
   "conditions": ["no_export_without_seal", "escorted_access"],
   "seal_verified": true
 }
@@ -115,7 +115,7 @@ export:
 
 ~~~json
 {
-  "case_id": "OSA-2215-RU-16-0007",
+  "case_id": "FSSU-2215-RU-16-0007",
   "artifact": "chat_log_extract",
   "scope": "Operator/Dispatch/Queue-7",
   "window": { "start": "2215-05-18T17:10:00+03:00", "end": "2215-05-18T17:28:00+03:00" },
@@ -131,9 +131,9 @@ export:
 ~~~json
 {
   "order_id": "O-11-SUSP-2215-0009",
-  "case_id": "OSA-2215-RU-16-0007",
+  "case_id": "FSSU-2215-RU-16-0007",
   "ts_issued": "2215-05-21T08:30:00+03:00",
-  "issuer": "OSA/Leisan-Khakimova",
+  "issuer": "FSSU/Leisan-Khakimova",
   "scope": "Z4/RU-16/Node-Zone-X/Mode-Accelerated",
   "action": "suspend_mode_partial",
   "duration_hours": 72,

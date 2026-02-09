@@ -39,7 +39,7 @@ FORBIDDEN: [monolithic_entities, simplistic_villains, narrative_prose]
 [STATE][ORG-011] ORG-ROSE.vibe = "Technocratic feudalism".
 [STATE][ORG-012] ORG-ROSE.faction_A = "The Core Guard (Engineers) — focus: stability, safety".
 [STATE][ORG-013] ORG-ROSE.faction_B = "Export Directorate (Managers) — focus: profit, mining".
-[STATE][ORG-014] ORG-ROSE.conflict = "Engineers leak data to OSA to sabotage Managers".
+[STATE][ORG-014] ORG-ROSE.conflict = "Engineers leak data to FSSU to sabotage Managers".
 
 [STATE][ORG-020] id=ORG-GOSP; name="GosPlan-Algorithmica"; domain="Planning"; role="KPI Setter".
 [STATE][ORG-021] ORG-GOSP.vibe = "Inhuman mathematical absolute".
@@ -61,14 +61,14 @@ FORBIDDEN: [monolithic_entities, simplistic_villains, narrative_prose]
 [STATE][ORG-050] id=ORG-SCM; name="StroyComposite-M"; domain="Materials"; role="Supplier".
 [STATE][ORG-051] ORG-SCM.secret = "Recycles toxic exclusion-zone waste into building mats".
 
-[STATE][ORG-055] id=ORG-BIO; name="BioSafe-Systems"; domain="Health/Sensors"; role="Operator".
+[STATE][ORG-055] id=ORG-BIO; name="BiFSSUfe-Systems"; domain="Health/Sensors"; role="Operator".
 [STATE][ORG-056] ORG-BIO.vibe = "Clinical cynicism".
 
 ### 3. The Oversight & Intelligence
 
-[STATE][ORG-060] id=ORG-OSA; name="OSA (Dept of Situation Analysis)"; role="Protagonist".
-[STATE][ORG-061] ORG-OSA.weakness = "Lack of direct jurisdiction over Monopolies".
-[STATE][ORG-062] ORG-OSA.tactics = "Information Warfare / Public Cost escalation".
+[STATE][ORG-060] id=ORG-FSSU; name="FSSU (Dept of Situation Analysis)"; role="Protagonist".
+[STATE][ORG-061] ORG-FSSU.weakness = "Lack of direct jurisdiction over Monopolies".
+[STATE][ORG-062] ORG-FSSU.tactics = "Information Warfare / Public Cost escalation".
 
 [STATE][ORG-070] id=ORG-ARB; name="The Arbitrage"; domain="Justice"; role="AI Judge".
 [STATE][ORG-071] ORG-ARB.characteristic = "Black Box decision weights".
@@ -108,5 +108,5 @@ export:
 
 [FORBIDDEN][ORG-FBD-010] Portraying Monopolies as monolithic (everyone agrees).
 [FORBIDDEN][ORG-FBD-011] Using generic names like "The Corporation".
-[FORBIDDEN][ORG-FBD-012] Giving OSA unlimited police powers.
+[FORBIDDEN][ORG-FBD-012] Giving FSSU unlimited police powers.
 ~~~

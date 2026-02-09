@@ -4,12 +4,12 @@ title: >
   SCENE-CARDS — Act V (Chapters 30–35) —
   License Suspension → Resolution via Procedural Cost and Fact Fixation
 class: scene
-status: applied
+status: draft
 version: 1.2.0
 doc_language: en
 prose_language: ru-RU
 inputs:
-  - BASELINE-PHYSICALLEVELMID-2215-0001
+  - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
@@ -27,7 +27,7 @@ scope: >
 ROLE_TYPE: INDEX
 SCOPE: machine-readable scene cards for Act V as TYPE C inputs (no prose).
 SCENE_FORMAT: scene_cards_kvline_v1
-INPUTS: [BASELINE-PHYSICALLEVELMID-2215-0001, CANON-BASE-RULE-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, PLAN-STORY-2215-0001]
+INPUTS: [BASELINE-PHYSICAL_LEVEL_MID-2215-0001, CANON-BASE-RULE-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, PLAN-STORY-2215-0001]
 OUTPUTS: [scene_card_records]
 FORBIDDEN: [prose, world_explanations, new_metrics, unscoped_numbers, gap_filling, meta_diegesis]
 
@@ -42,7 +42,7 @@ FORBIDDEN: [prose, world_explanations, new_metrics, unscoped_numbers, gap_fillin
 
 [DECISION][SCA5-INV-010] Each `scene_card` MUST remain non-prose: only operational intent and constraints.
 [DECISION][SCA5-INV-011] Each `scene_card` MUST be self-scoped via `where` and MUST include `scene_id` and `chapter_id`.
-[DECISION][SCA5-INV-012] If `measurable` includes environment sensors, they MUST be traceable to BASELINE-PHYSICALLEVELMID-2215-0001 ranges OR explicit override.
+[DECISION][SCA5-INV-012] If `measurable` includes environment sensors, they MUST be traceable to BASELINE-PHYSICAL_LEVEL_MID-2215-0001 ranges OR explicit override.
 [FORBIDDEN][SCA5-INV-013] Introducing new macro world numbers inside scene cards (SSOT-only numbers remain in SSOT/CANON-METRICS).
 [DECISION][SCA5-INV-020] Placeholder ellipsis ("..."/"…") is forbidden in cards; use UNKNOWN or omit the field.
 
@@ -50,16 +50,16 @@ FORBIDDEN: [prose, world_explanations, new_metrics, unscoped_numbers, gap_fillin
 
 ### CH-30 — The Authorization
 
-[FACT][SCA5-001] scene_id=SC-30.1; chapter_id=CH-30; time="09:00 (Morning)"; where="Москва, кабинет регулятора (срочный контур)"; pov="Лейсан"; goal="запустить легальный рычаг принуждения"; measurable="suspension_window=12h; scope_subsystems=2"; artifact="CD(lic_sus_tsro_order_conditions)"; cmc="доказан manual override → аварийное решение регулятора → ОСА получает окно полномочий"; output="законное время на действие"; hook="оператор активирует режим сохранения/чистки"; tags="office, bureaucracy, restless".
-[FACT][SCA5-002] scene_id=SC-30.2; chapter_id=CH-30; time="10:30 (Morning)"; where="Временный штаб ОСА (Москва)"; pov="Мирон"; goal="план операции в рамках ограничений"; measurable="teams=3; nodes=2; server_room=1; deadline=11h12m"; artifact="CD(plan_schedule_roles)"; cmc="окно короткое → параллельность обязательна → ошибка = провал"; output="запуск групп"; hook="без chain-of-custody улики снесут в суде"; tags="map, planning, flow".
+[FACT][SCA5-001] scene_id=SC-30.1; chapter_id=CH-30; time="09:00 (Morning)"; where="Москва, кабинет регулятора (срочный контур)"; pov="Лейсан"; goal="запустить легальный рычаг принуждения"; measurable="suspension_window=12h; scope_subsystems=2"; artifact="CD(lic_sus_tsro_order_conditions)"; cmc="доказан manual override → аварийное решение регулятора → ФССУ получает окно полномочий"; output="законное время на действие"; hook="оператор активирует режим сохранения/чистки"; tags="office, bureaucracy, restless".
+[FACT][SCA5-002] scene_id=SC-30.2; chapter_id=CH-30; time="10:30 (Morning)"; where="Временный штаб ФССУ (Москва)"; pov="Мирон"; goal="план операции в рамках ограничений"; measurable="teams=3; nodes=2; server_room=1; deadline=11h12m"; artifact="CD(plan_schedule_roles)"; cmc="окно короткое → параллельность обязательна → ошибка = провал"; output="запуск групп"; hook="без chain-of-custody улики снесут в суде"; tags="map, planning, flow".
 [FACT][SCA5-003] scene_id=SC-30.3; chapter_id=CH-30; time="13:00 (Day)"; where="Выезд / логистический канал"; pov="Айдар"; goal="превратить решение в движение и риск времени"; measurable="ETA=2h20m; connectivity_delta=−25%"; artifact="CD(escort_protocol)"; cmc="центр дал приказ → поле исполняет → задержка = потеря улик"; output="ставка по времени задана"; hook="у оператора свои группы на узлах"; tags="transport, speed, kinetic".
 
 ### CH-31 — Seizure (Physical Layer)
 
-[FACT][SCA5-004] scene_id=SC-31.1; chapter_id=CH-31; time="17:45 (Sunset)"; where="Узел накопителей (внешний кластер)"; pov="Айдар"; goal="физически закрепить приостановку"; measurable="time_to_lock=9m"; artifact="EL(suspension_enforcement_act)"; cmc="приказ → сопротивление/затяжка оператора → ОСА изолирует контур"; output="узел под контролем"; hook="борьба за шкаф подписи"; tags="industrial, sunset, kinetic".
-[FACT][SCA5-005] scene_id=SC-31.2; chapter_id=CH-31; time="18:00 (Dusk)"; where="Шкаф подписи / контроллер доверия"; pov="Мирон"; goal="добыть юридически значимый объект (фиксация)"; measurable="auto_lock_in=90s"; artifact="EL(signature_keys_trusted_module_inventory)"; cmc="без ключей оператор переподпишет/отыграет → изъятие → рычаг контроля"; output="юридическое закрепление силы ОСА"; hook="попытка purge на соседнем сегменте"; tags="hardware, tension, kinetic".
+[FACT][SCA5-004] scene_id=SC-31.1; chapter_id=CH-31; time="17:45 (Sunset)"; where="Узел накопителей (внешний кластер)"; pov="Айдар"; goal="физически закрепить приостановку"; measurable="time_to_lock=9m"; artifact="EL(suspension_enforcement_act)"; cmc="приказ → сопротивление/затяжка оператора → ФССУ изолирует контур"; output="узел под контролем"; hook="борьба за шкаф подписи"; tags="industrial, sunset, kinetic".
+[FACT][SCA5-005] scene_id=SC-31.2; chapter_id=CH-31; time="18:00 (Dusk)"; where="Шкаф подписи / контроллер доверия"; pov="Мирон"; goal="добыть юридически значимый объект (фиксация)"; measurable="auto_lock_in=90s"; artifact="EL(signature_keys_trusted_module_inventory)"; cmc="без ключей оператор переподпишет/отыграет → изъятие → рычаг контроля"; output="юридическое закрепление силы ФССУ"; hook="попытка purge на соседнем сегменте"; tags="hardware, tension, kinetic".
 [FACT][SCA5-006] scene_id=SC-31.3; chapter_id=CH-31; time="18:15 (Dusk)"; where="Серверный сегмент узла"; pov="Лев"; goal="отбить purge и сохранить «как было»"; measurable="purge_in=110s; dump_size=1.4TB"; artifact="EL(kpi_weights_configs_dump_pre)"; cmc="оператор чистит следы → физический дамп → веса «до» сохранены"; output="база для пересчёта получена"; hook="найден пакет KPI v.next"; tags="hacking, timer, flow".
-[FACT][SCA5-007] scene_id=SC-31.4; chapter_id=CH-31; time="18:30 (Dusk)"; where="Внешний периметр"; pov="Айдар"; goal="короткий экшен с последствиями и протоколом"; measurable="duration=45–75s; injuries=1(nonfatal)"; artifact="CD(coercion_record)"; cmc="охрана давит → ОСА удерживает → операция не срывается"; output="контроль сохранён"; hook="осталось ~4 часа"; tags="standoff, action, kinetic".
+[FACT][SCA5-007] scene_id=SC-31.4; chapter_id=CH-31; time="18:30 (Dusk)"; where="Внешний периметр"; pov="Айдар"; goal="короткий экшен с последствиями и протоколом"; measurable="duration=45–75s; injuries=1(nonfatal)"; artifact="CD(coercion_record)"; cmc="охрана давит → ФССУ удерживает → операция не срывается"; output="контроль сохранён"; hook="осталось ~4 часа"; tags="standoff, action, kinetic".
 
 ### CH-32 — The Price of Efficiency
 
@@ -69,8 +69,8 @@ FORBIDDEN: [prose, world_explanations, new_metrics, unscoped_numbers, gap_fillin
 
 ### CH-33 — Visibility
 
-[FACT][SCA5-011] scene_id=SC-33.1; chapter_id=CH-33; time="09:00 (Next Day)"; where="Москва, коммуникационный контур ОСА"; pov="Мирон"; goal="выпуск сводки как инструмент давления"; measurable="public_pages=1; closed_pages=47"; artifact="PRS(summary_plus_annex)"; cmc="прямого наказания нет → давление через риск → оператору становится дорого"; output="включён политико-экономический рычаг"; hook="страховые/регионы требуют действий"; tags="media, publish, flow".
-[FACT][SCA5-012] scene_id=SC-33.2; chapter_id=CH-33; time="10:00 (Next Day)"; where="Реакция системы (монтаж)"; pov="Лев"; goal="показать последствия публикации"; measurable="insurance_risk_coef_delta=+8%; new_audits=+3"; artifact="CD(event_feed_rollup)"; cmc="цифры стали видимыми → риск монетизировался → система реагирует"; output="ОСА больше не тишина"; hook="регулятор готовит урезание лицензии"; tags="chaos, news, kinetic".
+[FACT][SCA5-011] scene_id=SC-33.1; chapter_id=CH-33; time="09:00 (Next Day)"; where="Москва, коммуникационный контур ФССУ"; pov="Мирон"; goal="выпуск сводки как инструмент давления"; measurable="public_pages=1; closed_pages=47"; artifact="PRS(summary_plus_annex)"; cmc="прямого наказания нет → давление через риск → оператору становится дорого"; output="включён политико-экономический рычаг"; hook="страховые/регионы требуют действий"; tags="media, publish, flow".
+[FACT][SCA5-012] scene_id=SC-33.2; chapter_id=CH-33; time="10:00 (Next Day)"; where="Реакция системы (монтаж)"; pov="Лев"; goal="показать последствия публикации"; measurable="insurance_risk_coef_delta=+8%; new_audits=+3"; artifact="CD(event_feed_rollup)"; cmc="цифры стали видимыми → риск монетизировался → система реагирует"; output="ФССУ больше не тишина"; hook="регулятор готовит урезание лицензии"; tags="chaos, news, kinetic".
 
 ### CH-34 — The Settlement
 

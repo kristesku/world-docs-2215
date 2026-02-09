@@ -1,33 +1,32 @@
 ---
-id: REG-OSA-AUTO-LOWIMPACT-2215-0001
+id: REG-FSSU-AUTO-LOWIMPACT-2215-0001
 title: >
-  Реестр — ОСА — Автономные low-impact действия (whitelist) (2215)
+  Реестр — ФССУ — Автономные low-impact действия (whitelist) (2215)
 class: registry
 status: draft
 version: 1.0.0
 prefix: ROLI
 doc_language: ru-RU
 prose_language: ru-RU
-inputs:
-  - REG-OSA-AUTO-LOWIMPACT-2215-0001
+inputs: []
 depends_on:
-  - CANON-OSA-REGIONAL-RU16-2215-0001
+  - CANON-FSSU-REGIONAL-RU16-2215-0001
   - SPEC-DOC-ID-2215-0001
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
   Registry: whitelist типов инцидентов/действий, которые допускаются к автономному
   low-impact исполнению в региональном контуре (например, ГОРОД-2) без активации кейса.
-  Реестр не задаёт процедур и не заменяет критерий юрисдикции ОСА.
+  Реестр не задаёт процедур и не заменяет критерий юрисдикции ФССУ.
 ---
 
 ## LLM-INTENT
 
 ROLE_TYPE: STATE
-SCOPE: register whitelist items for autonomous low-impact actions in OSA regional automation
-INPUTS: [CANON-OSA-REGIONAL-RU16-2215-0001]
+SCOPE: register whitelist items for autonomous low-impact actions in FSSU regional automation
+INPUTS: [CANON-FSSU-REGIONAL-RU16-2215-0001]
 OUTPUTS: [lowimpact_whitelist]
-FORBIDDEN: [procedures, narrative_prose, undefined_terms, redefinition_of_osa_rules]
+FORBIDDEN: [procedures, narrative_prose, undefined_terms, redefinition_of_FSSU_rules]
 
 ## DEFINITIONS
 
@@ -60,11 +59,11 @@ FORBIDDEN: [procedures, narrative_prose, undefined_terms, redefinition_of_osa_ru
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: REG-OSA-AUTO-LOWIMPACT-2215-0001
+doc_id: REG-FSSU-AUTO-LOWIMPACT-2215-0001
 role_type: STATE
 export:
   - metric: lowimpact_whitelist
-    owner_domain: OSA_AUTOMATION
+    owner_domain: FSSU_AUTOMATION
     values:
       core: "ROLI-100..ROLI-190"
       p90: none
@@ -74,14 +73,12 @@ export:
 
 ## FORBIDDEN
 
-[FORBIDDEN][ROLI-980] Ввод процедур активации кейса ОСА в этом реестре; ELSE FAIL.
+[FORBIDDEN][ROLI-980] Ввод процедур активации кейса ФССУ в этом реестре; ELSE FAIL.
 [FORBIDDEN][ROLI-981] Расширение whitelist без явной записи `lowimpact_item`; ELSE FAIL.
 [FORBIDDEN][ROLI-982] Подмена whitelist на “blacklist” или эвристику; ELSE FAIL.
 
 ## NON-NORMATIVE
 
 ~~~text
-Записи WHITELIST представлены как примеры и должны быть заменены/уточнены на основании
-источника REG-OSA-AUTO-LOWIMPACT-2215-0001 (черновик).
 Реестр предназначен для low-impact автономии (например, ГОРОД-2) без активации кейса.
 ~~~

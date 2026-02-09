@@ -61,7 +61,7 @@ FORBIDDEN: [moral_judgements, prose, cultural_exposition, speculative_ethics, mi
 
 ### 1. Protocols of Death (Bio-Recycling)
 
-[RULE][SOC-BIO-010] IF `person.status` == dead THEN `death_disposal_method` MUST be aquamation_only.
+[RULE][SOC-BIO-010] IF `person.status` == dead THEN `death_dispFSSUl_method` MUST be aquamation_only.
 [RULE][SOC-BIO-013] IF `person.status` == dead THEN `bio_recycling` MUST be executed.
 [RULE][SOC-BIO-014] IF `person.status` == dead THEN `water_recovery` MUST be executed.
 [RULE][SOC-BIO-015] IF `person.status` == dead THEN `calcium_material_reuse` MUST be executed.
@@ -146,9 +146,9 @@ doc_id: BASELINE-SOCIAL-2215-0001
 role_type: RULE
 export:
   - rule_id: SOC-BIO-010
-    intent: enforce aquamation-only disposal at LEVEL-MID
+    intent: enforce aquamation-only dispFSSUl at LEVEL-MID
     inputs: [person.status]
-    outputs: [death_disposal_method]
+    outputs: [death_dispFSSUl_method]
   - rule_id: SOC-NET-010
     intent: classify offline status in public as suspect
     inputs: [zone, user.status]

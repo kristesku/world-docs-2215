@@ -1,5 +1,5 @@
 ---
-id: SCENE-GEN-PROTOCOL-0001
+id: PROTOCOL-SCENE_GEN-2215-0001
 title: >
   Scene Generation Protocol — Chapter Prose Writing Rules (2215)
 class: protocol
@@ -21,7 +21,7 @@ depends_on:
 scope: >
   Интерфейсный протокол генерации художественного текста глав.
   Определяет контракт входов/выходов и допустимые формы прозы/структуры.
-  Легальность сцены, override-триггеры и доказательность валидируются
+  Легальность сцены и доказательность валидируются
   только через SPEC-SCENE-CONTRACT-2215-0001 (предварительная проверка).
 ---
 
@@ -31,7 +31,7 @@ ROLE_TYPE: INTERFACE
 SCOPE: define input/output and prose/structure constraints for deterministic chapter generation (compiler-grade)
 INPUTS: [chapter_card, active_CANON_set, SPEC-SCENE-CONTRACT-2215-0001]
 OUTPUTS: [chapter_prose_text, inline_artifact_extracts]
-FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, implicit_overrides, unscoped_numbers]
+FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, unscoped_numbers]
 
 ## DEFINITIONS
 
@@ -111,7 +111,7 @@ FORBIDDEN: [plan_text, analysis_text, meta_commentary, world_explanations, impli
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: SCENE-GEN-PROTOCOL-0001
+doc_id: PROTOCOL-SCENE_GEN-2215-0001
 role_type: INTERFACE
 input_contract:
   required:
@@ -148,5 +148,5 @@ notes:
 
 ~~~text
 This document is a prose compiler interface.
-Legality/admissibility/override costs are validated upstream by the Scene Contract.
+Legality/admissibility costs are validated upstream by the Scene Contract.
 ~~~

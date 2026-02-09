@@ -10,7 +10,7 @@ doc_language: ru-RU
 prose_language: ru-RU
 inputs: []
 depends_on:
-  - BASELINE-DAILYOPS-2215-0002
+  - BASELINE-DAILY_OPS-2215-0002
   - BASELINE-SOCIAL-2215-0001
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
@@ -55,16 +55,16 @@ FORBIDDEN: [world_parameter_binding, ssot_direct_usage, lecture_exposition, impl
 ### 1) Mandatory Inputs (what every scene must assume)
 
 [RULE][SCN-030] Every scene MUST assume background defaults from `scene_default_sources`; ELSE FAIL.
-[RULE][SCN-031] IF scene references OSA actions OR admissibility THEN scene MUST additionally assume `scene_osa_required_sources`; ELSE FAIL.
+[RULE][SCN-031] IF scene references FSSU actions OR admissibility THEN scene MUST additionally assume `scene_FSSU_required_sources`; ELSE FAIL.
 
 ~~~yaml
 scene_default_sources:
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
   - BASELINE-SOCIAL-2215-0001
-  - BASELINE-DAILYOPS-2215-0002
+  - BASELINE-DAILY_OPS-2215-0002
 
-scene_osa_required_sources:
+scene_FSSU_required_sources:
   - CANON-ORDERS-GLOBAL-2215-0003
   - CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
@@ -91,11 +91,11 @@ override_required_fields:
 ### 3) Evidence Discipline (how the scene proves things without exposition)
 
 [RULE][SCN-050] IF scene asserts a system decision (deny/access/freeze/restrict) THEN it MUST be grounded in artifact OR observable_procedure; ELSE FAIL.
-[RULE][SCN-051] IF scene asserts escalation to OSA OR regulatory action THEN it MUST bind `osa_binding_min_fields`; ELSE FAIL.
+[RULE][SCN-051] IF scene asserts escalation to FSSU OR regulatory action THEN it MUST bind `FSSU_binding_min_fields`; ELSE FAIL.
 [RULE][SCN-052] Scene MAY embed short artifact snippets, but MUST keep them partial (snippet), not full documents; ELSE FAIL.
 
 ~~~yaml
-osa_binding_min_fields:
+FSSU_binding_min_fields:
   - case_id_or_equivalent
   - scope
   - procedural_basis

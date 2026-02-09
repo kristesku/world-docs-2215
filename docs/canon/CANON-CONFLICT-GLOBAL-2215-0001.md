@@ -35,7 +35,7 @@ FORBIDDEN: [world_parameter_binding, baseline_defaults, causal_chain_markup_in_c
 [FACT][CNF-DEF-011] Priority Paradox (The Glitch) = Situation where two valid algorithms contradict, requiring human override.
 [FACT][CNF-DEF-012] `system_agent` = человек, действующий как функция оптимизационного контура; не злодей, не заговорщик.
 [FACT][CNF-DEF-013] `conflict_layer` ∈ {L1_algorithmic_harm, L2_extraterritory, L3_supply_chain, L4_legal_void}.
-[FACT][CNF-DEF-014] `case` = процедурный кейс ОСА, раскрывающий один или несколько conflict_layer.
+[FACT][CNF-DEF-014] `case` = процедурный кейс ФССУ, раскрывающий один или несколько conflict_layer.
 [FACT][CNF-DEF-015] `case_layer_map` = маппинг case_id → список conflict_layer, раскрываемых кейсом.
 
 ## INVARIANTS
@@ -79,7 +79,7 @@ FORBIDDEN: [world_parameter_binding, baseline_defaults, causal_chain_markup_in_c
 #### Layer 2 — Extraterritory as deviation container (L2)
 [STATE][CNF-110] layer_2 = L2_extraterritory.
 [RULE][CNF-111] deviations_concentrate_in_special_modes = true.
-[RULE][CNF-112] osa_access_is_harder_by_default = true.
+[RULE][CNF-112] FSSU_access_is_harder_by_default = true.
 
 #### Layer 3 — Supply chains as pressure weapon (L3)
 [STATE][CNF-120] layer_3 = L3_supply_chain.
@@ -93,7 +93,7 @@ FORBIDDEN: [world_parameter_binding, baseline_defaults, causal_chain_markup_in_c
 
 ### 4. Protagonist and Leverage (No superheroism)
 
-[STATE][CNF-200] protagonist_org = OSA.
+[STATE][CNF-200] protagonist_org = FSSU.
 [STATE][CNF-201] team_profile = {size: 7-9, narrative_ratio: 60_procedure_40_operation, includes_operator_liaison: true}.
 
 [STATE][CNF-210] leverage = protocol_operator.

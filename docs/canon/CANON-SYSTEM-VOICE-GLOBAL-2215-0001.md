@@ -12,7 +12,7 @@ depends_on:
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон «голоса системы»: как показывать оптимизацию/наблюдаемость/комплаенс
+  RULE-канон «голФССУ системы»: как показывать оптимизацию/наблюдаемость/комплаенс
   через краткие машинные вставки (уведомления/логи/рекомендации/строки отчёта),
   без очеловечивания. Фиксирует источники, типы событий, обязательные поля,
   допустимые метрики, стиль и запреты.
@@ -44,7 +44,7 @@ FORBIDDEN:
 ## DEFINITIONS
 
 [FACT][SVO-DEF-010] system_voice_insert = machine_message excerpt (notification/log/recommendation/report_line).
-[FACT][SVO-DEF-011] evidence_link = linkage via refs {case_id, evidence_refs[], order_refs[]} to OSA artifacts.
+[FACT][SVO-DEF-011] evidence_link = linkage via refs {case_id, evidence_refs[], order_refs[]} to FSSU artifacts.
 [FACT][SVO-DEF-012] classification ∈ {public, restricted, secret}.
 [FACT][SVO-DEF-013] confidence ∈ {low, med, high}.
 [FACT][SVO-DEF-014] enum_expansion_requires = explicit_override_doc.
@@ -55,7 +55,7 @@ FORBIDDEN:
 
 [DECISION][SVO-INV-010] System voice MUST exist only as machine messages and MUST NOT be a character.
 [DECISION][SVO-INV-011] Every insert MUST be short, procedural, and scope-checkable.
-[DECISION][SVO-INV-012] Inserts MUST NOT replace OSA work; causality MUST be established via CM/FM.
+[DECISION][SVO-INV-012] Inserts MUST NOT replace FSSU work; causality MUST be established via CM/FM.
 
 ---
 
@@ -208,6 +208,6 @@ export:
   "decision": "accepted",
   "confidence": "high",
   "statement": "Service class downgraded under binding constraints. Forecast loss recorded.",
-  "refs": { "case_id": "OSA-2215-RU-16-0007", "evidence_refs": ["E-002"], "order_refs": [] }
+  "refs": { "case_id": "FSSU-2215-RU-16-0007", "evidence_refs": ["E-002"], "order_refs": [] }
 }
 ~~~

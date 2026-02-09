@@ -2,12 +2,12 @@
 id: REG-UNKNOWN-2215-0001
 title: >
   UNKNOWN Registry — 2215 Corpus
-  (Extraction: BASELINE-PHYSICALLEVELMID-2215-0001)
+  (Extraction: BASELINE-PHYSICAL_LEVEL_MID-2215-0001)
 class: registry
 status: draft
 version: 1.0.0
 inputs:
-  - BASELINE-PHYSICALLEVELMID-2215-0001
+  - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
 scope: >
@@ -20,7 +20,7 @@ scope: >
 
 ROLE_TYPE: STATE
 SCOPE: track and control consciously unresolved world assumptions (UNKNOWNs).
-INPUTS: [BASELINE-PHYSICALLEVELMID-2215-0001]
+INPUTS: [BASELINE-PHYSICAL_LEVEL_MID-2215-0001]
 OUTPUTS: [unknown_records]
 FORBIDDEN: [implicit_resolution, silent_assumptions, narrative_filling]
 

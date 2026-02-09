@@ -4,7 +4,6 @@ title: >
   SSOT Document Style Guide — LLM-Executable Corpus Standard (2215)
 class: spec
 status: fixed
-version: 1.0.4
 prefix: STYLE
 doc_language: ru-RU
 prose_language: ru-RU
@@ -36,7 +35,7 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [FACT][STYLE-015] `statement_id` = стабильный идентификатор вида `<DOCPREFIX>-NNN<SFX>`, где `NNN` — трёхзначный номер, а `<SFX>` — опциональный суффикс `A..Z` для разветвления/уточнения без перенумерации.
 [FACT][STYLE-016] `docprefix` = префикс для `statement_id`, задаваемый явно в YAML как `prefix:` ИЛИ выводимый как единственный общий префикс всех `statement_id` в документе.
 [FACT][STYLE-017] `ROLE_TYPE` = семантическая роль документа: STATE | RULE | BIND | INTERFACE | INDEX.
-[FACT][STYLE-018] `doc_class` = класс документа по YAML `class:` (ssot|baseline|canon|spec|protocol|idx|registry|plan|scene|override и др. по проекту).
+[FACT][STYLE-018] `doc_class` = класс документа по YAML `class:` (ssot|baseline|canon|spec|protocol|idx|registry|plan|scene и др. по проекту).
 [FACT][STYLE-019] `NON-NORMATIVE` = раздел комментариев/примеров, не являющийся источником правил или фактов.
 
 [FACT][STYLE-020A] `structural_heading_line` = строка Markdown-заголовка уровня H3 (`### ...`), используемая только для визуальной/навигационной группировки.
@@ -45,6 +44,16 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [FACT][STYLE-020D] `statement_line` = непустая строка, удовлетворяющая `STYLE-059A`.
 [FACT][STYLE-020E] `fenced_machine_block` = fenced block, ограниченный строками `~~~` (опциональный язык после opening fence), закрывающийся строкой `~~~`.
 [FACT][STYLE-020F] `allowed_normative_line_type` = {statement_line, statement_continuation_line, fenced_machine_block, structural_heading_line, markdown_table_line}.
+
+[FACT][STYLE-210] `doc_id_reference_token` = токен в тексте, который должен считаться ссылкой на документ корпуса, PASS IFF он matches regex `\b[A-Z0-9]+(?:-[A-Z0-9]+)+-[0-9]{4}\b`.
+[FACT][STYLE-211] `explicit_dependency_set` = `hard_dependency_set` из YAML front_matter текущего документа.
+[FACT][STYLE-212] `corpus_registry` = closed-world реестр doc_id корпуса (IDX-CORPUS как источник истины для членства).
+[FACT][STYLE-213] `superseded_by` = YAML-ключ, указывающий doc_id, который заменяет deprecated документ.
+[FACT][STYLE-214] `inputs` = список doc_id, чьи `OUTPUT CONTRACT.export` непосредственно потребляются текущим документом как входные данные (data-flow dependency).  
+[FACT][STYLE-215] `depends_on` = список doc_id, на которые документ опирается нормативно/семантически, но не потребляет их `OUTPUT CONTRACT.export` напрямую (semantic dependency).  
+[FACT][STYLE-216] `hard_dependency_set` = `inputs ∪ depends_on`.  
+[FACT][STYLE-217] `inputs_contract_surface` = объединение `OUTPUT CONTRACT.export` документов из `inputs` (и только из `inputs`).
+[FACT][STYLE-218] `doc_id_segment_token` = сегмент doc_id между дефисами; PASS IFF matches `^[A-Z0-9]+(?:_[A-Z0-9]+)*$`.
 
 [FACT][STYLE-260] `doc_language` = IETF language tag, заданный в YAML как `doc_language: <tag>`, определяющий основной язык недиегетического текста документа.
 [FACT][STYLE-270] `prose_language` = IETF language tag, заданный в YAML как `prose_language: <tag>`, определяющий обязательный язык диетического вывода (прозы), который документ ограничивает.
@@ -59,6 +68,8 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 ## INVARIANTS
 
 [DECISION][STYLE-030] Этот документ сам должен быть COMPLIANT по собственному стандарту (вариант A: self-application).
+[DECISION][STYLE-030A] Любой документ класса `spec`, имеющий ROLE_TYPE=RULE, MUST быть COMPLIANT по SPEC-DOC-STYLE-2215-0001; ELSE FAIL (self-consistency gate).
+[DECISION][STYLE-030B] Любой документ с ROLE_TYPE=RULE MUST быть COMPLIANT по SPEC-DOC-STYLE-2215-0001; ELSE FAIL (rule-doc self-consistency).
 [DECISION][STYLE-031] В корпусе допускается ровно один `skeleton` для всех документов; исключения возможны только через явный `[DECISION]` в документе-стандарте и должны быть машиночитаемыми.
 [DECISION][STYLE-032] Любая неоднозначность, позволяющая LLM выбрать “как удобнее”, трактуется как determinism hazard и должна устраняться правилом или lint gate.
 [DECISION][STYLE-033A] Любое правило в этом стандарте MUST быть формулируемо как проверяемый предикат; если предикат не определён, правило считается INVALID.
@@ -85,32 +96,51 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 ### 2. Mandatory Document Skeleton (top-level sections)
 
 [DECISION][STYLE-020] All documents MUST include the following H2 sections in this exact order (sections may be empty but MUST exist):
-[DECISION][STYLE-021] 1) `## LLM-INTENT`
-[DECISION][STYLE-022] 2) `## DEFINITIONS`
-[DECISION][STYLE-023] 3) `## INVARIANTS`
-[DECISION][STYLE-024] 4) `## CONTENT`
-[DECISION][STYLE-025] 5) `## USAGE / RESOLUTION`
-[DECISION][STYLE-026] 6) `## OUTPUT CONTRACT`
-[DECISION][STYLE-027] 7) `## FORBIDDEN`
-[DECISION][STYLE-028] 8) `## NON-NORMATIVE` (optional; if absent, examples are forbidden).
+[DECISION][STYLE-021] 1. `## LLM-INTENT`
+[DECISION][STYLE-022] 2. `## DEFINITIONS`
+[DECISION][STYLE-023] 3. `## INVARIANTS`
+[DECISION][STYLE-024] 4. `## CONTENT`
+[DECISION][STYLE-025] 5. `## USAGE / RESOLUTION`
+[DECISION][STYLE-026] 6. `## OUTPUT CONTRACT`
+[DECISION][STYLE-027] 7. `## FORBIDDEN`
+[DECISION][STYLE-028] 8. `## NON-NORMATIVE` (optional; if absent, examples are forbidden).
 [DECISION][STYLE-029] Headers MUST match exactly (case-sensitive; exact bytes).
 [FORBIDDEN][STYLE-033] Any additional top-level (H2) sections outside the skeleton.
 [FORBIDDEN][STYLE-034] Any `yaml_delimiter_line` inside the document body (segmentation hazard).
 [DECISION][STYLE-095] Structural H3 headings are permitted ONLY as `### <title>` lines inside `## CONTENT` and `## NON-NORMATIVE`; ELSE FAIL.
 [DECISION][STYLE-096] H3 structural heading line MUST match regex: `^###\s.+$`; ELSE FAIL.
 [FORBIDDEN][STYLE-097] Heading levels H4+ (`####` and deeper) are forbidden in all sections; ELSE FAIL.
+[FORBIDDEN][STYLE-099] H3 headings with numeric prefix `N)` are forbidden (editor noise / noncanonical numbering).
+[DECISION][STYLE-099A] PASS IFF any H3 heading that begins with digits matches `^###\s[0-9]+\.\s.+$`; ELSE FAIL.
 
 ### 2.1 YAML front-matter (normalization; deterministic parsing)
 
 [DECISION][STYLE-130] Any corpus document that is consumed as an input (i.e., referenced by `inputs`/`depends_on` or listed in IDX registry) MUST include `front_matter`.
-[DECISION][STYLE-131] `front_matter` MUST include keys: `id`, `title`, `class`, `status`, `version`, `scope`, `inputs`, `depends_on`.
+[DECISION][STYLE-131] `front_matter` MUST include keys: `id`, `title`, `class`, `status`, `scope`, `inputs`, `depends_on`.
 [DECISION][STYLE-132] `inputs` and `depends_on` MUST be present; when empty they MUST be `[]`; when non-empty they MUST be YAML block lists (`- <id>`) sorted lexicographically ascending.
-[DECISION][STYLE-133] `id` MUST be ASCII uppercase with digits and hyphens only (`[A-Z0-9-]+`) and MUST be unique within the corpus membership registry.
-[DECISION][STYLE-134] `version` MUST be semver-compatible (`MAJOR.MINOR.PATCH`).
+[DECISION][STYLE-133] `id` MUST be ASCII uppercase with digits, hyphens, and underscores only (`[A-Z0-9_-]+`) and MUST be unique within the corpus membership registry.
 [DECISION][STYLE-135] `status` MUST be one of: `draft` | `fixed` | `deprecated`.
-[DECISION][STYLE-136] Non-core YAML keys are allowed ONLY if they are either standardized in this spec (e.g., `prefix`, `doc_language`, `prose_language`, `dataset_id`, `record_format_id`) OR prefixed with `x_`.
+[DECISION][STYLE-135A] IF `status=deprecated` THEN front_matter MUST include `superseded_by: <doc_id>`; ELSE FAIL.
+[FORBIDDEN][STYLE-135B] New or modified documents MUST NOT declare `inputs`/`depends_on` referencing deprecated docs; ELSE FAIL.
+[DECISION][STYLE-136] Non-core YAML keys are allowed ONLY if they are either standardized in this spec (e.g., `prefix`, `doc_language`, `prose_language`, `dataset_id`, `record_format_id`, `superseded_by`, `changelog`, `topic_label`) OR prefixed with `x_`.
 [FORBIDDEN][STYLE-137] YAML anchors, aliases, and merge keys (parsing ambiguity).
 [FORBIDDEN][STYLE-138] Tabs in YAML or body text (parser ambiguity); indentation MUST be spaces only.
+[RULE][STYLE-139A] PASS IFF `inputs ∩ depends_on = ∅`; ELSE FAIL.  
+[RULE][STYLE-139B] PASS IFF any doc_id in `inputs` is required to interpret the document’s `OUTPUT CONTRACT.export`; ELSE FAIL (anti-bloat rule).  
+[RULE][STYLE-139C] PASS IFF any doc_id in `depends_on` is NOT required to interpret the document’s `OUTPUT CONTRACT.export`; ELSE FAIL (boundary rule).
+
+### 2.2 File-level invariants (byte stability; parser safety)
+
+[RULE][STYLE-190] PASS IFF file encoding is UTF-8 and contains no BOM; ELSE FAIL.
+[RULE][STYLE-191] PASS IFF file uses LF line endings only (`\n`), no CRLF; ELSE FAIL.
+[RULE][STYLE-192] PASS IFF no line has trailing whitespace; ELSE FAIL.
+[RULE][STYLE-193] PASS IFF file ends with exactly one newline; ELSE FAIL.
+
+### 2.3 Reference integrity (closed-world; explicit dependencies)
+
+[RULE][STYLE-200A] PASS IFF every doc_id in `inputs` and `depends_on` exists in `corpus_registry`; ELSE FAIL.
+[RULE][STYLE-200B] PASS IFF corpus dependency graph over `inputs ∪ depends_on` is acyclic (DAG); ELSE FAIL.
+[RULE][STYLE-200C] PASS IFF any `doc_id_reference_token` present in normative sections is either (a) in `explicit_dependency_set` OR (b) equals current document `id`; ELSE FAIL.
 
 ### 3. LLM-INTENT block (required; machine header)
 
@@ -134,12 +164,16 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [DECISION][STYLE-049] ROLE_TYPE: INDEX → allowed tags: [DECISION], [FORBIDDEN] (tables in CONTENT are allowed).
 [DECISION][STYLE-050] Every `statement` MUST have a stable ID: `[TAG][<DOCPREFIX>-NNN<SFX>]`.
 [DECISION][STYLE-051] `DOCPREFIX` MUST be declared in YAML as `prefix:` OR MUST be inferable as the unique common prefix of all `statement_id` in the document; otherwise lint MUST fail.
+[RULE][STYLE-051A] PASS IFF YAML `prefix` is globally unique within `corpus_registry`; ELSE FAIL.
 [DECISION][STYLE-052] New `statement_id`s MUST allocate `NNN` as 3 digits and MUST increment by 10 for edit headroom (010, 020, ...); optional suffix `A..Z` is allowed only to split/branch an existing `NNN` without renumbering.
 [DECISION][STYLE-053] IDs MUST be stable across edits; rewriting MUST preserve existing IDs verbatim.
 [FORBIDDEN][STYLE-054] “Floating bullets” without `[TAG][ID]` in any normative section.
 [DECISION][STYLE-055] Statement physical length MUST be ≤ 3 lines.
 [DECISION][STYLE-055A] Any statement continuation lines MUST match `statement_continuation_line` and MUST appear only immediately after a statement line; total lines (statement + continuations) MUST be ≤ 3; ELSE FAIL.
 [FORBIDDEN][STYLE-056] Multi-paragraph statements.
+[DECISION][STYLE-056A] Enumerated list markers inside statement text MUST use dot form only: `N.`; ELSE FAIL.
+[FORBIDDEN][STYLE-056B] Parenthesis enumeration marker `N)` is forbidden anywhere in statement text (normalization rule).
+[DECISION][STYLE-056C] PASS IFF statement text does NOT contain regex `\b[0-9]+\)`; ELSE FAIL.
 [DECISION][STYLE-057] Markdown emphasis (`**`, `_`) MUST NOT carry meaning; structure MUST be expressed by tags/ids/keys.
 [FORBIDDEN][STYLE-058] Using bold/italic as structure or as a proxy for tags.
 [DECISION][STYLE-059] Any new term used as a normative token MUST be defined in the same document under `## DEFINITIONS`; corpus-wide terms MUST be promoted only via the canonical vocabulary doc (e.g., `CANON-VOCAB-GLOBAL-2215-0001`).
@@ -209,7 +243,7 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [DECISION][STYLE-092] Ownership names MUST match the interface index (project-owned enum set).
 [DECISION][STYLE-093] Metric IDs MUST be snake_case and stable.
 [FORBIDDEN][STYLE-094] Reusing the same metric name for different meanings.
-[DECISION][STYLE-094A] Reserved keywords for corpus semantics are: ARTIFACT, BUNDLE, CONTRACT, GATE, LOCK, OVERRIDE, REGISTRY, PACK.
+[DECISION][STYLE-094A] Reserved keywords for corpus semantics are: ARTIFACT, BUNDLE, CONTRACT, GATE, LOCK, REGISTRY, PACK.
 [FORBIDDEN][STYLE-094B] Using synonyms for reserved keywords in normative sections (e.g., “package” вместо PACK, “checkpoint” вместо GATE).
 
 ### 9. Numbers, units, strings, UNKNOWN
@@ -263,8 +297,8 @@ doc_id: <id>
 role_type: BIND
 export:
   - metric: <metric_id>
-    selected_value: core|p90|override
-    scope: baseline|canon|override
+    selected_value: core|p90
+    scope: baseline|canon
     justification: <rule_id>
 ~~~
 
@@ -290,6 +324,7 @@ export:
 [DECISION][STYLE-116A] Any spec that defines lint MUST export machine-readable lint configuration in OUTPUT CONTRACT as YAML (no prose).
 [FORBIDDEN][STYLE-117] Omitting OUTPUT CONTRACT even if `export` is empty.
 [FORBIDDEN][STYLE-118] Using freeform prose in OUTPUT CONTRACT instead of machine-readable schema.
+[RULE][STYLE-118A] PASS IFF OUTPUT CONTRACT YAML conforms to the role-specific schema template for the declared ROLE_TYPE; ELSE FAIL.
 
 ### 11. Rewrite protocol (deterministic transformation)
 
@@ -308,6 +343,7 @@ export:
 [DECISION][STYLE-152] If `doc_language` is missing, rewrite MUST set it to `ru-RU` by default unless explicitly requested otherwise; prose constraints MUST keep `prose_language: ru-RU`.
 [DECISION][STYLE-153] If the document contains TYPE C records, rewrite MUST preserve the declared `record_format_id` (or set it explicitly) and MUST NOT silently convert encodings (e.g., KV → JSON) without an explicit request.
 [DECISION][STYLE-154] Any newly introduced corpus-wide term during rewrite MUST be added either to local `## DEFINITIONS` (local scope) or to the canonical vocabulary doc; silent “new term without definition” is forbidden.
+[RULE][STYLE-155] Rewrite of a COMPLIANT document MUST produce byte-identical output; ELSE FAIL (idempotency rule).
 
 ### 12. Compliance checklist (mechanical gates)
 
@@ -328,6 +364,11 @@ doc_id: SPEC-DOC-STYLE-2215-0001
 role_type: RULE
 export:
   - rule_id_prefix: STYLE
+    dependency_semantics:
+      inputs_meaning: "consumes inputs_contract_surface (OUTPUT CONTRACT export) as data-flow dependency"
+      depends_on_meaning: "semantic dependency; does not consume export"
+      require_disjoint_sets: true
+      hard_dependency_set: "inputs ∪ depends_on"
     corpus_language_policy:
       doc_language_allowed: ["ru-RU","en-US"]
       prose_language_required: "ru-RU"
@@ -350,11 +391,23 @@ export:
       - "NON-NORMATIVE"
     allowed_role_types: ["STATE","RULE","BIND","INTERFACE","INDEX"]
     allowed_tags: ["FACT","ASSUMPTION","PROJECTION","DECISION","FORBIDDEN","UNKNOWN","STATE","RULE","BIND"]
-    statement_line_regex: '^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9]+-[0-9]{3}[A-Z]?\]\s.+$'
+    statement_line_regex: '^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9_]+-[0-9]{3}[A-Z]?\]\s.+$'
+    forbid_enumeration_paren_regex:
+      regex: '\b[0-9]+\)'
+      applies_to: statement_text
+    doc_id_reference_token_regex: '\b[A-Z0-9]+(?:-[A-Z0-9]+)+-[0-9]{4}\b'
+    file_invariants:
+      encoding: "utf-8"
+      forbid_bom: true
+      line_endings: "LF"
+      forbid_trailing_whitespace: true
+      require_single_final_newline: true
     structural_line_policy:
       h3_regex: '^###\s.+$'
       allowed_sections: ["CONTENT","NON-NORMATIVE"]
       forbid_h4_plus: true
+      forbid_h3_numeric_paren_prefix: true
+      require_h3_numeric_dot_prefix: true
     statement_continuation_regex: '^ {2}\S.*$'
     structural_heading_regex: '^###\s.+$'
     markdown_table_regex:
@@ -368,8 +421,6 @@ export:
         intent: "no extra H2 sections"
       - gate_id: STYLE-LINT-002
         intent: "every normative line is a tagged statement with stable id OR allowed structural line"
-      - gate_id: STYLE-LINT-015
-        intent: "H3 headings allowed only in CONTENT/NON-NORMATIVE; H4+ forbidden"
       - gate_id: STYLE-LINT-003
         intent: "LLM-INTENT has required keys and <=20 lines"
       - gate_id: STYLE-LINT-004
@@ -394,6 +445,26 @@ export:
         intent: "no forbidden modals/softeners in normative sections"
       - gate_id: STYLE-LINT-014
         intent: "no consumption of non-export content is allowed"
+      - gate_id: STYLE-LINT-015
+        intent: "H3 headings allowed only in CONTENT/NON-NORMATIVE; H4+ forbidden"
+      - gate_id: STYLE-LINT-016
+        intent: "forbid enumeration marker N) in any statement text; require N. if numbering is used"
+      - gate_id: STYLE-LINT-017
+        intent: "file encoding is UTF-8 without BOM"
+      - gate_id: STYLE-LINT-018
+        intent: "line endings are LF only"
+      - gate_id: STYLE-LINT-019
+        intent: "no trailing whitespace and exactly one final newline"
+      - gate_id: STYLE-LINT-020
+        intent: "all depends_on/inputs IDs exist in corpus_registry (IDX-CORPUS)"
+      - gate_id: STYLE-LINT-021
+        intent: "dependency graph is acyclic (DAG)"
+      - gate_id: STYLE-LINT-022
+        intent: "deprecated workflow: deprecated requires superseded_by; new deps must not reference deprecated docs"
+      - gate_id: STYLE-LINT-023
+        intent: "any doc_id reference token in normative sections is declared in inputs/depends_on (except self)"
+      - gate_id: STYLE-LINT-024
+        intent: "OUTPUT CONTRACT YAML conforms to role-specific schema template"
   - rewrite_protocol:
       - "STYLE-140"
       - "STYLE-141"
@@ -410,6 +481,7 @@ export:
       - "STYLE-152"
       - "STYLE-153"
       - "STYLE-154"
+      - "STYLE-155"
 ~~~
 
 ## FORBIDDEN
@@ -422,7 +494,7 @@ export:
 [FORBIDDEN][STYLE-905] Auto-transliteration/back-transliteration of any proper names or toponyms (ru↔lat) without explicit canon/alias declaration.
 [FORBIDDEN][STYLE-906] Emitting diegetic prose in any language other than `prose_language: ru-RU`.
 [FORBIDDEN][STYLE-907] Changing `record_format_id` or mixing record encodings inside a dataset without an explicit exemption statement.
-[FORBIDDEN][STYLE-908] Using synonyms for reserved keywords (CONTRACT/GATE/LOCK/OVERRIDE/REGISTRY/PACK) in normative sections.
+[FORBIDDEN][STYLE-908] Using synonyms for reserved keywords (CONTRACT/GATE/LOCK/REGISTRY/PACK) in normative sections.
 
 ## NON-NORMATIVE
 
@@ -435,7 +507,6 @@ title: >
   Example Doc
 class: canon
 status: draft
-version: 0.1.0
 prefix: EXA
 doc_language: en-US
 prose_language: ru-RU
@@ -471,11 +542,11 @@ FORBIDDEN: []
 
 ## OUTPUT CONTRACT
 
-~~~yaml
+OUTPUT_CONTRACT_YAML_BEGIN
 doc_id: EXAMPLE-0001
 role_type: RULE
 export: []
-~~~
+OUTPUT_CONTRACT_YAML_END
 
 ## FORBIDDEN
 
@@ -484,3 +555,4 @@ export: []
 ## NON-NORMATIVE
 
 (empty)
+~~~

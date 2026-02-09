@@ -1,21 +1,20 @@
 ---
-id: CANON-OSA-CITYVIEW-RU16-2215-0001
+id: CANON-FSSU-CITYVIEW-RU16-2215-0001
 title: >
-  ОСА — RU-16 — ГОРОД-1 / ГОРОД-2 — представления System, границы автономии и эскалация (2215)
+  ФССУ — RU-16 — ГОРОД-1 / ГОРОД-2 — представления System, границы автономии и эскалация (2215)
 class: canon
 status: draft
 version: 1.0.0
 prefix: OCV
 doc_language: ru-RU
 prose_language: ru-RU
-inputs:
-  - THESIS-OSA-CITY-VIEWS-2215-0001
+inputs: []
 depends_on:
-  - CANON-OSA-GLOBAL-2215-0005
-  - CANON-OSA-REGIONAL-RU16-2215-0001
-  - CANON-OSA-DEPT-STRUCT-RU16-2215-0001
+  - CANON-FSSU-GLOBAL-2215-0005
+  - CANON-FSSU-REGIONAL-RU16-2215-0001
+  - CANON-FSSU-DEPT-STRUCT-RU16-2215-0001
   - CANON-SYSTEM-ONTOLOGY-2215-0001
-  - REG-OSA-AUTO-LOWIMPACT-2215-0001
+  - REG-FSSU-AUTO-LOWIMPACT-2215-0001
   - SPEC-DOC-ID-2215-0001
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
@@ -30,7 +29,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: define CITYVIEW_1 and CITYVIEW_2 as regional representations with autonomy boundaries and mandatory escalation rules
-INPUTS: [THESIS-OSA-CITY-VIEWS-2215-0001]
+INPUTS: []
 OUTPUTS: [cityview_definitions, autonomy_limits, escalation_rules, responsibility_constraints]
 FORBIDDEN: [implementation_details, model_architecture, narrative_prose, scene_text]
 
@@ -38,8 +37,8 @@ FORBIDDEN: [implementation_details, model_architecture, narrative_prose, scene_t
 
 [FACT][OCV-010] `city_view_1` = ГОРОД-1: аналитическое представление потока сигналов/инцидентов, предназначенное для корреляции и генерации гипотез.
 [FACT][OCV-020] `city_view_2` = ГОРОД-2: исполнительное представление low-impact действий и маршрутизации, ограниченное whitelist.
-[FACT][OCV-030] `managed_system` = System, наблюдаемая/затрагиваемая ОСА (см. SONT-010).
-[FACT][OCV-040] `osa_ai_stack` = ИИ-контур ОСА, независимый от `managed_system` (см. CANON-OSA-GLOBAL-2215-0005).
+[FACT][OCV-030] `managed_system` = System, наблюдаемая/затрагиваемая ФССУ (см. SONT-010).
+[FACT][OCV-040] `FSSU_ai_stack` = ИИ-контур ФССУ, независимый от `managed_system` (см. CANON-FSSU-GLOBAL-2215-0005).
 [FACT][OCV-050] `critical_window` = ограниченное время, в течение которого промедление приводит к необратимому росту Impact или потере артефактов.
 [FACT][OCV-060] `mandatory_escalation` = обязательная передача в human gate/кейс при выполнении условий эскалации.
 
@@ -47,13 +46,13 @@ FORBIDDEN: [implementation_details, model_architecture, narrative_prose, scene_t
 
 [FORBIDDEN][OCV-100] Трактовка ГОРОД-1/ГОРОД-2 как субъекта, воли, намеренного врага или “персонифицированного антагониста”.
 
-[DECISION][OCV-110] ГОРОД-1/ГОРОД-2 MUST быть частью `osa_ai_stack` и MUST NOT входить в контуры `managed_system`.
+[DECISION][OCV-110] ГОРОД-1/ГОРОД-2 MUST быть частью `FSSU_ai_stack` и MUST NOT входить в контуры `managed_system`.
 
 [DECISION][OCV-120] ГОРОД-1/ГОРОД-2 MUST быть независимы от управляемой System по доступам и контурам принятия решений.
 
 [FORBIDDEN][OCV-130] ГОРОД-1/ГОРОД-2 принимают юридически значимые решения без визы человека.
 
-[DECISION][OCV-140] Любое действие ГОРОД-2 MUST быть ограничено whitelist REG-OSA-AUTO-LOWIMPACT-2215-0001.
+[DECISION][OCV-140] Любое действие ГОРОД-2 MUST быть ограничено whitelist REG-FSSU-AUTO-LOWIMPACT-2215-0001.
 
 [DECISION][OCV-150] При наступлении `critical_window` MUST выполняться `mandatory_escalation`.
 
@@ -68,7 +67,7 @@ FORBIDDEN: [implementation_details, model_architecture, narrative_prose, scene_t
 
 ### 2. Local Adaptation
 
-[DECISION][OCV-300] `osa_ai_stack.local_adaptation` MAY include "ru16_local_finetune_on_observability_patterns".
+[DECISION][OCV-300] `FSSU_ai_stack.local_adaptation` MAY include "ru16_local_finetune_on_observability_patterns".
 [FORBIDDEN][OCV-310] Локальная адаптация MUST NOT изменять значения определений SONT-010..060.
 
 ### 3. Autonomy Boundaries
@@ -76,7 +75,7 @@ FORBIDDEN: [implementation_details, model_architecture, narrative_prose, scene_t
 [RULE][OCV-400] IF `city_view_1.outputs` produced THEN `human_gate.review_required` MUST be true; ELSE FAIL.
 [RULE][OCV-410] IF `human_gate.review_required` = true THEN `human_gate.visa` MUST be true; ELSE FAIL.
 
-[RULE][OCV-420] IF `city_view_2.executes_action` = true THEN `action.type` MUST be in whitelist(REG-OSA-AUTO-LOWIMPACT-2215-0001); ELSE FAIL.
+[RULE][OCV-420] IF `city_view_2.executes_action` = true THEN `action.type` MUST be in whitelist(REG-FSSU-AUTO-LOWIMPACT-2215-0001); ELSE FAIL.
 [RULE][OCV-430] IF `city_view_2.executes_action` = true THEN `execution.logging_required` MUST be true; ELSE FAIL.
 
 ### 4. Mandatory Escalation
@@ -104,12 +103,12 @@ FORBIDDEN: [implementation_details, model_architecture, narrative_prose, scene_t
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: CANON-OSA-CITYVIEW-RU16-2215-0001
+doc_id: CANON-FSSU-CITYVIEW-RU16-2215-0001
 role_type: RULE
 export:
   - rule_id: OCV-110
-    intent: enforce independence of OSA AI stack from managed system
-    inputs: [osa_ai_stack, managed_system]
+    intent: enforce independence of FSSU AI stack from managed system
+    inputs: [FSSU_ai_stack, managed_system]
     outputs: [independence_ok]
   - rule_id: OCV-420
     intent: restrict CITYVIEW-2 execution to low-impact whitelist
@@ -139,8 +138,8 @@ export:
 ## NON-NORMATIVE
 
 ~~~text
-Источник: THESIS-OSA-CITY-VIEWS-2215-0001.
-ГОРОД-1/ГОРОД-2 фиксируются как региональные представления контуров ОСА:
+
+ГОРОД-1/ГОРОД-2 фиксируются как региональные представления контуров ФССУ:
 аналитика → human gate → low-impact исполнение/маршрутизация → эскалация.
-Требования к недопущению юридически значимых решений ИИ без человека согласованы с CANON-OSA-GLOBAL-2215-0005.
+Требования к недопущению юридически значимых решений ИИ без человека согласованы с CANON-FSSU-GLOBAL-2215-0005.
 ~~~

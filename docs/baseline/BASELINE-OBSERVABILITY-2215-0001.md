@@ -13,7 +13,7 @@ inputs:
 depends_on:
   - CANON-BASE-RULE-GLOBAL-2215-0001
   - BASELINE-SOCIAL-2215-0001
-  - BASELINE-DIGITALIDENTITY-2215-0001
+  - BASELINE-DIGITAL_IDENTITY-2215-0001
 scope: >
   Исполняемый baseline городской наблюдаемости (LEVEL-MID) в 2215 году.
   Определяет допустимый объём телеметрии, задержки наблюдения, субъектов доступа
@@ -27,7 +27,7 @@ SCOPE: enforceable defaults for urban observability and telemetry (LEVEL-MID)
 INPUTS:
   - CANON-BASE-RULE-GLOBAL-2215-0001
   - BASELINE-SOCIAL-2215-0001
-  - BASELINE-DIGITALIDENTITY-2215-0001
+  - BASELINE-DIGITAL_IDENTITY-2215-0001
 OUTPUTS: [rule_id, observability_surface, access_rights]
 FORBIDDEN: [prose, cultural_exposition, speculative_technology, mixed_role_types]
 

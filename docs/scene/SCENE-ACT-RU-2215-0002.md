@@ -4,12 +4,12 @@ title: >
   SCENE-CARDS — Act II (Chapters 10–15) —
   Logistics Expansion → Extraterritorial Contours
 class: scene
-status: applied
+status: draft
 version: 1.2.0
 doc_language: en
 prose_language: ru-RU
 inputs:
-  - BASELINE-PHYSICALLEVELMID-2215-0001
+  - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
   - CANON-BASE-RULE-GLOBAL-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
@@ -27,7 +27,7 @@ scope: >
 ROLE_TYPE: INDEX
 SCOPE: machine-readable scene cards for Act II as TYPE C inputs (no prose).
 SCENE_FORMAT: scene_cards_kvline_v1
-INPUTS: [BASELINE-PHYSICALLEVELMID-2215-0001, CANON-BASE-RULE-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, PLAN-STORY-2215-0001]
+INPUTS: [BASELINE-PHYSICAL_LEVEL_MID-2215-0001, CANON-BASE-RULE-GLOBAL-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, CANON-SYSTEMS-GLOBAL-2215-0001, PLAN-STORY-2215-0001]
 OUTPUTS: [scene_card_records]
 FORBIDDEN: [prose, new_world_facts, new_macro_numbers, non-canon terminology, gap_filling, meta_diegesis]
 
@@ -57,7 +57,7 @@ FORBIDDEN: [prose, new_world_facts, new_macro_numbers, non-canon terminology, ga
 
 [FACT][SCA2-004] scene_id=SC-11.1; chapter_id=CH-11; time="18:30 (Sunset)"; where="Небесные мосты между мегаблоками"; pov="Дамир"; goal="архитектура как транспорт и слепая зона"; measurable="transport_level=+40; traffic_flow=0.74"; artifact="CD(level-route map / wayfinding layer)"; cmc="вертикальная плотность → ускоренные коридоры → появление теневых маршрутов"; output="среда становится участником дела"; hook="контейнеры движутся по верхнему коридору"; tags="traffic, vertical, restless".
 [FACT][SCA2-005] scene_id=SC-11.2; chapter_id=CH-11; time="19:00 (Dusk)"; where="Площадь / медиафасад"; pov="Лев"; goal="поп-культура как производная данных"; measurable="energy_flow_viz=real_time"; artifact="CD(public data installation: city ‘breath’)"; cmc="телеметрия города → художественная трансляция → культура из инфраструктуры"; output="мир кажется живым"; hook="скачок энергии совпадает с пропавшим грузом"; tags="media, neon, flow".
-[FACT][SCA2-006] scene_id=SC-11.3; chapter_id=CH-11; time="20:00 (Evening)"; where="ОСА / брифинг"; pov="Мирон"; goal="синтез: региональный уровень исчерпан"; measurable="nodes=3; supplier=1; routing_center=1"; artifact="CM(link graph export)"; cmc="концентрация управления → единая точка → у региона нет полномочий"; output="вывод: это 'над нами'"; hook="нужен доступ к федеральному реестру лицензий"; tags="briefing, office, restless".
+[FACT][SCA2-006] scene_id=SC-11.3; chapter_id=CH-11; time="20:00 (Evening)"; where="ФССУ / брифинг"; pov="Мирон"; goal="синтез: региональный уровень исчерпан"; measurable="nodes=3; supplier=1; routing_center=1"; artifact="CM(link graph export)"; cmc="концентрация управления → единая точка → у региона нет полномочий"; output="вывод: это 'над нами'"; hook="нужен доступ к федеральному реестру лицензий"; tags="briefing, office, restless".
 
 ### CH-12 — Нормальность
 
@@ -67,7 +67,7 @@ FORBIDDEN: [prose, new_world_facts, new_macro_numbers, non-canon terminology, ga
 
 [FACT][SCA2-008] scene_id=SC-13.1; chapter_id=CH-13; time="22:15 (Night)"; where="Технический двор подрядчика"; pov="Дамир"; goal="поиск человеческого звена в цепи"; measurable="night_adjustments=true; observability_gap=11m"; artifact="EL(technician tablet local cache)"; cmc="устные директивы → ручные правки маршрутов → отчеты остаются чистыми"; output="свидетель + механизм найдены"; hook="страх перед контрактом"; tags="stealth, shadow, velvet".
 [FACT][SCA2-009] scene_id=SC-13.2; chapter_id=CH-13; time="22:45 (Night)"; where="Лестничный пролет"; pov="Мирон"; goal="получение точного ID без угроз"; measurable="id_transfer=true"; artifact="EL(container_or_flight_id transfer record)"; cmc="страх → сотрудничество → точный маршрут"; output="след становится проверяемым"; hook="назначение=ускоренный_режим/экстерритория"; tags="intimidation, noir, velvet".
-[FACT][SCA2-010] scene_id=SC-13.3; chapter_id=CH-13; time="23:30 (Night)"; where="ОСА / запрос в реестр"; pov="Лев"; goal="коллизия юрисдикций"; measurable="license_scope=federal; regional_competence=limited"; artifact="EL(state license registry entry)"; cmc="лицензия выдана центром → регион не компетентен → тупик"; output="нужен федеральный ордер/подпись"; hook="без Московской петли не закрыть"; tags="bureaucracy, deadlock, restless".
+[FACT][SCA2-010] scene_id=SC-13.3; chapter_id=CH-13; time="23:30 (Night)"; where="ФССУ / запрос в реестр"; pov="Лев"; goal="коллизия юрисдикций"; measurable="license_scope=federal; regional_competence=limited"; artifact="EL(state license registry entry)"; cmc="лицензия выдана центром → регион не компетентен → тупик"; output="нужен федеральный ордер/подпись"; hook="без Московской петли не закрыть"; tags="bureaucracy, deadlock, restless".
 
 ### CH-14 — Club “Contour”
 

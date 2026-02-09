@@ -1,7 +1,7 @@
 ---
 id: CANON-REPORTS-GLOBAL-2215-0006
 title: >
-  Артефакты ОСА — форматы отчётов, реестров и причинных карт (2215)
+  Артефакты ФССУ — форматы отчётов, реестров и причинных карт (2215)
 class: canon
 status: draft
 version: 0.3.1
@@ -10,13 +10,13 @@ doc_language: ru-RU
 prose_language: ru-RU
 inputs:
   - CANON-ORDERS-GLOBAL-2215-0003
-  - CANON-OSA-GLOBAL-2215-0005
+  - CANON-FSSU-GLOBAL-2215-0005
   - CANON-ZONES-GLOBAL-2215-0004
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон форматов артефактов ОСА: минимально достаточные структуры для сцен,
+  RULE-канон форматов артефактов ФССУ: минимально достаточные структуры для сцен,
   обязательные поля, связи с ордерами/мандатами, и правила допустимости (chain-of-custody).
   Без новых SSOT-метрик и без художественного текста.
 ---
@@ -24,9 +24,9 @@ scope: >
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: define mandatory structures and admissibility rules for OSA case artifacts (CD/EL/CM/FM/RP/PRS)
+SCOPE: define mandatory structures and admissibility rules for FSSU case artifacts (CD/EL/CM/FM/RP/PRS)
 INPUTS:
-  - CANON-OSA-GLOBAL-2215-0005
+  - CANON-FSSU-GLOBAL-2215-0005
   - CANON-ORDERS-GLOBAL-2215-0003
   - CANON-ZONES-GLOBAL-2215-0004
 OUTPUTS:
@@ -63,8 +63,8 @@ FORBIDDEN:
 [FACT][REP-025] `artifact_serial` = two-digit string matching `^[0-9]{2}$`.
 [FACT][REP-026] `evidence_id` = string matching `^E-[0-9]{3}$`.
 
-[FACT][REP-027] `case_id.regex` = `^OSA-2215-[A-Z]{2}-[0-9]{2}-[0-9]{4}$`.
-[FACT][REP-028] `artifact_id.regex` = `^OSA-2215-[A-Z]{2}-[0-9]{2}-[0-9]{4}-(CD|EL|CM|FM|RP|PRS)-[0-9]{2}$`.
+[FACT][REP-027] `case_id.regex` = `^FSSU-2215-[A-Z]{2}-[0-9]{2}-[0-9]{4}$`.
+[FACT][REP-028] `artifact_id.regex` = `^FSSU-2215-[A-Z]{2}-[0-9]{2}-[0-9]{4}-(CD|EL|CM|FM|RP|PRS)-[0-9]{2}$`.
 
 [FACT][REP-029] `order_ref` = string token referencing an order identifier from `CANON-ORDERS-GLOBAL-2215-0003`.
 [FACT][REP-030] `mandate_ref` = string token referencing a mandate identifier from `CANON-ORDERS-GLOBAL-2215-0003`.
@@ -226,7 +226,7 @@ FORBIDDEN:
 ## USAGE / RESOLUTION
 
 [DECISION][REP-900] Consumers MUST treat only OUTPUT CONTRACT export as consumable semantics for this document; ELSE FAIL.
-[DECISION][REP-901] PASS IFF (if a scene introduces an OSA claim then evidence_ref(s) and order/method basis are present in shown excerpts); ELSE FAIL.
+[DECISION][REP-901] PASS IFF (if a scene introduces an FSSU claim then evidence_ref(s) and order/method basis are present in shown excerpts); ELSE FAIL.
 [DECISION][REP-902] PASS IFF (if scope touches extraterritorial zone then header.jurisdiction and header.admissibility_basis are present and admissibility_basis ∈ {JAP, CONTRACT} when applicable); ELSE FAIL.
 [DECISION][REP-903] PASS IFF (if any mandatory header field cannot be satisfied then scene_artifact_excerpts.count = 0); ELSE FAIL.
 [DECISION][REP-904] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
@@ -485,8 +485,8 @@ export:
 {
   "intent": "TIMELINE_OF_ACTIONS_AND_RATIONALE",
   "header": {
-    "case_id": "OSA-2215-RU-16-0007",
-    "artifact_id": "OSA-2215-RU-16-0007-CD-01",
+    "case_id": "FSSU-2215-RU-16-0007",
+    "artifact_id": "FSSU-2215-RU-16-0007-CD-01",
     "artifact_type": "CD",
     "classification": "RESTRICTED",
     "created_at": "2215-05-18T14:22:00+03:00",
@@ -495,7 +495,7 @@ export:
     "order_refs": ["O-01-DPO-...", "O-03-SIO-..."],
     "scope": "RU-16/CHELNY/Node-X/Perimeter-Y",
     "hash": "sha256:...",
-    "attachments": ["OSA-2215-RU-16-0007-EL-01"],
+    "attachments": ["FSSU-2215-RU-16-0007-EL-01"],
     "jurisdiction": "NORMAL",
     "admissibility_basis": "LAW"
   },
@@ -515,8 +515,8 @@ export:
 {
   "intent": "BIND_SOURCE_INTEGRITY_CUSTODY_ADMISSIBILITY",
   "header": {
-    "case_id": "OSA-2215-RU-16-0007",
-    "artifact_id": "OSA-2215-RU-16-0007-EL-01",
+    "case_id": "FSSU-2215-RU-16-0007",
+    "artifact_id": "FSSU-2215-RU-16-0007-EL-01",
     "artifact_type": "EL",
     "classification": "RESTRICTED",
     "created_at": "2215-05-18T15:05:00+03:00",

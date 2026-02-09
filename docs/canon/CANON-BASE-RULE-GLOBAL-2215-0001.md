@@ -88,7 +88,7 @@ law | arbitration | contracts | access_regimes | compliance.
 [RULE][BASE-R-090] Extraterritorial regimes MUST be licensed, bounded,
 auditable, and revocable.
 
-[RULE][BASE-R-091] OSA deployment MUST be limited to threats against
+[RULE][BASE-R-091] FSSU deployment MUST be limited to threats against
 core state functions.
 
 [RULE][BASE-R-100] Transhumanism MUST be constrained to moderate mode.
@@ -100,9 +100,9 @@ core state functions.
 [RULE][BASE-R-110] Physical superiority MUST be achieved via
 equipment | energy | procedure | access_window.
 
-[RULE][BASE-R-120] Pressure on OSA MUST be procedural-only.
+[RULE][BASE-R-120] Pressure on FSSU MUST be procedural-only.
 
-[FORBIDDEN][BASE-R-121] Personal calls or direct regional orders to OSA.
+[FORBIDDEN][BASE-R-121] Personal calls or direct regional orders to FSSU.
 
 [RULE][BASE-R-130] High GDP MUST NOT imply local abundance.
 

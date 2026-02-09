@@ -1,7 +1,7 @@
 ---
 id: CANON-ARCS-GLOBAL-2215-0001
 title: >
-  Canon Character Arcs — Emotional Trajectories for OSA Team and System Agents (2215)
+  Canon Character Arcs — Emotional Trajectories for FSSU Team and System Agents (2215)
 class: canon
 status: fixed
 version: 1.0.0
@@ -9,7 +9,7 @@ prefix: ARC
 doc_language: en
 prose_language: ru-RU
 inputs:
-  - CANON-CASTREGISTRY-GLOBAL-2215-0001
+  - CANON-CAST_REGISTRY-GLOBAL-2215-0001
   - CANON-CAST-VOICE-2215-0001
   - PLAN-STORY-2215-0001
 depends_on:
@@ -27,7 +27,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: define enforceable character arc constraints for chapter generation
-INPUTS: [CANON-CASTREGISTRY-GLOBAL-2215-0001, CANON-CAST-VOICE-2215-0001, PLAN-STORY-2215-0001]
+INPUTS: [CANON-CAST_REGISTRY-GLOBAL-2215-0001, CANON-CAST-VOICE-2215-0001, PLAN-STORY-2215-0001]
 OUTPUTS: [arc_table, arc_constraints]
 FORBIDDEN: [fiction_prose, backstory_exposition, psychological_diagnosis, hero_journey_template]
 
@@ -155,7 +155,7 @@ arcs:
         Публичное давление (CH-33): его имя в отчёте.
         Тишина больше невозможна — нужно выбирать сторону.
     end_state: >
-      Выбрал сторону ОСА — но так, чтобы потом можно было отыграть.
+      Выбрал сторону ФССУ — но так, чтобы потом можно было отыграть.
       Тот же. Бюджет по-прежнему не резиновый.
     key_scenes: [CH-17, CH-29, CH-33, CH-34]
 
@@ -188,7 +188,7 @@ arcs:
         Арбитраж (CH-24): видит, что settlement = покупка тишины.
         Начинает сомневаться — но функция сильнее сомнения.
     end_state: >
-      Помог ОСА войти в зону (Act III), но в финале — снова на стороне
+      Помог ФССУ войти в зону (Act III), но в финале — снова на стороне
       оператора. Подал протокол несогласия, который никто не прочитает.
     key_scenes: [CH-18, CH-23, CH-24, CH-32, CH-34]
 

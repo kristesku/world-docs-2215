@@ -114,7 +114,7 @@ to operational language.
 
 [RULE][VOCAB-223] Use term "purge/rotation" ONLY as procedural data lifecycle events.
 
-### Legal and procedural language (OSA / regulators)
+### Legal and procedural language (FSSU / regulators)
 
 [RULE][VOCAB-240] Use term "ордер" for formal authorization.
 

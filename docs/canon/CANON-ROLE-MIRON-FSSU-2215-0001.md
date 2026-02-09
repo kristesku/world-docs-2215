@@ -1,25 +1,24 @@
 ---
-id: CANON-ROLE-MIRON-OSA-2215-0001
+id: CANON-ROLE-MIRON-FSSU-2215-0001
 title: >
-  Роль — Мирон (ОСА) — case owner, полномочия, ограничения, ответственность и культура (2215)
+  Роль — Мирон (ФССУ) — case owner, полномочия, ограничения, ответственность и культура (2215)
 class: canon
 status: draft
 version: 1.0.0
 prefix: OMR
 doc_language: ru-RU
 prose_language: ru-RU
-inputs:
-  - ROLE-MIRON-OSA-2215-0001
+inputs: []
 depends_on:
-  - CANON-OSA-GLOBAL-2215-0005
-  - CANON-OSA-REGIONAL-RU16-2215-0001
-  - CANON-OSA-TEAM-STRUCT-2215-0001
+  - CANON-FSSU-GLOBAL-2215-0005
+  - CANON-FSSU-REGIONAL-RU16-2215-0001
+  - CANON-FSSU-TEAM-STRUCT-2215-0001
   - CANON-SYSTEM-ONTOLOGY-2215-0001
   - SPEC-DOC-ID-2215-0001
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон роли Мирона как руководителя флагманской команды ОСА (RU-16) и операционного владельца кейса.
+  RULE-канон роли Мирона как руководителя флагманской команды ФССУ (RU-16) и операционного владельца кейса.
   Фиксирует модель двойного подчинения, операционные полномочия, рамки принуждения,
   ответственность, ограничения и культурные инварианты принятия решений.
   Не задаёт локацию офиса и не описывает сценографию.
@@ -28,37 +27,37 @@ scope: >
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: define Miron role contract as OSA flagship team lead and default case owner
-INPUTS: [CANON-OSA-GLOBAL-2215-0005, CANON-OSA-REGIONAL-RU16-2215-0001, CANON-OSA-TEAM-STRUCT-2215-0001]
+SCOPE: define Miron role contract as FSSU flagship team lead and default case owner
+INPUTS: [CANON-FSSU-GLOBAL-2215-0005, CANON-FSSU-REGIONAL-RU16-2215-0001, CANON-FSSU-TEAM-STRUCT-2215-0001]
 OUTPUTS: [miron_authorities, miron_limits, miron_responsibility, miron_role_culture]
 FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 
 ## DEFINITIONS
 
-[FACT][OMR-010] `miron` = руководитель флагманской проектной команды регионального отдела ОСА (RU-16).
-[FACT][OMR-020] `case_owner` = роль операционного владельца активированного кейса с персональной ответственностью (см. CANON-OSA-TEAM-STRUCT-2215-0001).
-[FACT][OMR-030] `functional_subordination` = функциональное подчинение профильным контурам ОСА вне тактики активного кейса.
+[FACT][OMR-010] `miron` = руководитель флагманской проектной команды регионального отдела ФССУ (RU-16).
+[FACT][OMR-020] `case_owner` = роль операционного владельца активированного кейса с персональной ответственностью (см. CANON-FSSU-TEAM-STRUCT-2215-0001).
+[FACT][OMR-030] `functional_subordination` = функциональное подчинение профильным контурам ФССУ вне тактики активного кейса.
 [FACT][OMR-040] `operational_subordination` = операционное подчинение внутри активного кейса по линии `case_owner`.
-[FACT][OMR-050] `coercion_escalation` = эскалация принуждения как процедурного инструмента в рамках активного кейса (см. CANON-OSA-GLOBAL-2215-0005).
+[FACT][OMR-050] `coercion_escalation` = эскалация принуждения как процедурного инструмента в рамках активного кейса (см. CANON-FSSU-GLOBAL-2215-0005).
 
 ## INVARIANTS
 
-[DECISION][OMR-100] Мирон занимает постоянную должность руководителя флагманской команды регионального отдела ОСА.
+[DECISION][OMR-100] Мирон занимает постоянную должность руководителя флагманской команды регионального отдела ФССУ.
 [DECISION][OMR-110] Мирон не является функциональным начальником профильных специалистов команды.
-[DECISION][OMR-120] Мирон не является административным руководителем регионального отдела ОСА.
+[DECISION][OMR-120] Мирон не является административным руководителем регионального отдела ФССУ.
 [DECISION][OMR-130] Для активированного кейса Мирон является `case_owner` по умолчанию, если иной `case_owner` не назначен процедурно.
 
 ## CONTENT
 
 ### 1. Dual Subordination Model
 
-[DECISION][OMR-200] Участники команды сохраняют `functional_subordination` профильным контурам ОСА.
+[DECISION][OMR-200] Участники команды сохраняют `functional_subordination` профильным контурам ФССУ.
 [DECISION][OMR-210] В рамках активного кейса участники команды находятся в `operational_subordination` Мирону как `case_owner`.
 [FORBIDDEN][OMR-220] Функциональные руководители вмешиваются в тактическое управление активным кейсом как норма.
 
 ### 2. Operational Authorities
 
-[DECISION][OMR-300] Мирон принимает решение о принятии кейса командой после проверки соответствия критериям юрисдикции ОСА.
+[DECISION][OMR-300] Мирон принимает решение о принятии кейса командой после проверки соответствия критериям юрисдикции ФССУ.
 [DECISION][OMR-310] Мирон распределяет задачи между участниками команды в рамках компетенций.
 [DECISION][OMR-320] Мирон определяет приоритеты работ и допустимые временные окна реакции.
 [DECISION][OMR-330] Мирон является точкой синхронизации аналитического, процедурного, ИИ-контура и полевого ресурса в рамках кейса.
@@ -90,7 +89,7 @@ FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 
 ### 6. Interface with Regional Lead
 
-[DECISION][OMR-700] Региональный руководитель ОСА обеспечивает административное руководство отделом и политическое прикрытие работы команды.
+[DECISION][OMR-700] Региональный руководитель ФССУ обеспечивает административное руководство отделом и политическое прикрытие работы команды.
 [DECISION][OMR-710] Мирон докладывает региональному руководителю о статусе кейсов, рисках и необходимости эскалации.
 [FORBIDDEN][OMR-720] Региональный руководитель вмешивается в тактические решения активного кейса как норма.
 
@@ -112,13 +111,13 @@ FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 
 ## USAGE / RESOLUTION
 
-[DECISION][OMR-950] Любая сцена, использующая роль Мирона в ОСА, MUST следовать OMR-100..OMR-900; ELSE FAIL.
+[DECISION][OMR-950] Любая сцена, использующая роль Мирона в ФССУ, MUST следовать OMR-100..OMR-900; ELSE FAIL.
 [DECISION][OMR-960] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: CANON-ROLE-MIRON-OSA-2215-0001
+doc_id: CANON-ROLE-MIRON-FSSU-2215-0001
 role_type: RULE
 export:
   - rule_id: OMR-130
@@ -148,7 +147,6 @@ export:
 ## NON-NORMATIVE
 
 ~~~text
-Источник: ROLE-MIRON-OSA-2215-0001 (черновик).
 Документ намеренно не включает кадровые/бюджетные/политические полномочия:
 они принадлежат административному контуру и региональному руководителю.
 ~~~

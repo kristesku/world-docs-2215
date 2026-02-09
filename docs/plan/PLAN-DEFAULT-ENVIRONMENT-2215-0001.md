@@ -6,7 +6,7 @@ class: plan
 status: draft
 version: 0.3.0
 inputs:
-  - BASELINE-PHYSICALLEVELMID-2215-0001
+  - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
   - SSOT-SCENARIO-A-2215-0001
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
@@ -21,7 +21,7 @@ scope: >
 ROLE_TYPE: INTERFACE
 SCOPE: structural skeleton for environment baselines and scene snapshots; no world facts or default values
 INPUTS:
-  - BASELINE-PHYSICALLEVELMID-2215-0001
+  - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
   - SSOT-SCENARIO-A-2215-0001
   - override_documents
 OUTPUTS:
@@ -140,7 +140,7 @@ FORBIDDEN:
 - route_tag (optional)
 - district_tag (optional)
 
-[DECISION][PLAN-SCN-012] Snapshot MUST NOT explain causality and MUST NOT replace OSA artifacts (CD/EL/CM/FM/RP).
+[DECISION][PLAN-SCN-012] Snapshot MUST NOT explain causality and MUST NOT replace FSSU artifacts (CD/EL/CM/FM/RP).
 
 ---
 

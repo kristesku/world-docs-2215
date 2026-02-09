@@ -1,7 +1,7 @@
 ---
-id: CANON-CASTRULES-GLOBAL-2215-0001
+id: CANON-CAST_RULES-GLOBAL-2215-0001
 title: >
-  Core Team (ОСА) — Role Usage Rules (RULE)
+  Core Team (ФССУ) — Role Usage Rules (RULE)
 class: canon
 status: draft
 version: 0.1.0
@@ -9,13 +9,13 @@ prefix: CASTRUL
 doc_language: ru-RU
 prose_language: ru-RU
 inputs:
-  - CANON-CASTREGISTRY-GLOBAL-2215-0001
+  - CANON-CAST_REGISTRY-GLOBAL-2215-0001
   - PLAN-STORY-2215-0001
 depends_on:
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон использования состава ОСА в сценах: топология, обязательность ролей,
+  RULE-канон использования состава ФССУ в сценах: топология, обязательность ролей,
   ограничения доменной компетенции, требования к тегам сцен и запреты.
   Без SSOT-метрик и без художественного текста.
 ---
@@ -24,7 +24,7 @@ scope: >
 
 ROLE_TYPE: RULE
 SCOPE: enforce cast usage constraints for scenes using CASTREGISTRY as authoritative registry
-INPUTS: [CANON-CASTREGISTRY-GLOBAL-2215-0001, PLAN-STORY-2215-0001]
+INPUTS: [CANON-CAST_REGISTRY-GLOBAL-2215-0001, PLAN-STORY-2215-0001]
 OUTPUTS: [role_constraints, scene_usage_rules, forbidden_patterns]
 FORBIDDEN: [invent_new_roles, merge_roles, superheroism, essay_mode, implicit_precedence, causal_chains_as_canon]
 
@@ -94,14 +94,14 @@ FORBIDDEN: [invent_new_roles, merge_roles, superheroism, essay_mode, implicit_pr
 
 ## USAGE / RESOLUTION
 
-[DECISION][CASTRUL-900] Consumers MUST resolve tokens/roles via CANON-CASTREGISTRY-GLOBAL-2215-0001; ELSE FAIL.
+[DECISION][CASTRUL-900] Consumers MUST resolve tokens/roles via CANON-CAST_REGISTRY-GLOBAL-2215-0001; ELSE FAIL.
 [DECISION][CASTRUL-910] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
 [RULE][CASTRUL-920] IF a scene violates FORBIDDEN in this document THEN scene MUST be rejected as invalid input; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: CANON-CASTRULES-GLOBAL-2215-0001
+doc_id: CANON-CAST_RULES-GLOBAL-2215-0001
 role_type: RULE
 export:
   role_constraints:

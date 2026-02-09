@@ -1,7 +1,7 @@
 ﻿---
 id: PLAN-STORY-2215-0001
 title: >
-  Сюжетный каркас романа — 5 актов, 3 кейса, 35 глав, процедурная спираль ОСА
+  Сюжетный каркас романа — 5 актов, 3 кейса, 35 глав, процедурная спираль ФССУ
 class: plan
 status: fixed
 version: 1.0.0
@@ -38,13 +38,13 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 ## DEFINITIONS
 
 [FACT][PSSK-010] `act` = верхний структурный блок романа (I..V).
-[FACT][PSSK-020] `case` = крупный процедурный кейс, проходящий через главы и артефакты ОСА.
+[FACT][PSSK-020] `case` = крупный процедурный кейс, проходящий через главы и артефакты ФССУ.
 [FACT][PSSK-030] `chapter_card` = запись {act_id, case_id, chapter_id, title, tags.participants, tags.focus, tags.artifact, tags.type}.
 [FACT][PSSK-040] `procedural_spiral_step` = {anomaly_detection, investigation, bureaucratic_wall, escalation, new_jurisdiction_level, remedy}.
 [FACT][PSSK-050] `artifact_type` = {CD, EL, CM, FM, RP, PRS}.
 [FACT][PSSK-055] `chapter_type` ∈ {procedural, character_beat, interlude}. `procedural` = стандартная глава. `character_beat` = глава-якорь, фокус на персонаже за пределами процедуры. `interlude` = короткая вставка (POV антагониста-агента, город, пауза).
 [FACT][PSSK-060] `tags.focus` = доминантный `procedural_spiral_step` для главы (для character_beat/interlude допустимо метафорическое соответствие).
-[FACT][PSSK-070] `tags.participants` = список имён, допустимых только из `CANON-CASTREGISTRY-GLOBAL-2215-0001`.
+[FACT][PSSK-070] `tags.participants` = список имён, допустимых только из `CANON-CAST_REGISTRY-GLOBAL-2215-0001`.
 [FACT][PSSK-080] `tags.artifact` = типизированная ссылка на артефакт (см. `CANON-REPORTS-GLOBAL-2215-0006` и `CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001`). Для character_beat допустимо `none`.
 
 [FACT][PSSK-090] `act_case_structure` = YAML-пейлоад (ключ верхнего уровня `act_case_structure`) в `## CONTENT`, являющийся единственным авторитетным источником структуры актов/кейсов/глав.
@@ -68,14 +68,14 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 [FACT][PSSK-104] `ending.world_state` = stable_adjusted (нормативный токен состояния мира в финале).
 [FACT][PSSK-105] `ending.tone` = cold_stability (нормативный токен тона финала).
 
-[FACT][PSSK-106] `OSA.jurisdiction` = federal_direct_subordination_moscow (нормативный токен юрисдикции ОСА).
-[FACT][PSSK-107] `regional_authorities_must_not_command_OSA` = true.
+[FACT][PSSK-106] `FSSU.jurisdiction` = federal_direct_subordination_moscow (нормативный токен юрисдикции ФССУ).
+[FACT][PSSK-107] `regional_authorities_must_not_command_FSSU` = true.
 
 [FACT][PSSK-108] `antagonist_form` = optimization_contour_not_person (нормативный токен формы антагониста).
 [FACT][PSSK-109] `dramaturgic_deficit` = infrastructure_windows_not_survival_poverty.
 [FACT][PSSK-110] `engine_of_plot` = procedural_escalation_not_catch_villain.
 
-[FACT][PSSK-111] `system_inserts` = вставки "системного голоса" в главы (формат и допустимость задаёт `CANON-SYSTEM-VOICE-GLOBAL-2215-0001`).
+[FACT][PSSK-111] `system_inserts` = вставки "системного голФССУ" в главы (формат и допустимость задаёт `CANON-SYSTEM-VOICE-GLOBAL-2215-0001`).
 
 [FACT][PSSK-112] `macro_frame` = триплет причинности {cause, mechanism, consequence}, заданный в `## CONTENT` как токены.
 [FACT][PSSK-113] `complies_with(X)` = предикат: все требования X удовлетворены; иначе FAIL.
@@ -100,8 +100,8 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 [DECISION][PSSK-150] ending.type MUST be partial_win; ELSE FAIL.
 [DECISION][PSSK-151] ending.world_state MUST be stable_adjusted; ELSE FAIL.
 [DECISION][PSSK-152] ending.tone MUST be cold_stability; ELSE FAIL.
-[DECISION][PSSK-160] OSA.jurisdiction MUST be federal_direct_subordination_moscow; ELSE FAIL.
-[DECISION][PSSK-161] regional_authorities_must_not_command_OSA MUST be true; ELSE FAIL.
+[DECISION][PSSK-160] FSSU.jurisdiction MUST be federal_direct_subordination_moscow; ELSE FAIL.
+[DECISION][PSSK-161] regional_authorities_must_not_command_FSSU MUST be true; ELSE FAIL.
 [DECISION][PSSK-170] antagonist_form MUST be optimization_contour_not_person; ELSE FAIL.
 [DECISION][PSSK-171] dramaturgic_deficit MUST be infrastructure_windows_not_survival_poverty; ELSE FAIL.
 [DECISION][PSSK-172] engine_of_plot MUST be procedural_escalation_not_catch_villain; ELSE FAIL.
@@ -119,7 +119,7 @@ FORBIDDEN: [fiction_prose, invent_new_world_metrics, introduce_new_roles, lectur
 
 [DECISION][PSSK-220] macro_frame.cause MUST be optimization_by_KPI_under_fragmented_data; ELSE FAIL.
 [DECISION][PSSK-221] macro_frame.mechanism MUST be legally_valid_distributed_decisions_across_contracts; ELSE FAIL.
-[DECISION][PSSK-222] macro_frame.consequence MUST be human_cost_liability_diffused_OSA_changes_regime; ELSE FAIL.
+[DECISION][PSSK-222] macro_frame.consequence MUST be human_cost_liability_diffused_FSSU_changes_regime; ELSE FAIL.
 
 [DECISION][PSSK-230] case_layer_map MUST be:
   case_1 reveals [layer_1_algorithmic_harm, layer_3_supply_chain] (surface);
@@ -425,7 +425,7 @@ act_case_structure:
           scene_source: "SCA3: SC-18.1, SC-18.2, SC-18.3, SC-18.4"
           synopsis: >
             Серверный зал. Экспорт заблокирован → физическое изъятие.
-            Гонка с пурджем: 120 секунд. Охрана давит, ОСА удерживает периметр.
+            Гонка с пурджем: 120 секунд. Охрана давит, ФССУ удерживает периметр.
             Лейсан формализует цепочку хранения доказательств.
 
         - chapter_id: CH-20
@@ -509,7 +509,7 @@ act_case_structure:
           synopsis: >
             Арбитражный комплекс: 126 дел в очереди, ожидание 4ч10м.
             KPI=97%, harm=11 эпизодов — формально нарушений нет.
-            Оператор предлагает мировое без признания вины. ОСА отказывается.
+            Оператор предлагает мировое без признания вины. ФССУ отказывается.
 
         - chapter_id: CH-25
           title: "Компании-оболочки"
@@ -615,7 +615,7 @@ act_case_structure:
           synopsis: >
             Узел накопителей. Физическая приостановка, борьба за шкаф подписи.
             Лев отбивает пурдж: 110с, дамп 1.4TB — веса «до» сохранены.
-            Охрана давит, ОСА удерживает. Контроль сохранён.
+            Охрана давит, ФССУ удерживает. Контроль сохранён.
 
         - chapter_id: CH-32
           title: "Цена эффективности"
@@ -641,7 +641,7 @@ act_case_structure:
           synopsis: >
             Публичная сводка: 1 открытая страница, 47 закрытых.
             Давление через видимость: страховые +8%, новые аудиты +3.
-            ОСА больше не тишина. Регулятор готовит урезание.
+            ФССУ больше не тишина. Регулятор готовит урезание.
 
         - chapter_id: CH-34
           title: "Решение"
@@ -682,7 +682,7 @@ team_focus_by_act:
   - rule: "Илья appears acts I, III, IV; KPI/efficiency pressure; system agent not villain"
 ```
 
-[DECISION][PSSK-320] tags.participants MUST be validated against CANON-CASTREGISTRY-GLOBAL-2215-0001; ELSE FAIL.
+[DECISION][PSSK-320] tags.participants MUST be validated against CANON-CAST_REGISTRY-GLOBAL-2215-0001; ELSE FAIL.
 [DECISION][PSSK-321] tags.artifact MUST be validated against CANON-REPORTS-GLOBAL-2215-0006 and CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001; ELSE FAIL.
 [DECISION][PSSK-322] any_zone_extraterritory_JAP MUST be grounded via CANON-ORDERS-GLOBAL-2215-0003 and CANON-SYSTEMS-GLOBAL-2215-0001; ELSE FAIL.
 
@@ -724,7 +724,7 @@ export:
               tags:
                 type: object
                 fields:
-                  participants: {type: list, item: string, source: "CANON-CASTREGISTRY-GLOBAL-2215-0001"}
+                  participants: {type: list, item: string, source: "CANON-CAST_REGISTRY-GLOBAL-2215-0001"}
                   focus: {type: enum, values: ["anomaly_detection","investigation","bureaucratic_wall","escalation","new_jurisdiction_level","remedy"]}
                   artifact: {type: string, source: ["CANON-REPORTS-GLOBAL-2215-0006","CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001"]}
               scene_source: {type: string}
@@ -732,7 +732,7 @@ export:
   procedural_spiral_pattern:
     steps: ["anomaly_detection","investigation","bureaucratic_wall","escalation","new_jurisdiction_level","remedy"]
   chapter_tags_contract:
-    participants_source: "CANON-CASTREGISTRY-GLOBAL-2215-0001"
+    participants_source: "CANON-CAST_REGISTRY-GLOBAL-2215-0001"
     focus_enum: ["anomaly_detection","investigation","bureaucratic_wall","escalation","new_jurisdiction_level","remedy"]
     artifact_sources: ["CANON-REPORTS-GLOBAL-2215-0006","CANON-ARTIFACT-SNIPPETS-GLOBAL-2215-0001"]
   case_layer_map:
@@ -744,7 +744,7 @@ export:
 ## FORBIDDEN
 
 [FORBIDDEN][PSSK-900] Any fiction prose in this document.
-[FORBIDDEN][PSSK-901] Any new recurring roles not declared in CANON-CASTREGISTRY-GLOBAL-2215-0001.
+[FORBIDDEN][PSSK-901] Any new recurring roles not declared in CANON-CAST_REGISTRY-GLOBAL-2215-0001.
 [FORBIDDEN][PSSK-902] Any new world metrics or SSOT numbers.
 [FORBIDDEN][PSSK-903] Any lecture exposition used as justification for structure.
 [FORBIDDEN][PSSK-904] Any change to acts.count, cases.count, or chapter_cards.count without higher-priority override.

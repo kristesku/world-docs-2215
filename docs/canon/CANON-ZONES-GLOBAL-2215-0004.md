@@ -1,7 +1,7 @@
 ---
 id: CANON-ZONES-GLOBAL-2215-0004
 title: >
-  Canon Zones — Extraterritories and Special Regimes (RF 2215): Zone Typology, Jurisdiction, and OSA Access
+  Canon Zones — Extraterritories and Special Regimes (RF 2215): Zone Typology, Jurisdiction, and FSSU Access
 class: canon
 status: draft
 version: 1.1.0
@@ -13,11 +13,11 @@ depends_on:
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003
   - CANON-CONFLICT-GLOBAL-2215-0001
-  - CANON-OSA-GLOBAL-2215-0005
+  - CANON-FSSU-GLOBAL-2215-0005
 scope: >
   STATE-описание типологии экстерриторий и специальных режимов в РФ 2215:
   виды зон, назначение, держатель режима, нормативное основание,
-  арбитраж и допустимость доказательств, наблюдаемость и процедуры доступа ОСА.
+  арбитраж и допустимость доказательств, наблюдаемость и процедуры доступа ФССУ.
   Межгосударственный фактор не активируется в текущей книге.
 ---
 
@@ -29,7 +29,7 @@ INPUTS:
   - CANON-CORE-GLOBAL-2215-0001
   - CANON-SYSTEMS-GLOBAL-2215-0001
   - CANON-ORDERS-GLOBAL-2215-0003
-  - CANON-OSA-GLOBAL-2215-0005
+  - CANON-FSSU-GLOBAL-2215-0005
 OUTPUTS:
   - zone_taxonomy
   - zone_properties
@@ -85,7 +85,7 @@ FORBIDDEN:
 [STATE][ZON-101] holder_obligations = {
   license_conditions_enforcement,
   audit_trails_by_standard,
-  support_JAP_for_state_orgs_including_OSA
+  support_JAP_for_state_orgs_including_FSSU
 }.
 
 [STATE][ZON-110] observability_regime.inside_is_richer = true.
@@ -164,7 +164,7 @@ FORBIDDEN:
 ### 5. Access mechanics (state-level)
 
 [STATE][ZON-ACC-300] default_entry_model = order_plus_JAP_if_required.
-[STATE][ZON-ACC-301] osa_behavior_in_zone_expectations = {
+[STATE][ZON-ACC-301] FSSU_behavior_in_zone_expectations = {
   minimize_intervention_until_sufficient_evidence,
   actions_must_be_auditable,
   enforce_chain_of_custody_and_zone_admissibility
@@ -176,7 +176,7 @@ FORBIDDEN:
   filtered_exports_aggregates_only,
   nda_pressure_ip_leak_threat
 }.
-[STATE][ZON-ACC-321] osa_escalation_ladder = {DPO, ISO, SO, TSRO_or_Enforce}.
+[STATE][ZON-ACC-321] FSSU_escalation_ladder = {DPO, ISO, SO, TSRO_or_Enforce}.
 [STATE][ZON-ACC-340] emergency_entry_condition = immediate_harm_threat_to_humans_or_critical_infrastructure.
 [STATE][ZON-ACC-341] emergency_procedure_mode = strengthened_not_cancelled.
 [STATE][ZON-ACC-342] emergency_requires = {post_report, proportionality_review, arbitration}.
@@ -208,7 +208,7 @@ FORBIDDEN:
 ### 8. Future hooks (inactive in this book)
 
 [STATE][ZON-FUT-600] future_hooks_possible = {
-  expanded_osa_powers,
+  expanded_FSSU_powers,
   external_actors_attack_infra_via_zones,
   supply_chain_component_substitution_attacks
 }.
@@ -252,7 +252,7 @@ export:
 
 [UNKNOWN][ZON-UNK-800] Nearest-to-Chelny plausible instance placement for Z1/Z2/Z4.
 [UNKNOWN][ZON-UNK-801] Regime holders for key zones (operator/consortium names).
-[UNKNOWN][ZON-UNK-802] JAP activation threshold: which order classes require joint access vs solo OSA entry.
+[UNKNOWN][ZON-UNK-802] JAP activation threshold: which order classes require joint access vs solo FSSU entry.
 
 ---
 

@@ -18,7 +18,7 @@ scope: >
 ## LLM-INTENT
 
 ROLE_TYPE: STATE
-SCOPE: registry of high-profile public figures used by OSA and institutions
+SCOPE: registry of high-profile public figures used by FSSU and institutions
 INPUTS:
   - CANON-ORGS-2215-0001
 OUTPUTS:

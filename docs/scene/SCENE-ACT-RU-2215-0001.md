@@ -4,12 +4,12 @@ title: >
   SCENE-CARDS — Act I (Chapters 1–10) —
   Priority Incident (Paradox) → Logistics Output
 class: scene
-status: applied
+status: draft
 version: 1.4.0
 doc_language: en
 prose_language: ru-RU
 inputs:
-  - BASELINE-PHYSICALLEVELMID-2215-0001
+  - BASELINE-PHYSICAL_LEVEL_MID-2215-0001
   - CANON-CONFLICT-GLOBAL-2215-0001
   - SSOT-LAW-A-2215-0008
   - CANON-CAST-VOICE-2215-0001
@@ -30,7 +30,7 @@ scope: >
 ROLE_TYPE: INDEX
 SCOPE: machine-readable scene cards for Act I as TYPE C inputs (no prose).
 SCENE_FORMAT: scene_cards_kvline_v1
-INPUTS: [BASELINE-PHYSICALLEVELMID-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, SSOT-LAW-A-2215-0008, CANON-CAST-VOICE-2215-0001, PLAN-STORY-2215-0001]
+INPUTS: [BASELINE-PHYSICAL_LEVEL_MID-2215-0001, CANON-CONFLICT-GLOBAL-2215-0001, SSOT-LAW-A-2215-0008, CANON-CAST-VOICE-2215-0001, PLAN-STORY-2215-0001]
 OUTPUTS: [scene_card_records]
 FORBIDDEN: [prose, world_explanations, new_metrics, gap_filling, meta_diegesis]
 
@@ -49,13 +49,13 @@ FORBIDDEN: [prose, world_explanations, new_metrics, gap_filling, meta_diegesis]
 
 ### Chapter 1: The Glitch (Priority Paradox)
 
-[FACT][SCA1-001] scene_id=SC-01.1; chapter_id=CH-01; time="04:15 (Night)"; where="Диспетчерская ОСА"; pov="Мирон"; goal="мониторинг рутины"; measurable="incidents=low; team_status=green"; artifact="CD(morning_dashboard)"; cmc="оптимизация 99% → скука → потеря бдительности"; output="тишина"; hook="алерт 4-го уровня (Priority Conflict)"; tags="night, insomnia, restless".
+[FACT][SCA1-001] scene_id=SC-01.1; chapter_id=CH-01; time="04:15 (Night)"; where="Диспетчерская ФССУ"; pov="Мирон"; goal="мониторинг рутины"; measurable="incidents=low; team_status=green"; artifact="CD(morning_dashboard)"; cmc="оптимизация 99% → скука → потеря бдительности"; output="тишина"; hook="алерт 4-го уровня (Priority Conflict)"; tags="night, insomnia, restless".
 [FACT][SCA1-002] scene_id=SC-01.2; chapter_id=CH-01; time="04:25 (Night)"; where="Жилой блок 404 (старый фонд)"; pov="Айдар"; goal="физический контакт с глюком"; measurable="drone_status=active; demolition_protocol=true"; artifact="EL(drone_objective_log)"; cmc="реестр Снос (A) vs реестр Жильцы (B) → Дрон выбирает A → начало демонтажа стены"; output="угроза жизни"; hook="внутри люди"; tags="panic, demolition, void".
 [FACT][SCA1-003] scene_id=SC-01.3; chapter_id=CH-01; time="04:30 (Night)"; where="у стены блока"; pov="Айдар"; goal="Tactile Override"; measurable="drone_force=20kN; time_to_breach=30s"; artifact="EL(manual_override_alert)"; cmc="автоматика не слышит → применение силы (экзоскелет) → ручной рубильник"; output="дрон остановлен"; hook="Мирон: 'Тащи его на базу'"; tags="action, kinetic, sparks".
 
 ### Chapter 2: The Logic of Error
 
-[FACT][SCA1-004] scene_id=SC-02.1; chapter_id=CH-02; time="08:00 (Morning)"; where="Лаборатория ОСА"; pov="Лев"; goal="дебаг парадокса"; measurable="code_diff=match; timestamp=valid"; artifact="EL(registry_conflict_dump)"; cmc="оба реестра валидны → арбитр отсутствовал → система выбрала 'эффективность' (снос)"; output="диагноз: Type IV Paradox"; hook="реестр изменен вчера"; tags="coding, flow, cold_light".
+[FACT][SCA1-004] scene_id=SC-02.1; chapter_id=CH-02; time="08:00 (Morning)"; where="Лаборатория ФССУ"; pov="Лев"; goal="дебаг парадокса"; measurable="code_diff=match; timestamp=valid"; artifact="EL(registry_conflict_dump)"; cmc="оба реестра валидны → арбитр отсутствовал → система выбрала 'эффективность' (снос)"; output="диагноз: Type IV Paradox"; hook="реестр изменен вчера"; tags="coding, flow, cold_light".
 [FACT][SCA1-005] scene_id=SC-02.2; chapter_id=CH-02; time="09:30 (Day)"; where="Кабинет Ильи (Мэрия)"; pov="Лейсан"; goal="получить ордер на изъятие"; measurable="budget_impact=negligible"; artifact="CD(official_denial)"; cmc="Илья защищает систему → 'это оптимизация' → отказ в ордере"; output="конфликт юрисдикций"; hook="Лейсан: 'Тогда мы зайдем через черный ход'"; tags="bureaucracy, restless".
 
 ### Chapter 3: The Human Cost
@@ -85,12 +85,12 @@ FORBIDDEN: [prose, world_explanations, new_metrics, gap_filling, meta_diegesis]
 
 ### Chapter 8: Пересортировка
 
-[FACT][SCA1-016] scene_id=SC-08.1; chapter_id=CH-08; time="10:00 (Day)"; where="Лаборатория ОСА"; pov="Лев"; goal="систематизация хаоса"; measurable="data_integrity=check"; artifact="EL(recovered_index)"; cmc="анализ восстановленных логов → выявление структуры подставных фирм → сортировка по приоритету"; output="карта связей"; hook="упоминание старого протокола"; tags="analysis, quiet, data".
-[FACT][SCA1-017] scene_id=SC-08.2; chapter_id=CH-08; time="11:30 (Day)"; where="Гараж ОСА"; pov="Дамир"; goal="проверка снаряжения"; measurable="gear_status=ready"; artifact="CM(inventory_list)"; cmc="после рейда нужна калибровка → чистка приводов → подготовка к долгой работе"; output="техническая готовность"; hook="Мирон вызывает всех"; tags="maintenance, kinetic".
+[FACT][SCA1-016] scene_id=SC-08.1; chapter_id=CH-08; time="10:00 (Day)"; where="Лаборатория ФССУ"; pov="Лев"; goal="систематизация хаФССУ"; measurable="data_integrity=check"; artifact="EL(recovered_index)"; cmc="анализ восстановленных логов → выявление структуры подставных фирм → сортировка по приоритету"; output="карта связей"; hook="упоминание старого протокола"; tags="analysis, quiet, data".
+[FACT][SCA1-017] scene_id=SC-08.2; chapter_id=CH-08; time="11:30 (Day)"; where="Гараж ФССУ"; pov="Дамир"; goal="проверка снаряжения"; measurable="gear_status=ready"; artifact="CM(inventory_list)"; cmc="после рейда нужна калибровка → чистка приводов → подготовка к долгой работе"; output="техническая готовность"; hook="Мирон вызывает всех"; tags="maintenance, kinetic".
 
 ### Chapter 9: Это правило
 
-[FACT][SCA1-018] scene_id=SC-09.1; chapter_id=CH-09; time="14:00 (Day)"; where="Переговорная"; pov="Лейсан"; goal="поиск юридической лазейки"; measurable="law_compliance=borderline"; artifact="CD(internal_regulation_draft)"; cmc="изучение устава ОСА → пункт о чрезвычайных полномочиях → трактовка в нашу пользу"; output="обоснование действий"; hook="мы не нарушаем закон, мы его уточняем"; tags="bureaucracy, strategy".
+[FACT][SCA1-018] scene_id=SC-09.1; chapter_id=CH-09; time="14:00 (Day)"; where="Переговорная"; pov="Лейсан"; goal="поиск юридической лазейки"; measurable="law_compliance=borderline"; artifact="CD(internal_regulation_draft)"; cmc="изучение устава ФССУ → пункт о чрезвычайных полномочиях → трактовка в нашу пользу"; output="обоснование действий"; hook="мы не нарушаем закон, мы его уточняем"; tags="bureaucracy, strategy".
 [FACT][SCA1-019] scene_id=SC-09.2; chapter_id=CH-09; time="14:30 (Day)"; where="Переговорная"; pov="Мирон"; goal="установка новых правил игры"; measurable="team_consensus=100%"; artifact="RP(mission_statement)"; cmc="брифинг команды → объявление о работе 'под радаром' → принятие рисков"; output="новая доктрина"; hook="переход ко второму акту"; tags="leadership, tension".
 
 ## USAGE / RESOLUTION

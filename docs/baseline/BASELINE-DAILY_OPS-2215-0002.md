@@ -1,5 +1,5 @@
 ---
-id: BASELINE-DAILYOPS-2215-0002
+id: BASELINE-DAILY_OPS-2215-0002
 title: >
   Daily Operations Baseline — 2215 (Queues, Access, Services, Incidents)
 class: baseline
@@ -108,7 +108,7 @@ FORBIDDEN: [new_world_metrics, governance_macro_exposition, moral_judgements, pr
 [RULE][OPS-INC-012] IF `incident.severity` = S0 THEN action MUST be `auto_resolution` OR `queue_backoff` AND `log_minimum` MUST be true.
 [RULE][OPS-INC-013] IF `incident.severity` = S1 THEN action MUST be `policy_enforcement` AND `citizen_notification` MUST be true AND `case_id` MAY be opened.
 [RULE][OPS-INC-014] IF `incident.severity` = S2 THEN action MUST be `operator_escalation` AND `mode_restriction` MAY be applied AND `evidence_bundle` MUST be created.
-[RULE][OPS-INC-015] IF `incident.severity` = S3 THEN action MUST be `OSA_notification` AND `access_freeze` MAY be applied ONLY WITH `procedural_basis`.
+[RULE][OPS-INC-015] IF `incident.severity` = S3 THEN action MUST be `FSSU_notification` AND `access_freeze` MAY be applied ONLY WITH `procedural_basis`.
 
 ### 6) Mode Restrictions (Non-punitive framing, procedural constraints)
 
@@ -137,7 +137,7 @@ FORBIDDEN: [new_world_metrics, governance_macro_exposition, moral_judgements, pr
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: BASELINE-DAILYOPS-2215-0002
+doc_id: BASELINE-DAILY_OPS-2215-0002
 role_type: RULE
 export:
   - rule_id: OPS-ACC-010
@@ -157,9 +157,9 @@ export:
     inputs: [incident.severity]
     outputs: [evidence_bundle_sealed, chain_of_custody_required]
   - rule_id: OPS-INC-015
-    intent: "require procedural basis for S3 access freeze and notify OSA"
+    intent: "require procedural basis for S3 access freeze and notify FSSU"
     inputs: [incident.severity]
-    outputs: [OSA_notification, procedural_basis_required]
+    outputs: [FSSU_notification, procedural_basis_required]
   - rule_id: OPS-APL-010
     intent: "appeals require trace reference"
     inputs: [appeal]

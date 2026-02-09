@@ -1,25 +1,24 @@
 ---
-id: CANON-OSA-DEPT-STRUCT-RU16-2215-0001
+id: CANON-FSSU-DEPT-STRUCT-RU16-2215-0001
 title: >
-  ОСА — Регион RU-16 — Структура отдела и конвейер решений (ГОРОД-1/GO-NOGO/ГОРОД-2) (2215)
+  ФССУ — Регион RU-16 — Структура отдела и конвейер решений (ГОРОД-1/GO-NOGO/ГОРОД-2) (2215)
 class: canon
 status: draft
 version: 1.0.0
 prefix: ODS
 doc_language: ru-RU
 prose_language: ru-RU
-inputs:
-  - STRUCT-OSA-REGIONAL-DEPT-2215-0001
+inputs: []
 depends_on:
-  - CANON-OSA-GLOBAL-2215-0005
-  - CANON-OSA-REGIONAL-RU16-2215-0001
+  - CANON-FSSU-GLOBAL-2215-0005
+  - CANON-FSSU-REGIONAL-RU16-2215-0001
   - CANON-SYSTEM-ONTOLOGY-2215-0001
-  - REG-OSA-AUTO-LOWIMPACT-2215-0001
+  - REG-FSSU-AUTO-LOWIMPACT-2215-0001
   - SPEC-DOC-ID-2215-0001
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон операционной структуры регионального отдела ОСА (RU-16/CHELNY).
+  RULE-канон операционной структуры регионального отдела ФССУ (RU-16/CHELNY).
   Определяет конвейер решений: ГОРОД-1 → human_gate → ГОРОД-2 → outcome (auto_resolve/escalate/reject)
   и точку передачи кейса флагманской команде.
   Не описывает архитектуру офиса, личные роли персонажей и не задаёт детализацию алгоритмов ИИ.
@@ -28,21 +27,21 @@ scope: >
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: define RU-16 OSA department decision conveyor stages, routing outcomes and handoff to flagship team
-INPUTS: [STRUCT-OSA-REGIONAL-DEPT-2215-0001]
+SCOPE: define RU-16 FSSU department decision conveyor stages, routing outcomes and handoff to flagship team
+INPUTS: []
 OUTPUTS: [conveyor_stages, routing_outcomes, handoff_rules, intake_sources]
 FORBIDDEN: [office_architecture_details, narrative_prose, scene_text, undefined_terms]
 
 ## DEFINITIONS
 
-[FACT][ODS-010] `dept_ru16` = региональный отдел ОСА RU-16/CHELNY как конвейер обработки сигналов и эскалации в кейсы.
+[FACT][ODS-010] `dept_ru16` = региональный отдел ФССУ RU-16/CHELNY как конвейер обработки сигналов и эскалации в кейсы.
 [FACT][ODS-020] `city_view_1` = ГОРОД-1: аналитическое представление потока инцидентов/сигналов (без юридических решений).
-[FACT][ODS-030] `human_gate` = группа интерпретации и ответственности / куратор ИИ-исправлений (см. CANON-OSA-REGIONAL-RU16-2215-0001).
+[FACT][ODS-030] `human_gate` = группа интерпретации и ответственности / куратор ИИ-исправлений (см. CANON-FSSU-REGIONAL-RU16-2215-0001).
 [FACT][ODS-040] `city_view_2` = ГОРОД-2: исполнительное представление low-impact действий и маршрутизации (ограничено whitelist).
-[FACT][ODS-050] `flagship_team` = флагманская команда, ведущая активированные кейсы на земле (см. CANON-OSA-TEAM-STRUCT-2215-0001).
+[FACT][ODS-050] `flagship_team` = флагманская команда, ведущая активированные кейсы на земле (см. CANON-FSSU-TEAM-STRUCT-2215-0001).
 [FACT][ODS-060] `routing_outcome` = один из {AUTO_RESOLVE, CASE_ESCALATION, REJECT_CLOSE}.
-[FACT][ODS-070] `auto_resolve` = автономное low-impact исполнение, разрешённое whitelist REG-OSA-AUTO-LOWIMPACT-2215-0001.
-[FACT][ODS-080] `case_escalation` = эскалация в активацию кейса по BASELINE-OSA-CASE-ACTIVATION-2215-0001 и/или передача флагманской команде.
+[FACT][ODS-070] `auto_resolve` = автономное low-impact исполнение, разрешённое whitelist REG-FSSU-AUTO-LOWIMPACT-2215-0001.
+[FACT][ODS-080] `case_escalation` = эскалация в активацию кейса по BASELINE-FSSU-CASE-ACTIVATION-2215-0001 и/или передача флагманской команде.
 [FACT][ODS-090] `reject_close` = закрытие сигнала как не относящегося к юрисдикции/порогам/валидности, с фиксацией причины.
 
 ## INVARIANTS
@@ -50,8 +49,8 @@ FORBIDDEN: [office_architecture_details, narrative_prose, scene_text, undefined_
 [DECISION][ODS-100] `dept_ru16.conveyor.stage_order` MUST be ["city_view_1","human_gate","city_view_2","routing_outcome"].
 [DECISION][ODS-110] `human_gate` MUST be the only нормативная точка персональной ответственности между `city_view_1` и `city_view_2`.
 [FORBIDDEN][ODS-120] Прямой переход `city_view_1 → city_view_2` без `human_gate` как норма.
-[DECISION][ODS-130] Любой `AUTO_RESOLVE` MUST быть ограничен whitelist REG-OSA-AUTO-LOWIMPACT-2215-0001.
-[DECISION][ODS-140] Любая `CASE_ESCALATION` MUST запускать процедуру активации кейса или передачу по компетенции согласно CANON-OSA-GLOBAL-2215-0005.
+[DECISION][ODS-130] Любой `AUTO_RESOLVE` MUST быть ограничен whitelist REG-FSSU-AUTO-LOWIMPACT-2215-0001.
+[DECISION][ODS-140] Любая `CASE_ESCALATION` MUST запускать процедуру активации кейса или передачу по компетенции согласно CANON-FSSU-GLOBAL-2215-0005.
 [DECISION][ODS-150] Любой `REJECT_CLOSE` MUST иметь фиксируемую причину и MUST NOT уничтожать входные артефакты наблюдаемости.
 [FORBIDDEN][ODS-160] Юридически значимые решения ИИ-контуром без визы человека.
 
@@ -60,7 +59,7 @@ FORBIDDEN: [office_architecture_details, narrative_prose, scene_text, undefined_
 ### 1. Intake Sources
 
 [DECISION][ODS-200] `dept_ru16.intake.sources` MUST include {state_observability_signals, regulator_flags, operator_reports_via_state_circuit, field_observations, interagency_referrals}.
-[FORBIDDEN][ODS-210] Прямой приём “сырой телеметрии” от компаний минуя государственный контур как норма (см. CANON-OSA-GLOBAL-2215-0005).
+[FORBIDDEN][ODS-210] Прямой приём “сырой телеметрии” от компаний минуя государственный контур как норма (см. CANON-FSSU-GLOBAL-2215-0005).
 
 ### 2. Stage 1 — ГОРОД-1 (city_view_1)
 
@@ -76,7 +75,7 @@ FORBIDDEN: [office_architecture_details, narrative_prose, scene_text, undefined_
 ### 4. Stage 3 — ГОРОД-2 (city_view_2)
 
 [DECISION][ODS-500] `city_view_2.may_execute` MUST be limited to `auto_resolve` actions.
-[RULE][ODS-510] IF `routing_outcome` = AUTO_RESOLVE THEN `action.type` MUST be in whitelist(REG-OSA-AUTO-LOWIMPACT-2215-0001); ELSE FAIL.
+[RULE][ODS-510] IF `routing_outcome` = AUTO_RESOLVE THEN `action.type` MUST be in whitelist(REG-FSSU-AUTO-LOWIMPACT-2215-0001); ELSE FAIL.
 [RULE][ODS-520] IF `routing_outcome` = AUTO_RESOLVE THEN `execution.logging_required` MUST be true; ELSE FAIL.
 
 ### 5. Routing Outcomes
@@ -102,7 +101,7 @@ FORBIDDEN: [office_architecture_details, narrative_prose, scene_text, undefined_
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: CANON-OSA-DEPT-STRUCT-RU16-2215-0001
+doc_id: CANON-FSSU-DEPT-STRUCT-RU16-2215-0001
 role_type: RULE
 export:
   - rule_id: ODS-100
@@ -141,7 +140,6 @@ export:
 ## NON-NORMATIVE
 
 ~~~text
-Источник: STRUCT-OSA-REGIONAL-DEPT-2215-0001.
 Этот документ фиксирует “как отдел работает как конвейер”, отделяя операционный интерфейс
 (стадии, маршрутизация, handoff) от регионального описания (отношение Центра, наличие флагманской команды)
 и от описания самих представлений ГОРОД-1/ГОРОД-2 (это отдельный документ CITYVIEW).

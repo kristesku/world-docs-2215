@@ -1,24 +1,23 @@
 ---
-id: CANON-OSA-TEAM-STRUCT-2215-0001
+id: CANON-FSSU-TEAM-STRUCT-2215-0001
 title: >
-  ОСА — Флагманская команда (RU-16) — роли, матрица подчинения, артефакты и культура работы (2215)
+  ФССУ — Флагманская команда (RU-16) — роли, матрица подчинения, артефакты и культура работы (2215)
 class: canon
 status: draft
 version: 1.0.0
 prefix: OST
 doc_language: ru-RU
 prose_language: ru-RU
-inputs:
-  - STRUCT-OSA-FLAGSHIP-TEAM-2215-0001
+inputs: []
 depends_on:
-  - CANON-OSA-GLOBAL-2215-0005
-  - CANON-OSA-REGIONAL-RU16-2215-0001
+  - CANON-FSSU-GLOBAL-2215-0005
+  - CANON-FSSU-REGIONAL-RU16-2215-0001
   - CANON-SYSTEM-ONTOLOGY-2215-0001
   - SPEC-DOC-ID-2215-0001
   - SPEC-DOC-STYLE-2215-0001
   - SPEC-PRIORITY-RESOLUTION-2215-0001
 scope: >
-  RULE-канон структуры флагманской команды ОСА (регион RU-16).
+  RULE-канон структуры флагманской команды ФССУ (регион RU-16).
   Определяет: внутренние роли (case_owner и функциональные контуры), матричность подчинения,
   владение кейсом, обязательные артефакты/лог-первичность и культурные инварианты команды.
   Не персонализирует роли на конкретных персонажей (персонализация — отдельные ROLE-доки).
@@ -27,17 +26,17 @@ scope: >
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
-SCOPE: define flagship team structure, roles, responsibilities, artifacts and cultural invariants for OSA field case work
-INPUTS: [STRUCT-OSA-FLAGSHIP-TEAM-2215-0001]
+SCOPE: define flagship team structure, roles, responsibilities, artifacts and cultural invariants for FSSU field case work
+INPUTS: []
 OUTPUTS: [team_roles, case_ownership_rules, artifact_rules, culture_invariants]
 FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 
 ## DEFINITIONS
 
-[FACT][OST-010] `flagship_team` = флагманская проектная команда регионального отдела ОСА, ведущая активированные кейсы на земле.
+[FACT][OST-010] `flagship_team` = флагманская проектная команда регионального отдела ФССУ, ведущая активированные кейсы на земле.
 [FACT][OST-020] `case_owner` = роль операционного владельца кейса с персональной ответственностью за стратегию и координацию.
 [FACT][OST-030] `functional_role` = специализированная роль внутри команды (наблюдаемость, право, полевое ядро, human gate и др.).
-[FACT][OST-040] `human_gate` = функция визирования/ответственности за юридически значимые решения между анализом и исполнением (см. CANON-OSA-REGIONAL-RU16-2215-0001).
+[FACT][OST-040] `human_gate` = функция визирования/ответственности за юридически значимые решения между анализом и исполнением (см. CANON-FSSU-REGIONAL-RU16-2215-0001).
 [FACT][OST-050] `artifact_min_set` = минимальный набор артефактов кейса (логи/телеметрия + цепочка хранения + процедурные формы).
 
 ## INVARIANTS
@@ -46,7 +45,7 @@ FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 [DECISION][OST-110] Для каждого активированного кейса MUST быть назначен ровно один `case_owner`.
 [DECISION][OST-120] `case_owner` несёт персональную ответственность за стратегию, координацию и качество артефактов.
 [DECISION][OST-130] Команда MUST быть матричной: операционное подчинение по кейсу и функциональное подчинение по домену.
-[DECISION][OST-140] Логи и телеметрия MUST быть первичными артефактами (см. CANON-OSA-GLOBAL-2215-0005).
+[DECISION][OST-140] Логи и телеметрия MUST быть первичными артефактами (см. CANON-FSSU-GLOBAL-2215-0005).
 [FORBIDDEN][OST-150] Коллективная безответственность: “решение приняла команда/система” без носителя ответственности.
 
 ## CONTENT
@@ -90,19 +89,19 @@ FORBIDDEN: [scene_text, narrative_prose, hiring_hr_details, undefined_terms]
 
 [DECISION][OST-700] Команда MUST предпочитать остановку режима через процедурные рычаги, а не через “героическое вмешательство”.
 [DECISION][OST-710] Команда MUST допускать осознанное отклонение рекомендаций ИИ при наличии записанной причины.
-[DECISION][OST-720] Команда MUST считать “устранение человека” недостаточным результатом без стабилизации Channel/Asset (см. CANON-OSA-GLOBAL-2215-0005).
+[DECISION][OST-720] Команда MUST считать “устранение человека” недостаточным результатом без стабилизации Channel/Asset (см. CANON-FSSU-GLOBAL-2215-0005).
 
 [RULE][OST-730] IF `ai_recommendation.rejected` = true THEN `rejection.reason_recorded` MUST be true; ELSE FAIL.
 
 ## USAGE / RESOLUTION
 
-[DECISION][OST-900] Любая сцена с флагманской командой ОСА MUST трактовать структуру и роли через OST-200..OST-730; ELSE FAIL.
+[DECISION][OST-900] Любая сцена с флагманской командой ФССУ MUST трактовать структуру и роли через OST-200..OST-730; ELSE FAIL.
 [DECISION][OST-910] Conflict resolution MUST follow SPEC-PRIORITY-RESOLUTION-2215-0001; ELSE FAIL.
 
 ## OUTPUT CONTRACT
 
 ~~~yaml
-doc_id: CANON-OSA-TEAM-STRUCT-2215-0001
+doc_id: CANON-FSSU-TEAM-STRUCT-2215-0001
 role_type: RULE
 export:
   - rule_id: OST-220
@@ -137,7 +136,6 @@ export:
 ## NON-NORMATIVE
 
 ~~~text
-Источник: STRUCT-OSA-FLAGSHIP-TEAM-2215-0001.
 Персональные профили (Мирон, Ринат и др.) фиксируются отдельными документами ROLE-*.
-Региональный конвейер (ГОРОД-1/2 и human gate как контур отдела) фиксируется в CANON-OSA-REGIONAL-RU16-2215-0001.
+Региональный конвейер (ГОРОД-1/2 и human gate как контур отдела) фиксируется в CANON-FSSU-REGIONAL-RU16-2215-0001.
 ~~~
