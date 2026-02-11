@@ -6,12 +6,11 @@ class: spec
 status: draft
 prefix: DOCID
 doc_language: en-US
-prose_language: ru-RU
 inputs: []
 depends_on:
   - SPEC-DOC_STYLE-2215-0001
 references:
-  - IDX-CORPUS-2215-0001
+  - IDX-CORPUS-0001
 scope: >
   Норматив грамматики `id` (doc_id) для всех документов корпуса 2215.
   Поддерживается single-author режим: разрешён rename+replace без migration_redirect

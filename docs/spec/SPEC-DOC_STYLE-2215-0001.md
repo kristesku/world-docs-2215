@@ -11,13 +11,11 @@ scope: >
   output contract, and rules for decomposing facts/rules/bindings.
 prefix: STYLE
 doc_language: en-US
-prose_language: ru-RU
 inputs: []
 depends_on:
   - SPEC-PRIORITY_RESOLUTION-2215-0001
-references: 
-  - CANON-VOCAB-GLOBAL-2215-0001
-  - IDX-CORPUS-2215-0001
+references:
+  - IDX-CORPUS-0001
 ---
 
 ## LLM-INTENT
@@ -185,7 +183,7 @@ FORBIDDEN: [implicit_sections, missing_ids, ambiguous_markers, undocumented_exce
 [DECISION][STYLE-056C] PASS IFF statement text does NOT contain regex `\b[0-9]+\)`; ELSE FAIL.
 [DECISION][STYLE-057] Markdown emphasis (`**`, `_`) MUST NOT carry meaning; structure MUST be expressed by tags/ids/keys.
 [FORBIDDEN][STYLE-058] Using bold/italic as structure or as a proxy for tags.
-[DECISION][STYLE-059] Any new term used as a normative token MUST be defined in the same document under `## DEFINITIONS`; corpus-wide terms MUST be promoted only via the canonical vocabulary doc (e.g., `CANON-VOCAB-GLOBAL-2215-0001`).
+[DECISION][STYLE-059] Any new term used as a normative token MUST be defined in the same document under `## DEFINITIONS`; corpus-wide terms MUST be promoted only via the canonical vocabulary doc.
 [DECISION][STYLE-059A] Normative statement lines MUST match regex: ^\[(FACT|ASSUMPTION|PROJECTION|DECISION|FORBIDDEN|UNKNOWN|STATE|RULE|BIND)\]\[[A-Z0-9_]+-[0-9]{3}[A-Z]?\]\s.+$.
 [DECISION][STYLE-059B] In any normative section, any non-empty line MUST be of allowed_normative_line_type; ELSE FAIL.
 [DECISION][STYLE-059C] `structural_heading_line` MUST match `^###\s.+$`; ELSE FAIL.

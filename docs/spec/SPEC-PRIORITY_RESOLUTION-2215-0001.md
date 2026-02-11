@@ -6,7 +6,6 @@ class: spec
 status: fixed
 prefix: RES
 doc_language: en-US
-prose_language: ru-RU
 inputs: []
 depends_on: []
 references: []

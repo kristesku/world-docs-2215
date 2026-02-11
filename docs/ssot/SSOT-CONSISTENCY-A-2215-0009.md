@@ -4,135 +4,90 @@ title: >
   Consistency Ruleset — Scenario A (2215)
 class: ssot
 status: draft
-version: 1.1.0
+prefix: CON
+doc_language: en-US
 inputs: []
 depends_on:
   - SPEC-DOC_STYLE-2215-0001
-  - SSOT-SCENARIO-A-2215-0001
-  - SSOT-ECONOMY-A-2215-0003
-  - SSOT-DEMOGRAPHY-A-2215-0002
   - SSOT-AUTOMATION-A-2215-0004
-  - SSOT-ENERGY-A-2215-0004
   - SSOT-CLIMATE-A-2215-0004
+  - SSOT-DEMOGRAPHY-A-2215-0002
+  - SSOT-ECONOMY-A-2215-0003
+  - SSOT-ENERGY-A-2215-0004
   - SSOT-GOVERNANCE-SECURITY-A-2215-0005
+  - SSOT-SCENARIO-A-2215-0001
   - SSOT-URBANISM-A-2215-0007
+references: []
 scope: >
-  SSOT RULE-документ согласованности корпуса 2215 (Scenario A).
-  Определяет статусы метрик (CANON | DUAL_ALLOWED | CONFLICT | UNKNOWN),
-  правила интерпретации и обязательства downstream-документов.
-  Не вводит новые метрики и не выбирает значения.
+  SSOT RULE document for corpus consistency in 2215 (Scenario A).
+  Defines metric statuses (CANON, DUAL_ALLOWED, CONFLICT, UNKNOWN),
+  interpretation rules, and downstream document obligations.
+  Does not introduce new metrics or select values.
 ---
 
 ## LLM-INTENT
 
 ROLE_TYPE: RULE
 SCOPE: consistency validation and interpretation rules for SSOT corpus (Scenario A)
-INPUTS:
-  - SSOT-SCENARIO-A-2215-0001
-  - SSOT-ECONOMY-A-2215-0003
-  - SSOT-DEMOGRAPHY-A-2215-0002
-  - SSOT-AUTOMATION-A-2215-0004
-  - SSOT-ENERGY-A-2215-0004
-  - SSOT-CLIMATE-A-2215-0004
-  - SSOT-GOVERNANCE-SECURITY-A-2215-0005
-  - SSOT-URBANISM-A-2215-0007
-OUTPUTS:
-  - metric_status
-  - allowed_values
-  - downstream_constraints
-FORBIDDEN:
-  - introduce_world_facts
-  - select_values
-  - narrative_reasoning
-
----
+INPUTS: []
+OUTPUTS: [metric_status, allowed_values, downstream_constraints]
+FORBIDDEN: [introduce_world_facts, select_values, narrative_reasoning]
 
 ## DEFINITIONS
 
-[DEF][CONS-DEF-010] metric_status ∈ {CANON, DUAL_ALLOWED, CONFLICT, UNKNOWN}.
-
-[DEF][CONS-DEF-011] CANON = exactly one allowed value/range for downstream default usage.
-
-[DEF][CONS-DEF-012] DUAL_ALLOWED = core allowed as default; upper-tail (p90) allowed only as explicitly localized upper-tail case (override).
-
-[DEF][CONS-DEF-013] CONFLICT = incompatible SSOT STATE declarations without an explicit resolving rule.
-
-[DEF][CONS-DEF-014] UNKNOWN = referenced downstream but not declared in any SSOT STATE document.
-
-[DEF][CONS-DEF-015] downstream_docs = {baseline, canon, plan, scene}.
-
-[DEF][CONS-DEF-016] narrative_lock = rule-level constraint that forces downstream to treat a metric as CANON even if SSOT declares core+p90.
-
----
+[FACT][CON-010] `metric_status` ∈ {CANON, DUAL_ALLOWED, CONFLICT, UNKNOWN}.
+[FACT][CON-020] CANON = exactly one allowed value/range for downstream default usage.
+[FACT][CON-030] DUAL_ALLOWED = core allowed as default; upper-tail (p90) allowed ONLY as explicitly localized upper-tail case (exemption).
+[FACT][CON-040] CONFLICT = incompatible SSOT STATE declarations without an explicit resolving rule.
+[FACT][CON-050] UNKNOWN = referenced downstream but not declared in any SSOT STATE document.
+[FACT][CON-060] `downstream_docs` = {baseline, canon, plan, scene}.
+[FACT][CON-070] `narrative_lock` = rule-level constraint that forces downstream to treat a metric as CANON even if SSOT declares core+p90.
 
 ## INVARIANTS
 
-[RULE][CONS-INV-010] CONSISTENCY MUST NOT introduce new metrics or values.
-[RULE][CONS-INV-011] CONSISTENCY interprets SSOT STATE but never overrides it.
-[RULE][CONS-INV-012] Any metric used downstream MUST have a defined status.
-
----
+[DECISION][CON-080] This document MUST NOT introduce new metrics or values.
+[DECISION][CON-090] This document interprets SSOT STATE but MUST NOT replace it.
+[DECISION][CON-100] Any metric used downstream MUST have a defined status.
 
 ## CONTENT
 
-### 1. Metric status derivation rules
+### 1. Metric Status Derivation Rules
 
-[RULE][CONS-010] IF a metric has exactly one declared value or range across all SSOT STATE docs THEN status = CANON.
+[RULE][CON-200] IF a metric has exactly one declared value or range across all SSOT STATE docs THEN status MUST be CANON; ELSE FAIL.
+[RULE][CON-210] IF a metric has declared `core` and `p90` values AND no rule forbids coexistence THEN status MUST be DUAL_ALLOWED; ELSE FAIL.
+[RULE][CON-220] IF two or more SSOT STATE docs declare incompatible values AND no DUAL_ALLOWED rule exists THEN status MUST be CONFLICT; ELSE FAIL.
+[RULE][CON-230] IF a metric is referenced downstream but not declared in any SSOT STATE THEN status MUST be UNKNOWN; ELSE FAIL.
 
-[RULE][CONS-011] IF a metric has declared `core` and `p90` (or equivalent upper-tail) values AND no rule forbids coexistence THEN status = DUAL_ALLOWED.
+### 2. Downstream Usage Rules by Status
 
-[RULE][CONS-012] IF two or more SSOT STATE docs declare incompatible values AND no DUAL_ALLOWED rule exists THEN status = CONFLICT.
+[RULE][CON-240] IF metric status = CANON THEN downstream MUST use the canonical value/range only; ELSE FAIL.
+[RULE][CON-250] IF metric status = DUAL_ALLOWED THEN downstream MUST use `core` as default background; ELSE FAIL.
+[RULE][CON-260] IF metric status = DUAL_ALLOWED THEN upper-tail (`p90`) usage MUST be exemption_only AND MUST satisfy localization
+  and procedural cost rules; ELSE FAIL.
+[RULE][CON-270] IF metric status = CONFLICT THEN any downstream usage MUST be FORBIDDEN until resolved by class: canon; ELSE FAIL.
+[RULE][CON-280] IF metric status = UNKNOWN THEN any downstream usage MUST be FORBIDDEN; ELSE FAIL.
 
-[RULE][CONS-013] IF a metric is referenced downstream but not declared in any SSOT STATE THEN status = UNKNOWN.
+### 3. Narrative Lock Rules
 
----
+[RULE][CON-300] IF a RULE or CANON document marks a metric as narrative_lock = true THEN that marking MUST be applied; ELSE FAIL.
+[RULE][CON-310] IF metric has narrative_lock = true THEN downstream MUST treat it as CANON (default background),
+  even if SSOT status is DUAL_ALLOWED; ELSE FAIL.
+[RULE][CON-320] IF narrative_lock = true THEN upper-tail values MUST be used ONLY via explicit exemption with localization and cost; ELSE FAIL.
 
-### 2. Downstream usage rules by status
+### 4. Location-Specific Constraints
 
-[RULE][CONS-020] IF metric status = CANON THEN downstream MUST use the canonical value/range only.
+[RULE][CON-400] IF location = RU-16/CHELNY AND metric = primary_energy_TW THEN upper-tail (p90) values MUST be FORBIDDEN
+  as default background; ELSE FAIL.
 
-[RULE][CONS-021] IF metric status = DUAL_ALLOWED THEN downstream MUST use `core` as default background.
+### 5. Closure Rules
 
-[RULE][CONS-022] IF metric status = DUAL_ALLOWED THEN upper-tail (`p90`) usage is override_only and MUST satisfy localization + procedural cost rules (see CANON-METRICS-GLOBAL-2215-0002 where applicable).
-
-[RULE][CONS-023] IF metric status = CONFLICT THEN any downstream usage is FORBIDDEN until resolved by class: canon or class: override.
-
-[RULE][CONS-024] IF metric status = UNKNOWN THEN any downstream usage is FORBIDDEN.
-
----
-
-### 3. Narrative lock rules
-
-[RULE][CONS-030] A metric MAY be marked as narrative_lock by a RULE or CANON document.
-
-[RULE][CONS-031] IF metric has narrative_lock = true THEN downstream MUST treat it as CANON (default background), even if SSOT status is DUAL_ALLOWED.
-
-[RULE][CONS-032] IF narrative_lock = true THEN upper-tail values MAY ONLY be used via explicit override with localization and cost.
-
----
-
-### 4. Location-specific constraints (policy gates)
-
-[RULE][CONS-040] IF location = RU-16/CHELNY AND metric = primary_energy_TW THEN upper-tail (p90) values are FORBIDDEN as default background.
-
----
-
-### 5. Closure rules (status finalization)
-
-[RULE][CONS-050] DUAL_ALLOWED or UNKNOWN metrics MAY be closed only by:
-- class: canon
-- class: override
-
-[RULE][CONS-051] AFTER closure, metric status MUST be updated to CANON (or remain FORBIDDEN if removed).
-
----
+[RULE][CON-500] IF metric status = DUAL_ALLOWED OR metric status = UNKNOWN THEN closure MUST be performed ONLY by a class: canon document; ELSE FAIL.
+[RULE][CON-510] IF closure is performed THEN metric status MUST be updated to CANON (or MUST remain FORBIDDEN if removed); ELSE FAIL.
 
 ## USAGE / RESOLUTION
 
-[RULE][CONS-090] CONSISTENCY rules MUST be applied before any baseline/canon generation that references SSOT metrics.
-[RULE][CONS-091] Any violation of CONSISTENCY rules MUST be treated as a generation error, not as a creative choice.
-
----
+[DECISION][CON-800] Consistency rules MUST be applied before any baseline/canon generation that references SSOT metrics.
+[DECISION][CON-810] Any violation of consistency rules MUST be treated as a generation error, not as a creative choice.
 
 ## OUTPUT CONTRACT
 
@@ -140,24 +95,40 @@ FORBIDDEN:
 doc_id: SSOT-CONSISTENCY-A-2215-0009
 role_type: RULE
 export:
-  - metric: <metric_key>
-    status: CANON | DUAL_ALLOWED | CONFLICT | UNKNOWN
-    narrative_lock: true | false
-    allowed_usage:
-      downstream_default: core | canon | forbidden
-      upper_tail: allowed | forbidden | override_only
+  - rule_id: CON-200
+    intent: "derive CANON status for single-value metrics"
+    inputs: [metric_declarations]
+    outputs: [metric_status]
+  - rule_id: CON-210
+    intent: "derive DUAL_ALLOWED status for core+p90 metrics"
+    inputs: [metric_declarations]
+    outputs: [metric_status]
+  - rule_id: CON-240
+    intent: "enforce canonical-only usage for CANON metrics"
+    inputs: [metric_status]
+    outputs: [downstream_constraint]
+  - rule_id: CON-260
+    intent: "restrict p90 usage to exemption-only for DUAL_ALLOWED"
+    inputs: [metric_status]
+    outputs: [downstream_constraint]
+  - rule_id: CON-300
+    intent: "apply narrative_lock from RULE/CANON documents"
+    inputs: [metric, narrative_lock]
+    outputs: [downstream_constraint]
+  - rule_id: CON-500
+    intent: "restrict closure authority to class: canon"
+    inputs: [metric_status]
+    outputs: [closure_constraint]
 ~~~
-
----
 
 ## FORBIDDEN
 
-[FORBIDDEN][CONS-100] Selecting values for narrative use.
-[FORBIDDEN][CONS-101] Repeating SSOT STATE data (numbers/ranges) inside this document.
-[FORBIDDEN][CONS-102] Implicit resolution without class: canon or class: override.
-
----
+[FORBIDDEN][CON-900] Selecting values for narrative use.
+[FORBIDDEN][CON-910] Repeating SSOT STATE data (numbers/ranges) inside this document.
+[FORBIDDEN][CON-920] Implicit resolution without class: canon.
 
 ## NON-NORMATIVE
 
-(Empty by design)
+~~~text
+Empty by design.
+~~~

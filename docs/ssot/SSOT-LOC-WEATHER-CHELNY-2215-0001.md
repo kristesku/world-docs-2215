@@ -1,20 +1,19 @@
 ---
 id: SSOT-LOC-WEATHER-CHELNY-2215-0001
 title: >
-  RU 2215 — Набережные Челны: Погодный режим (дефолты) — Scene-Consumed SSOT
+  RU 2215 — Naberezhnye Chelny: Weather Defaults (Scene-Consumed SSOT)
 class: ssot
 status: draft
-version: 0.1.0
 prefix: CHW
 doc_language: en-US
-prose_language: ru-RU
 inputs: []
 depends_on:
   - SPEC-DOC_STYLE-2215-0001
+references: []
 scope: >
-  Декларативные SSOT-метрики погодного режима для сцен в Набережных Челнах (2215).
-  Документ предназначен для потребления генератором прозы как дефолт и не содержит
-  причинности, объяснений, клише-ограничений или нарративной логики.
+  Declarative SSOT metrics for default weather profile in Naberezhnye Chelny (2215),
+  intended to be consumed by scene generation as defaults. Contains no causality,
+  explanations, trope constraints, or narrative logic.
 ---
 
 ## LLM-INTENT
@@ -27,26 +26,21 @@ FORBIDDEN: [causality, narrative_explanations, noir_tropes, utopia_sterility, im
 
 ## DEFINITIONS
 
-[FACT][CHW-010] `weather_profile` = набор метрик погодного режима, потребляемый сценой как дефолт.
-[FACT][CHW-020] `scene_consumed` = документ, чьи exports используются генератором прозы как дефолтные ограничения.
+[FACT][CHW-010] weather_profile = a set of weather-regime metrics consumed by a scene as defaults.
+[FACT][CHW-020] scene_consumed = a document whose exports are used by prose generators as default constraints.
 
 ## INVARIANTS
 
-[DECISION][CHW-030] Этот документ экспортирует только STATE-метрики; любая интерпретация “почему так” FORBIDDEN.
-[DECISION][CHW-031] Переопределение метрик `weather_profile` допускается только через Override/Scene по правилам приоритета корпуса.
+[DECISION][CHW-030] This document exports STATE metrics only; any “why” interpretation is forbidden.
+[DECISION][CHW-040] Overriding weather_profile metrics is allowed only via Override/Scene per corpus precedence rules.
 
 ## CONTENT
 
-[STATE][CHW-040] chelny.weather_profile.mode = SOFT_GREY_COMFORT.
-[STATE][CHW-041] chelny.weather_profile.sky_texture = TEXTURED_CONCRETE.
-[STATE][CHW-042] chelny.weather_profile.temperature_c = [22, 24].
-[STATE][CHW-043] chelny.weather_profile.wind = WARM_LIGHT_BREEZE.
-[STATE][CHW-044] chelny.weather_profile.vibe = DECEPTIVE_CALM.
-
-## USAGE / RESOLUTION
-
-[DECISION][CHW-050] Любая сцена в RU-16/Челны MUST использовать `chelny.weather_profile.*` как дефолт, если не активирован явный инцидентный контур.
-[FORBIDDEN][CHW-051] Подмена дефолтов на “постоянный дождь/мрак/кислотный неон” без явного Override/Scene.
+[STATE][CHW-100] chelny.weather_profile.mode = SOFT_GREY_COMFORT
+[STATE][CHW-110] chelny.weather_profile.sky_texture = TEXTURED_CONCRETE
+[STATE][CHW-120] chelny.weather_profile.temperature_c = [22, 24]
+[STATE][CHW-130] chelny.weather_profile.wind = WARM_LIGHT_BREEZE
+[STATE][CHW-140] chelny.weather_profile.vibe = DECEPTIVE_CALM
 
 ## OUTPUT CONTRACT
 
@@ -56,30 +50,49 @@ role_type: STATE
 export:
   - metric: chelny.weather_profile.mode
     owner_domain: URBANISM
-    values: { core: SOFT_GREY_COMFORT, p90: none, range: none }
+    values:
+      core: SOFT_GREY_COMFORT
+      p90: none
+      range: none
     unit: none
   - metric: chelny.weather_profile.sky_texture
     owner_domain: URBANISM
-    values: { core: TEXTURED_CONCRETE, p90: none, range: none }
+    values:
+      core: TEXTURED_CONCRETE
+      p90: none
+      range: none
     unit: none
   - metric: chelny.weather_profile.temperature_c
     owner_domain: URBANISM
-    values: { core: none, p90: none, range: [22, 24] }
+    values:
+      core: none
+      p90: none
+      range: [22, 24]
     unit: C
   - metric: chelny.weather_profile.wind
     owner_domain: URBANISM
-    values: { core: WARM_LIGHT_BREEZE, p90: none, range: none }
+    values:
+      core: WARM_LIGHT_BREEZE
+      p90: none
+      range: none
     unit: none
   - metric: chelny.weather_profile.vibe
     owner_domain: URBANISM
-    values: { core: DECEPTIVE_CALM, p90: none, range: none }
+    values:
+      core: DECEPTIVE_CALM
+      p90: none
+      range: none
     unit: none
 ~~~
 
 ## FORBIDDEN
 
-[FORBIDDEN][CHW-900] Добавление причинности/объяснений в этот документ.
-[FORBIDDEN][CHW-901] Использование неэкспортируемых фрагментов как источника правил или фактов.
-[FORBIDDEN][CHW-902] Введение новых погодных метрик без явного расширения OUTPUT CONTRACT.
+[FORBIDDEN][CHW-900] Adding causality or explanations to this document.
+[FORBIDDEN][CHW-910] Using non-exported fragments as sources of rules or facts.
+[FORBIDDEN][CHW-920] Introducing new weather metrics without explicit OUTPUT CONTRACT extension.
 
 ## NON-NORMATIVE
+
+~~~text
+Empty by design.
+~~~

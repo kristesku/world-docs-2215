@@ -6,7 +6,6 @@ class: spec
 status: draft
 prefix: METH
 doc_language: en-US
-prose_language: ru-RU
 inputs: []
 depends_on:
   - IDX-CORPUS-0001
